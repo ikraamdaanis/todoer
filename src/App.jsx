@@ -8,10 +8,10 @@ export const App = () => {
   return (
     <>
       <GlobalStyle />
+      <Navbar />
       <Router>
-        <Navbar />
+        <ScrollToTop />
         <Switch>
-          <ScrollToTop />
           <Route exact path='/' render={Home} />
           <Route exact path='/signin' render={SignIn} />
           <Route exact path='/signup' render={SignUp} />
