@@ -14,9 +14,16 @@ import { useCollection } from 'react-firebase-hooks/firestore'
 
 export const Navbar = () => {
   const [user] = useAuthState(auth)
-  const [todos] = useCollection(firebase.firestore().collection('users'))
+  const [todos] = useCollection(
+    firebase
+      .firestore()
+      .collection('users')
+      .doc('D0Qms4T5hphKtcbWFZIPa8kOz262')
+      .collection('todos')
+  )
 
   useEffect(() => {
+    todos && console.log(todos.docs)
     todos?.docs.forEach(doc => console.log(doc.data()))
   }, [user, todos])
 
