@@ -14,18 +14,20 @@ import { useCollection } from 'react-firebase-hooks/firestore'
 
 export const Navbar = () => {
   const [user] = useAuthState(auth)
-  const [todos] = useCollection(
-    firebase
-      .firestore()
-      .collection('users')
-      .doc('D0Qms4T5hphKtcbWFZIPa8kOz262')
-      .collection('todos')
-  )
+  const usersQuery = firestore.collection('users')
+  const userTodosQuery = firestore
+    .collection('users')
+    .doc(user?.uid)
+    .collection('todos')
+  const [users] = useCollection(usersQuery)
+  const [todos] = useCollection(userTodosQuery)
 
   useEffect(() => {
-    todos && console.log(todos.docs)
-    todos?.docs.forEach(doc => console.log(doc.data()))
-  }, [user, todos])
+    if (user) {
+      todos?.docs.forEach(doc => console.log(doc.data()))
+      users?.docs.forEach(doc => console.log(doc.data()))
+    }
+  }, [todos, users])
 
   return (
     <header>
@@ -43,6 +45,7 @@ export const Navbar = () => {
                     .collection('users')
                     .doc(auth.currentUser.uid)
                     .set({
+                      id: auth.currentUser.uid,
                       name: auth.currentUser.displayName,
                       email: auth.currentUser.email,
                       photo: auth.currentUser.photoURL,
