@@ -10,7 +10,7 @@ import {
   SubmitButton,
   Title,
   AuthQuestion,
-} from '../../components/AuthComponents/SignUpStyles'
+} from '../../components/AuthComponents/AuthComponents'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { registerAction } from '../../store/actions/userActions'

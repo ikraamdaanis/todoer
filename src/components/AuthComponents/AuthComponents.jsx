@@ -26,10 +26,17 @@ export const GoogleSignUp = styled.button`
   align-items: center;
   justify-content: center;
   margin: 0 auto 10px;
-  border: 0;
+  border: 1px solid #1d1d1d;
+  border-radius: 5px;
   outline: none;
   background: #242424;
   color: var(--text-white);
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background: #2c2c2c;
+    border: 1px solid #363636;
+  }
 
   img {
     margin-right: 10px;
