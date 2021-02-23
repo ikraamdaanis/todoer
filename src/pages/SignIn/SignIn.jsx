@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import {
   FormItem,
   GoogleSignUp,
@@ -9,12 +10,21 @@ import {
   SubmitButton,
   Title,
 } from '../../components/AuthComponents/SignUpStyles'
+import { useDispatch, useSelector } from 'react-redux'
+import { signInAction } from '../../store/actions/userActions'
 
 export const SignIn = () => {
+  const dispatch = useDispatch()
+  const userLogin = useSelector(state => state.userLogin)
+  const { loading, error, userInfo } = userLogin
+  useEffect(() => {
+    console.log({ loading, error, userInfo })
+  }, [loading, error, userInfo])
+
   return (
     <AuthPage>
       <Title>Sign In</Title>
-      <GoogleSignUp>
+      <GoogleSignUp onClick={() => dispatch(signInAction())}>
         <img
           width='16'
           height='16'

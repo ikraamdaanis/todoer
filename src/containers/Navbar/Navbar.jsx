@@ -7,59 +7,42 @@ import {
 } from './NavbarStyles'
 import { ReactComponent as MenuToggler } from '../../assets/images/menu-toggler.svg'
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg'
-import { auth, firestore } from '../../firebase/config'
-import firebase from 'firebase/app'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutAction } from '../../store/actions/userActions'
+import { Link } from 'react-router-dom'
 
 export const Navbar = () => {
-  const [user] = useAuthState(auth)
-  const usersQuery = firestore.collection('users')
-  const userTodosQuery = firestore
-    .collection('users')
-    .doc(user?.uid)
-    .collection('todos')
-  const [users] = useCollection(usersQuery)
-  const [todos] = useCollection(userTodosQuery)
-
+  const dispatch = useDispatch()
+  const userLogin = useSelector(state => state.userLogin)
+  const { loading, error, userInfo } = userLogin
   useEffect(() => {
-    if (user) {
-      todos?.docs.forEach(doc => console.log(doc.data()))
-      users?.docs.forEach(doc => console.log(doc.data()))
-    }
-  }, [todos, users])
+    console.log({ loading, error, userInfo })
+  }, [loading, error, userInfo])
 
   return (
     <header>
       <NavbarContainer>
         <Container>
           <MenuToggler className='menu-toggler' />
-          <HomeIcon className='home' />
+          <Link to='/' style={{ display: 'flex', alignItems: 'center' }}>
+            <HomeIcon className='home' />
+          </Link>
           <RightContainer>
-            {!user && (
-              <AuthButton
-                onClick={async () => {
-                  const provider = new firebase.auth.GoogleAuthProvider()
-                  await auth.signInWithPopup(provider)
-                  await firestore
-                    .collection('users')
-                    .doc(auth.currentUser.uid)
-                    .set({
-                      id: auth.currentUser.uid,
-                      name: auth.currentUser.displayName,
-                      email: auth.currentUser.email,
-                      photo: auth.currentUser.photoURL,
-                    })
-                }}
-              >
-                Sign Up
-              </AuthButton>
+            {!userInfo && (
+              <>
+                <Link to='/signin'>
+                  <AuthButton>Sign In</AuthButton>
+                </Link>
+                <Link to='/signup'>
+                  <AuthButton>Sign Up</AuthButton>
+                </Link>
+              </>
             )}
-            {user && (
+            {userInfo && (
               <AuthButton
-                onClick={() =>
-                  auth.signOut().then(_ => console.log('Signed out'))
-                }
+                onClick={() => {
+                  dispatch(logoutAction())
+                }}
               >
                 Sign Out
               </AuthButton>

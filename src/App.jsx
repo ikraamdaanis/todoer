@@ -8,8 +8,8 @@ export const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Navbar />
       <Router>
+        <Navbar />
         <ScrollToTop />
         <Switch>
           <Route exact path='/' render={props => <Home {...props} />} />
