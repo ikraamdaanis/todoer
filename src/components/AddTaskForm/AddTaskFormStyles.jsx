@@ -45,7 +45,6 @@ export const Container = styled.div`
     input {
       display: flex;
       align-items: center;
-      margin-left: 0.5rem;
       background: none;
       width: 100%;
       outline: none;
@@ -132,19 +131,15 @@ export const AddTaskSubmitButton = styled.button`
   color: #fff;
   transition: 0.2s ease-in-out;
 
-  &:hover {
-    @media (min-width: 600px) {
-      filter: brightness(1.1);
-    }
+  &:disabled {
+    filter: brightness(0.5);
   }
 `
 
 export const AddTaskCancel = styled.button`
-  margin-left: 1rem;
   cursor: pointer;
-  margin: 0.5rem 0;
+  margin-left: 5px;
   font-weight: 600;
-  font-size: 14px;
   line-height: 17px;
   padding: 6px 14px 7px 12px;
   position: relative;
@@ -153,16 +148,21 @@ export const AddTaskCancel = styled.button`
   border-radius: 3px;
   text-decoration: none;
   text-align: center;
-  border: 1px solid transparent;
   outline: none;
-  color: #fff;
+  color: hsla(0, 0%, 100%, 0.4);
   background: none;
   transition: 0.2s ease-in-out;
+  font-size: 13px;
+  font-weight: 300;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
 
   &:hover {
     @media (min-width: 600px) {
-      filter: brightness(1.1);
-      background: #303030;
+      color: #eee;
+      text-decoration: underline;
     }
   }
 `

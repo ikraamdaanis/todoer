@@ -11,20 +11,17 @@ export const DatePickerToggle = styled.span`
   margin-right: 8px;
   justify-content: space-between;
   height: 28px;
+  color: hsla(0, 0%, 100%, 0.6);
+
+  &:hover {
+    background: #363636;
+  }
 `
 
 export const ToggleButton = styled.span`
   padding-left: 4px;
-  color: hsla(0, 0%, 100%, 0.6);
   font-size: 13px;
   font-weight: 300;
-  /* background: url('https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/calendar-16.png')
-    center/80% no-repeat; */
-
-  &:hover {
-    background: url('https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/calendar-16.png')
-      center/80% no-repeat;
-  }
 `
 
 export const DatePickerInput = styled.input`

@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import {
   AddTaskCancel,
   AddTaskFormContainer,
@@ -13,6 +13,8 @@ import {
 import { DatePicker } from '../DatePicker/DatePicker'
 
 export const AddTaskForm = () => {
+  const [todoDescription, setTodoDescription] = useState('')
+
   return (
     <AddTaskFormContainer>
       <AddTaskFormForm autoComplete='off'>
@@ -23,6 +25,8 @@ export const AddTaskForm = () => {
               name='title'
               id='title'
               placeholder='e.g. Learn Spanish every 2 days'
+              value={todoDescription}
+              onChange={e => setTodoDescription(e.target.value)}
               required
             />
           </div>
@@ -48,10 +52,13 @@ export const AddTaskForm = () => {
             </Priority> */}
           </SubOptions>
         </Container>
-        <AddTaskSubmitButton type='submit'>Add Task</AddTaskSubmitButton>
-        <AddTaskCancel type='button' className='cancel' id='cancelAddTask'>
-          Cancel
-        </AddTaskCancel>
+        <AddTaskSubmitButton
+          type='submit'
+          disabled={todoDescription.length < 1}
+        >
+          Add task
+        </AddTaskSubmitButton>
+        <AddTaskCancel type='button'>Cancel</AddTaskCancel>
       </AddTaskFormForm>
     </AddTaskFormContainer>
   )
