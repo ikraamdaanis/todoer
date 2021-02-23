@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logoutAction } from '../../store/actions/userActions'
 import { Link } from 'react-router-dom'
 
-export const Navbar = () => {
+export const Navbar = ({ isClosed, setIsClosed }) => {
   const dispatch = useDispatch()
   const userLogin = useSelector(state => state.userLogin)
   const { loading, error, userInfo } = userLogin
@@ -23,7 +23,10 @@ export const Navbar = () => {
     <header>
       <NavbarContainer>
         <Container>
-          <MenuToggler className='menu-toggler' />
+          <MenuToggler
+            className='menu-toggler'
+            onClick={() => setIsClosed(isClosed => !isClosed)}
+          />
           <Link to='/' style={{ display: 'flex', alignItems: 'center' }}>
             <HomeIcon className='home' />
           </Link>
