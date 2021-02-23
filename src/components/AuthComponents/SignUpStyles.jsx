@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
 
-export const SignUpPage = styled.div`
+export const AuthPage = styled.div`
   background: var(--dark-gray);
   margin: 50px auto;
   border-radius: 8px;
@@ -63,7 +63,7 @@ export const Separator = styled.div`
   }
 `
 
-export const SignUpForm = styled.form`
+export const AuthForm = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;

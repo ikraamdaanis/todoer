@@ -12,9 +12,9 @@ export const App = () => {
       <Router>
         <ScrollToTop />
         <Switch>
-          <Route exact path='/' render={Home} />
-          <Route exact path='/signin' render={SignIn} />
-          <Route exact path='/signup' render={SignUp} />
+          <Route exact path='/' render={props => <Home {...props} />} />
+          <Route exact path='/signin' render={props => <SignIn {...props} />} />
+          <Route exact path='/signup' render={props => <SignUp {...props} />} />
         </Switch>
       </Router>
     </>
