@@ -1,3 +1,5 @@
+import { auth, firestore } from '../../firebase/config'
+import firebase from 'firebase/app'
 import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -7,8 +9,6 @@ import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
 } from '../constants/userConstants'
-import { auth, firestore } from '../../firebase/config'
-import firebase from 'firebase/app'
 
 export const signInAction = () => async dispatch => {
   try {
