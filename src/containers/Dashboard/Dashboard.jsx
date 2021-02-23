@@ -1,7 +1,14 @@
 import React from 'react'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { firestore } from '../../firebase/config'
-import { DashboardContainer, ProjectContainer } from './DashboardStyles'
+import {
+  AddTask,
+  AddTaskText,
+  DashboardContainer,
+  PlusButton,
+  ProjectContainer,
+} from './DashboardStyles'
+import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 
 export const Dashboard = ({ userInfo, isClosed }) => {
   const userTodosQuery = firestore
@@ -17,19 +24,14 @@ export const Dashboard = ({ userInfo, isClosed }) => {
       <div className='project-container'>
         <ProjectContainer>
           <h1 className='empty'>Add a project in the menu on the left!</h1>
+          <AddTask>
+            <PlusButton className='plus'>
+              <PlusButtonSVG />
+            </PlusButton>
+            <AddTaskText>Add task</AddTaskText>
+          </AddTask>
         </ProjectContainer>
-        <div className='add-task-button hide' id='addTaskFormToggler'>
-          <div className='plus'>
-            <svg width='13' height='13'>
-              <path
-                d='M6 6V.5a.5.5 0 0 1 1 0V6h5.5a.5.5 0 1 1 0 1H7v5.5a.5.5 0 1 1-1 0V7H.5a.5.5 0 0 1 0-1H6z'
-                fill='currentColor'
-                fillRule='evenodd'
-              ></path>
-            </svg>
-          </div>
-          <p className='add-task-text'>Add task</p>
-        </div>
+
         <div className='add-task-form hide' id='addTaskFormContainer'>
           <form id='addTaskForm' autoComplete='off'>
             <div className='container'>

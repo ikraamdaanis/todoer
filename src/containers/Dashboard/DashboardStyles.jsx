@@ -57,3 +57,46 @@ export const ProjectContainer = styled.div`
     }
   }
 `
+
+export const AddTask = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    @media (min-width: 600px) {
+      .plus {
+        background: #de4c4a;
+        color: white;
+      }
+
+      p {
+        color: #de4c4a;
+      }
+    }
+  }
+`
+
+export const PlusButton = styled.div`
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  color: #de4c4a;
+  position: relative;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+`
+
+export const AddTaskText = styled.p`
+  margin-left: 0.5rem;
+  color: grey;
+  font-size: 14px;
+  font-weight: 300;
+  transform: translate(-1px, -1px);
+`
