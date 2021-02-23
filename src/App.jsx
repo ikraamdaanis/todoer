@@ -11,17 +11,27 @@ export const App = () => {
     <>
       <GlobalStyle />
       <Router>
-        <Navbar isClosed={isClosed} setIsClosed={setIsClosed} />
+        <Navbar setIsClosed={setIsClosed} />
         <ScrollToTop />
-        <Switch>
-          <Route
-            exact
-            path='/'
-            render={props => <Home {...props} isClosed={isClosed} />}
-          />
-          <Route exact path='/signin' render={props => <SignIn {...props} />} />
-          <Route exact path='/signup' render={props => <SignUp {...props} />} />
-        </Switch>
+        <main>
+          <Switch style={{ display: 'flex' }}>
+            <Route
+              exact
+              path='/'
+              render={props => <Home {...props} isClosed={isClosed} />}
+            />
+            <Route
+              exact
+              path='/signin'
+              render={props => <SignIn {...props} />}
+            />
+            <Route
+              exact
+              path='/signup'
+              render={props => <SignUp {...props} />}
+            />
+          </Switch>
+        </main>
       </Router>
     </>
   )

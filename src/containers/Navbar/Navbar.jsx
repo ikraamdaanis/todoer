@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logoutAction } from '../../store/actions/userActions'
 import { Link } from 'react-router-dom'
 
-export const Navbar = ({ isClosed, setIsClosed }) => {
+export const Navbar = ({ setIsClosed }) => {
   const dispatch = useDispatch()
   const userLogin = useSelector(state => state.userLogin)
   const { loading, error, userInfo } = userLogin
@@ -23,10 +23,12 @@ export const Navbar = ({ isClosed, setIsClosed }) => {
     <header>
       <NavbarContainer>
         <Container>
-          <MenuToggler
-            className='menu-toggler'
-            onClick={() => setIsClosed(isClosed => !isClosed)}
-          />
+          {userInfo && (
+            <MenuToggler
+              className='menu-toggler'
+              onClick={() => setIsClosed(isClosed => !isClosed)}
+            />
+          )}
           <Link to='/' style={{ display: 'flex', alignItems: 'center' }}>
             <HomeIcon className='home' />
           </Link>
@@ -44,6 +46,7 @@ export const Navbar = ({ isClosed, setIsClosed }) => {
             {userInfo && (
               <AuthButton
                 onClick={() => {
+                  setIsClosed(true)
                   dispatch(logoutAction())
                 }}
               >
