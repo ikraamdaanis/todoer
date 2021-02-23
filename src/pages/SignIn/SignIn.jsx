@@ -9,16 +9,19 @@ import {
   AuthPage,
   SubmitButton,
   Title,
+  AuthQuestion,
 } from '../../components/AuthComponents/SignUpStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInAction } from '../../store/actions/userActions'
+import { Link } from 'react-router-dom'
 
-export const SignIn = () => {
+export const SignIn = ({ history }) => {
   const dispatch = useDispatch()
   const userLogin = useSelector(state => state.userLogin)
   const { loading, error, userInfo } = userLogin
   useEffect(() => {
     console.log({ loading, error, userInfo })
+    userInfo && history.push('/')
   }, [loading, error, userInfo])
 
   return (
@@ -48,6 +51,10 @@ export const SignIn = () => {
 
         <SubmitButton type='submit'>Sign in with Email</SubmitButton>
       </AuthForm> */}
+
+      <AuthQuestion>
+        Don't have an account? <Link to='/signup'>Click here to register!</Link>
+      </AuthQuestion>
     </AuthPage>
   )
 }

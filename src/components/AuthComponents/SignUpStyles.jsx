@@ -122,3 +122,15 @@ export const SubmitButton = styled.button`
     filter: brightness(0.9);
   }
 `
+
+export const AuthQuestion = styled.div`
+  margin-top: 30px;
+  text-align: center;
+  font-size: 13px;
+  padding-bottom: 10px;
+  font-weight: 500;
+
+  a {
+    color: var(--light-red);
+  }
+`

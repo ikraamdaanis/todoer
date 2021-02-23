@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import {
   FormItem,
   GoogleSignUp,
@@ -8,13 +9,26 @@ import {
   AuthPage,
   SubmitButton,
   Title,
+  AuthQuestion,
 } from '../../components/AuthComponents/SignUpStyles'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { registerAction } from '../../store/actions/userActions'
 
-export const SignUp = () => {
+export const SignUp = ({ history }) => {
+  const dispatch = useDispatch()
+  const userLogin = useSelector(state => state.userLogin)
+  const { loading, error, userInfo } = userLogin
+
+  useEffect(() => {
+    console.log({ loading, error, userInfo })
+    userInfo && history.push('/')
+  }, [loading, error, userInfo])
+
   return (
     <AuthPage>
       <Title>Sign Up</Title>
-      <GoogleSignUp>
+      <GoogleSignUp onClick={() => dispatch(registerAction())}>
         <img
           width='16'
           height='16'
@@ -38,6 +52,9 @@ export const SignUp = () => {
 
         <SubmitButton type='submit'>Sign up with Email</SubmitButton>
       </AuthForm> */}
+      <AuthQuestion>
+        Already signed up? <Link to='/signin'>Go to sign in!</Link>
+      </AuthQuestion>
     </AuthPage>
   )
 }
