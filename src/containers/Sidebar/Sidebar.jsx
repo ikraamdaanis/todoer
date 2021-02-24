@@ -8,18 +8,25 @@ import {
   SidebarContainer,
 } from './SidebarStyles'
 import { useDispatch, useSelector } from 'react-redux'
-import { createProject } from '../../store/actions/projectActions'
+import {
+  createProject,
+  getAllProjects,
+} from '../../store/actions/projectActions'
 
 export const Sidebar = ({ isClosed }) => {
   const [project, setProject] = useState('')
   const dispatch = useDispatch()
 
-  const userProjects = useSelector(state => state.userProjects)
-  const { projects, loading, error } = userProjects
+  const projectCreate = useSelector(state => state.projectCreate)
+  const { loading, error } = projectCreate
+  const allProjectsDetails = useSelector(state => state.allProjectsDetails)
+  const { projects, loading: loadingAllProjects } = allProjectsDetails
 
   useEffect(() => {
-    console.log(userProjects)
-  }, [userProjects])
+    console.log(projectCreate)
+    dispatch(getAllProjects())
+    !loadingAllProjects && console.log(projects)
+  }, [loading])
 
   const handleSubmit = event => {
     event.preventDefault()
