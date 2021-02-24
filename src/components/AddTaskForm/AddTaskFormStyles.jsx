@@ -21,6 +21,10 @@ export const Container = styled.div`
   cursor: text;
   padding: 0.5rem 1rem 0.8rem;
 
+  &.focused {
+    border: 1px solid #555;
+  }
+
   &:hover {
     @media (min-width: 600px) {
       border: 1px solid #555;
@@ -65,7 +69,7 @@ export const Container = styled.div`
 export const SubOptions = styled.div`
   display: flex;
   align-items: center;
-
+  width: min-content;
   div {
     input,
     select {

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   AddTaskCancel,
   AddTaskFormContainer,
@@ -14,20 +14,33 @@ import { DatePicker } from '../DatePicker/DatePicker'
 
 export const AddTaskForm = () => {
   const [todoDescription, setTodoDescription] = useState('')
+  const [isActive, setIsActive] = useState(false)
+
+  const todoInput = useRef(null)
+  const form = useRef(null)
+
+  document.body.onclick = ({ target }) =>
+    !form.current.contains(target) ? setIsActive(false) : setIsActive(true)
 
   return (
     <AddTaskFormContainer>
-      <AddTaskFormForm autoComplete='off'>
-        <Container>
+      <AddTaskFormForm
+        autoComplete='off'
+        onClick={({ target }) =>
+          target === form.current && todoInput.current.focus()
+        }
+      >
+        <Container className={isActive && 'focused'} ref={form}>
           <div className='title'>
             <label htmlFor='title'>Title</label>
             <input
               name='title'
               id='title'
-              placeholder='e.g. Learn Spanish every 2 days'
+              placeholder='e.g. Complete this task today'
               value={todoDescription}
               onChange={e => setTodoDescription(e.target.value)}
               required
+              ref={todoInput}
             />
           </div>
 
