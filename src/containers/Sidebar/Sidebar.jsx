@@ -3,6 +3,7 @@ import {
   AddProjectButton,
   AddProjectForm,
   AddProjectInput,
+  BulletPoint,
   Container,
   ProjectTitles,
   SidebarContainer,
@@ -53,19 +54,31 @@ export const Sidebar = ({ isClosed }) => {
         <ProjectTitles>
           {allProjects?.length > 0 &&
             allProjects.map(project => (
-              <li key={project.title}>{project.title}</li>
+              <li key={project.title}>
+                <BulletPoint>
+                  <div></div>
+                </BulletPoint>
+                <span>{project.title}</span>
+              </li>
             ))}
         </ProjectTitles>
         <AddProjectForm autoComplete='off' onSubmit={handleSubmit}>
+          <AddProjectButton type='submit'>
+            <svg width='13' height='13'>
+              <path
+                d='M6 6V.5a.5.5 0 011 0V6h5.5a.5.5 0 110 1H7v5.5a.5.5 0 11-1 0V7H.5a.5.5 0 010-1H6z'
+                fill='currentColor'
+              ></path>
+            </svg>
+          </AddProjectButton>
           <AddProjectInput
             type='text'
             id='projectTitle'
             required
-            placeholder='Add new Project'
+            placeholder='Add Project'
             value={project}
             onChange={event => setProject(event.target.value)}
           />
-          <AddProjectButton type='submit'>+</AddProjectButton>
         </AddProjectForm>
       </Container>
     </SidebarContainer>
