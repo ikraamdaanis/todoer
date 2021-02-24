@@ -2,14 +2,6 @@ import styled from 'styled-components/macro'
 
 export const AddTaskFormContainer = styled.div`
   margin-top: 1rem;
-
-  @media (max-width: 1100px) {
-    min-width: 580px;
-  }
-
-  @media (max-width: 750px) {
-    min-width: unset;
-  }
 `
 
 export const AddTaskFormForm = styled.form``
@@ -103,9 +95,9 @@ export const Priority = styled.div`
 `
 
 export const DueDate = styled.div`
-  input {
+  /* input {
     width: 160px;
-  }
+  } */
 `
 
 export const ProjectSelection = styled.div`
