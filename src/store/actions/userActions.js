@@ -9,6 +9,7 @@ import {
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
 } from '../constants/userConstants'
+import { PROJECT_DETAILS_CLEAR } from '../constants/projectConstants'
 
 export const signInAction = () => async dispatch => {
   try {
@@ -43,8 +44,10 @@ export const signInAction = () => async dispatch => {
 export const logoutAction = () => dispatch => {
   auth.signOut().then(_ => console.log('Signed out'))
   dispatch({ type: USER_LOGOUT })
+  dispatch({ type: PROJECT_DETAILS_CLEAR })
   document.location.href = '/signin'
   localStorage.removeItem('userInfo')
+  localStorage.removeItem('allProjects')
 }
 
 export const registerAction = () => async dispatch => {

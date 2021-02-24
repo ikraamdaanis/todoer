@@ -1,4 +1,3 @@
-import firebase from 'firebase/app'
 import { firestore } from '../../firebase/config'
 import {
   PROJECT_CREATE_FAIL,
@@ -64,6 +63,8 @@ export const getAllProjects = () => async (dispatch, getState) => {
           type: PROJECT_DETAILS_SUCCESS,
           payload: data,
         })
+
+        localStorage.setItem('allProjects', JSON.stringify(data))
       })
   } catch (error) {
     dispatch({

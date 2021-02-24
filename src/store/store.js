@@ -18,8 +18,13 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
 
+const allProjectsFromStorage = localStorage.getItem('allProjects')
+  ? JSON.parse(localStorage.getItem('allProjects'))
+  : null
+
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
+  allProjectsDetails: { projects: allProjectsFromStorage },
 }
 
 const middleware = [thunk]
