@@ -12,7 +12,6 @@ import {
   createProject,
   getAllProjects,
 } from '../../store/actions/projectActions'
-import { firestore } from '../../firebase/config'
 
 export const Sidebar = ({ isClosed }) => {
   const [project, setProject] = useState('')
@@ -26,37 +25,21 @@ export const Sidebar = ({ isClosed }) => {
   const { loading, error } = projectCreate
 
   const allProjectsDetails = useSelector(state => state.allProjectsDetails)
-  const { projects: stuff } = allProjectsDetails
+  const { projects: projectsDetails } = allProjectsDetails
 
   useEffect(() => {
     dispatch(getAllProjects())
-    // const unsubscribe = firestore
-    //   .collection('users')
-    //   .doc(userInfo?.id)
-    //   .collection('projects')
-    //   .orderBy('createdAt')
-    //   .onSnapshot(snapshot => {
-    //     let myDataArray = []
-    //     console.log(snapshot)
-    //     snapshot.forEach(doc => myDataArray.push({ ...doc.data() }))
-    //     setAllProjects(myDataArray)
-    //   })
-    // console.log(stuff)
-    // return () => {
-    //   unsubscribe()
-    // }
   }, [])
 
   useEffect(() => {
-    console.log('Stuff', stuff)
-    stuff?.length && setAllProjects(prev => [...stuff])
-  }, [stuff])
+    console.log('Stuff', projectsDetails)
+    projectsDetails?.length && setAllProjects(prev => [...projectsDetails])
+  }, [projectsDetails])
 
   const handleSubmit = event => {
     event.preventDefault()
     console.log(project)
     dispatch(createProject(project))
-    dispatch(getAllProjects())
     setProject('')
   }
 
