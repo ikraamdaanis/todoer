@@ -12,33 +12,50 @@ import {
   createProject,
   getAllProjects,
 } from '../../store/actions/projectActions'
+import { firestore } from '../../firebase/config'
 
 export const Sidebar = ({ isClosed }) => {
   const [project, setProject] = useState('')
+  const [allProjects, setAllProjects] = useState([])
   const dispatch = useDispatch()
 
   const projectCreate = useSelector(state => state.projectCreate)
   const { loading, error } = projectCreate
-  const allProjectsDetails = useSelector(state => state.allProjectsDetails)
-  const { projects, loading: loadingAllProjects } = allProjectsDetails
+  const userLogin = useSelector(state => state.userLogin)
+  const { userInfo } = userLogin
 
   useEffect(() => {
-    console.log(projectCreate)
-    dispatch(getAllProjects())
-    !loadingAllProjects && console.log(projects)
-  }, [loading])
+    const unsubscribe = firestore
+      .collection('users')
+      .doc(userInfo?.id)
+      .collection('projects')
+      .orderBy('createdAt')
+      .onSnapshot(snapshot => {
+        let myDataArray = []
+        console.log(snapshot)
+        snapshot.forEach(doc => myDataArray.push({ ...doc.data() }))
+        setAllProjects(myDataArray)
+      })
+    return () => {
+      unsubscribe()
+    }
+  }, [firestore])
 
   const handleSubmit = event => {
     event.preventDefault()
+    console.log(project)
     dispatch(createProject(project))
     setProject('')
   }
+
   return (
     <SidebarContainer className={isClosed && 'closed'}>
       <Container>
         <ProjectTitles>
-          {projects &&
-            projects.map(project => <li key={project}>{project}</li>)}
+          {allProjects.length > 1 &&
+            allProjects.map(project => (
+              <li key={project.title}>{project.title}</li>
+            ))}
         </ProjectTitles>
         <AddProjectForm autoComplete='off' onSubmit={handleSubmit}>
           <AddProjectInput

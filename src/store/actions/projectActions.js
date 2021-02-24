@@ -1,3 +1,4 @@
+import firebase from 'firebase/app'
 import { firestore } from '../../firebase/config'
 import {
   PROJECT_CREATE_FAIL,
@@ -23,16 +24,10 @@ export const createProject = project => async (dispatch, getState) => {
       .doc(userInfo?.id)
       .collection('projects')
       .doc(project)
-      .set({ title: project })
-
-    let projects = null
-
-    await firestore
-      .collection('users')
-      .doc(userInfo?.id)
-      .collection('projects')
-      .get()
-      .then(res => (projects = res.docs.map(docs => docs.id)))
+      .set({
+        title: project,
+        createdAt: new Date(),
+      })
 
     dispatch({
       type: PROJECT_CREATE_SUCCESS,
@@ -55,14 +50,20 @@ export const getAllProjects = () => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState()
 
-    let projects = null
+    const projects = []
 
-    await firestore
+    firestore
       .collection('users')
       .doc(userInfo?.id)
       .collection('projects')
-      .get()
-      .then(res => (projects = res.docs.map(docs => docs.id)))
+      .onSnapshot(snap => {
+        snap.forEach(doc => {
+          projects.push(doc.data())
+          console.log(doc.data())
+        })
+      })
+
+    console.log(projects)
 
     dispatch({
       type: PROJECT_DETAILS_SUCCESS,

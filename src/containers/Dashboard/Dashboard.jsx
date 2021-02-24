@@ -11,7 +11,7 @@ import {
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { AddTaskForm } from '../../components'
 
-export const Dashboard = ({ userInfo, isClosed }) => {
+export const Dashboard = ({ isClosed }) => {
   // useEffect(() => {
 
   // }, [])
