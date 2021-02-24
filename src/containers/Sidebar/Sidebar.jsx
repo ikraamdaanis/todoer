@@ -19,14 +19,17 @@ export const Sidebar = ({ isClosed }) => {
   const [allProjects, setAllProjects] = useState([])
   const dispatch = useDispatch()
 
-  const projectCreate = useSelector(state => state.projectCreate)
-  const { loading, error } = projectCreate
-  const allProjectsDetails = useSelector(state => state.allProjectsDetails)
-  const { projects: stuff } = allProjectsDetails
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
+  const projectCreate = useSelector(state => state.projectCreate)
+  const { loading, error } = projectCreate
+
+  const allProjectsDetails = useSelector(state => state.allProjectsDetails)
+  const { projects: stuff } = allProjectsDetails
+
   useEffect(() => {
+    dispatch(getAllProjects())
     // const unsubscribe = firestore
     //   .collection('users')
     //   .doc(userInfo?.id)
@@ -42,12 +45,18 @@ export const Sidebar = ({ isClosed }) => {
     // return () => {
     //   unsubscribe()
     // }
-  }, [firestore])
+  }, [])
+
+  useEffect(() => {
+    console.log('Stuff', stuff)
+    stuff?.length && setAllProjects(prev => [...stuff])
+  }, [stuff])
 
   const handleSubmit = event => {
     event.preventDefault()
     console.log(project)
     dispatch(createProject(project))
+    dispatch(getAllProjects())
     setProject('')
   }
 
@@ -55,7 +64,7 @@ export const Sidebar = ({ isClosed }) => {
     <SidebarContainer className={isClosed && 'closed'}>
       <Container>
         <ProjectTitles>
-          {allProjects.length > 1 &&
+          {allProjects?.length > 0 &&
             allProjects.map(project => (
               <li key={project.title}>{project.title}</li>
             ))}

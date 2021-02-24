@@ -37,7 +37,7 @@ export const allProjectsDetailsReducer = (state = { projects: [] }, action) => {
     case PROJECT_DETAILS_SUCCESS:
       return {
         loading: false,
-        projects: [...state.projects, ...action.payload],
+        projects: action.payload,
       }
     case PROJECT_DETAILS_FAIL:
       return {
