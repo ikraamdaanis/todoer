@@ -1,4 +1,5 @@
 export { ScrollToTop } from './ScrollToTop/ScrollToTop'
 export { AddTaskForm } from './AddTaskForm/AddTaskForm'
 export { DatePicker } from './DatePicker/DatePicker'
+export { Spinner } from './Spinner/Spinner'
 export * from './AuthComponents/AuthComponents'

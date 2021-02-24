@@ -12,6 +12,7 @@ import {
   createProject,
   getAllProjects,
 } from '../../store/actions/projectActions'
+import { Spinner } from '../../components'
 
 export const Sidebar = ({ isClosed }) => {
   const [project, setProject] = useState('')
@@ -25,7 +26,10 @@ export const Sidebar = ({ isClosed }) => {
   const { loading, error } = projectCreate
 
   const allProjectsDetails = useSelector(state => state.allProjectsDetails)
-  const { projects: projectsDetails } = allProjectsDetails
+  const {
+    loading: projectsLoading,
+    projects: projectsDetails,
+  } = allProjectsDetails
 
   useEffect(() => {
     dispatch(getAllProjects())
