@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { firestore } from '../../firebase/config'
 import {
@@ -12,11 +12,10 @@ import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.s
 import { AddTaskForm } from '../../components'
 
 export const Dashboard = ({ userInfo, isClosed }) => {
-  const userTodosQuery = firestore
-    .collection('users')
-    .doc(userInfo?.id)
-    .collection('todos')
-  const [todos] = useCollection(userTodosQuery)
+  // useEffect(() => {
+
+  // }, [])
+
   return (
     // {todos?.docs.map(todo => (
     //   <p key={todo.id}>{todo.data().title}</p>
