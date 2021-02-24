@@ -50,20 +50,21 @@ export const getAllProjects = () => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState()
 
-    const projects = []
+    let projects = []
 
     firestore
       .collection('users')
       .doc(userInfo?.id)
       .collection('projects')
-      .onSnapshot(snap => {
-        snap.forEach(doc => {
-          projects.push(doc.data())
-          console.log(doc.data())
-        })
+      .orderBy('createdAt')
+      .onSnapshot(snapshot => {
+        let data = []
+        console.log(snapshot)
+        snapshot.forEach(doc => data.push({ ...doc.data() }))
+        projects = data
       })
 
-    console.log(projects)
+    console.log({ projects })
 
     dispatch({
       type: PROJECT_DETAILS_SUCCESS,

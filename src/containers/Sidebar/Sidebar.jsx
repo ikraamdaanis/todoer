@@ -21,24 +21,27 @@ export const Sidebar = ({ isClosed }) => {
 
   const projectCreate = useSelector(state => state.projectCreate)
   const { loading, error } = projectCreate
+  const allProjectsDetails = useSelector(state => state.allProjectsDetails)
+  const { projects: stuff } = allProjectsDetails
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
   useEffect(() => {
-    const unsubscribe = firestore
-      .collection('users')
-      .doc(userInfo?.id)
-      .collection('projects')
-      .orderBy('createdAt')
-      .onSnapshot(snapshot => {
-        let myDataArray = []
-        console.log(snapshot)
-        snapshot.forEach(doc => myDataArray.push({ ...doc.data() }))
-        setAllProjects(myDataArray)
-      })
-    return () => {
-      unsubscribe()
-    }
+    // const unsubscribe = firestore
+    //   .collection('users')
+    //   .doc(userInfo?.id)
+    //   .collection('projects')
+    //   .orderBy('createdAt')
+    //   .onSnapshot(snapshot => {
+    //     let myDataArray = []
+    //     console.log(snapshot)
+    //     snapshot.forEach(doc => myDataArray.push({ ...doc.data() }))
+    //     setAllProjects(myDataArray)
+    //   })
+    // console.log(stuff)
+    // return () => {
+    //   unsubscribe()
+    // }
   }, [firestore])
 
   const handleSubmit = event => {
