@@ -61,7 +61,8 @@ export const Container = styled.div`
 export const SubOptions = styled.div`
   display: flex;
   align-items: center;
-  width: min-content;
+  width: fit-content;
+
   div {
     input,
     select {

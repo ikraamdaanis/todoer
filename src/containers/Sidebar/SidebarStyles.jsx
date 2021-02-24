@@ -18,16 +18,23 @@ export const SidebarContainer = styled.div`
 
 export const Container = styled.div`
   padding: 2rem 0 0 42px;
+  transform: translateX(-12px);
 `
 
 export const ProjectsButtonContainer = styled.div`
-  width: 255px;
+  width: 265px;
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
-  padding: 0.5rem 0;
+  padding: 0px 16px 10px 5px;
+
+  .dropdown {
+    width: 38px;
+    display: grid;
+    place-content: center;
+  }
 
   svg {
-    transform: translate(-11px, 4px);
-    transform-origin: 25% 90%;
+    transform: translate(0px, 0px);
+    transform-origin: 50% 50%;
     transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0ms,
       -webkit-transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
@@ -44,15 +51,16 @@ export const ProjectsButton = styled.button`
   background: none;
   font-size: 14px;
   font-weight: 700;
-  padding-left: 9px;
   text-align: left;
   width: 224px;
   height: 100%;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 `
 
 export const ProjectTitles = styled.ul`
-  width: 274px;
+  width: 265px;
   overflow-y: hidden;
   transition: 0.3s ease-in-out;
   min-height: max-content;
@@ -63,7 +71,6 @@ export const ProjectTitles = styled.ul`
   }
 
   li {
-    transform: translateX(-19px);
     min-height: 24px;
     font-size: 14px;
     font-weight: 300;
@@ -116,13 +123,34 @@ export const BulletPoint = styled.div`
   }
 `
 
-export const AddProjectForm = styled.form``
+export const AddProjectForm = styled.form`
+  padding: 5px 16px 5px 5px;
+`
+
+export const AddProjectButton = styled.button`
+  background: none;
+  color: var(--light-red);
+  border: none;
+  outline: 0;
+  cursor: pointer;
+  font-size: 1.3rem;
+  font-weight: 300;
+  transform: translate(-1px, 2px);
+  transition: 0.2s ease-in-out;
+  width: 38px;
+
+  &:hover {
+    @media (min-width: 600px) {
+      color: var(--light-red);
+    }
+  }
+`
 
 export const AddProjectInput = styled.input`
   background: none;
   outline: 0;
   border: 0;
-  padding: 5px 16px 5px 5px;
+  padding: 5px 16px 5px 0;
   font-size: 13px;
   font-weight: 300;
   color: grey;
@@ -137,25 +165,6 @@ export const AddProjectInput = styled.input`
   &:hover {
     @media (min-width: 600px) {
       border-bottom: 2px solid var(--light-red);
-    }
-  }
-`
-
-export const AddProjectButton = styled.button`
-  background: none;
-  color: var(--light-red);
-  border: none;
-  outline: 0;
-  cursor: pointer;
-  font-size: 1.3rem;
-  font-weight: 300;
-  transform: translate(-1px, 2px);
-  transition: 0.2s ease-in-out;
-  margin-right: 0.4rem;
-
-  &:hover {
-    @media (min-width: 600px) {
-      color: var(--light-red);
     }
   }
 `
