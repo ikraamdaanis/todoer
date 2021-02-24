@@ -9,6 +9,7 @@ export const SidebarContainer = styled.div`
   width: 305px;
   transition: transform 0.3s ease-in-out;
   z-index: 100;
+  overflow-x: hidden;
 
   &.closed {
     transform: translateX(-310px);
@@ -18,8 +19,48 @@ export const SidebarContainer = styled.div`
 export const Container = styled.div`
   padding: 2rem 0 0 42px;
 `
+
+export const ProjectsButtonContainer = styled.div`
+  width: 255px;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  padding: 0.5rem 0;
+
+  svg {
+    transform: translate(-11px, 4px);
+    transform-origin: 25% 90%;
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+      -webkit-transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+    &.projects-closed {
+      transform: rotate(-90deg);
+    }
+  }
+`
+
+export const ProjectsButton = styled.button`
+  color: hsla(0, 0%, 100%, 0.87);
+  border: 0;
+  outline: 0;
+  background: none;
+  font-size: 14px;
+  font-weight: 700;
+  padding-left: 9px;
+  text-align: left;
+  width: 224px;
+  height: 100%;
+  cursor: pointer;
+`
+
 export const ProjectTitles = styled.ul`
   width: 274px;
+  overflow-y: hidden;
+  transition: 0.3s ease-in-out;
+  min-height: max-content;
+  max-height: ${props => props.height}px;
+
+  &.projects-closed {
+    max-height: 0;
+  }
 
   li {
     transform: translateX(-19px);
@@ -36,9 +77,11 @@ export const ProjectTitles = styled.ul`
     margin: 0 0 0.2rem;
     display: flex;
     align-items: center;
+
     &:hover {
       background-color: #363636;
     }
+
     &.active {
       background-color: #363636;
       font-weight: 500;
@@ -106,7 +149,7 @@ export const AddProjectButton = styled.button`
   cursor: pointer;
   font-size: 1.3rem;
   font-weight: 300;
-  transform: translateY(2px);
+  transform: translate(-1px, 2px);
   transition: 0.2s ease-in-out;
   margin-right: 0.4rem;
 

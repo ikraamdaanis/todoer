@@ -5,6 +5,8 @@ import {
   AddProjectInput,
   BulletPoint,
   Container,
+  ProjectsButton,
+  ProjectsButtonContainer,
   ProjectTitles,
   SidebarContainer,
 } from './SidebarStyles'
@@ -13,10 +15,10 @@ import {
   createProject,
   getAllProjects,
 } from '../../store/actions/projectActions'
-import { Spinner } from '../../components'
 
 export const Sidebar = ({ isClosed }) => {
   const [project, setProject] = useState('')
+  const [isOpen, setIsOpen] = useState(true)
   const [allProjects, setAllProjects] = useState([])
   const dispatch = useDispatch()
 
@@ -34,6 +36,9 @@ export const Sidebar = ({ isClosed }) => {
 
   useEffect(() => {
     dispatch(getAllProjects())
+    return () => {
+      dispatch(getAllProjects())
+    }
   }, [])
 
   useEffect(() => {
@@ -51,17 +56,37 @@ export const Sidebar = ({ isClosed }) => {
   return (
     <SidebarContainer className={isClosed && 'closed'}>
       <Container>
-        <ProjectTitles>
-          {allProjects?.length > 0 &&
-            allProjects.map(project => (
-              <li key={project.title}>
-                <BulletPoint>
-                  <div></div>
-                </BulletPoint>
-                <span>{project.title}</span>
-              </li>
-            ))}
-        </ProjectTitles>
+        <ProjectsButtonContainer>
+          <ProjectsButton onClick={() => setIsOpen(!isOpen)}>
+            <svg
+              width='16px'
+              height='16px'
+              viewBox='0 0 16 16'
+              className={!isOpen ? 'projects-closed' : undefined}
+            >
+              <g transform='translate(-266, -17)' fill='#777777'>
+                <path d='M280,22.7581818 L279.1564,22 L273.9922,26.506 L273.4414,26.0254545 L273.4444,26.0281818 L268.8562,22.0245455 L268,22.7712727 C269.2678,23.878 272.8084,26.9674545 273.9922,28 C274.8718,27.2330909 274.0144,27.9809091 280,22.7581818'></path>
+              </g>
+            </svg>
+            Projects
+          </ProjectsButton>
+        </ProjectsButtonContainer>
+        {allProjects && (
+          <ProjectTitles
+            className={!isOpen && 'projects-closed'}
+            height={allProjects.length * 25}
+          >
+            {allProjects?.length > 0 &&
+              allProjects.map(project => (
+                <li key={project.title}>
+                  <BulletPoint>
+                    <div></div>
+                  </BulletPoint>
+                  <span>{project.title}</span>
+                </li>
+              ))}
+          </ProjectTitles>
+        )}
         <AddProjectForm autoComplete='off' onSubmit={handleSubmit}>
           <AddProjectButton type='submit'>
             <svg width='13' height='13'>
