@@ -6,12 +6,14 @@ import {
   allProjectsDetailsReducer,
   projectCreateReducer,
 } from './reducers/projectReducers'
+import { taskCreateReducer } from './reducers/taskReducers'
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   projectCreate: projectCreateReducer,
   allProjectsDetails: allProjectsDetailsReducer,
+  taskCreate: taskCreateReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
