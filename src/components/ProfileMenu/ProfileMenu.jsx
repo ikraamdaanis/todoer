@@ -20,9 +20,11 @@ export const ProfileMenu = () => {
   const { userInfo } = userLogin
 
   const menu = useRef(null)
+  const menuIcon = useRef(null)
 
   useEffect(() => {
     const toggleOpen = ({ target }) => {
+      if (menuIcon?.current?.contains(target)) return
       menu?.current?.contains(target) ? setIsOpen(true) : setIsOpen(false)
     }
     document.body.addEventListener('click', toggleOpen)
@@ -37,6 +39,7 @@ export const ProfileMenu = () => {
         <ProfileImage
           src={userInfo.photo}
           alt='Profile Image'
+          ref={menuIcon}
           onClick={() => setIsOpen(!isOpen)}
         />
       )}
