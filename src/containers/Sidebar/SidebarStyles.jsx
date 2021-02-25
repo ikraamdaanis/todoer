@@ -21,10 +21,31 @@ export const Container = styled.div`
   transform: translateX(-12px);
 `
 
+export const SidebarButtonContainer = styled.div`
+  width: 265px;
+  padding: 5px 16px 5px 5px;
+`
+
+export const SidebarButton = styled.button`
+  color: hsla(0, 0%, 100%, 0.87);
+  border: 0;
+  outline: 0;
+  background: none;
+  font-size: 14px;
+  font-weight: 300;
+  color: hsla(0, 0%, 100%, 0.87);
+  text-align: left;
+  width: 224px;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`
+
 export const ProjectsButtonContainer = styled.div`
   width: 265px;
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
-  padding: 0px 16px 10px 5px;
+  padding: 10px 16px 10px 5px;
 
   .dropdown {
     width: 38px;
@@ -35,8 +56,7 @@ export const ProjectsButtonContainer = styled.div`
   svg {
     transform: translate(0px, 0px);
     transform-origin: 50% 50%;
-    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-      -webkit-transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
     &.projects-closed {
       transform: rotate(-90deg);
@@ -62,7 +82,7 @@ export const ProjectsButton = styled.button`
 export const ProjectTitles = styled.ul`
   width: 265px;
   overflow-y: hidden;
-  transition: 0.3s ease-in-out;
+  transition: max-height 0.3s ease-in-out;
   min-height: max-content;
   max-height: ${props => props.height}px;
 
