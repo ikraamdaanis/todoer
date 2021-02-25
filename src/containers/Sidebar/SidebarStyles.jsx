@@ -82,8 +82,7 @@ export const ProjectsButton = styled.button`
 export const ProjectTitles = styled.ul`
   width: 265px;
   overflow-y: hidden;
-  transition: max-height 0.3s ease-in-out;
-  min-height: max-content;
+  transition: 0.3s ease-in-out;
   max-height: ${props => props.height}px;
 
   &.projects-closed {
