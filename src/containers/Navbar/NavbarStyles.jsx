@@ -54,6 +54,7 @@ export const AuthButton = styled.button`
   background: var(--light-red);
   border: 0;
   outline: 0;
+  font-size: 13px;
   color: var(--text-white);
   border-radius: 5px;
   padding: 4px 8px 5px;

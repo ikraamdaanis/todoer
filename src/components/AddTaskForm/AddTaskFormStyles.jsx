@@ -11,7 +11,7 @@ export const Container = styled.div`
   border: 1px solid hsla(0, 0%, 100%, 0.1);
   border-radius: 5px;
   cursor: text;
-  padding: 0.5rem 1rem 0.8rem;
+  padding: 0.7rem 1rem 0.8rem;
 
   &.focused {
     border: 1px solid #555;
@@ -115,7 +115,7 @@ export const AddTaskSubmitButton = styled.button`
   font-weight: 600;
   font-size: 13px;
   line-height: 17px;
-  padding: 6px 16px 7px 12px;
+  padding: 6px 13px 7px 12px;
   position: relative;
   display: inline-block;
   white-space: nowrap;

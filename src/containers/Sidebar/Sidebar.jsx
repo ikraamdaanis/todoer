@@ -98,8 +98,7 @@ export const Sidebar = ({ isClosed }) => {
   }, [])
 
   useEffect(() => {
-    console.log('Stuff', projectsDetails)
-    projectsDetails?.length && setAllProjects(prev => [...projectsDetails])
+    projectsDetails?.length && setAllProjects([...projectsDetails])
   }, [projectsDetails])
 
   const handleSubmit = event => {
