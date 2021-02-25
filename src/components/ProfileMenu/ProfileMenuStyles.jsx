@@ -18,7 +18,7 @@ export const ProfileMenuDropDown = styled.div`
   top: 32px;
   right: 0;
   width: 276px;
-  padding: 0.5rem 0;
+  padding: 0 0 0.5rem;
   background: var(--dark-gray);
   z-index: 1000;
   border-radius: 3px;
@@ -28,7 +28,12 @@ export const ProfileMenuDropDown = styled.div`
 export const UserDetails = styled.div`
   display: flex;
   align-items: center;
-  padding: 5px 10px 10px;
+  padding: 13px 10px;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background: #363636;
+  }
 
   .profile {
     width: 48px;
@@ -72,6 +77,11 @@ export const LogoutButton = styled.button`
   border-top: 1px solid hsla(0, 0%, 100%, 0.1);
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
   cursor: pointer;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    background: #363636;
+  }
 
   svg {
     margin-right: 10px;
