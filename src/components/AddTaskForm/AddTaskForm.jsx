@@ -73,10 +73,6 @@ export const AddTaskForm = ({ setIsOpen }) => {
           <SubOptions>
             <DatePicker />
 
-            <DueDate>
-              <label htmlFor='date'>Pick a date: </label>
-              <input type='date' name='date' id='date' />
-            </DueDate>
             <ProjectSelection>
               <label htmlFor='projects'>Project: </label>
               <select name='projects' id='projects'>

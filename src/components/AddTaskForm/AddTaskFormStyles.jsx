@@ -95,18 +95,8 @@ export const Priority = styled.div`
   }
 `
 
-export const DueDate = styled.div`
-  /* input {
-    width: 160px;
-  } */
-`
-
 export const ProjectSelection = styled.div`
   align-items: center;
-
-  select {
-    margin-left: 0.5rem;
-  }
 `
 
 export const AddTaskSubmitButton = styled.button`
