@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   LogoutButton,
@@ -19,8 +19,20 @@ export const ProfileMenu = () => {
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
+  const menu = useRef(null)
+
+  useEffect(() => {
+    const toggleOpen = ({ target }) => {
+      menu?.current?.contains(target) ? setIsOpen(true) : setIsOpen(false)
+    }
+    document.body.addEventListener('click', toggleOpen)
+    return () => {
+      document.body.removeEventListener('click', toggleOpen)
+    }
+  }, [menu])
+
   return (
-    <ProfileMenuContainer>
+    <ProfileMenuContainer ref={menu}>
       {userInfo && (
         <ProfileImage
           src={userInfo.photo}
