@@ -61,27 +61,24 @@ export const Container = styled.div`
 export const SubOptions = styled.div`
   display: flex;
   align-items: center;
-  width: fit-content;
 
   div {
     input,
     select {
-      background: var(--dark-black);
-      color: hsla(0, 0%, 100%, 0.6);
-      border-radius: 3px;
+      border: 1px solid #555;
+      border-radius: 5px;
       outline: none;
-      border: 1px solid hsla(0, 0%, 100%, 0.1);
-      height: 32px;
-      padding: 2px 10px;
+      padding: 0 8px;
+      display: flex;
+      background: none;
+      align-items: center;
+      justify-content: space-between;
+      height: 28px;
+      color: hsla(0, 0%, 100%, 0.6);
       font-size: 13px;
-      &:hover {
-        @media (min-width: 600px) {
-          border: 1px solid #555;
-        }
-      }
 
-      &:focus {
-        border: 1px solid #555;
+      &:hover {
+        background: #363636;
       }
     }
   }

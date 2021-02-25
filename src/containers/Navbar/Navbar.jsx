@@ -10,14 +10,15 @@ import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutAction } from '../../store/actions/userActions'
 import { Link } from 'react-router-dom'
+import { ProfileMenu } from '../../components'
 
 export const Navbar = ({ setIsClosed }) => {
   const dispatch = useDispatch()
   const userLogin = useSelector(state => state.userLogin)
   const { loading, error, userInfo } = userLogin
-  useEffect(() => {
-    console.log({ loading, error, userInfo })
-  }, [loading, error, userInfo])
+  // useEffect(() => {
+  //   console.log({ loading, error, userInfo })
+  // }, [loading, error, userInfo])
 
   return (
     <header>
@@ -33,7 +34,7 @@ export const Navbar = ({ setIsClosed }) => {
             <HomeIcon className='home' />
           </Link>
           <RightContainer>
-            {!userInfo && (
+            {!userInfo ? (
               <>
                 <Link to='/signin'>
                   <AuthButton>Sign In</AuthButton>
@@ -42,16 +43,8 @@ export const Navbar = ({ setIsClosed }) => {
                   <AuthButton>Sign Up</AuthButton>
                 </Link>
               </>
-            )}
-            {userInfo && (
-              <AuthButton
-                onClick={() => {
-                  setIsClosed(true)
-                  dispatch(logoutAction())
-                }}
-              >
-                Sign Out
-              </AuthButton>
+            ) : (
+              <ProfileMenu />
             )}
           </RightContainer>
         </Container>
