@@ -13,7 +13,7 @@ export const Home = ({ history, isClosed }) => {
   return (
     <div>
       <Sidebar isClosed={isClosed} />
-      <Dashboard isClosed={isClosed} userInfo={userInfo} />
+      <Dashboard isClosed={isClosed} />
     </div>
   )
 }

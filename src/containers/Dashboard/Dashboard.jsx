@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
-import { useCollection } from 'react-firebase-hooks/firestore'
-import { firestore } from '../../firebase/config'
+import { useState } from 'react'
 import {
   AddTask,
   AddTaskText,
@@ -9,28 +7,36 @@ import {
   ProjectContainer,
 } from './DashboardStyles'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
-import { AddTaskForm } from '../../components'
+import { AddTaskForm, Spinner } from '../../components'
 
 export const Dashboard = ({ isClosed }) => {
-  // useEffect(() => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
-  // }, [])
+  setTimeout(() => {
+    setIsLoading(false)
+  }, 1000)
 
   return (
-    // {todos?.docs.map(todo => (
-    //   <p key={todo.id}>{todo.data().title}</p>
-    // ))}
     <DashboardContainer className={isClosed && 'closed'}>
-      <ProjectContainer>
-        <h1 className='empty'>Add a project in the menu on the left!</h1>
-        <AddTask>
-          <PlusButton className='plus'>
-            <PlusButtonSVG />
-          </PlusButton>
-          <AddTaskText>Add task</AddTaskText>
-        </AddTask>
-        <AddTaskForm />
-      </ProjectContainer>
+      {isLoading ? (
+        <div style={{ marginTop: '10rem' }}>
+          <Spinner />
+        </div>
+      ) : (
+        <ProjectContainer>
+          {!isOpen ? (
+            <AddTask onClick={() => setIsOpen(!isOpen)}>
+              <PlusButton className='plus'>
+                <PlusButtonSVG />
+              </PlusButton>
+              <AddTaskText>Add task</AddTaskText>
+            </AddTask>
+          ) : (
+            <AddTaskForm setIsOpen={setIsOpen} />
+          )}
+        </ProjectContainer>
+      )}
     </DashboardContainer>
   )
 }

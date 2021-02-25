@@ -11,16 +11,41 @@ import {
   SubOptions,
 } from './AddTaskFormStyles'
 import { DatePicker } from '../DatePicker/DatePicker'
+import { useSelector } from 'react-redux'
+import { firestore } from '../../firebase/config'
 
-export const AddTaskForm = () => {
+export const AddTaskForm = ({ setIsOpen }) => {
   const [todoDescription, setTodoDescription] = useState('')
   const [isActive, setIsActive] = useState(false)
 
   const todoInput = useRef(null)
   const form = useRef(null)
 
-  document.body.onclick = ({ target }) =>
-    !form.current.contains(target) ? setIsActive(false) : setIsActive(true)
+  const userLogin = useSelector(state => state.userLogin)
+  const { userInfo } = userLogin
+
+  const allProjectsDetails = useSelector(state => state.allProjectsDetails)
+  const {
+    loading: projectsLoading,
+    projects: projectsDetails,
+  } = allProjectsDetails
+
+  useEffect(() => {
+    const toggleFocus = ({ target }) => {
+      !form.current?.contains(target) ? setIsActive(false) : setIsActive(true)
+    }
+
+    document.body.addEventListener('click', toggleFocus)
+    return () => {
+      document.body.removeEventListener('click', toggleFocus)
+    }
+  }, [form])
+
+  const handleSubmit = event => {
+    event.preventDefault()
+
+    setIsOpen(false)
+  }
 
   return (
     <AddTaskFormContainer>
@@ -29,6 +54,7 @@ export const AddTaskForm = () => {
         onClick={({ target }) =>
           target === form.current && todoInput.current.focus()
         }
+        onSubmit={handleSubmit}
       >
         <Container className={isActive && 'focused'} ref={form}>
           <div className='title'>
@@ -46,14 +72,18 @@ export const AddTaskForm = () => {
 
           <SubOptions>
             <DatePicker />
-            {/* 
+
             <DueDate>
               <label htmlFor='date'>Pick a date: </label>
               <input type='date' name='date' id='date' />
             </DueDate>
             <ProjectSelection>
               <label htmlFor='projects'>Project: </label>
-              <select name='projects' id='projects'></select>
+              <select name='projects' id='projects'>
+                {projectsDetails?.map(project => (
+                  <option key={project.title}>{project.title}</option>
+                ))}
+              </select>
             </ProjectSelection>
             <Priority>
               <label htmlFor='priority'>Priority: </label>
@@ -62,7 +92,7 @@ export const AddTaskForm = () => {
                 <option value='important'>Important</option>
                 <option value='urgent'>Urgent</option>
               </select>
-            </Priority> */}
+            </Priority>
           </SubOptions>
         </Container>
         <AddTaskSubmitButton
@@ -71,7 +101,9 @@ export const AddTaskForm = () => {
         >
           Add task
         </AddTaskSubmitButton>
-        <AddTaskCancel type='button'>Cancel</AddTaskCancel>
+        <AddTaskCancel type='button' onClick={() => setIsOpen(false)}>
+          Cancel
+        </AddTaskCancel>
       </AddTaskFormForm>
     </AddTaskFormContainer>
   )
