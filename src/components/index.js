@@ -1,5 +1,6 @@
 export { ScrollToTop } from './ScrollToTop/ScrollToTop'
 export { AddTaskForm } from './AddTaskForm/AddTaskForm'
+export { Menu } from './Menu/Menu'
 export { ProfileMenu } from './ProfileMenu/ProfileMenu'
 export { DatePicker } from './DatePicker/DatePicker'
 export { Spinner } from './Spinner/Spinner'

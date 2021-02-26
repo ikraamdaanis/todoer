@@ -94,6 +94,7 @@ export const Priority = styled.div`
 
 export const ProjectSelection = styled.div`
   align-items: center;
+  position: relative;
 `
 
 export const AddTaskSubmitButton = styled.button`

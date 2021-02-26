@@ -18,7 +18,6 @@ export const ProfileMenuDropDown = styled.div`
   top: 32px;
   right: 0;
   width: 276px;
-  padding: 0 0 0.5rem;
   background: var(--dark-gray);
   z-index: 1000;
   border-radius: 3px;

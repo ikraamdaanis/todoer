@@ -12,6 +12,7 @@ import {
 } from './AddTaskFormStyles'
 import { DatePicker } from '../DatePicker/DatePicker'
 import { useSelector } from 'react-redux'
+import { Menu } from '../Menu/Menu'
 
 export const AddTaskForm = ({ setIsOpen }) => {
   const [todoDescription, setTodoDescription] = useState('')
@@ -79,6 +80,7 @@ export const AddTaskForm = ({ setIsOpen }) => {
                   <option key={project.title}>{project.title}</option>
                 ))}
               </select>
+              <Menu projectsDetails={projectsDetails} />
             </ProjectSelection>
             <Priority>
               <label htmlFor='priority'>Priority: </label>

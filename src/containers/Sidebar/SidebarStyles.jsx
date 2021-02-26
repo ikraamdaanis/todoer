@@ -136,7 +136,7 @@ export const BulletPoint = styled.div`
       display: inline-block;
       width: 10px;
       height: 10px;
-      background-color: rgb(184, 184, 184);
+      background-color: rgb(128, 128, 128);
       border-radius: 50%;
     }
   }
