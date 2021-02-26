@@ -19,6 +19,7 @@ import {
 } from '../../store/actions/projectActions'
 import { ReactComponent as Upcoming } from '../../assets/images/upcoming-icon.svg'
 import { format } from 'date-fns'
+import { Link } from 'react-router-dom'
 
 const TodayIcon = ({ date }) => {
   return (
@@ -148,10 +149,14 @@ export const Sidebar = ({ isClosed }) => {
             {allProjects?.length > 0 &&
               allProjects.map(project => (
                 <li key={project.title}>
-                  <BulletPoint>
-                    <div></div>
-                  </BulletPoint>
-                  <span>{project.title}</span>
+                  <Link to={`/app/${project.title.toLowerCase()}`}>
+                    <div className='container'>
+                      <BulletPoint>
+                        <div></div>
+                      </BulletPoint>
+                      <span>{project.title}</span>
+                    </div>
+                  </Link>
                 </li>
               ))}
             <AddProjectForm autoComplete='off' onSubmit={handleSubmit}>

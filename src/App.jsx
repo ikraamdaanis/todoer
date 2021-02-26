@@ -25,11 +25,11 @@ export const App = () => {
         <main>
           <Switch style={{ display: 'flex' }}>
             <Route exact path='/'>
-              {userInfo && <Redirect to='/app' />}
+              {userInfo && <Redirect to='/app/today' />}
             </Route>
             <Route
               exact
-              path='/app'
+              path='/app/:id'
               render={props => <Home {...props} isClosed={isClosed} />}
             />
             <Route

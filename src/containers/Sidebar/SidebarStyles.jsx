@@ -101,8 +101,18 @@ export const ProjectTitles = styled.ul`
     color: var(--text-white);
     line-height: 24px;
     margin: 0 0 0.2rem;
-    display: flex;
-    align-items: center;
+
+    a {
+      text-decoration: none;
+      display: block;
+      width: 100%;
+      height: 100%;
+
+      .container {
+        display: flex;
+        align-items: center;
+      }
+    }
 
     &:hover {
       background-color: #363636;

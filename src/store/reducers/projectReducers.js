@@ -56,18 +56,16 @@ export const allProjectsDetailsReducer = (state = { projects: [] }, action) => {
   }
 }
 
-export const projectTasksDetailsReducer = (state = { tasks: [] }, action) => {
+export const projectTasksDetailsReducer = (state = {}, action) => {
   switch (action.type) {
     case PROJECT_TASKS_DETAILS_REQUEST:
       return {
-        ...state,
         loading: true,
       }
     case PROJECT_TASKS_DETAILS_SUCCESS:
       return {
-        ...state,
         loading: false,
-        tasks: [...state.tasks, action.payload],
+        tasks: [action.payload],
       }
     case PROJECT_TASKS_DETAILS_FAIL:
       return {

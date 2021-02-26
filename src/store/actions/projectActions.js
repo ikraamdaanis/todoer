@@ -95,11 +95,11 @@ export const getProjectTasks = project => async (dispatch, getState) => {
       .collection('tasks')
       .orderBy('createdAt')
       .onSnapshot(querySnapshot => {
-        const queryTasks = { [project]: [] }
+        const queryTasks = []
         querySnapshot.forEach(doc => {
-          queryTasks[project].push(doc.data())
+          queryTasks.push(doc.data())
         })
-        console.log({ queryTasks })
+        // console.log({ queryTasks })
         dispatch({
           type: PROJECT_TASKS_DETAILS_SUCCESS,
           payload: queryTasks,

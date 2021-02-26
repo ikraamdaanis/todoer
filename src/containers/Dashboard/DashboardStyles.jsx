@@ -58,6 +58,20 @@ export const ProjectContainer = styled.div`
   }
 `
 
+export const Title = styled.h1`
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 25px;
+
+  small {
+    color: grey;
+    margin-left: 6px;
+    font-size: 12px;
+    font-weight: 300;
+  }
+`
+
 export const AddTask = styled.div`
   display: flex;
   align-items: center;
