@@ -25,7 +25,7 @@ export const MenuList = styled.ul`
 export const Arrow = styled.div`
   position: absolute;
   top: -12px;
-  left: 50%;
+  left: calc(50% - 6px);
   transform: translateX(-50%);
   width: 0;
   height: 0;
@@ -36,14 +36,27 @@ export const Arrow = styled.div`
   -webkit-transform: rotate(360deg);
 `
 
-export const MenuItem = styled.div`
+export const MenuItem = styled.li`
   width: 100%;
   padding: 8px 10px;
   display: flex;
   transition: 0.2s ease-in-out;
   cursor: pointer;
+  align-items: center;
+
+  span {
+    width: 100%;
+  }
 
   &:hover {
     background: #363636;
+  }
+
+  &.selected {
+    background: #363636;
+  }
+
+  .checkmark {
+    color: var(--light-red);
   }
 `

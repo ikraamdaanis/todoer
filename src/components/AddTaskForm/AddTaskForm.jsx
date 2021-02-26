@@ -16,6 +16,8 @@ import { Menu } from '../Menu/Menu'
 
 export const AddTaskForm = ({ setIsOpen }) => {
   const [todoDescription, setTodoDescription] = useState('')
+  const [selectedProject, setSelectedProject] = useState('')
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isActive, setIsActive] = useState(false)
 
   const todoInput = useRef(null)
@@ -29,6 +31,10 @@ export const AddTaskForm = ({ setIsOpen }) => {
     loading: projectsLoading,
     projects: projectsDetails,
   } = allProjectsDetails
+
+  useEffect(() => {
+    console.log({ selectedProject })
+  }, [selectedProject])
 
   useEffect(() => {
     const toggleFocus = ({ target }) => {
@@ -74,22 +80,19 @@ export const AddTaskForm = ({ setIsOpen }) => {
             <DatePicker />
 
             <ProjectSelection>
-              <label htmlFor='projects'>Project: </label>
-              <select name='projects' id='projects'>
-                {projectsDetails?.map(project => (
-                  <option key={project.title}>{project.title}</option>
-                ))}
-              </select>
-              <Menu projectsDetails={projectsDetails} />
+              <p htmlFor='projects' onClick={() => setIsMenuOpen(true)}>
+                {selectedProject}
+              </p>
+              {isMenuOpen && (
+                <Menu
+                  data={projectsDetails}
+                  state={selectedProject}
+                  setState={setSelectedProject}
+                  toggleOpen={setIsMenuOpen}
+                />
+              )}
             </ProjectSelection>
-            <Priority>
-              <label htmlFor='priority'>Priority: </label>
-              <select name='priority' id='priority' className='priority-select'>
-                <option value='none'>None</option>
-                <option value='important'>Important</option>
-                <option value='urgent'>Urgent</option>
-              </select>
-            </Priority>
+            <Priority></Priority>
           </SubOptions>
         </Container>
         <AddTaskSubmitButton

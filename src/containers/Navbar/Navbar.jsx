@@ -8,17 +8,16 @@ import {
 import { ReactComponent as MenuToggler } from '../../assets/images/menu-toggler.svg'
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg'
 import { useDispatch, useSelector } from 'react-redux'
-import { logoutAction } from '../../store/actions/userActions'
+
 import { Link } from 'react-router-dom'
 import { ProfileMenu } from '../../components'
 
 export const Navbar = ({ setIsClosed }) => {
-  const dispatch = useDispatch()
   const userLogin = useSelector(state => state.userLogin)
   const { loading, error, userInfo } = userLogin
-  // useEffect(() => {
-  //   console.log({ loading, error, userInfo })
-  // }, [loading, error, userInfo])
+  useEffect(() => {
+    console.log({ loading, error, userInfo })
+  }, [loading, error, userInfo])
 
   return (
     <header>

@@ -61,6 +61,7 @@ export const Container = styled.div`
 export const SubOptions = styled.div`
   display: flex;
   align-items: center;
+  width: max-content;
 
   div {
     input,
@@ -95,6 +96,33 @@ export const Priority = styled.div`
 export const ProjectSelection = styled.div`
   align-items: center;
   position: relative;
+
+  p {
+    width: 100%;
+    border: 1px solid #555;
+    border-radius: 5px;
+    outline: none;
+    padding: 0 8px;
+    display: flex;
+    background: none;
+    align-items: center;
+    justify-content: space-between;
+    height: 28px;
+    color: hsla(0, 0%, 100%, 0.6);
+    font-size: 13px;
+    opacity: 1 !important;
+    pointer-events: all !important;
+    position: static !important;
+    cursor: pointer;
+
+    &:hover {
+      background: #363636;
+    }
+  }
+
+  div {
+    /* left: 49%; */
+  }
 `
 
 export const AddTaskSubmitButton = styled.button`
