@@ -24,11 +24,11 @@ export const App = () => {
         <ScrollToTop />
         <main>
           <Switch style={{ display: 'flex' }}>
-            <Route exact path='/'>
+            <Route exact path='/app'>
               {userInfo && <Redirect to='/app/today' />}
             </Route>
             <Route
-              path='/app/:id'
+              path='/app/:i'
               render={props => <Dashboard {...props} isClosed={isClosed} />}
             />
             <Route

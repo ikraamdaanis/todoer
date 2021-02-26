@@ -56,7 +56,7 @@ export const Dashboard = ({ match, isClosed }) => {
     <div>
       <Sidebar isClosed={isClosed} />
       <DashboardContainer className={isClosed && 'closed'}>
-        {isLoading || projectsLoading || tasksLoading ? (
+        {isLoading || projectsLoading || tasksLoading || !projectTasks ? (
           <div style={{ marginTop: '10rem' }}>
             <Spinner />
           </div>
@@ -70,11 +70,11 @@ export const Dashboard = ({ match, isClosed }) => {
                 )}
               </Title>
 
-              {/* <div className='tasks'>
+              <div className='tasks'>
                 {projectTasks[0].map(task => (
                   <p key={task.id}>{task.description}</p>
                 ))}
-              </div> */}
+              </div>
 
               {!isOpen ? (
                 <AddTask onClick={() => setIsOpen(!isOpen)}>
