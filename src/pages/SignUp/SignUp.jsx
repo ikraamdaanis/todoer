@@ -22,7 +22,7 @@ export const SignUp = ({ history }) => {
 
   useEffect(() => {
     console.log({ loading, error, userInfo })
-    userInfo && history.push('/')
+    userInfo && history.push('/app')
   }, [loading, error, userInfo])
 
   return (
