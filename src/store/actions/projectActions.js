@@ -99,12 +99,46 @@ export const getProjectTasks = project => async (dispatch, getState) => {
         querySnapshot.forEach(doc => {
           queryTasks.push(doc.data())
         })
-        // console.log({ queryTasks, project })
         dispatch({
           type: PROJECT_TASKS_DETAILS_SUCCESS,
           payload: queryTasks,
         })
       })
+  } catch (error) {
+    dispatch({
+      type: PROJECT_TASKS_DETAILS_FAIL,
+      payload: error,
+    })
+  }
+}
+
+export const getAllTasks = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PROJECT_TASKS_DETAILS_REQUEST,
+    })
+    const {
+      userLogin: { userInfo },
+      allProjectsDetails: { projects },
+    } = getState()
+    const queries = []
+    const all = []
+    projects.forEach(proj => {
+      // console.log('Project: ', proj)
+      queries.push(
+        firestore
+          .collection('users')
+          .doc(userInfo?.id)
+          .collection('projects')
+          .doc(proj.title)
+          .collection('tasks')
+          .get()
+      )
+    })
+    Promise.all(queries).then(results => {
+      results.forEach(i => i.docs.forEach(doc => all.push(doc.data())))
+      console.log([all])
+    })
   } catch (error) {
     dispatch({
       type: PROJECT_TASKS_DETAILS_FAIL,

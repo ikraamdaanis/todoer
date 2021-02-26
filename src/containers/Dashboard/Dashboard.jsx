@@ -40,7 +40,7 @@ export const Dashboard = ({ match, isClosed }) => {
         project => project.title.toLowerCase() === match.params.id
       )
       setCurrentProject(current)
-      currentProject && console.log('Current: ', currentProject.title)
+      // currentProject && console.log('Current: ', currentProject.title)
     }
   }, [dispatch, match, projectsDetails])
 
@@ -49,7 +49,7 @@ export const Dashboard = ({ match, isClosed }) => {
   }, [currentProject])
 
   useEffect(() => {
-    !tasksLoading && console.log('Tasks: ', projectTasks, match.params.id)
+    // !tasksLoading && console.log('Tasks: ', projectTasks, match.params.id)
   }, [match])
 
   return (
@@ -70,11 +70,11 @@ export const Dashboard = ({ match, isClosed }) => {
                 )}
               </Title>
 
-              <div className='tasks'>
+              {/* <div className='tasks'>
                 {projectTasks[0].map(task => (
                   <p key={task.id}>{task.description}</p>
                 ))}
-              </div>
+              </div> */}
 
               {!isOpen ? (
                 <AddTask onClick={() => setIsOpen(!isOpen)}>
