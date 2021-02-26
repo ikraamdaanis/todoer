@@ -74,8 +74,6 @@ export const LogoutButton = styled.button`
   outline: none;
   color: hsla(0, 0%, 100%, 0.87);
   border: 0;
-  border-top: 1px solid hsla(0, 0%, 100%, 0.1);
-  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
   cursor: pointer;
   transition: 0.2s ease-in-out;
 
@@ -91,4 +89,11 @@ export const LogoutButton = styled.button`
     height: 24px;
     line-height: 23px;
   }
+`
+
+export const Line = styled.div`
+  width: 100%;
+  height: 1px;
+  background: hsla(0, 0%, 100%, 0.1);
+  margin: 0.2rem 0;
 `

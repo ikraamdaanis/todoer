@@ -12,7 +12,6 @@ import {
 } from './AddTaskFormStyles'
 import { DatePicker } from '../DatePicker/DatePicker'
 import { useSelector } from 'react-redux'
-import { firestore } from '../../firebase/config'
 
 export const AddTaskForm = ({ setIsOpen }) => {
   const [todoDescription, setTodoDescription] = useState('')

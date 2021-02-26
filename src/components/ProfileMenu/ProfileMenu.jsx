@@ -7,6 +7,7 @@ import {
   ProfileMenuDropDown,
   UserDetails,
   NameEmail,
+  Line,
 } from './ProfileMenuStyles'
 import { ReactComponent as LogoutIcon } from '../../assets/images/logout-icon.svg'
 import { logoutAction } from '../../store/actions/userActions'
@@ -58,6 +59,7 @@ export const ProfileMenu = () => {
               <p className='email'>{userInfo.email}</p>
             </NameEmail>
           </UserDetails>
+          <Line />
           <LogoutButton
             onClick={() => {
               setIsOpen(false)
