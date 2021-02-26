@@ -95,7 +95,6 @@ export const ProjectTitles = styled.ul`
     font-weight: 300;
     list-style: none;
     cursor: pointer;
-    padding: 5px 16px 5px 5px;
     border-radius: 3px;
     transition: color 0.1s ease-in, background-color 0.1s ease-in;
     color: var(--text-white);
@@ -107,6 +106,7 @@ export const ProjectTitles = styled.ul`
       display: block;
       width: 100%;
       height: 100%;
+      padding: 5px 16px 5px 5px;
 
       .container {
         display: flex;

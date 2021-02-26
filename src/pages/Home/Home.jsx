@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Dashboard, Sidebar } from '../../containers/'
 
-export const Home = ({ history, match, isClosed }) => {
+export const Home = ({ history }) => {
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
@@ -10,10 +9,5 @@ export const Home = ({ history, match, isClosed }) => {
     if (!userInfo) history.push('/signin')
   }, [userInfo])
 
-  return (
-    <div>
-      <Sidebar isClosed={isClosed} />
-      <Dashboard isClosed={isClosed} match={match} />
-    </div>
-  )
+  return <div></div>
 }

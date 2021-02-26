@@ -17,7 +17,7 @@ import { format } from 'date-fns'
 import { getProjectTasks } from '../../store/actions/projectActions'
 import { v4 as uuidv4 } from 'uuid'
 
-export const AddTaskForm = ({ setIsOpen }) => {
+export const AddTaskForm = ({ currentProject, setIsOpen }) => {
   const [todoDescription, setTodoDescription] = useState('')
   const [selectedProject, setSelectedProject] = useState('')
   const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'))
@@ -42,7 +42,7 @@ export const AddTaskForm = ({ setIsOpen }) => {
 
   useEffect(() => {
     console.log({ selectedProject, todoDescription })
-    dispatch(getProjectTasks('Development'))
+    // dispatch(getProjectTasks('Development'))
   }, [selectedProject])
 
   useEffect(() => {

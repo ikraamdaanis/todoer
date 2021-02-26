@@ -99,7 +99,7 @@ export const getProjectTasks = project => async (dispatch, getState) => {
         querySnapshot.forEach(doc => {
           queryTasks.push(doc.data())
         })
-        // console.log({ queryTasks })
+        // console.log({ queryTasks, project })
         dispatch({
           type: PROJECT_TASKS_DETAILS_SUCCESS,
           payload: queryTasks,

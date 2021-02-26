@@ -7,7 +7,7 @@ import {
   Redirect,
 } from 'react-router-dom'
 import { ScrollToTop } from './components'
-import { Navbar } from './containers'
+import { Dashboard, Navbar } from './containers'
 import { Home, SignIn, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
 
@@ -28,9 +28,8 @@ export const App = () => {
               {userInfo && <Redirect to='/app/today' />}
             </Route>
             <Route
-              exact
               path='/app/:id'
-              render={props => <Home {...props} isClosed={isClosed} />}
+              render={props => <Dashboard {...props} isClosed={isClosed} />}
             />
             <Route
               exact
