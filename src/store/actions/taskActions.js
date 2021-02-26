@@ -20,9 +20,9 @@ export const createTask = (project, task) => async (dispatch, getState) => {
       .doc(userInfo?.id)
       .collection('projects')
       .doc(project)
-      .collection('task')
+      .collection('tasks')
       .doc()
-      .set({ task })
+      .set(task)
 
     dispatch({
       type: TASK_CREATE_SUCCESS,

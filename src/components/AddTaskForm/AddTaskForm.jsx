@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Menu } from '../Menu/Menu'
 import { createTask } from '../../store/actions/taskActions'
 import { format } from 'date-fns'
+import { getProjectTasks } from '../../store/actions/projectActions'
+import { v4 as uuidv4 } from 'uuid'
 
 export const AddTaskForm = ({ setIsOpen }) => {
   const [todoDescription, setTodoDescription] = useState('')
@@ -40,6 +42,7 @@ export const AddTaskForm = ({ setIsOpen }) => {
 
   useEffect(() => {
     console.log({ selectedProject, todoDescription })
+    dispatch(getProjectTasks('Development'))
   }, [selectedProject])
 
   useEffect(() => {
@@ -78,6 +81,7 @@ export const AddTaskForm = ({ setIsOpen }) => {
         project: selectedProject,
         dueDate: date,
         createdAt: new Date(),
+        id: uuidv4(),
       })
     )
     setIsOpen(false)
