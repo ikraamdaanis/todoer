@@ -1,11 +1,12 @@
-import React from 'react'
+import { forwardRef } from 'react'
 import { BulletPoint } from '../../containers/Sidebar/SidebarStyles'
 import { Arrow, MenuContainer, MenuItem, MenuList } from './MenuStyles'
 import { ReactComponent as Checkmark } from '../../assets/images/checkmark.svg'
 
-export const Menu = ({ data, state, setState, toggleOpen }) => {
+export const Menu = forwardRef((props, ref) => {
+  const { data, state, setState, toggleOpen } = props
   return (
-    <MenuContainer onClick={() => toggleOpen(false)}>
+    <MenuContainer onClick={() => toggleOpen(false)} ref={ref}>
       <Arrow />
       <MenuList>
         {data?.map(project => (
@@ -28,4 +29,4 @@ export const Menu = ({ data, state, setState, toggleOpen }) => {
       </MenuList>
     </MenuContainer>
   )
-}
+})

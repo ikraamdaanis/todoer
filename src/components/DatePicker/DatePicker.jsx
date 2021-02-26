@@ -5,15 +5,15 @@ import {
   ToggleButton,
 } from './DatePickerStyles'
 import { ReactComponent as ScheduleIcon } from '../../assets/images/schedule-icon.svg'
-import { ReactComponent as TomorrowIcon } from '../../assets/images/tomorrow-icon.svg'
 import { add, format, isBefore, isToday, isTomorrow, isWeekend } from 'date-fns'
 
-export const DatePicker = () => {
+export const DatePicker = ({ setDate }) => {
   const [dueDate, setDueDate] = useState(format(new Date(), 'yyyy-MM-dd'))
   const [dueDateText, setDueDateText] = useState('Today')
 
   const handleChange = ({ target }) => {
     const date = target.value
+    setDate(date)
     setDueDate(dueDate => date)
     setDueDateText(dueDateText => {
       if (isToday(new Date(date))) {
@@ -35,7 +35,7 @@ export const DatePicker = () => {
       ? '#ff9a14'
       : isBefore(new Date(dueDate), add(new Date(), { days: 7 }))
       ? '#a970ff'
-      : 'hsla(0, 0%, 100%, 0.6)'
+      : 'unset'
 
   return (
     <>
