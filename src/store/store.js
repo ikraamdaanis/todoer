@@ -26,13 +26,8 @@ const allProjectsFromStorage = localStorage.getItem('allProjects')
   ? JSON.parse(localStorage.getItem('allProjects'))
   : null
 
-const tasksFromStorage = localStorage.getItem('tasks')
-  ? JSON.parse(localStorage.getItem('tasks'))
-  : []
-
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
-  projectTasksDetails: { tasks: tasksFromStorage },
   allProjectsDetails: { projects: allProjectsFromStorage },
 }
 

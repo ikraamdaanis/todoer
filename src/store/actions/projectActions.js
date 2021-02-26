@@ -104,11 +104,6 @@ export const getProjectTasks = project => async (dispatch, getState) => {
           type: PROJECT_TASKS_DETAILS_SUCCESS,
           payload: queryTasks,
         })
-
-        localStorage.setItem(
-          'tasks',
-          JSON.stringify(getState().projectTasksDetails.tasks)
-        )
       })
   } catch (error) {
     dispatch({
