@@ -28,7 +28,7 @@ export const App = () => {
               {userInfo && <Redirect to='/app/today' />}
             </Route>
             <Route
-              path='/app/:i'
+              path='/app/:id'
               render={props => <Dashboard {...props} isClosed={isClosed} />}
             />
             <Route
@@ -41,6 +41,9 @@ export const App = () => {
               path='/signup'
               render={props => <SignUp {...props} />}
             />
+            <Route exact path='/'>
+              {userInfo && <Redirect to='/app/today' />}
+            </Route>
           </Switch>
         </main>
       </Router>

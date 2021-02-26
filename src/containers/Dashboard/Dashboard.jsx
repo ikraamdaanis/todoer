@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getProjectTasks } from '../../store/actions/projectActions'
 import { Sidebar } from '../Sidebar/Sidebar'
 
-export const Dashboard = ({ match, isClosed }) => {
+export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(false)
   const [currentProject, setCurrentProject] = useState('')
@@ -46,17 +46,18 @@ export const Dashboard = ({ match, isClosed }) => {
 
   useEffect(() => {
     currentProject && dispatch(getProjectTasks(currentProject.title))
+    !currentProject && history.push('/app/today')
   }, [currentProject])
 
   useEffect(() => {
-    // !tasksLoading && console.log('Tasks: ', projectTasks, match.params.id)
+    !tasksLoading && console.log('Tasks: ', projectTasks, match.params.id)
   }, [match])
 
   return (
     <div>
       <Sidebar isClosed={isClosed} />
       <DashboardContainer className={isClosed && 'closed'}>
-        {isLoading || projectsLoading || tasksLoading || !projectTasks ? (
+        {isLoading || projectsLoading || tasksLoading ? (
           <div style={{ marginTop: '10rem' }}>
             <Spinner />
           </div>
@@ -69,13 +70,13 @@ export const Dashboard = ({ match, isClosed }) => {
                   <small>{format(new Date(), 'iii do MMM')}</small>
                 )}
               </Title>
-
-              <div className='tasks'>
-                {projectTasks[0].map(task => (
-                  <p key={task.id}>{task.description}</p>
-                ))}
-              </div>
-
+              {projectTasks && (
+                <div className='tasks'>
+                  {projectTasks[0].map(task => (
+                    <p key={task.id}>{task.description}</p>
+                  ))}
+                </div>
+              )}
               {!isOpen ? (
                 <AddTask onClick={() => setIsOpen(!isOpen)}>
                   <PlusButton className='plus'>
