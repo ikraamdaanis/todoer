@@ -11,7 +11,10 @@ import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.s
 import { AddTaskForm, Spinner } from '../../components'
 import { format } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProjectTasks } from '../../store/actions/projectActions'
+import {
+  getAllTasks,
+  getProjectTasks,
+} from '../../store/actions/projectActions'
 import { Sidebar } from '../Sidebar/Sidebar'
 
 export const Dashboard = ({ history, match, isClosed }) => {
@@ -51,6 +54,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   useEffect(() => {
     !tasksLoading && console.log('Tasks: ', projectTasks, match.params.id)
+    dispatch(getAllTasks())
   }, [match])
 
   return (

@@ -11,6 +11,7 @@ import {
   PROJECT_TASKS_DETAILS_SUCCESS,
 } from '../constants/projectConstants'
 import { v4 as uuidv4 } from 'uuid'
+import { format } from 'date-fns'
 
 export const createProject = project => async (dispatch, getState) => {
   try {
@@ -114,9 +115,9 @@ export const getProjectTasks = project => async (dispatch, getState) => {
 
 export const getAllTasks = () => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: PROJECT_TASKS_DETAILS_REQUEST,
-    })
+    // dispatch({
+    //   type: PROJECT_TASKS_DETAILS_REQUEST,
+    // })
     const {
       userLogin: { userInfo },
       allProjectsDetails: { projects },
@@ -124,7 +125,7 @@ export const getAllTasks = () => async (dispatch, getState) => {
     const queries = []
     const all = []
     projects.forEach(proj => {
-      // console.log('Project: ', proj)
+      console.log('Project: ', format(new Date(), 'yyyy-MM-dd'))
       queries.push(
         firestore
           .collection('users')
@@ -132,17 +133,18 @@ export const getAllTasks = () => async (dispatch, getState) => {
           .collection('projects')
           .doc(proj.title)
           .collection('tasks')
+          .where('dueDate', '==', format(new Date(), 'yyyy-MM-dd'))
           .get()
       )
     })
     Promise.all(queries).then(results => {
       results.forEach(i => i.docs.forEach(doc => all.push(doc.data())))
-      console.log([all])
+      console.log('hi; ', all)
     })
   } catch (error) {
-    dispatch({
-      type: PROJECT_TASKS_DETAILS_FAIL,
-      payload: error,
-    })
+    // dispatch({
+    //   type: PROJECT_TASKS_DETAILS_FAIL,
+    //   payload: error,
+    // })
   }
 }
