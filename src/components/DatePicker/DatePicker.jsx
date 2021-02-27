@@ -1,20 +1,18 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   DatePickerInput,
   DatePickerToggle,
   ToggleButton,
 } from './DatePickerStyles'
 import { ReactComponent as ScheduleIcon } from '../../assets/images/schedule-icon.svg'
-import { add, format, isBefore, isToday, isTomorrow, isWeekend } from 'date-fns'
+import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
 
-export const DatePicker = ({ setDate }) => {
-  const [dueDate, setDueDate] = useState(format(new Date(), 'yyyy-MM-dd'))
+export const DatePicker = ({ chosenDate, setDate }) => {
   const [dueDateText, setDueDateText] = useState('Today')
 
   const handleChange = ({ target }) => {
     const date = target.value
     setDate(date)
-    setDueDate(dueDate => date)
     setDueDateText(dueDateText => {
       if (isToday(new Date(date))) {
         return 'Today'
@@ -28,12 +26,16 @@ export const DatePicker = ({ setDate }) => {
     })
   }
 
+  useEffect(() => {
+    chosenDate === format(new Date(), 'yyyy-MM-dd') && setDueDateText('Today')
+  }, [chosenDate])
+
   const color =
     dueDateText === 'Today'
       ? '#25b84c'
       : dueDateText === 'Tomorrow'
       ? '#ff9a14'
-      : isBefore(new Date(dueDate), add(new Date(), { days: 7 }))
+      : isBefore(new Date(chosenDate), add(new Date(), { days: 7 }))
       ? '#a970ff'
       : 'unset'
 
@@ -45,7 +47,7 @@ export const DatePicker = ({ setDate }) => {
         <DatePickerInput
           type='date'
           title='Pick a due date'
-          value={dueDate}
+          value={chosenDate}
           onChange={handleChange}
           min={format(new Date(), 'yyyy-MM-dd')}
         />

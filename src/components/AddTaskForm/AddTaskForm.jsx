@@ -16,9 +16,9 @@ import { createTask } from '../../store/actions/taskActions'
 import { format } from 'date-fns'
 import { v4 as uuidv4 } from 'uuid'
 
-export const AddTaskForm = ({ currentProject, setIsOpen }) => {
+export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
   const [todoDescription, setTodoDescription] = useState('')
-  const [selectedProject, setSelectedProject] = useState(currentProject.title)
+  const [selectedProject, setSelectedProject] = useState(currentProject?.title)
   const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'))
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -67,7 +67,7 @@ export const AddTaskForm = ({ currentProject, setIsOpen }) => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    console.log({ todoDescription, selectedProject, date })
+    let project = selectedProject
 
     dispatch(
       createTask(selectedProject, {
@@ -82,7 +82,13 @@ export const AddTaskForm = ({ currentProject, setIsOpen }) => {
     setTodoDescription('')
     setSelectedProject(currentProject.title)
     setDate(format(new Date(), 'yyyy-MM-dd'))
+
+    history.push(`/app/${project}`)
   }
+
+  // useEffect(() => {
+  //   console.log(date, selectedProject, todoDescription)
+  // }, [date, selectedProject, todoDescription])
 
   return (
     <AddTaskFormContainer>
@@ -108,7 +114,7 @@ export const AddTaskForm = ({ currentProject, setIsOpen }) => {
           </div>
 
           <SubOptions>
-            <DatePicker date={date} setDate={setDate} />
+            <DatePicker chosenDate={date} setDate={setDate} />
             <ProjectSelection>
               <p htmlFor='projects' ref={menuButton}>
                 {selectedProject}

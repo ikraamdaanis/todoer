@@ -78,8 +78,13 @@ export const Dashboard = ({ history, match, isClosed }) => {
   }, [allTasks, projectTasks, projectsLoading, isProject, dashboardTasks])
 
   useEffect(() => {
-    !currentProject && isProject && history.push('/app/today')
-  }, [currentProject, id])
+    console.clear()
+    console.log('Dashboard =>', dashboardTasks)
+  }, [dashboardTasks])
+
+  // useEffect(() => {
+  //   !currentProject && isProject && history.push('/app/today')
+  // }, [currentProject, id])
 
   return (
     <div>
@@ -130,6 +135,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 </AddTask>
               ) : (
                 <AddTaskForm
+                  history={history}
                   setIsOpen={setIsOpen}
                   currentProject={currentProject}
                 />
