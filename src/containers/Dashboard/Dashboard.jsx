@@ -25,7 +25,7 @@ import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConsta
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(false)
-  const [currentProject, setCurrentProject] = useState('')
+  const [currentProject, setCurrentProject] = useState(null)
   const [dashboardTasks, setDashboardTasks] = useState([])
 
   const dispatch = useDispatch()
@@ -33,14 +33,14 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   const isProject = id !== 'today' && id !== 'upcoming'
 
-  const projectTasksDetails = useSelector(state => state.projectTasksDetails)
-  const { loading: tasksLoading, tasks: projectTasks } = projectTasksDetails
-
   const allProjectsDetails = useSelector(state => state.allProjectsDetails)
   const {
     loading: projectsLoading,
     projects: projectsDetails,
   } = allProjectsDetails
+
+  const projectTasksDetails = useSelector(state => state.projectTasksDetails)
+  const { loading: tasksLoading, tasks: projectTasks } = projectTasksDetails
 
   const allProjectTasks = useSelector(state => state.allProjectTasks)
   const { loading: allTasksLoading, tasks: allTasks } = allProjectTasks
@@ -53,11 +53,13 @@ export const Dashboard = ({ history, match, isClosed }) => {
     const [current] = projectsDetails?.filter(
       project => project.title.toLowerCase() === match.params.id
     )
+
     setCurrentProject(() => current)
   }
 
-  const fetchTasks = async param => {
+  const fetchTasks = param => {
     if (!projectsLoading) {
+      setCurrentProject(null)
       if (param === 'today') {
         dispatch(getAllTasks('=='))
       } else if (param === 'upcoming') {
@@ -85,13 +87,19 @@ export const Dashboard = ({ history, match, isClosed }) => {
   }, [allTasks, projectTasks, projectsLoading, isProject, dashboardTasks])
 
   useEffect(() => {
-    console.clear()
-    console.log('Dashboard =>', dashboardTasks)
+    // console.clear()
+    // console.log('Dashboard =>', dashboardTasks, currentProject)
   }, [dashboardTasks])
 
-  // useEffect(() => {
-  //   !currentProject && isProject && history.push('/app/today')
-  // }, [currentProject, id])
+  useEffect(() => {
+    if (projectsDetails) {
+      const projectExists = projectsDetails.some(
+        project => project.title.toLowerCase() === id
+      )
+      if (!isProject || projectExists) return
+      history.push('/app/today')
+    }
+  }, [currentProject, isProject, id, projectsDetails])
 
   return (
     <div>
