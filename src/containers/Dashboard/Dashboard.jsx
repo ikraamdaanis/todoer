@@ -21,8 +21,10 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(false)
   const [currentProject, setCurrentProject] = useState('')
+  const [dashboardTasks, setDashboardTasks] = useState([])
 
   const dispatch = useDispatch()
+  const { id } = match.params
 
   const projectTasksDetails = useSelector(state => state.projectTasksDetails)
   const { loading: tasksLoading, tasks: projectTasks } = projectTasksDetails
@@ -33,35 +35,43 @@ export const Dashboard = ({ history, match, isClosed }) => {
     projects: projectsDetails,
   } = allProjectsDetails
 
+  const allProjectTasks = useSelector(state => state.allProjectTasks)
+  const { loading: allTasksLoading, tasks: allTasks } = allProjectTasks
+
   setTimeout(() => {
     setIsLoading(false)
   }, 1000)
 
-  useEffect(() => {
+  const fetchTasks = async param => {
     if (!projectsLoading) {
-      const [current] = projectsDetails?.filter(
-        project => project.title.toLowerCase() === match.params.id
-      )
-      setCurrentProject(current)
-      // currentProject && console.log('Current: ', currentProject.title)
+      if (param === 'today') {
+        await dispatch(getAllTasks('=='))
+        !allTasksLoading && (await setDashboardTasks(allTasks))
+      } else if (param === 'upcoming') {
+        await dispatch(getAllTasks('>'))
+        !allTasksLoading && (await setDashboardTasks(allTasks))
+      } else {
+        const [current] = projectsDetails?.filter(
+          project => project.title.toLowerCase() === match.params.id
+        )
+        setCurrentProject(current)
+        currentProject &&
+          (await dispatch(getProjectTasks(currentProject.title)))
+        !tasksLoading && (await setDashboardTasks(projectTasks))
+      }
     }
-  }, [dispatch, match, projectsDetails])
+  }
 
   useEffect(() => {
-    currentProject && dispatch(getProjectTasks(currentProject.title))
-    !currentProject && history.push('/app/today')
-  }, [currentProject])
-
-  // useEffect(() => {
-  //   !tasksLoading && console.log('Tasks: ', projectTasks, match.params.id)
-  //   dispatch(getAllTasks())
-  // }, [match])
+    fetchTasks(id)
+    console.log('Tasks: ', dashboardTasks)
+  }, [dispatch, id, projectsDetails, dashboardTasks])
 
   useEffect(() => {
-    match.params.id === 'today' && dispatch(getAllTasks('=='))
-
-    console.log('getAllTasks')
-  }, [projectsDetails])
+    !currentProject ||
+      id !== 'today' ||
+      (id !== 'upcoming' && history.push('/app/today'))
+  }, [currentProject, id])
 
   return (
     <div>
@@ -80,11 +90,13 @@ export const Dashboard = ({ history, match, isClosed }) => {
                   <small>{format(new Date(), 'iii do MMM')}</small>
                 )}
               </Title>
-              {projectTasks && (
+              {tasksLoading && allTasksLoading && !dashboardTasks ? (
+                <Spinner />
+              ) : (
                 <div className='tasks'>
-                  {projectTasks[0].map(task => (
+                  {/* {dashboardTasks.flat().map(task => (
                     <p key={task.id}>{task.description}</p>
-                  ))}
+                  ))} */}
                 </div>
               )}
               {!isOpen ? (

@@ -41,9 +41,9 @@ export const App = () => {
               path='/signup'
               render={props => <SignUp {...props} />}
             />
-            {/* <Route exact path='/'>
+            <Route exact path='/'>
               {userInfo && <Redirect to='/app/today' />}
-            </Route> */}
+            </Route>
           </Switch>
         </main>
       </Router>

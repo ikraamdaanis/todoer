@@ -113,16 +113,20 @@ export const Sidebar = ({ isClosed }) => {
     <SidebarContainer className={isClosed && 'closed'}>
       <Container>
         <SidebarButtonContainer>
-          <SidebarButton>
-            <TodayIcon date={format(new Date(), 'dd')} />
-            <span>Today</span>
-          </SidebarButton>
+          <Link to='/app/today'>
+            <SidebarButton>
+              <TodayIcon date={format(new Date(), 'dd')} />
+              <span>Today</span>
+            </SidebarButton>
+          </Link>
         </SidebarButtonContainer>
         <SidebarButtonContainer>
-          <SidebarButton>
-            <UpcomingIcon />
-            <span>Upcoming</span>
-          </SidebarButton>
+          <Link to='/app/upcoming'>
+            <SidebarButton>
+              <UpcomingIcon />
+              <span>Upcoming</span>
+            </SidebarButton>
+          </Link>
         </SidebarButtonContainer>
         <ProjectsButtonContainer>
           <ProjectsButton onClick={() => setIsOpen(!isOpen)}>

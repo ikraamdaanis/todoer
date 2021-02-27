@@ -127,7 +127,6 @@ export const getAllTasks = isToday => async (dispatch, getState) => {
     } = getState()
     const queries = []
     const all = []
-    console.log({ projects })
     projects.forEach(proj => {
       queries.push(
         firestore
@@ -145,7 +144,6 @@ export const getAllTasks = isToday => async (dispatch, getState) => {
         results.forEach(i => i.docs.forEach(doc => all.push(doc.data())))
       })
       .then(() => {
-        console.log({ all })
         dispatch({
           type: PROJECT_TASKS_ALL_SUCCESS,
           payload: all,
