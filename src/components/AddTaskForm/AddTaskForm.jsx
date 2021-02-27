@@ -78,7 +78,10 @@ export const AddTaskForm = ({ currentProject, setIsOpen }) => {
         id: uuidv4(),
       })
     )
-    setIsOpen(false)
+
+    setTodoDescription('')
+    setSelectedProject(currentProject.title)
+    setDate(format(new Date(), 'yyyy-MM-dd'))
   }
 
   return (
@@ -105,7 +108,7 @@ export const AddTaskForm = ({ currentProject, setIsOpen }) => {
           </div>
 
           <SubOptions>
-            <DatePicker setDate={setDate} />
+            <DatePicker date={date} setDate={setDate} />
             <ProjectSelection>
               <p htmlFor='projects' ref={menuButton}>
                 {selectedProject}

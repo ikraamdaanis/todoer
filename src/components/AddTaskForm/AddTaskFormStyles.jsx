@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 
 export const AddTaskFormContainer = styled.div`
-  margin-top: 1rem;
+  margin-top: 4px;
 `
 
 export const AddTaskFormForm = styled.form``

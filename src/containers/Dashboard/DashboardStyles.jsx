@@ -129,8 +129,33 @@ export const TaskItemContainer = styled.div`
 `
 
 export const TaskCheck = styled.div`
-  width: 40px;
-  background: red;
+  width: 30px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    svg {
+      display: block;
+    }
+  }
+
+  .circle {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #737373;
+    cursor: pointer;
+
+    &:hover {
+      background: #4b4b4b;
+    }
+  }
+
+  svg {
+    display: none;
+    position: relative;
+    transform: translate(-4.5px, -3.5px);
+  }
 `
 
 export const TaskDescription = styled.p`
