@@ -83,7 +83,7 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
     setSelectedProject(currentProject.title)
     setDate(format(new Date(), 'yyyy-MM-dd'))
 
-    history.push(`/app/${project}`)
+    history.push(`/app/${project.toLowerCase()}`)
   }
 
   // useEffect(() => {

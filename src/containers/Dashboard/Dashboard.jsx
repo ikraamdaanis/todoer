@@ -20,6 +20,7 @@ import {
   getProjectTasks,
 } from '../../store/actions/projectActions'
 import { Sidebar } from '../Sidebar/Sidebar'
+import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConstants'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -71,6 +72,12 @@ export const Dashboard = ({ history, match, isClosed }) => {
   useEffect(() => {
     fetchTasks(id)
   }, [dispatch, id, projectsDetails, currentProject])
+
+  useEffect(() => {
+    dispatch({
+      type: PROJECT_TASKS_DETAILS_CLEAR,
+    })
+  }, [currentProject])
 
   useEffect(() => {
     !isProject && setDashboardTasks(allTasks)
