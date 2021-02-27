@@ -39,7 +39,7 @@ export const DashboardContainer = styled.div`
 export const ProjectContainer = styled.div`
   padding: 30px 55px 0;
   width: 100%;
-  max-width: 800px;
+  max-width: 910px;
   margin: 0 auto;
   @media (max-width: 750px) {
     padding: 30px 30px 0;

@@ -105,59 +105,57 @@ export const Dashboard = ({ history, match, isClosed }) => {
     <div>
       <Sidebar isClosed={isClosed} param={id} history={history} />
       <DashboardContainer className={isClosed && 'closed'}>
-        {isLoading || projectsLoading || tasksLoading || allTasksLoading ? (
-          <div style={{ marginTop: '10rem' }}>
-            <Spinner />
-          </div>
-        ) : (
-          <>
-            <ProjectContainer>
-              <Title>
-                {match.params.id}
-                {match.params.id === 'today' && (
-                  <small>{format(new Date(), 'iii do MMM')}</small>
-                )}
-              </Title>
-              {dashboardTasks && (
-                <div className='tasks'>
-                  <ul>
-                    {dashboardTasks.map(task => (
-                      <TaskItem key={task.id}>
-                        <TaskItemContainer>
-                          <TaskCheck>
-                            <div className='circle'>
-                              <svg width='24' height='24'>
-                                <path
-                                  fill='currentColor'
-                                  d='M11.23 13.7l-2.15-2a.55.55 0 0 0-.74-.01l.03-.03a.46.46 0 0 0 0 .68L11.24 15l5.4-5.01a.45.45 0 0 0 0-.68l.02.03a.55.55 0 0 0-.73 0l-4.7 4.35z'
-                                ></path>
-                              </svg>
-                            </div>
-                          </TaskCheck>
-                          <TaskDescription>{task.description}</TaskDescription>
-                        </TaskItemContainer>
-                      </TaskItem>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              {!isOpen ? (
-                <AddTask onClick={() => setIsOpen(!isOpen)}>
-                  <PlusButton className='plus'>
-                    <PlusButtonSVG />
-                  </PlusButton>
-                  <AddTaskText>Add task</AddTaskText>
-                </AddTask>
-              ) : (
-                <AddTaskForm
-                  history={history}
-                  setIsOpen={setIsOpen}
-                  currentProject={currentProject}
-                />
-              )}
-            </ProjectContainer>
-          </>
-        )}
+        <ProjectContainer>
+          <Title>
+            {match.params.id}
+            {match.params.id === 'today' && (
+              <small>{format(new Date(), 'iii do MMM')}</small>
+            )}
+          </Title>
+          {isLoading || projectsLoading || tasksLoading || allTasksLoading ? (
+            <div style={{ marginTop: '10rem' }}>
+              <Spinner />
+            </div>
+          ) : (
+            dashboardTasks && (
+              <div className='tasks'>
+                <ul>
+                  {dashboardTasks.map(task => (
+                    <TaskItem key={task.id}>
+                      <TaskItemContainer>
+                        <TaskCheck>
+                          <div className='circle'>
+                            <svg width='24' height='24'>
+                              <path
+                                fill='currentColor'
+                                d='M11.23 13.7l-2.15-2a.55.55 0 0 0-.74-.01l.03-.03a.46.46 0 0 0 0 .68L11.24 15l5.4-5.01a.45.45 0 0 0 0-.68l.02.03a.55.55 0 0 0-.73 0l-4.7 4.35z'
+                              ></path>
+                            </svg>
+                          </div>
+                        </TaskCheck>
+                        <TaskDescription>{task.description}</TaskDescription>
+                      </TaskItemContainer>
+                    </TaskItem>
+                  ))}
+                </ul>
+              </div>
+            )
+          )}
+          {!isOpen ? (
+            <AddTask onClick={() => setIsOpen(!isOpen)}>
+              <PlusButton className='plus'>
+                <PlusButtonSVG />
+              </PlusButton>
+              <AddTaskText>Add task</AddTaskText>
+            </AddTask>
+          ) : (
+            <AddTaskForm
+              history={history}
+              setIsOpen={setIsOpen}
+              currentProject={currentProject}
+            />
+          )}
+        </ProjectContainer>
       </DashboardContainer>
     </div>
   )
