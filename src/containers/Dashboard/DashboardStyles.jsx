@@ -114,3 +114,35 @@ export const AddTaskText = styled.p`
   font-weight: 300;
   transform: translate(-1px, -1px);
 `
+
+export const TaskItem = styled.li`
+  font-size: 14px;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+`
+
+export const TaskItemContainer = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0;
+  cursor: pointer;
+`
+
+export const TaskCheck = styled.div`
+  width: 40px;
+  background: red;
+`
+
+export const TaskDescription = styled.p`
+  flex: 1;
+  padding: 8px 0;
+  margin-right: 30px;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+  font-size: 14px;
+  min-height: 24px;
+  line-height: 21px;
+  word-wrap: break-word;
+  word-break: break-word;
+`

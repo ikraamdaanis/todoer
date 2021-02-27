@@ -5,6 +5,10 @@ import {
   DashboardContainer,
   PlusButton,
   ProjectContainer,
+  TaskCheck,
+  TaskDescription,
+  TaskItem,
+  TaskItemContainer,
   Title,
 } from './DashboardStyles'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
@@ -98,7 +102,12 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 <div className='tasks'>
                   <ul>
                     {dashboardTasks.map(task => (
-                      <li key={task.id}>{task.description}</li>
+                      <TaskItem key={task.id}>
+                        <TaskItemContainer>
+                          <TaskCheck></TaskCheck>
+                          <TaskDescription>{task.description}</TaskDescription>
+                        </TaskItemContainer>
+                      </TaskItem>
                     ))}
                   </ul>
                 </div>
