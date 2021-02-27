@@ -21,7 +21,7 @@ export const SignIn = ({ history }) => {
   const { loading, error, userInfo } = userLogin
   useEffect(() => {
     console.log({ loading, error, userInfo })
-    userInfo && history.push('/app')
+    userInfo && history.push('/app/today')
   }, [loading, error, userInfo])
 
   return (

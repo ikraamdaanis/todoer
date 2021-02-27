@@ -69,7 +69,7 @@ export const projectTasksDetailsReducer = (state = {}, action) => {
     case PROJECT_TASKS_DETAILS_SUCCESS:
       return {
         loading: false,
-        tasks: [action.payload],
+        tasks: action.payload,
       }
     case PROJECT_TASKS_DETAILS_FAIL:
       return {

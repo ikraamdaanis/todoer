@@ -108,6 +108,7 @@ export const getProjectTasks = project => async (dispatch, getState) => {
           payload: queryTasks,
         })
       })
+    console.log('Project', project)
   } catch (error) {
     dispatch({
       type: PROJECT_TASKS_DETAILS_FAIL,
@@ -117,6 +118,7 @@ export const getProjectTasks = project => async (dispatch, getState) => {
 }
 
 export const getAllTasks = isToday => async (dispatch, getState) => {
+  console.log('All', isToday)
   try {
     dispatch({
       type: PROJECT_TASKS_ALL_REQUEST,

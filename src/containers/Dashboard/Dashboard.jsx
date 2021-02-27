@@ -26,6 +26,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const dispatch = useDispatch()
   const { id } = match.params
 
+  const isProject = id !== 'today' && id !== 'upcoming'
+
   const projectTasksDetails = useSelector(state => state.projectTasksDetails)
   const { loading: tasksLoading, tasks: projectTasks } = projectTasksDetails
 
@@ -45,27 +47,34 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const fetchTasks = async param => {
     if (!projectsLoading) {
       if (param === 'today') {
-        await dispatch(getAllTasks('=='))
-        !allTasksLoading && (await setDashboardTasks(allTasks))
+        dispatch(getAllTasks('=='))
       } else if (param === 'upcoming') {
-        await dispatch(getAllTasks('>'))
-        !allTasksLoading && (await setDashboardTasks(allTasks))
+        dispatch(getAllTasks('>'))
       } else {
-        const [current] = projectsDetails?.filter(
+        const [current] = await projectsDetails?.filter(
           project => project.title.toLowerCase() === match.params.id
         )
-        setCurrentProject(current)
+        await setCurrentProject(() => current)
         currentProject &&
           (await dispatch(getProjectTasks(currentProject.title)))
-        !tasksLoading && (await setDashboardTasks(projectTasks))
       }
     }
   }
 
   useEffect(() => {
     fetchTasks(id)
-    console.log('Tasks: ', dashboardTasks)
-  }, [dispatch, id, projectsDetails, dashboardTasks])
+  }, [dispatch, id, projectsDetails, currentProject])
+
+  useEffect(() => {
+    console.clear()
+    console.log(isProject, dashboardTasks)
+    // !isProject && console.log('All Tasks => ', allTasks)
+    // isProject && console.log('Project Tasks => ', projectTasks)
+
+    !isProject && setDashboardTasks(allTasks)
+    isProject && setDashboardTasks(projectTasks)
+    console.log('Projects Loading => ', projectsLoading)
+  }, [allTasks, projectTasks, projectsLoading, isProject, dashboardTasks])
 
   useEffect(() => {
     !currentProject ||
@@ -77,7 +86,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
     <div>
       <Sidebar isClosed={isClosed} />
       <DashboardContainer className={isClosed && 'closed'}>
-        {isLoading || projectsLoading || tasksLoading ? (
+        {isLoading || projectsLoading || tasksLoading || allTasksLoading ? (
           <div style={{ marginTop: '10rem' }}>
             <Spinner />
           </div>
@@ -90,15 +99,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                   <small>{format(new Date(), 'iii do MMM')}</small>
                 )}
               </Title>
-              {tasksLoading && allTasksLoading && !dashboardTasks ? (
-                <Spinner />
-              ) : (
-                <div className='tasks'>
-                  {/* {dashboardTasks.flat().map(task => (
-                    <p key={task.id}>{task.description}</p>
-                  ))} */}
-                </div>
-              )}
+              <div className='tasks'></div>
               {!isOpen ? (
                 <AddTask onClick={() => setIsOpen(!isOpen)}>
                   <PlusButton className='plus'>
