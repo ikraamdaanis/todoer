@@ -8,9 +8,10 @@ import {
   ProjectsButton,
   ProjectsButtonContainer,
   ProjectTitles,
-  SidebarButton,
+  SidebarItem,
   SidebarButtonContainer,
   SidebarContainer,
+  SidebarLink,
 } from './SidebarStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -20,6 +21,7 @@ import {
 import { ReactComponent as Upcoming } from '../../assets/images/upcoming-icon.svg'
 import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const TodayIcon = ({ date }) => {
   return (
@@ -73,7 +75,7 @@ const UpcomingIcon = () => {
   )
 }
 
-export const Sidebar = ({ isClosed }) => {
+export const Sidebar = ({ isClosed, param }) => {
   const [project, setProject] = useState('')
   const [isOpen, setIsOpen] = useState(true)
   const [allProjects, setAllProjects] = useState([])
@@ -109,23 +111,29 @@ export const Sidebar = ({ isClosed }) => {
     setProject('')
   }
 
+  const activeCheck = el => el.toLowerCase() === param
+
   return (
     <SidebarContainer className={isClosed && 'closed'}>
       <Container>
-        <SidebarButtonContainer>
-          <Link to='/app/today'>
-            <SidebarButton>
+        <SidebarButtonContainer
+          className={activeCheck('today') ? 'active' : undefined}
+        >
+          <Link to={'/app/today'}>
+            <SidebarItem>
               <TodayIcon date={format(new Date(), 'dd')} />
               <span>Today</span>
-            </SidebarButton>
+            </SidebarItem>
           </Link>
         </SidebarButtonContainer>
-        <SidebarButtonContainer>
-          <Link to='/app/upcoming'>
-            <SidebarButton>
+        <SidebarButtonContainer
+          className={activeCheck('upcoming') ? 'active' : undefined}
+        >
+          <Link to={'/app/upcoming'}>
+            <SidebarItem>
               <UpcomingIcon />
               <span>Upcoming</span>
-            </SidebarButton>
+            </SidebarItem>
           </Link>
         </SidebarButtonContainer>
         <ProjectsButtonContainer>
@@ -153,14 +161,17 @@ export const Sidebar = ({ isClosed }) => {
             {allProjects?.length > 0 &&
               allProjects.map(project => (
                 <li key={project.title}>
-                  <Link to={`/app/${project.title.toLowerCase()}`}>
+                  <NavLink
+                    to={`/app/${project.title.toLowerCase()}`}
+                    activeClassName='active'
+                  >
                     <div className='container'>
                       <BulletPoint>
                         <div></div>
                       </BulletPoint>
                       <span>{project.title}</span>
                     </div>
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
             <AddProjectForm autoComplete='off' onSubmit={handleSubmit}>

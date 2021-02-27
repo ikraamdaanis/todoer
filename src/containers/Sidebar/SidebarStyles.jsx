@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 export const SidebarContainer = styled.div`
@@ -26,7 +27,7 @@ export const SidebarButtonContainer = styled.div`
   padding: 5px 16px 5px 5px;
 `
 
-export const SidebarButton = styled.button`
+export const SidebarItem = styled.div`
   color: hsla(0, 0%, 100%, 0.87);
   border: 0;
   outline: 0;

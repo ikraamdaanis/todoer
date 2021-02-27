@@ -55,6 +55,10 @@ input {
   font-size: 16px;
 }
 
+ul{
+  list-style: none;
+}
+
 select {
   font-size: 16px;
 }
@@ -72,5 +76,9 @@ label {
 
 .hide {
   display: none !important;
+}
+
+.active {
+  background-color: #363636 !important;
 }
 `

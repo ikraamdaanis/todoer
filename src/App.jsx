@@ -18,8 +18,8 @@ export const App = () => {
 
   return (
     <>
-      <GlobalStyle />
       <Router>
+        <GlobalStyle />
         <Navbar setIsClosed={setIsClosed} />
         <ScrollToTop />
         <main>
