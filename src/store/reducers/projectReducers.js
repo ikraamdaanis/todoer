@@ -6,6 +6,10 @@ import {
   PROJECT_DETAILS_FAIL,
   PROJECT_DETAILS_REQUEST,
   PROJECT_DETAILS_SUCCESS,
+  PROJECT_TASKS_ALL_CLEAR,
+  PROJECT_TASKS_ALL_FAIL,
+  PROJECT_TASKS_ALL_REQUEST,
+  PROJECT_TASKS_ALL_SUCCESS,
   PROJECT_TASKS_DETAILS_CLEAR,
   PROJECT_TASKS_DETAILS_FAIL,
   PROJECT_TASKS_DETAILS_REQUEST,
@@ -73,6 +77,29 @@ export const projectTasksDetailsReducer = (state = {}, action) => {
         error: action.payload,
       }
     case PROJECT_TASKS_DETAILS_CLEAR:
+      return {}
+    default:
+      return state
+  }
+}
+
+export const allProjectTasksReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PROJECT_TASKS_ALL_REQUEST:
+      return {
+        loading: true,
+      }
+    case PROJECT_TASKS_ALL_SUCCESS:
+      return {
+        loading: false,
+        tasks: action.payload,
+      }
+    case PROJECT_TASKS_ALL_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    case PROJECT_TASKS_ALL_CLEAR:
       return {}
     default:
       return state

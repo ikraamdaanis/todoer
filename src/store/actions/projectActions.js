@@ -6,6 +6,9 @@ import {
   PROJECT_DETAILS_FAIL,
   PROJECT_DETAILS_REQUEST,
   PROJECT_DETAILS_SUCCESS,
+  PROJECT_TASKS_ALL_FAIL,
+  PROJECT_TASKS_ALL_REQUEST,
+  PROJECT_TASKS_ALL_SUCCESS,
   PROJECT_TASKS_DETAILS_FAIL,
   PROJECT_TASKS_DETAILS_REQUEST,
   PROJECT_TASKS_DETAILS_SUCCESS,
@@ -113,19 +116,19 @@ export const getProjectTasks = project => async (dispatch, getState) => {
   }
 }
 
-export const getAllTasks = () => async (dispatch, getState) => {
+export const getAllTasks = isToday => async (dispatch, getState) => {
   try {
-    // dispatch({
-    //   type: PROJECT_TASKS_DETAILS_REQUEST,
-    // })
+    dispatch({
+      type: PROJECT_TASKS_ALL_REQUEST,
+    })
     const {
       userLogin: { userInfo },
       allProjectsDetails: { projects },
     } = getState()
     const queries = []
     const all = []
+    console.log({ projects })
     projects.forEach(proj => {
-      console.log('Project: ', format(new Date(), 'yyyy-MM-dd'))
       queries.push(
         firestore
           .collection('users')
@@ -133,18 +136,25 @@ export const getAllTasks = () => async (dispatch, getState) => {
           .collection('projects')
           .doc(proj.title)
           .collection('tasks')
-          .where('dueDate', '==', format(new Date(), 'yyyy-MM-dd'))
+          .where('dueDate', isToday, format(new Date(), 'yyyy-MM-dd'))
           .get()
       )
     })
-    Promise.all(queries).then(results => {
-      results.forEach(i => i.docs.forEach(doc => all.push(doc.data())))
-      console.log('hi; ', all)
-    })
+    Promise.all(queries)
+      .then(results => {
+        results.forEach(i => i.docs.forEach(doc => all.push(doc.data())))
+      })
+      .then(() => {
+        console.log({ all })
+        dispatch({
+          type: PROJECT_TASKS_ALL_SUCCESS,
+          payload: all,
+        })
+      })
   } catch (error) {
-    // dispatch({
-    //   type: PROJECT_TASKS_DETAILS_FAIL,
-    //   payload: error,
-    // })
+    dispatch({
+      type: PROJECT_TASKS_ALL_FAIL,
+      payload: error,
+    })
   }
 }

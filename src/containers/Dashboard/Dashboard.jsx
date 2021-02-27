@@ -52,10 +52,16 @@ export const Dashboard = ({ history, match, isClosed }) => {
     !currentProject && history.push('/app/today')
   }, [currentProject])
 
+  // useEffect(() => {
+  //   !tasksLoading && console.log('Tasks: ', projectTasks, match.params.id)
+  //   dispatch(getAllTasks())
+  // }, [match])
+
   useEffect(() => {
-    !tasksLoading && console.log('Tasks: ', projectTasks, match.params.id)
-    dispatch(getAllTasks())
-  }, [match])
+    match.params.id === 'today' && dispatch(getAllTasks('=='))
+
+    console.log('getAllTasks')
+  }, [projectsDetails])
 
   return (
     <div>

@@ -11,7 +11,6 @@ import { useSelector } from 'react-redux'
 
 import { Link } from 'react-router-dom'
 import { ProfileMenu } from '../../components'
-import { firestore } from '../../firebase/config'
 
 export const Navbar = ({ setIsClosed }) => {
   const userLogin = useSelector(state => state.userLogin)
