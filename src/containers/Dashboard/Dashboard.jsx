@@ -103,7 +103,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   return (
     <div>
-      <Sidebar isClosed={isClosed} param={id} />
+      <Sidebar isClosed={isClosed} param={id} history={history} />
       <DashboardContainer className={isClosed && 'closed'}>
         {isLoading || projectsLoading || tasksLoading || allTasksLoading ? (
           <div style={{ marginTop: '10rem' }}>

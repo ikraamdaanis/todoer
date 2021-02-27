@@ -75,17 +75,14 @@ const UpcomingIcon = () => {
   )
 }
 
-export const Sidebar = ({ isClosed, param }) => {
+export const Sidebar = ({ isClosed, param, history }) => {
   const [project, setProject] = useState('')
   const [isOpen, setIsOpen] = useState(true)
   const [allProjects, setAllProjects] = useState([])
   const dispatch = useDispatch()
 
-  const userLogin = useSelector(state => state.userLogin)
-  const { userInfo } = userLogin
-
   const projectCreate = useSelector(state => state.projectCreate)
-  const { loading, error } = projectCreate
+  const { loading, success, error } = projectCreate
 
   const allProjectsDetails = useSelector(state => state.allProjectsDetails)
   const {
@@ -104,11 +101,12 @@ export const Sidebar = ({ isClosed, param }) => {
     projectsDetails && setAllProjects([...projectsDetails])
   }, [projectsDetails])
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault()
-    console.log(project)
-    dispatch(createProject(project))
+    const proj = project
+    await dispatch(createProject(project))
     setProject('')
+    success && history.push(`/app/${proj.toLowerCase()}`)
   }
 
   const activeCheck = el => el.toLowerCase() === param
