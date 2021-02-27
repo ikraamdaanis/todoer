@@ -44,6 +44,13 @@ export const Dashboard = ({ history, match, isClosed }) => {
     setIsLoading(false)
   }, 1000)
 
+  const assignCurrentProject = () => {
+    const [current] = projectsDetails?.filter(
+      project => project.title.toLowerCase() === match.params.id
+    )
+    setCurrentProject(() => current)
+  }
+
   const fetchTasks = async param => {
     if (!projectsLoading) {
       if (param === 'today') {
@@ -51,12 +58,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
       } else if (param === 'upcoming') {
         dispatch(getAllTasks('>'))
       } else {
-        const [current] = await projectsDetails?.filter(
-          project => project.title.toLowerCase() === match.params.id
-        )
-        await setCurrentProject(() => current)
-        currentProject &&
-          (await dispatch(getProjectTasks(currentProject.title)))
+        assignCurrentProject()
+        currentProject && dispatch(getProjectTasks(currentProject.title))
       }
     }
   }
@@ -66,20 +69,12 @@ export const Dashboard = ({ history, match, isClosed }) => {
   }, [dispatch, id, projectsDetails, currentProject])
 
   useEffect(() => {
-    console.clear()
-    console.log(isProject, dashboardTasks)
-    // !isProject && console.log('All Tasks => ', allTasks)
-    // isProject && console.log('Project Tasks => ', projectTasks)
-
     !isProject && setDashboardTasks(allTasks)
     isProject && setDashboardTasks(projectTasks)
-    console.log('Projects Loading => ', projectsLoading)
   }, [allTasks, projectTasks, projectsLoading, isProject, dashboardTasks])
 
   useEffect(() => {
-    !currentProject ||
-      id !== 'today' ||
-      (id !== 'upcoming' && history.push('/app/today'))
+    !currentProject && isProject && history.push('/app/today')
   }, [currentProject, id])
 
   return (
@@ -99,7 +94,15 @@ export const Dashboard = ({ history, match, isClosed }) => {
                   <small>{format(new Date(), 'iii do MMM')}</small>
                 )}
               </Title>
-              <div className='tasks'></div>
+              {dashboardTasks && (
+                <div className='tasks'>
+                  <ul>
+                    {dashboardTasks.map(task => (
+                      <li key={task.id}>{task.description}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               {!isOpen ? (
                 <AddTask onClick={() => setIsOpen(!isOpen)}>
                   <PlusButton className='plus'>
