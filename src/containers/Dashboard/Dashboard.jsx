@@ -24,6 +24,7 @@ import {
 import { Sidebar } from '../Sidebar/Sidebar'
 import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConstants'
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
+import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -150,12 +151,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                         <TaskItemContainer>
                           <TaskCheck>
                             <div className='circle'>
-                              <svg width='24' height='24'>
-                                <path
-                                  fill='currentColor'
-                                  d='M11.23 13.7l-2.15-2a.55.55 0 0 0-.74-.01l.03-.03a.46.46 0 0 0 0 .68L11.24 15l5.4-5.01a.45.45 0 0 0 0-.68l.02.03a.55.55 0 0 0-.73 0l-4.7 4.35z'
-                                ></path>
-                              </svg>
+                              <TickIcon />
                             </div>
                           </TaskCheck>
                           <TaskDetails>
