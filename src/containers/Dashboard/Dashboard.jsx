@@ -85,14 +85,16 @@ export const Dashboard = ({ history, match, isClosed }) => {
     })
   }, [currentProject])
 
+  const sortByDate = (a, b) => a.createdAt - b.createdAt
+
   useEffect(() => {
-    !isProject && setDashboardTasks(allTasks)
-    isProject && setDashboardTasks(projectTasks)
+    !isProject && setDashboardTasks(allTasks?.sort(sortByDate))
+    isProject && setDashboardTasks(projectTasks?.sort(sortByDate))
   }, [allTasks, projectTasks, projectsLoading, isProject, dashboardTasks])
 
   useEffect(() => {
-    // console.clear()
-    // console.log('Dashboard =>', dashboardTasks, currentProject)
+    console.clear()
+    console.log('Dashboard =>', dashboardTasks)
   }, [dashboardTasks])
 
   useEffect(() => {

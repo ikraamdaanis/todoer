@@ -74,7 +74,7 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
         description: todoDescription,
         project: selectedProject,
         dueDate: date,
-        createdAt: format(new Date(), 'yyyy-MM-dd'),
+        createdAt: new Date(),
         id: uuidv4(),
       })
     )
