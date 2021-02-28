@@ -94,10 +94,10 @@ export const Dashboard = ({ history, match, isClosed }) => {
     isProject && setDashboardTasks(projectTasks?.sort(sortByDate))
   }, [allTasks, projectTasks, projectsLoading, isProject, dashboardTasks])
 
-  useEffect(() => {
-    console.clear()
-    console.log('Dashboard =>', dashboardTasks)
-  }, [dashboardTasks])
+  // useEffect(() => {
+  //   console.clear()
+  //   console.log('Dashboard =>', dashboardTasks)
+  // }, [dashboardTasks])
 
   useEffect(() => {
     if (projectsDetails) {
@@ -109,16 +109,11 @@ export const Dashboard = ({ history, match, isClosed }) => {
     }
   }, [currentProject, isProject, id, projectsDetails])
 
-  useEffect(() => {
-    console.log('Task to delete: ', taskToDelete)
-  }, [taskToDelete])
-
   const deleteSelectedTask = async (project, id) => {
     await setTaskToDelete(() => id)
     setTimeout(async () => {
-      console.log({ taskToDelete })
       taskToDelete && dispatch(deleteTask(project, id))
-      // setTaskToDelete('')
+      setTaskToDelete(() => '')
     }, 2000)
   }
 

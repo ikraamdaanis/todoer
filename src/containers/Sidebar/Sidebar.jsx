@@ -101,12 +101,17 @@ export const Sidebar = ({ isClosed, param, history }) => {
     projectsDetails && setAllProjects([...projectsDetails])
   }, [projectsDetails])
 
+  useEffect(() => {
+    if (success) {
+      const proj = project
+      setProject('')
+      proj && history.push(`/app/${proj.toLowerCase()}`)
+    }
+  }, [loading, success])
+
   const handleSubmit = async event => {
     event.preventDefault()
-    const proj = project
     await dispatch(createProject(project))
-    setProject('')
-    success && history.push(`/app/${proj.toLowerCase()}`)
   }
 
   const activeCheck = el => el.toLowerCase() === param
