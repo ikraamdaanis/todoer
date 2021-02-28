@@ -149,15 +149,17 @@ export const Dashboard = ({ history, match, isClosed }) => {
                     {dashboardTasks.map(task => (
                       <TaskItem key={task.id}>
                         <TaskItemContainer>
-                          <TaskCheck>
-                            <div className='circle'>
-                              <TickIcon />
-                            </div>
-                          </TaskCheck>
                           <TaskDetails>
+                            <TaskCheck>
+                              <div className='circle'>
+                                <TickIcon />
+                              </div>
+                            </TaskCheck>
                             <TaskDescription>
                               {task.description}
                             </TaskDescription>
+                          </TaskDetails>
+                          {task.dueDate && (
                             <TaskTags>
                               <div
                                 className='date'
@@ -172,7 +174,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                                 <span>{checkDate(task.dueDate)}</span>
                               </div>
                             </TaskTags>
-                          </TaskDetails>
+                          )}
                         </TaskItemContainer>
                       </TaskItem>
                     ))}

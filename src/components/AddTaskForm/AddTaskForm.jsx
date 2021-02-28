@@ -19,7 +19,7 @@ import { v4 as uuidv4 } from 'uuid'
 export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
   const [todoDescription, setTodoDescription] = useState('')
   const [selectedProject, setSelectedProject] = useState(currentProject?.title)
-  const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'))
+  const [date, setDate] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isActive, setIsActive] = useState(false)
 
@@ -81,7 +81,7 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
 
     setTodoDescription('')
     setSelectedProject(currentProject.title)
-    setDate(format(new Date(), 'yyyy-MM-dd'))
+    setDate('')
 
     history.push(`/app/${project.toLowerCase()}`)
   }
@@ -101,10 +101,10 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
       >
         <Container className={isActive && 'focused'} ref={form}>
           <div className='title'>
-            <label htmlFor='title'>Title</label>
+            <label htmlFor='description'>Description</label>
             <input
-              name='title'
-              id='title'
+              name='description'
+              id='description'
               placeholder='e.g. Complete this task today'
               value={todoDescription}
               onChange={e => setTodoDescription(e.target.value)}

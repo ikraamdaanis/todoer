@@ -122,7 +122,7 @@ export const TaskItem = styled.li`
 
 export const TaskItemContainer = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   position: relative;
   padding: 0;
   cursor: pointer;
@@ -132,7 +132,6 @@ export const TaskCheck = styled.div`
   width: 30px;
   display: flex;
   align-items: center;
-  margin-bottom: 22px;
   height: 100%;
 
   &:hover {
@@ -162,7 +161,7 @@ export const TaskCheck = styled.div`
 
 export const TaskDetails = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
 `
 
 export const TaskDescription = styled.p`
@@ -182,7 +181,7 @@ export const TaskDescription = styled.p`
 export const TaskTags = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 0 6px;
+  margin: 0 0 6px 30px;
   height: 16px;
   width: 100%;
   font-size: 12px;

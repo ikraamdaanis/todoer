@@ -13,7 +13,7 @@ export const DatePicker = ({ chosenDate, setDate }) => {
   const handleChange = ({ target }) => {
     const date = target.value
     setDate(date)
-    setDueDateText(dueDateText => {
+    setDueDateText(() => {
       if (isToday(new Date(date))) {
         return 'Today'
       } else if (isTomorrow(new Date(date))) {
@@ -27,7 +27,9 @@ export const DatePicker = ({ chosenDate, setDate }) => {
   }
 
   useEffect(() => {
-    chosenDate === format(new Date(), 'yyyy-MM-dd') && setDueDateText('Today')
+    chosenDate === format(new Date(), 'yyyy-MM-dd')
+      ? setDueDateText('Today')
+      : !chosenDate && setDueDateText('Schedule')
   }, [chosenDate])
 
   const color =
@@ -41,7 +43,7 @@ export const DatePicker = ({ chosenDate, setDate }) => {
 
   return (
     <>
-      <DatePickerToggle style={{ color: color }}>
+      <DatePickerToggle style={{ color }}>
         <ScheduleIcon />
         <ToggleButton>{dueDateText}</ToggleButton>
         <DatePickerInput
