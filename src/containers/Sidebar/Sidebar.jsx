@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import {
-  AddProjectButton,
-  AddProjectForm,
-  AddProjectInput,
+  AddProjectFormTogglerButton,
+  AddProjectFormToggler,
+  AddProjectFormTogglerText,
   BulletPoint,
   Container,
   ProjectsButton,
@@ -11,14 +11,15 @@ import {
   SidebarItem,
   SidebarButtonContainer,
   SidebarContainer,
-  SidebarLink,
 } from './SidebarStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   createProject,
   getAllProjects,
+  toggleProjectModal,
 } from '../../store/actions/projectActions'
 import { ReactComponent as Upcoming } from '../../assets/images/upcoming-icon.svg'
+import { ReactComponent as PlusIcon } from '../../assets/images/plus-icon.svg'
 import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
@@ -81,9 +82,6 @@ export const Sidebar = ({ isClosed, param, history }) => {
   const [allProjects, setAllProjects] = useState([])
   const dispatch = useDispatch()
 
-  const projectCreate = useSelector(state => state.projectCreate)
-  const { loading, success, error } = projectCreate
-
   const allProjectsDetails = useSelector(state => state.allProjectsDetails)
   const {
     loading: projectsLoading,
@@ -100,19 +98,6 @@ export const Sidebar = ({ isClosed, param, history }) => {
   useEffect(() => {
     projectsDetails && setAllProjects([...projectsDetails])
   }, [projectsDetails])
-
-  useEffect(() => {
-    if (success) {
-      const proj = project
-      setProject('')
-      proj && history.push(`/app/${proj.toLowerCase()}`)
-    }
-  }, [loading, success])
-
-  const handleSubmit = async event => {
-    event.preventDefault()
-    await dispatch(createProject(project))
-  }
 
   const activeCheck = el => el.toLowerCase() === param
 
@@ -177,24 +162,21 @@ export const Sidebar = ({ isClosed, param, history }) => {
                   </NavLink>
                 </li>
               ))}
-            <AddProjectForm autoComplete='off' onSubmit={handleSubmit}>
-              <AddProjectButton type='submit'>
-                <svg width='13' height='13'>
-                  <path
-                    d='M6 6V.5a.5.5 0 011 0V6h5.5a.5.5 0 110 1H7v5.5a.5.5 0 11-1 0V7H.5a.5.5 0 010-1H6z'
-                    fill='currentColor'
-                  ></path>
-                </svg>
-              </AddProjectButton>
-              <AddProjectInput
-                type='text'
-                id='projectTitle'
-                required
-                placeholder='Add Project'
-                value={project}
-                onChange={event => setProject(event.target.value)}
-              />
-            </AddProjectForm>
+
+            <AddProjectFormToggler>
+              <AddProjectFormTogglerButton
+                onClick={() => dispatch(toggleProjectModal())}
+              >
+                <div className='icon'>
+                  <div className='icon-wrapper'>
+                    <PlusIcon />
+                  </div>
+                </div>
+                <AddProjectFormTogglerText>
+                  Add Project
+                </AddProjectFormTogglerText>
+              </AddProjectFormTogglerButton>
+            </AddProjectFormToggler>
           </ProjectTitles>
         )}
       </Container>

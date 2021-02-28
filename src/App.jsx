@@ -7,6 +7,7 @@ import {
   Redirect,
 } from 'react-router-dom'
 import { ScrollToTop } from './components'
+import { AddProjectModal } from './components/AddProjectModal/AddProjectModal'
 import { Dashboard, Navbar } from './containers'
 import { Home, SignIn, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
@@ -15,6 +16,9 @@ export const App = () => {
   const [isClosed, setIsClosed] = useState(false)
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
+
+  const projectCreateModal = useSelector(state => state.projectCreateModal)
+  const { isOpen } = projectCreateModal
 
   return (
     <>
@@ -46,6 +50,7 @@ export const App = () => {
             </Route>
           </Switch>
         </main>
+        {isOpen && <AddProjectModal />}
       </Router>
     </>
   )

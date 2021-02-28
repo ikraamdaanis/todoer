@@ -153,48 +153,73 @@ export const BulletPoint = styled.div`
   }
 `
 
-export const AddProjectForm = styled.form`
+export const AddProjectFormToggler = styled.div`
   padding: 5px 16px 5px 5px;
 `
 
-export const AddProjectButton = styled.button`
-  background: none;
-  color: var(--light-red);
-  border: none;
+export const AddProjectFormTogglerButton = styled.button`
   outline: 0;
   cursor: pointer;
   font-size: 1.3rem;
   font-weight: 300;
-  transform: translate(-1px, 2px);
   transition: 0.2s ease-in-out;
-  width: 38px;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
 
   &:hover {
-    @media (min-width: 600px) {
+    span {
       color: var(--light-red);
+    }
+
+    .icon {
+      &-wrapper {
+        background: var(--light-red);
+
+        svg {
+          color: var(--dark-gray);
+        }
+      }
+    }
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    width: 38px;
+    transform: translate(10.5px, 0px);
+
+    &-wrapper {
+      height: 17px;
+      width: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+
+      svg {
+        color: var(--light-red);
+      }
     }
   }
 `
 
-export const AddProjectInput = styled.input`
+export const AddProjectFormTogglerText = styled.span`
   background: none;
   outline: 0;
   border: 0;
   padding: 5px 16px 5px 0;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 300;
   color: grey;
-  transform: translateY(0px);
   transition: 0.2s ease-in-out;
+  transform: translateY(0px);
 
   &:focus {
-    border-bottom: 2px solid var(--light-red);
     color: white;
   }
 
   &:hover {
-    @media (min-width: 600px) {
-      border-bottom: 2px solid var(--light-red);
-    }
   }
 `

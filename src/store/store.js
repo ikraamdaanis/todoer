@@ -5,6 +5,7 @@ import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
 import {
   allProjectsDetailsReducer,
   allProjectTasksReducer,
+  projectCreateModalReducer,
   projectCreateReducer,
   projectTasksDetailsReducer,
 } from './reducers/projectReducers'
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   projectCreate: projectCreateReducer,
+  projectCreateModal: projectCreateModalReducer,
   allProjectsDetails: allProjectsDetailsReducer,
   allProjectTasks: allProjectTasksReducer,
   projectTasksDetails: projectTasksDetailsReducer,

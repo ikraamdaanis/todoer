@@ -1,6 +1,7 @@
 import { firestore } from '../../firebase/config'
 import {
   PROJECT_CREATE_FAIL,
+  PROJECT_CREATE_MODAL_TOGGLE,
   PROJECT_CREATE_REQUEST,
   PROJECT_CREATE_SUCCESS,
   PROJECT_DETAILS_FAIL,
@@ -46,6 +47,12 @@ export const createProject = project => async (dispatch, getState) => {
       payload: error,
     })
   }
+}
+
+export const toggleProjectModal = () => dispatch => {
+  dispatch({
+    type: PROJECT_CREATE_MODAL_TOGGLE,
+  })
 }
 
 export const getAllProjects = () => async (dispatch, getState) => {

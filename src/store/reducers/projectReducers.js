@@ -1,5 +1,6 @@
 import {
   PROJECT_CREATE_FAIL,
+  PROJECT_CREATE_MODAL_TOGGLE,
   PROJECT_CREATE_REQUEST,
   PROJECT_CREATE_SUCCESS,
   PROJECT_DETAILS_CLEAR,
@@ -32,6 +33,18 @@ export const projectCreateReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       }
+    default:
+      return state
+  }
+}
+
+export const projectCreateModalReducer = (
+  state = { isOpen: false },
+  action
+) => {
+  switch (action.type) {
+    case PROJECT_CREATE_MODAL_TOGGLE:
+      return { isOpen: !state.isOpen }
     default:
       return state
   }
