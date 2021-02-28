@@ -132,6 +132,8 @@ export const TaskCheck = styled.div`
   width: 30px;
   display: flex;
   align-items: center;
+  margin-bottom: 22px;
+  height: 100%;
 
   &:hover {
     svg {
@@ -158,6 +160,11 @@ export const TaskCheck = styled.div`
   }
 `
 
+export const TaskDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
 export const TaskDescription = styled.p`
   flex: 1;
   padding: 8px 0;
@@ -170,4 +177,23 @@ export const TaskDescription = styled.p`
   line-height: 21px;
   word-wrap: break-word;
   word-break: break-word;
+`
+
+export const TaskTags = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 0 6px;
+  height: 16px;
+  width: 100%;
+  font-size: 12px;
+  transform: translateY(-4px);
+
+  .date {
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 4px;
+    }
+  }
 `
