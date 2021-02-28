@@ -39,7 +39,6 @@ export const createTask = (project, task) => async (dispatch, getState) => {
 }
 
 export const deleteTask = (project, task) => async (dispatch, getState) => {
-  console.log('Task =>', project, task)
   try {
     dispatch({
       type: TASK_DELETE_REQUEST,

@@ -12,6 +12,11 @@ import {
   TaskItemContainer,
   TaskTags,
   Title,
+  UndoNotification,
+  UndoContainer,
+  UndoText,
+  UndoButton,
+  UndoCloseButton,
 } from './DashboardStyles'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { AddTaskForm, Spinner } from '../../components'
@@ -26,6 +31,7 @@ import { Sidebar } from '../Sidebar/Sidebar'
 import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConstants'
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
 import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
+import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -33,6 +39,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [currentProject, setCurrentProject] = useState(null)
   const [dashboardTasks, setDashboardTasks] = useState([])
   const [taskToDelete, setTaskToDelete] = useState('')
+  const [isUndoVisible, setIsUndoVisible] = useState(false)
 
   const dispatch = useDispatch()
   const { id } = match.params
@@ -114,25 +121,18 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const deleteSelectedTask = (project, id) => {
     timer = setTimeout(() => {
       dispatch(deleteTask(project, id))
-      console.log('Time')
     }, 5000)
   }
 
-  const cancelTask = () => {
-    clearTimeout(timer)
-    console.log('clear')
-  }
-
   const cancelDeleteTask = () => {
-    cancelTask()
-    console.log('Cancel')
+    clearTimeout(timer)
     setTaskToDelete('')
+    setIsUndoVisible(false)
   }
 
   useEffect(() => {
     if (taskToDelete) {
       const { project, id } = taskToDelete
-      console.log({ project, id })
       deleteSelectedTask(project, id)
     }
   }, [taskToDelete])
@@ -159,85 +159,109 @@ export const Dashboard = ({ history, match, isClosed }) => {
       : 'unset'
 
   return (
-    <div>
-      <Sidebar isClosed={isClosed} param={id} history={history} />
-      <DashboardContainer className={isClosed && 'closed'}>
-        <ProjectContainer>
-          <Title>
-            {match.params.id}
-            {match.params.id === 'today' && (
-              <small>{format(new Date(), 'iii do MMM')}</small>
-            )}
-          </Title>
-          {isLoading || projectsLoading || tasksLoading || allTasksLoading ? (
-            <div style={{ marginTop: '10rem' }}>
-              <Spinner />
-            </div>
-          ) : (
-            dashboardTasks && (
-              <>
-                <div className='tasks'>
-                  <ul>
-                    {dashboardTasks.map(task => (
-                      <TaskItem key={task.id}>
-                        <TaskItemContainer>
-                          <TaskDetails>
-                            <TaskCheck
-                              onClick={() =>
-                                setTaskToDelete({
-                                  project: task.project,
-                                  id: task.id,
-                                })
-                              }
-                            >
-                              <div className='circle'>
-                                <TickIcon />
-                              </div>
-                            </TaskCheck>
-                            <TaskDescription onClick={() => cancelDeleteTask()}>
-                              {task.description}
-                            </TaskDescription>
-                          </TaskDetails>
-                          {task.dueDate && (
-                            <TaskTags>
-                              <div
-                                className='date'
-                                style={{
-                                  color: dateColour(
-                                    checkDate(task.dueDate),
-                                    task.dueDate
-                                  ),
+    <>
+      <div>
+        <Sidebar isClosed={isClosed} param={id} history={history} />
+        <DashboardContainer className={isClosed && 'closed'}>
+          <ProjectContainer>
+            <Title>
+              {match.params.id}
+              {match.params.id === 'today' && (
+                <small>{format(new Date(), 'iii do MMM')}</small>
+              )}
+            </Title>
+            {isLoading || projectsLoading || tasksLoading || allTasksLoading ? (
+              <div style={{ marginTop: '10rem' }}>
+                <Spinner />
+              </div>
+            ) : (
+              dashboardTasks && (
+                <>
+                  <div className='tasks'>
+                    <ul>
+                      {dashboardTasks.map(task => (
+                        <TaskItem
+                          key={task.id}
+                          className={
+                            taskToDelete.id === task.id ? 'hide' : undefined
+                          }
+                        >
+                          <TaskItemContainer>
+                            <TaskDetails>
+                              <TaskCheck
+                                onClick={() => {
+                                  setTaskToDelete({
+                                    project: task.project,
+                                    id: task.id,
+                                  })
+                                  setIsUndoVisible(true)
                                 }}
                               >
-                                <DueDateIcon />
-                                <span>{checkDate(task.dueDate)}</span>
-                              </div>
-                            </TaskTags>
-                          )}
-                        </TaskItemContainer>
-                      </TaskItem>
-                    ))}
-                  </ul>
-                </div>
-                {!isOpen ? (
-                  <AddTask onClick={() => setIsOpen(!isOpen)}>
-                    <PlusButton className='plus'>
-                      <PlusButtonSVG />
-                    </PlusButton>
-                    <AddTaskText>Add task</AddTaskText>
-                  </AddTask>
-                ) : (
-                  <AddTaskForm
-                    history={history}
-                    setIsOpen={setIsOpen}
-                    currentProject={currentProject}
-                  />
-                )}
-              </>
-            )
-          )}
-        </ProjectContainer>
-      </DashboardContainer>
-    </div>
+                                <div className='circle'>
+                                  <TickIcon />
+                                </div>
+                              </TaskCheck>
+                              <TaskDescription>
+                                {task.description}
+                              </TaskDescription>
+                            </TaskDetails>
+                            {task.dueDate && (
+                              <TaskTags>
+                                <div
+                                  className='date'
+                                  style={{
+                                    color: dateColour(
+                                      checkDate(task.dueDate),
+                                      task.dueDate
+                                    ),
+                                  }}
+                                >
+                                  <DueDateIcon />
+                                  <span>{checkDate(task.dueDate)}</span>
+                                </div>
+                              </TaskTags>
+                            )}
+                          </TaskItemContainer>
+                        </TaskItem>
+                      ))}
+                    </ul>
+                  </div>
+                  {!isOpen ? (
+                    <AddTask onClick={() => setIsOpen(!isOpen)}>
+                      <PlusButton className='plus'>
+                        <PlusButtonSVG />
+                      </PlusButton>
+                      <AddTaskText>Add task</AddTaskText>
+                    </AddTask>
+                  ) : (
+                    <AddTaskForm
+                      history={history}
+                      setIsOpen={setIsOpen}
+                      currentProject={currentProject}
+                    />
+                  )}
+                </>
+              )
+            )}
+          </ProjectContainer>
+        </DashboardContainer>
+      </div>
+      {isUndoVisible && (
+        <UndoNotification>
+          <UndoContainer>
+            <UndoText>1 task completed</UndoText>
+            <UndoButton type='button' onClick={() => cancelDeleteTask()}>
+              Undo
+            </UndoButton>
+            <UndoCloseButton
+              type='button'
+              onClick={() => setIsUndoVisible(false)}
+            >
+              <CloseIcon />
+            </UndoCloseButton>
+          </UndoContainer>
+        </UndoNotification>
+      )}
+    </>
   )
 }
