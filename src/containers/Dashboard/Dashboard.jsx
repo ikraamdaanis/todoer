@@ -109,15 +109,33 @@ export const Dashboard = ({ history, match, isClosed }) => {
     }
   }, [currentProject, isProject, id, projectsDetails])
 
-  const deleteSelectedTask = async (project, id) => {
-    await setTaskToDelete(() => id)
-    setTimeout(async () => {
-      taskToDelete && dispatch(deleteTask(project, id))
-      setTaskToDelete(() => '')
-    }, 2000)
+  let timer
+
+  const deleteSelectedTask = (project, id) => {
+    timer = setTimeout(() => {
+      dispatch(deleteTask(project, id))
+      console.log('Time')
+    }, 5000)
   }
 
-  const cancelDeleteTask = () => setTaskToDelete('')
+  const cancelTask = () => {
+    clearTimeout(timer)
+    console.log('clear')
+  }
+
+  const cancelDeleteTask = () => {
+    cancelTask()
+    console.log('Cancel')
+    setTaskToDelete('')
+  }
+
+  useEffect(() => {
+    if (taskToDelete) {
+      const { project, id } = taskToDelete
+      console.log({ project, id })
+      deleteSelectedTask(project, id)
+    }
+  }, [taskToDelete])
 
   const checkDate = actualDate => {
     if (isToday(new Date(actualDate))) {
@@ -166,7 +184,10 @@ export const Dashboard = ({ history, match, isClosed }) => {
                           <TaskDetails>
                             <TaskCheck
                               onClick={() =>
-                                deleteSelectedTask(task.project, task.id)
+                                setTaskToDelete({
+                                  project: task.project,
+                                  id: task.id,
+                                })
                               }
                             >
                               <div className='circle'>
