@@ -3,6 +3,9 @@ import {
   TASK_CREATE_FAIL,
   TASK_CREATE_REQUEST,
   TASK_CREATE_SUCCESS,
+  TASK_DELETE_FAIL,
+  TASK_DELETE_REQUEST,
+  TASK_DELETE_SUCCESS,
 } from '../constants/taskConstants'
 
 export const createTask = (project, task) => async (dispatch, getState) => {
@@ -21,7 +24,7 @@ export const createTask = (project, task) => async (dispatch, getState) => {
       .collection('projects')
       .doc(project)
       .collection('tasks')
-      .doc()
+      .doc(task.id)
       .set(task)
 
     dispatch({
@@ -30,6 +33,40 @@ export const createTask = (project, task) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: TASK_CREATE_FAIL,
+      payload: error,
+    })
+  }
+}
+
+export const deleteTask = (project, task) => async (dispatch, getState) => {
+  console.log('Task =>', project, task)
+  try {
+    dispatch({
+      type: TASK_DELETE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    await firestore
+      .collection('users')
+      .doc(userInfo?.id)
+      .collection('projects')
+      .doc(project)
+      .collection('tasks')
+      .doc(task)
+      .delete()
+      .then(() => {
+        console.log('Document successfully deleted!')
+      })
+
+    dispatch({
+      type: TASK_DELETE_SUCCESS,
+    })
+  } catch (error) {
+    dispatch({
+      type: TASK_DELETE_FAIL,
       payload: error,
     })
   }

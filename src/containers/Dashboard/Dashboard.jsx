@@ -21,6 +21,7 @@ import {
   getAllTasks,
   getProjectTasks,
 } from '../../store/actions/projectActions'
+import { deleteTask } from '../../store/actions/taskActions'
 import { Sidebar } from '../Sidebar/Sidebar'
 import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConstants'
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
@@ -31,6 +32,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [currentProject, setCurrentProject] = useState(null)
   const [dashboardTasks, setDashboardTasks] = useState([])
+  const [taskToDelete, setTaskToDelete] = useState('')
 
   const dispatch = useDispatch()
   const { id } = match.params
@@ -107,6 +109,21 @@ export const Dashboard = ({ history, match, isClosed }) => {
     }
   }, [currentProject, isProject, id, projectsDetails])
 
+  useEffect(() => {
+    console.log('Task to delete: ', taskToDelete)
+  }, [taskToDelete])
+
+  const deleteSelectedTask = async (project, id) => {
+    await setTaskToDelete(() => id)
+    setTimeout(async () => {
+      console.log({ taskToDelete })
+      taskToDelete && dispatch(deleteTask(project, id))
+      // setTaskToDelete('')
+    }, 2000)
+  }
+
+  const cancelDeleteTask = () => setTaskToDelete('')
+
   const checkDate = actualDate => {
     if (isToday(new Date(actualDate))) {
       return 'Today'
@@ -152,12 +169,16 @@ export const Dashboard = ({ history, match, isClosed }) => {
                       <TaskItem key={task.id}>
                         <TaskItemContainer>
                           <TaskDetails>
-                            <TaskCheck>
+                            <TaskCheck
+                              onClick={() =>
+                                deleteSelectedTask(task.project, task.id)
+                              }
+                            >
                               <div className='circle'>
                                 <TickIcon />
                               </div>
                             </TaskCheck>
-                            <TaskDescription>
+                            <TaskDescription onClick={() => cancelDeleteTask()}>
                               {task.description}
                             </TaskDescription>
                           </TaskDetails>
