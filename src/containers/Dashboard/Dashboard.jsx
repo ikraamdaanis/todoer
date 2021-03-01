@@ -19,7 +19,6 @@ import {
   UndoCloseButton,
   DeleteButton,
 } from './DashboardStyles'
-import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { AddTaskForm, Spinner } from '../../components'
 import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
@@ -27,9 +26,10 @@ import {
   getAllTasks,
   getProjectTasks,
 } from '../../store/actions/projectActions'
-import { completeTask, deleteTask } from '../../store/actions/taskActions'
+import { completeTask } from '../../store/actions/taskActions'
 import { Sidebar } from '../Sidebar/Sidebar'
 import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConstants'
+import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
 import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'

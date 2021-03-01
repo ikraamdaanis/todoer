@@ -39,7 +39,6 @@ export const DeleteTaskModal = () => {
 
   useEffect(() => {
     tasks && setTaskToDelete(tasks.filter(task => task.id === params.task)[0])
-    console.log({ taskToDelete })
   }, [tasks])
 
   return !taskToDelete ? (
