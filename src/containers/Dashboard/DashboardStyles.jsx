@@ -210,12 +210,6 @@ export const DeleteButton = styled.button`
   &:hover {
     background-color: #353535;
   }
-
-  svg {
-    width: 18px;
-    height: 18px;
-    fill: #cf1616;
-  }
 `
 
 export const TaskTags = styled.div`
