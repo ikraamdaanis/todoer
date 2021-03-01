@@ -5,6 +5,7 @@ import { ReactComponent as Checkmark } from '../../assets/images/checkmark.svg'
 
 export const Menu = forwardRef((props, ref) => {
   const { data, state, setState, toggleOpen } = props
+
   return (
     <MenuContainer onClick={() => toggleOpen(false)} ref={ref}>
       <Arrow />

@@ -76,8 +76,9 @@ export const SubOptions = styled.div`
       align-items: center;
       justify-content: space-between;
       height: 28px;
-      color: hsla(0, 0%, 100%, 0.6);
+      color: hsla(0, 0%, 100%, 0.87);
       font-size: 13px;
+      font-weight: 300;
 
       &:hover {
         background: #363636;
@@ -111,6 +112,7 @@ export const ProjectSelection = styled.div`
     height: 28px;
     color: hsla(0, 0%, 100%, 0.6);
     font-size: 13px;
+    font-weight: 300;
     opacity: 1 !important;
     pointer-events: all !important;
     position: static !important;

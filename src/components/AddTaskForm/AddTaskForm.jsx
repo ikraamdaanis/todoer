@@ -79,15 +79,15 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
     )
 
     setTodoDescription('')
-    setSelectedProject(currentProject.title)
+    setSelectedProject(currentProject?.title)
     setDate('')
 
     history.push(`/app/${project.toLowerCase()}`)
   }
 
-  // useEffect(() => {
-  //   console.log(date, selectedProject, todoDescription)
-  // }, [date, selectedProject, todoDescription])
+  useEffect(() => {
+    console.log(date, selectedProject, todoDescription)
+  }, [date, selectedProject, todoDescription])
 
   return (
     <AddTaskFormContainer>
@@ -133,7 +133,7 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
         </Container>
         <AddTaskSubmitButton
           type='submit'
-          disabled={todoDescription.length < 1}
+          disabled={todoDescription.length < 1 || !selectedProject}
         >
           Add task
         </AddTaskSubmitButton>
