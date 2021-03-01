@@ -7,6 +7,7 @@ import {
   TASK_CREATE_REQUEST,
   TASK_CREATE_SUCCESS,
   TASK_DELETE_FAIL,
+  TASK_DELETE_MODAL_TOGGLE,
   TASK_DELETE_REQUEST,
   TASK_DELETE_SUCCESS,
 } from '../constants/taskConstants'
@@ -84,6 +85,8 @@ export const deleteTask = (project, task) => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState()
 
+    console.log(project, task)
+
     await firestore
       .collection('users')
       .doc(userInfo?.id)
@@ -105,4 +108,10 @@ export const deleteTask = (project, task) => async (dispatch, getState) => {
       payload: error,
     })
   }
+}
+
+export const toggleTaskDeleteModal = () => dispatch => {
+  dispatch({
+    type: TASK_DELETE_MODAL_TOGGLE,
+  })
 }

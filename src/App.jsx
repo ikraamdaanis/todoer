@@ -6,8 +6,12 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom'
-import { Modal, ScrollToTop } from './components'
-import { AddProjectModal } from './components/AddProjectModal/AddProjectModal'
+import {
+  DeleteTaskModal,
+  Modal,
+  ScrollToTop,
+  AddProjectModal,
+} from './components'
 import { Dashboard, Navbar } from './containers'
 import { Home, SignIn, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
@@ -18,7 +22,10 @@ export const App = () => {
   const { userInfo } = userLogin
 
   const projectCreateModal = useSelector(state => state.projectCreateModal)
-  const { isOpen } = projectCreateModal
+  const { isOpen: isProjectModalOpen } = projectCreateModal
+
+  const taskDeleteModal = useSelector(state => state.taskDeleteModal)
+  const { isOpen: isTaskModalOpen } = taskDeleteModal
 
   return (
     <>
@@ -28,9 +35,9 @@ export const App = () => {
         <ScrollToTop />
         <main>
           <Switch style={{ display: 'flex' }}>
-            {/* <Route exact path='/app'>
+            <Route exact path='/app'>
               {userInfo && <Redirect to='/app/today' />}
-            </Route> */}
+            </Route>
             <Route
               path='/app/:id'
               render={props => <Dashboard {...props} isClosed={isClosed} />}
@@ -50,11 +57,16 @@ export const App = () => {
             </Route>
           </Switch>
         </main>
-        {isOpen && (
+        {isProjectModalOpen && (
           <Modal>
             <AddProjectModal />
           </Modal>
         )}
+        <Route exact path='/app/:id/:action/:task'>
+          <Modal>
+            <DeleteTaskModal />
+          </Modal>
+        </Route>
       </Router>
     </>
   )

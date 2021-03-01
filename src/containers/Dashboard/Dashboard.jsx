@@ -32,6 +32,7 @@ import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConsta
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
 import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
+import { Link } from 'react-router-dom'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -204,6 +205,13 @@ export const Dashboard = ({ history, match, isClosed }) => {
                                     <TickIcon />
                                   </div>
                                 </TaskCheck>
+                                <Link
+                                  to={`/app/${currentProject.title.toLowerCase()}/delete/${
+                                    task.id
+                                  }`}
+                                >
+                                  Go
+                                </Link>
                                 <TaskDescription>
                                   {task.description}
                                 </TaskDescription>

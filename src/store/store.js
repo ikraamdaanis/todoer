@@ -9,7 +9,7 @@ import {
   projectCreateReducer,
   projectTasksDetailsReducer,
 } from './reducers/projectReducers'
-import { taskReducer } from './reducers/taskReducers'
+import { taskDeleteModalReducer, taskReducer } from './reducers/taskReducers'
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -20,6 +20,7 @@ const reducer = combineReducers({
   allProjectTasks: allProjectTasksReducer,
   projectTasksDetails: projectTasksDetailsReducer,
   taskCreate: taskReducer,
+  taskDeleteModal: taskDeleteModalReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
