@@ -86,9 +86,9 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
     history.push(`/app/${project.toLowerCase()}`)
   }
 
-  useEffect(() => {
-    console.log(date, selectedProject, todoDescription)
-  }, [date, selectedProject, todoDescription])
+  // useEffect(() => {
+  //   console.log(date, selectedProject, todoDescription)
+  // }, [date, selectedProject, todoDescription])
 
   return (
     <AddTaskFormContainer>

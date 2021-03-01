@@ -14,7 +14,6 @@ import {
   AddProjectFormHeader,
   AddProjectInput,
   AddProjectLabel,
-  ModalContainer,
   ProjectModal,
 } from './AddProjectModalStyles'
 
@@ -59,38 +58,36 @@ export const AddProjectModal = () => {
   }, [])
 
   return (
-    <ModalContainer>
-      <ProjectModal>
-        <AddProjectForm onSubmit={handleSubmit} autoComplete='off' ref={form}>
-          <AddProjectFormHeader>
-            <h1>Add project</h1>
-          </AddProjectFormHeader>
-          <AddProjectFormBody>
-            <AddProjectFormField>
-              <AddProjectLabel htmlFor='projectName'>Name</AddProjectLabel>
-              <AddProjectInput
-                type='text'
-                id='projectName'
-                value={project}
-                onChange={({ target }) => setProject(target.value)}
-              />
-            </AddProjectFormField>
-          </AddProjectFormBody>
-          <AddProjectFooter>
-            <AddProjectButton type='button' ref={cancelButton}>
-              Cancel
-            </AddProjectButton>
-            <AddProjectButton
-              type='submit'
-              className='add'
-              aria-disabled={!!!project}
-              disabled={!!!project}
-            >
-              Add
-            </AddProjectButton>
-          </AddProjectFooter>
-        </AddProjectForm>
-      </ProjectModal>
-    </ModalContainer>
+    <ProjectModal>
+      <AddProjectForm onSubmit={handleSubmit} autoComplete='off' ref={form}>
+        <AddProjectFormHeader>
+          <h1>Add project</h1>
+        </AddProjectFormHeader>
+        <AddProjectFormBody>
+          <AddProjectFormField>
+            <AddProjectLabel htmlFor='projectName'>Name</AddProjectLabel>
+            <AddProjectInput
+              type='text'
+              id='projectName'
+              value={project}
+              onChange={({ target }) => setProject(target.value)}
+            />
+          </AddProjectFormField>
+        </AddProjectFormBody>
+        <AddProjectFooter>
+          <AddProjectButton type='button' ref={cancelButton}>
+            Cancel
+          </AddProjectButton>
+          <AddProjectButton
+            type='submit'
+            className='add'
+            aria-disabled={!!!project}
+            disabled={!!!project}
+          >
+            Add
+          </AddProjectButton>
+        </AddProjectFooter>
+      </AddProjectForm>
+    </ProjectModal>
   )
 }

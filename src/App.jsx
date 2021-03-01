@@ -6,7 +6,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom'
-import { ScrollToTop } from './components'
+import { Modal, ScrollToTop } from './components'
 import { AddProjectModal } from './components/AddProjectModal/AddProjectModal'
 import { Dashboard, Navbar } from './containers'
 import { Home, SignIn, SignUp } from './pages'
@@ -50,7 +50,11 @@ export const App = () => {
             </Route>
           </Switch>
         </main>
-        {isOpen && <AddProjectModal />}
+        {isOpen && (
+          <Modal>
+            <AddProjectModal />
+          </Modal>
+        )}
       </Router>
     </>
   )
