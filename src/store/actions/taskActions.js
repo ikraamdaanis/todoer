@@ -1,5 +1,8 @@
 import { firestore } from '../../firebase/config'
 import {
+  TASK_COMPLETE_FAIL,
+  TASK_COMPLETE_REQUEST,
+  TASK_COMPLETE_SUCCESS,
   TASK_CREATE_FAIL,
   TASK_CREATE_REQUEST,
   TASK_CREATE_SUCCESS,
@@ -33,6 +36,39 @@ export const createTask = (project, task) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: TASK_CREATE_FAIL,
+      payload: error,
+    })
+  }
+}
+
+export const completeTask = (project, task) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TASK_COMPLETE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    await firestore
+      .collection('users')
+      .doc(userInfo?.id)
+      .collection('projects')
+      .doc(project)
+      .collection('tasks')
+      .doc(task)
+      .update({ isComplete: true })
+      .then(() => {
+        console.log('Document successfully completed!')
+      })
+
+    dispatch({
+      type: TASK_COMPLETE_SUCCESS,
+    })
+  } catch (error) {
+    dispatch({
+      type: TASK_COMPLETE_FAIL,
       payload: error,
     })
   }

@@ -26,7 +26,7 @@ import {
   getAllTasks,
   getProjectTasks,
 } from '../../store/actions/projectActions'
-import { deleteTask } from '../../store/actions/taskActions'
+import { completeTask, deleteTask } from '../../store/actions/taskActions'
 import { Sidebar } from '../Sidebar/Sidebar'
 import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConstants'
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
@@ -38,7 +38,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [currentProject, setCurrentProject] = useState(null)
   const [dashboardTasks, setDashboardTasks] = useState([])
-  const [taskToDelete, setTaskToDelete] = useState('')
+  const [taskToComplete, setTaskToComplete] = useState('')
   const [isUndoVisible, setIsUndoVisible] = useState(false)
 
   const dispatch = useDispatch()
@@ -118,24 +118,25 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   let timer
 
-  const deleteSelectedTask = (project, id) => {
+  const completeSelectedTask = (project, id) => {
     timer = setTimeout(() => {
-      dispatch(deleteTask(project, id))
+      dispatch(completeTask(project, id))
+      setIsUndoVisible(false)
     }, 5000)
   }
 
-  const cancelDeleteTask = () => {
+  const cancelCompleteTask = () => {
     clearTimeout(timer)
-    setTaskToDelete('')
+    setTaskToComplete('')
     setIsUndoVisible(false)
   }
 
   useEffect(() => {
-    if (taskToDelete) {
-      const { project, id } = taskToDelete
-      deleteSelectedTask(project, id)
+    if (taskToComplete) {
+      const { project, id } = taskToComplete
+      completeSelectedTask(project, id)
     }
-  }, [taskToDelete])
+  }, [taskToComplete])
 
   const checkDate = actualDate => {
     if (isToday(new Date(actualDate))) {
@@ -179,51 +180,53 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 <>
                   <div className='tasks'>
                     <ul>
-                      {dashboardTasks.map(task => (
-                        <TaskItem
-                          key={task.id}
-                          className={
-                            taskToDelete.id === task.id ? 'hide' : undefined
-                          }
-                        >
-                          <TaskItemContainer>
-                            <TaskDetails>
-                              <TaskCheck
-                                onClick={() => {
-                                  setTaskToDelete({
-                                    project: task.project,
-                                    id: task.id,
-                                  })
-                                  setIsUndoVisible(true)
-                                }}
-                              >
-                                <div className='circle'>
-                                  <TickIcon />
-                                </div>
-                              </TaskCheck>
-                              <TaskDescription>
-                                {task.description}
-                              </TaskDescription>
-                            </TaskDetails>
-                            {task.dueDate && (
-                              <TaskTags>
-                                <div
-                                  className='date'
-                                  style={{
-                                    color: dateColour(
-                                      checkDate(task.dueDate),
-                                      task.dueDate
-                                    ),
+                      {dashboardTasks
+                        .filter(task => !task.isComplete)
+                        .map(task => (
+                          <TaskItem
+                            key={task.id}
+                            className={
+                              taskToComplete.id === task.id ? 'hide' : undefined
+                            }
+                          >
+                            <TaskItemContainer>
+                              <TaskDetails>
+                                <TaskCheck
+                                  onClick={() => {
+                                    setTaskToComplete({
+                                      project: task.project,
+                                      id: task.id,
+                                    })
+                                    setIsUndoVisible(true)
                                   }}
                                 >
-                                  <DueDateIcon />
-                                  <span>{checkDate(task.dueDate)}</span>
-                                </div>
-                              </TaskTags>
-                            )}
-                          </TaskItemContainer>
-                        </TaskItem>
-                      ))}
+                                  <div className='circle'>
+                                    <TickIcon />
+                                  </div>
+                                </TaskCheck>
+                                <TaskDescription>
+                                  {task.description}
+                                </TaskDescription>
+                              </TaskDetails>
+                              {task.dueDate && (
+                                <TaskTags>
+                                  <div
+                                    className='date'
+                                    style={{
+                                      color: dateColour(
+                                        checkDate(task.dueDate),
+                                        task.dueDate
+                                      ),
+                                    }}
+                                  >
+                                    <DueDateIcon />
+                                    <span>{checkDate(task.dueDate)}</span>
+                                  </div>
+                                </TaskTags>
+                              )}
+                            </TaskItemContainer>
+                          </TaskItem>
+                        ))}
                     </ul>
                   </div>
                   {!isOpen ? (
@@ -250,7 +253,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
         <UndoNotification>
           <UndoContainer>
             <UndoText>1 task completed</UndoText>
-            <UndoButton type='button' onClick={() => cancelDeleteTask()}>
+            <UndoButton type='button' onClick={() => cancelCompleteTask()}>
               Undo
             </UndoButton>
             <UndoCloseButton

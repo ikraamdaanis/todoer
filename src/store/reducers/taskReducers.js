@@ -1,4 +1,7 @@
 import {
+  TASK_COMPLETE_FAIL,
+  TASK_COMPLETE_REQUEST,
+  TASK_COMPLETE_SUCCESS,
   TASK_CREATE_FAIL,
   TASK_CREATE_REQUEST,
   TASK_CREATE_SUCCESS,
@@ -19,6 +22,20 @@ export const taskReducer = (state = {}, action) => {
         success: true,
       }
     case TASK_CREATE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    case TASK_COMPLETE_REQUEST:
+      return {
+        loading: true,
+      }
+    case TASK_COMPLETE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      }
+    case TASK_COMPLETE_FAIL:
       return {
         loading: false,
         error: action.payload,
