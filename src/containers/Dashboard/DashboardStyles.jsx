@@ -122,6 +122,13 @@ export const TaskItem = styled.li`
   &.hide {
     display: none;
   }
+
+  &:hover {
+    .delete-button {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
 `
 
 export const TaskItemContainer = styled.div`
@@ -180,6 +187,35 @@ export const TaskDescription = styled.p`
   line-height: 21px;
   word-wrap: break-word;
   word-break: break-word;
+`
+
+export const DeleteButton = styled.button`
+  opacity: 0;
+  pointer-events: none;
+  color: #eee;
+  text-shadow: none;
+  background: none;
+  border: none;
+  padding: 4px;
+  margin-left: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: 0.2s ease-in-out;
+  outline: none;
+
+  &:hover {
+    background-color: #353535;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    fill: #cf1616;
+  }
 `
 
 export const TaskTags = styled.div`

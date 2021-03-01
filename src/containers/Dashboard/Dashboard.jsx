@@ -17,6 +17,7 @@ import {
   UndoText,
   UndoButton,
   UndoCloseButton,
+  DeleteButton,
 } from './DashboardStyles'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { AddTaskForm, Spinner } from '../../components'
@@ -32,6 +33,7 @@ import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConsta
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
 import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
+import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
 import { Link } from 'react-router-dom'
 
 export const Dashboard = ({ history, match, isClosed }) => {
@@ -194,6 +196,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                               <TaskDetails>
                                 <TaskCheck
                                   onClick={() => {
+                                    console.log(task.project)
                                     setTaskToComplete({
                                       project: task.project,
                                       id: task.id,
@@ -205,16 +208,22 @@ export const Dashboard = ({ history, match, isClosed }) => {
                                     <TickIcon />
                                   </div>
                                 </TaskCheck>
-                                <Link
-                                  to={`/app/${currentProject.title.toLowerCase()}/delete/${
-                                    task.id
-                                  }`}
-                                >
-                                  Go
-                                </Link>
+
                                 <TaskDescription>
                                   {task.description}
                                 </TaskDescription>
+                                <Link
+                                  to={`/app/${task.project.toLowerCase()}/delete/${
+                                    task.id
+                                  }`}
+                                >
+                                  <DeleteButton
+                                    className='delete-button'
+                                    title='Delete this task'
+                                  >
+                                    <DeleteIcon />
+                                  </DeleteButton>{' '}
+                                </Link>
                               </TaskDetails>
                               {task.dueDate && (
                                 <TaskTags>
