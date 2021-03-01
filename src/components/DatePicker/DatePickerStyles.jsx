@@ -33,7 +33,6 @@ export const DatePickerInput = styled.input`
   opacity: 0;
   cursor: pointer;
   box-sizing: border-box;
-
   &::-webkit-calendar-picker-indicator {
     position: absolute;
     left: 0;

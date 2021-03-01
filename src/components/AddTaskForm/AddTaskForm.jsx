@@ -13,7 +13,6 @@ import { DatePicker } from '../DatePicker/DatePicker'
 import { useDispatch, useSelector } from 'react-redux'
 import { Menu } from '../Menu/Menu'
 import { createTask } from '../../store/actions/taskActions'
-import { format } from 'date-fns'
 import { v4 as uuidv4 } from 'uuid'
 
 export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
@@ -117,7 +116,7 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
             <DatePicker chosenDate={date} setDate={setDate} />
             <ProjectSelection>
               <p htmlFor='projects' ref={menuButton}>
-                {selectedProject}
+                {selectedProject ? selectedProject : 'Choose a Project'}
               </p>
               {isMenuOpen && (
                 <Menu

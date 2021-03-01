@@ -45,7 +45,6 @@ export const Container = styled.div`
       width: 100%;
       outline: none;
       border: none;
-      color: var(--text-white);
       resize: none;
       height: 32px;
       font-size: 14px;
@@ -54,6 +53,8 @@ export const Container = styled.div`
       outline: none;
       word-break: break-word;
       padding-bottom: 10px;
+      color: hsla(0, 0%, 100%, 0.87);
+      font-weight: 300;
     }
   }
 `
@@ -118,10 +119,6 @@ export const ProjectSelection = styled.div`
     &:hover {
       background: #363636;
     }
-  }
-
-  div {
-    /* left: 49%; */
   }
 `
 

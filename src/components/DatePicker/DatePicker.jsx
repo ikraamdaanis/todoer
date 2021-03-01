@@ -39,7 +39,7 @@ export const DatePicker = ({ chosenDate, setDate }) => {
       ? '#ff9a14'
       : isBefore(new Date(chosenDate), add(new Date(), { days: 7 }))
       ? '#a970ff'
-      : 'unset'
+      : 'hsla(0, 0%, 100%, 0.6)'
 
   return (
     <>
