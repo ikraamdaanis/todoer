@@ -20,7 +20,7 @@ const reducer = combineReducers({
   projectCreate: projectCreateReducer,
   projectCreateModal: projectCreateModalReducer,
   allProjectsDetails: projectListReducer,
-  allProjectTasks: tasksReducer,
+  allTasks: tasksReducer,
   projectTasksDetails: projectTasksReducer,
   taskCreate: taskReducer,
   taskDeleteModal: taskDeleteModalReducer,

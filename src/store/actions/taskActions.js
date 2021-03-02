@@ -1,8 +1,6 @@
+import { format } from 'date-fns'
 import { firestore } from '../../firebase/config'
 import {
-  TASKS_FAIL,
-  TASKS_REQUEST,
-  TASKS_SUCCESS,
   TASK_COMPLETE_FAIL,
   TASK_COMPLETE_REQUEST,
   TASK_COMPLETE_SUCCESS,
@@ -13,6 +11,9 @@ import {
   TASK_DELETE_MODAL_TOGGLE,
   TASK_DELETE_REQUEST,
   TASK_DELETE_SUCCESS,
+  TASKS_REQUEST,
+  TASKS_SUCCESS,
+  TASKS_FAIL,
 } from '../constants/taskConstants'
 
 export const createTask = (project, task) => async (dispatch, getState) => {

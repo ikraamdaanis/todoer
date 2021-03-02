@@ -25,11 +25,8 @@ import {
 import { AddTaskForm, Spinner } from '../../components'
 import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  getAllTasks,
-  getProjectTasks,
-} from '../../store/actions/projectActions'
-import { completeTask } from '../../store/actions/taskActions'
+import { getProjectTasks } from '../../store/actions/projectActions'
+import { completeTask, getAllTasks } from '../../store/actions/taskActions'
 import { Sidebar } from '../Sidebar/Sidebar'
 import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConstants'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
@@ -66,8 +63,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const projectTasksDetails = useSelector(state => state.projectTasksDetails)
   const { loading: tasksLoading, tasks: projectTasks } = projectTasksDetails
 
-  const allProjectTasks = useSelector(state => state.allProjectTasks)
-  const { loading: allTasksLoading, tasks: allTasks } = allProjectTasks
+  const allTasks = useSelector(state => state.allTasks)
+  const { loading: allTasksLoading, tasks: allProjectTasks } = allTasks
 
   setTimeout(() => {
     setIsLoading(false)
