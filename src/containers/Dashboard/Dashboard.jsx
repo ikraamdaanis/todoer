@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   AddTask,
   AddTaskText,
@@ -18,6 +18,9 @@ import {
   UndoButton,
   UndoCloseButton,
   DeleteButton,
+  TaskMenuContainer,
+  TaskMenu,
+  TaskMenuList,
 } from './DashboardStyles'
 import { AddTaskForm, Spinner } from '../../components'
 import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
@@ -34,15 +37,20 @@ import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
 import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
 import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
+import { ReactComponent as MenuToggler } from '../../assets/images/more-icon.svg'
 import { Link } from 'react-router-dom'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(false)
+  const [taskMenuOpen, setTaskMenuOpen] = useState(false)
   const [currentProject, setCurrentProject] = useState(null)
   const [dashboardTasks, setDashboardTasks] = useState([])
   const [taskToComplete, setTaskToComplete] = useState('')
   const [isUndoVisible, setIsUndoVisible] = useState(false)
+
+  const { current: TaskMenuButtonRef } = useRef(null)
+  const { current: TaskMenuRef } = useRef(null)
 
   const dispatch = useDispatch()
   const { id } = match.params
@@ -118,6 +126,15 @@ export const Dashboard = ({ history, match, isClosed }) => {
       history.push('/app/today')
     }
   }, [currentProject, isProject, id, projectsDetails])
+
+  useEffect(() => {
+    const toggleFocus = ({ target }) => {
+      if (TaskMenuButtonRef?.contains(target)) return
+      !TaskMenuRef?.contains(target) && setTaskMenuOpen(false)
+    }
+    document.body.addEventListener('click', toggleFocus)
+    return () => document.body.removeEventListener('click', toggleFocus)
+  }, [])
 
   let timer
 
@@ -212,18 +229,34 @@ export const Dashboard = ({ history, match, isClosed }) => {
                                 <TaskDescription>
                                   {task.description}
                                 </TaskDescription>
-                                <Link
-                                  to={`/app/${task.project.toLowerCase()}/delete/${
-                                    task.id
-                                  }`}
-                                >
-                                  <DeleteButton
-                                    className='delete-button'
-                                    title='Delete this task'
+                                <TaskMenuContainer>
+                                  <div
+                                    className='toggler'
+                                    ref={TaskMenuButtonRef}
+                                    onClick={() => {
+                                      console.log('hi')
+                                      setTaskMenuOpen(prev => !prev)
+                                    }}
                                   >
-                                    <DeleteIcon />
-                                  </DeleteButton>{' '}
-                                </Link>
+                                    <MenuToggler />
+                                  </div>
+                                  {taskMenuOpen && (
+                                    <TaskMenu ref={TaskMenuRef}>
+                                      <TaskMenuList>
+                                        <Link
+                                          to={`/app/${task.project.toLowerCase()}/delete/${
+                                            task.id
+                                          }`}
+                                        >
+                                          <DeleteButton title='Delete this task'>
+                                            <DeleteIcon />
+                                            <span>Delete task</span>
+                                          </DeleteButton>
+                                        </Link>
+                                      </TaskMenuList>
+                                    </TaskMenu>
+                                  )}
+                                </TaskMenuContainer>
                               </TaskDetails>
                               {task.dueDate && (
                                 <TaskTags>
