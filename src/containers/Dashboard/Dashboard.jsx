@@ -121,8 +121,12 @@ export const Dashboard = ({ history, match, isClosed }) => {
   }, [currentProject, isProject, id, projects])
 
   useEffect(() => {
+    console.log({ taskMenuOpen })
     const toggleFocus = ({ target }) => {
-      if (TaskMenuButtonRef?.current?.contains(target)) return
+      if (TaskMenuButtonRef?.current?.contains(target)) {
+        setTaskMenuOpen(prev => !prev)
+        return
+      }
       !TaskMenuRef?.current?.contains(target) && setTaskMenuOpen(false)
     }
     taskMenuOpen && document.body.addEventListener('click', toggleFocus)
@@ -238,7 +242,12 @@ export const Dashboard = ({ history, match, isClosed }) => {
                                             task.id
                                           }`}
                                         >
-                                          <DeleteButton title='Delete this task'>
+                                          <DeleteButton
+                                            title='Delete this task'
+                                            onClick={() =>
+                                              setTaskMenuOpen(false)
+                                            }
+                                          >
                                             <DeleteIcon />
                                             <span>Delete task</span>
                                           </DeleteButton>

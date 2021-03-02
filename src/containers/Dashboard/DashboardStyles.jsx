@@ -133,6 +133,12 @@ export const TaskItemContainer = styled.div`
   position: relative;
   padding: 0;
   cursor: pointer;
+
+  &:hover {
+    .toggler {
+      opacity: 1;
+    }
+  }
 `
 
 export const TaskCheck = styled.div`
@@ -192,12 +198,6 @@ export const TaskMenuContainer = styled.div`
   place-content: center;
   position: relative;
   padding-right: 0.5rem;
-
-  &:hover {
-    .toggler {
-      opacity: 1;
-    }
-  }
 
   .toggler {
     opacity: 0;
