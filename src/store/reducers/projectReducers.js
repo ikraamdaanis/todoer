@@ -1,24 +1,24 @@
 import {
-  PROJECT_CREATE_FAIL,
-  PROJECT_CREATE_MODAL_TOGGLE,
   PROJECT_CREATE_REQUEST,
   PROJECT_CREATE_SUCCESS,
-  PROJECT_DETAILS_CLEAR,
-  PROJECT_DETAILS_FAIL,
+  PROJECT_CREATE_FAIL,
+  PROJECT_CREATE_MODAL_TOGGLE,
   PROJECT_DETAILS_REQUEST,
   PROJECT_DETAILS_SUCCESS,
-  PROJECT_TASKS_ALL_CLEAR,
-  PROJECT_TASKS_ALL_FAIL,
+  PROJECT_DETAILS_FAIL,
+  PROJECT_DETAILS_CLEAR,
   PROJECT_TASKS_ALL_REQUEST,
   PROJECT_TASKS_ALL_SUCCESS,
-  PROJECT_TASKS_DETAILS_CLEAR,
-  PROJECT_TASKS_DETAILS_FAIL,
+  PROJECT_TASKS_ALL_FAIL,
+  PROJECT_TASKS_ALL_CLEAR,
   PROJECT_TASKS_DETAILS_REQUEST,
   PROJECT_TASKS_DETAILS_SUCCESS,
+  PROJECT_TASKS_DETAILS_FAIL,
+  PROJECT_TASKS_DETAILS_CLEAR,
 } from '../constants/projectConstants'
 
-export const projectCreateReducer = (state = {}, action) => {
-  switch (action.type) {
+export const projectCreateReducer = (state = {}, { type, payload }) => {
+  switch (type) {
     case PROJECT_CREATE_REQUEST:
       return {
         loading: true,
@@ -31,7 +31,7 @@ export const projectCreateReducer = (state = {}, action) => {
     case PROJECT_CREATE_FAIL:
       return {
         loading: false,
-        error: action.payload,
+        error: payload,
       }
     default:
       return state
@@ -40,9 +40,9 @@ export const projectCreateReducer = (state = {}, action) => {
 
 export const projectCreateModalReducer = (
   state = { isOpen: false },
-  action
+  { type }
 ) => {
-  switch (action.type) {
+  switch (type) {
     case PROJECT_CREATE_MODAL_TOGGLE:
       return { isOpen: !state.isOpen }
     default:
@@ -50,8 +50,11 @@ export const projectCreateModalReducer = (
   }
 }
 
-export const allProjectsDetailsReducer = (state = { projects: [] }, action) => {
-  switch (action.type) {
+export const projectListReducer = (
+  state = { projects: [] },
+  { type, payload }
+) => {
+  switch (type) {
     case PROJECT_DETAILS_REQUEST:
       return {
         loading: true,
@@ -59,12 +62,12 @@ export const allProjectsDetailsReducer = (state = { projects: [] }, action) => {
     case PROJECT_DETAILS_SUCCESS:
       return {
         loading: false,
-        projects: action.payload,
+        projects: payload,
       }
     case PROJECT_DETAILS_FAIL:
       return {
         loading: false,
-        error: action.payload,
+        error: payload,
       }
     case PROJECT_DETAILS_CLEAR:
       return {}
@@ -73,8 +76,8 @@ export const allProjectsDetailsReducer = (state = { projects: [] }, action) => {
   }
 }
 
-export const projectTasksDetailsReducer = (state = {}, action) => {
-  switch (action.type) {
+export const projectTasksReducer = (state = {}, { type, payload }) => {
+  switch (type) {
     case PROJECT_TASKS_DETAILS_REQUEST:
       return {
         loading: true,
@@ -82,12 +85,12 @@ export const projectTasksDetailsReducer = (state = {}, action) => {
     case PROJECT_TASKS_DETAILS_SUCCESS:
       return {
         loading: false,
-        tasks: action.payload,
+        tasks: payload,
       }
     case PROJECT_TASKS_DETAILS_FAIL:
       return {
         loading: false,
-        error: action.payload,
+        error: payload,
       }
     case PROJECT_TASKS_DETAILS_CLEAR:
       return {}
@@ -96,8 +99,8 @@ export const projectTasksDetailsReducer = (state = {}, action) => {
   }
 }
 
-export const allProjectTasksReducer = (state = {}, action) => {
-  switch (action.type) {
+export const tasksReducer = (state = {}, { type, payload }) => {
+  switch (type) {
     case PROJECT_TASKS_ALL_REQUEST:
       return {
         loading: true,
@@ -105,12 +108,12 @@ export const allProjectTasksReducer = (state = {}, action) => {
     case PROJECT_TASKS_ALL_SUCCESS:
       return {
         loading: false,
-        tasks: action.payload,
+        tasks: payload,
       }
     case PROJECT_TASKS_ALL_FAIL:
       return {
         loading: false,
-        error: action.payload,
+        error: payload,
       }
     case PROJECT_TASKS_ALL_CLEAR:
       return {}

@@ -3,11 +3,11 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
 import {
-  allProjectsDetailsReducer,
-  allProjectTasksReducer,
+  projectListReducer,
+  tasksReducer,
   projectCreateModalReducer,
   projectCreateReducer,
-  projectTasksDetailsReducer,
+  projectTasksReducer,
 } from './reducers/projectReducers'
 import { taskDeleteModalReducer, taskReducer } from './reducers/taskReducers'
 
@@ -16,9 +16,9 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   projectCreate: projectCreateReducer,
   projectCreateModal: projectCreateModalReducer,
-  allProjectsDetails: allProjectsDetailsReducer,
-  allProjectTasks: allProjectTasksReducer,
-  projectTasksDetails: projectTasksDetailsReducer,
+  allProjectsDetails: projectListReducer,
+  allProjectTasks: tasksReducer,
+  projectTasksDetails: projectTasksReducer,
   taskCreate: taskReducer,
   taskDeleteModal: taskDeleteModalReducer,
 })
