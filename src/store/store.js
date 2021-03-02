@@ -4,12 +4,15 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
 import {
   projectListReducer,
-  tasksReducer,
   projectCreateModalReducer,
   projectCreateReducer,
   projectTasksReducer,
 } from './reducers/projectReducers'
-import { taskDeleteModalReducer, taskReducer } from './reducers/taskReducers'
+import {
+  taskDeleteModalReducer,
+  taskReducer,
+  tasksReducer,
+} from './reducers/taskReducers'
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,

@@ -68,3 +68,26 @@ export const taskDeleteModalReducer = (state = { isOpen: false }, action) => {
       return state
   }
 }
+
+export const tasksReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case TASKS_REQUEST:
+      return {
+        loading: true,
+      }
+    case TASKS_SUCCESS:
+      return {
+        loading: false,
+        tasks: payload,
+      }
+    case TASKS_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      }
+    case TASKS_CLEAR:
+      return {}
+    default:
+      return state
+  }
+}

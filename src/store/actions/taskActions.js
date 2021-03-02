@@ -1,5 +1,8 @@
 import { firestore } from '../../firebase/config'
 import {
+  TASKS_FAIL,
+  TASKS_REQUEST,
+  TASKS_SUCCESS,
   TASK_COMPLETE_FAIL,
   TASK_COMPLETE_REQUEST,
   TASK_COMPLETE_SUCCESS,
@@ -114,4 +117,49 @@ export const toggleTaskDeleteModal = () => dispatch => {
   dispatch({
     type: TASK_DELETE_MODAL_TOGGLE,
   })
+}
+
+export const getAllTasks = isToday => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TASKS_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+      allProjectsDetails: { projects },
+    } = getState()
+
+    const queries = []
+    const all = []
+
+    projects.forEach(proj => {
+      queries.push(
+        firestore
+          .collection('users')
+          .doc(userInfo?.id)
+          .collection('projects')
+          .doc(proj.title)
+          .collection('tasks')
+          .where('dueDate', isToday, format(new Date(), 'yyyy-MM-dd'))
+          .get()
+      )
+    })
+
+    Promise.all(queries)
+      .then(results => {
+        results.forEach(i => i.docs.forEach(doc => all.push(doc.data())))
+      })
+      .then(() => {
+        dispatch({
+          type: TASKS_SUCCESS,
+          payload: all,
+        })
+      })
+  } catch (error) {
+    dispatch({
+      type: TASKS_FAIL,
+      payload: error,
+    })
+  }
 }
