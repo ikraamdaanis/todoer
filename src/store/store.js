@@ -19,11 +19,11 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   projectCreate: projectCreateReducer,
   projectCreateModal: projectCreateModalReducer,
-  allProjectsDetails: projectListReducer,
-  allTasks: tasksReducer,
   projectTasksDetails: projectTasksReducer,
   taskCreate: taskReducer,
   taskDeleteModal: taskDeleteModalReducer,
+  allTasks: tasksReducer,
+  projectList: projectListReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
@@ -36,7 +36,7 @@ const allProjectsFromStorage = localStorage.getItem('allProjects')
 
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
-  allProjectsDetails: { projects: allProjectsFromStorage },
+  projectList: { projects: allProjectsFromStorage },
 }
 
 const middleware = [thunk]

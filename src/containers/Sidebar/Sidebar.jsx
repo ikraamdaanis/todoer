@@ -14,12 +14,12 @@ import {
 } from './SidebarStyles'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-  createProject,
   getAllProjects,
   toggleProjectModal,
 } from '../../store/actions/projectActions'
 import { ReactComponent as Upcoming } from '../../assets/images/upcoming-icon.svg'
 import { ReactComponent as PlusIcon } from '../../assets/images/plus-icon.svg'
+import { ReactComponent as DropdownIcon } from '../../assets/images/dropdown.svg'
 import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
@@ -76,17 +76,14 @@ const UpcomingIcon = () => {
   )
 }
 
-export const Sidebar = ({ isClosed, param, history }) => {
-  const [project, setProject] = useState('')
+export const Sidebar = ({ isClosed, param }) => {
   const [isOpen, setIsOpen] = useState(true)
   const [allProjects, setAllProjects] = useState([])
+
   const dispatch = useDispatch()
 
-  const allProjectsDetails = useSelector(state => state.allProjectsDetails)
-  const {
-    loading: projectsLoading,
-    projects: projectsDetails,
-  } = allProjectsDetails
+  const projectList = useSelector(state => state.projectList)
+  const { projects } = projectList
 
   useEffect(() => {
     dispatch(getAllProjects())
@@ -96,8 +93,8 @@ export const Sidebar = ({ isClosed, param, history }) => {
   }, [])
 
   useEffect(() => {
-    projectsDetails && setAllProjects([...projectsDetails])
-  }, [projectsDetails])
+    projects && setAllProjects([...projects])
+  }, [projects])
 
   const activeCheck = el => el.toLowerCase() === param
 
@@ -127,16 +124,9 @@ export const Sidebar = ({ isClosed, param, history }) => {
         <ProjectsButtonContainer>
           <ProjectsButton onClick={() => setIsOpen(!isOpen)}>
             <div className='dropdown'>
-              <svg
-                width='16px'
-                height='16px'
-                viewBox='0 0 16 16'
+              <DropdownIcon
                 className={!isOpen ? 'projects-closed' : undefined}
-              >
-                <g transform='translate(-266, -17)' fill='#777777'>
-                  <path d='M280,22.7581818 L279.1564,22 L273.9922,26.506 L273.4414,26.0254545 L273.4444,26.0281818 L268.8562,22.0245455 L268,22.7712727 C269.2678,23.878 272.8084,26.9674545 273.9922,28 C274.8718,27.2330909 274.0144,27.9809091 280,22.7581818'></path>
-                </g>
-              </svg>
+              />
             </div>
             <span>Projects</span>
           </ProjectsButton>

@@ -7,15 +7,11 @@ import {
   PROJECT_DETAILS_REQUEST,
   PROJECT_DETAILS_SUCCESS,
   PROJECT_DETAILS_FAIL,
-  PROJECT_TASKS_ALL_REQUEST,
-  PROJECT_TASKS_ALL_SUCCESS,
-  PROJECT_TASKS_ALL_FAIL,
   PROJECT_TASKS_DETAILS_REQUEST,
   PROJECT_TASKS_DETAILS_SUCCESS,
   PROJECT_TASKS_DETAILS_FAIL,
 } from '../constants/projectConstants'
 import { v4 as uuidv4 } from 'uuid'
-import { format } from 'date-fns'
 
 export const createProject = project => async (dispatch, getState) => {
   try {

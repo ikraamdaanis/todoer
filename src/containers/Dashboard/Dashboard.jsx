@@ -54,11 +54,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   const isProject = id !== 'today' && id !== 'upcoming'
 
-  const allProjectsDetails = useSelector(state => state.allProjectsDetails)
-  const {
-    loading: projectsLoading,
-    projects: projectsDetails,
-  } = allProjectsDetails
+  const projectList = useSelector(state => state.projectList)
+  const { loading: projectsLoading, projects } = projectList
 
   const projectTasksDetails = useSelector(state => state.projectTasksDetails)
   const { loading: tasksLoading, tasks: projectTasks } = projectTasksDetails
@@ -71,7 +68,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   }, 1000)
 
   const assignCurrentProject = () => {
-    const [current] = projectsDetails?.filter(
+    const [current] = projects?.filter(
       project => project.title.toLowerCase() === match.params.id
     )
 
@@ -94,7 +91,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   useEffect(() => {
     fetchTasks(id)
-  }, [dispatch, id, projectsDetails, currentProject])
+  }, [dispatch, id, projects, currentProject])
 
   useEffect(() => {
     dispatch({
@@ -115,14 +112,14 @@ export const Dashboard = ({ history, match, isClosed }) => {
   // }, [dashboardTasks])
 
   useEffect(() => {
-    if (projectsDetails) {
-      const projectExists = projectsDetails.some(
+    if (projects) {
+      const projectExists = projects.some(
         project => project.title.toLowerCase() === id
       )
       if (!isProject || projectExists) return
       history.push('/app/today')
     }
-  }, [currentProject, isProject, id, projectsDetails])
+  }, [currentProject, isProject, id, projects])
 
   useEffect(() => {
     const toggleFocus = ({ target }) => {
