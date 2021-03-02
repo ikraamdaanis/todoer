@@ -20,9 +20,25 @@ import {
 import { ReactComponent as Upcoming } from '../../assets/images/upcoming-icon.svg'
 import { ReactComponent as PlusIcon } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as DropdownIcon } from '../../assets/images/dropdown.svg'
+import { ReactComponent as InboxIcon } from '../../assets/images/inbox.svg'
 import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
+
+const Inbox = () => {
+  return (
+    <div
+      style={{
+        color: '#5297ff',
+        width: '38px',
+        display: 'grid',
+        placeContent: 'center',
+      }}
+    >
+      <InboxIcon />
+    </div>
+  )
+}
 
 const TodayIcon = ({ date }) => {
   return (
@@ -102,6 +118,16 @@ export const Sidebar = ({ isClosed, param }) => {
     <SidebarContainer className={isClosed && 'closed'}>
       <Container>
         <SidebarButtonContainer
+          className={activeCheck('inbox') ? 'active' : undefined}
+        >
+          <Link to={'/app/inbox'}>
+            <SidebarItem>
+              <Inbox />
+              <span>Inbox</span>
+            </SidebarItem>
+          </Link>
+        </SidebarButtonContainer>
+        <SidebarButtonContainer
           className={activeCheck('today') ? 'active' : undefined}
         >
           <Link to={'/app/today'}>
@@ -137,21 +163,23 @@ export const Sidebar = ({ isClosed, param }) => {
             height={allProjects.length * 37.2 + 45}
           >
             {allProjects?.length > 0 &&
-              allProjects.map(project => (
-                <li key={project.title}>
-                  <NavLink
-                    to={`/app/${project.title.toLowerCase()}`}
-                    activeClassName='active'
-                  >
-                    <div className='container'>
-                      <BulletPoint>
-                        <div></div>
-                      </BulletPoint>
-                      <span>{project.title}</span>
-                    </div>
-                  </NavLink>
-                </li>
-              ))}
+              allProjects
+                .filter(project => project.title !== 'Inbox')
+                .map(project => (
+                  <li key={project.title}>
+                    <NavLink
+                      to={`/app/${project.title.toLowerCase()}`}
+                      activeClassName='active'
+                    >
+                      <div className='container'>
+                        <BulletPoint>
+                          <div></div>
+                        </BulletPoint>
+                        <span>{project.title}</span>
+                      </div>
+                    </NavLink>
+                  </li>
+                ))}
 
             <AddProjectFormToggler>
               <AddProjectFormTogglerButton

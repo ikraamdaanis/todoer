@@ -183,6 +183,8 @@ export const TaskDescription = styled.p`
   line-height: 21px;
   word-wrap: break-word;
   word-break: break-word;
+  color: hsla(0, 0%, 100%, 0.87);
+  font-weight: 300;
 `
 
 export const TaskMenuContainer = styled.div`

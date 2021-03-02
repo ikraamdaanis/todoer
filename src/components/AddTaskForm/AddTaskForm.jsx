@@ -8,16 +8,20 @@ import {
   Priority,
   ProjectSelection,
   SubOptions,
+  BulletPoint,
 } from './AddTaskFormStyles'
 import { DatePicker } from '../DatePicker/DatePicker'
 import { useDispatch, useSelector } from 'react-redux'
 import { Menu } from '../Menu/Menu'
 import { createTask } from '../../store/actions/taskActions'
 import { v4 as uuidv4 } from 'uuid'
+import { ReactComponent as InboxIconSmall } from '../../assets/images/inbox-small.svg'
 
 export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
   const [todoDescription, setTodoDescription] = useState('')
-  const [selectedProject, setSelectedProject] = useState(currentProject?.title)
+  const [selectedProject, setSelectedProject] = useState(
+    currentProject?.title || 'Inbox'
+  )
   const [date, setDate] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isActive, setIsActive] = useState(false)
@@ -28,9 +32,6 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
   const menu = useRef(null)
 
   const dispatch = useDispatch()
-
-  const userLogin = useSelector(state => state.userLogin)
-  const { userInfo } = userLogin
 
   const projectList = useSelector(state => state.projectList)
   const { loading: projectsLoading, projects: projectsDetails } = projectList
@@ -113,9 +114,23 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
           <SubOptions>
             <DatePicker chosenDate={date} setDate={setDate} />
             <ProjectSelection>
-              <p htmlFor='projects' ref={menuButton}>
-                {selectedProject ? selectedProject : 'Choose a Project'}
-              </p>
+              <button type='button' ref={menuButton}>
+                {selectedProject !== 'Inbox' ? (
+                  <>
+                    <BulletPoint>
+                      <div></div>
+                    </BulletPoint>
+                    <span>{selectedProject}</span>
+                  </>
+                ) : (
+                  <>
+                    <div className='inbox'>
+                      <InboxIconSmall />
+                    </div>
+                    <span>Inbox</span>
+                  </>
+                )}
+              </button>
               {isMenuOpen && (
                 <Menu
                   data={projectsDetails}

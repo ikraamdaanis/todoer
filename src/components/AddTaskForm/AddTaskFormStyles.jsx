@@ -99,7 +99,7 @@ export const ProjectSelection = styled.div`
   align-items: center;
   position: relative;
 
-  p {
+  button {
     width: 100%;
     border: 1px solid #555;
     border-radius: 5px;
@@ -120,6 +120,35 @@ export const ProjectSelection = styled.div`
 
     &:hover {
       background: #363636;
+    }
+
+    .inbox {
+      display: grid;
+      place-content: center;
+      margin-right: 4px;
+
+      svg {
+        color: #246fe0;
+      }
+    }
+  }
+`
+
+export const BulletPoint = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  margin-right: 4px;
+
+  div {
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background-color: rgb(128, 128, 128);
+      border-radius: 50%;
     }
   }
 `

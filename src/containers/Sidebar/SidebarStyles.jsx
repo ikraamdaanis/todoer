@@ -1,4 +1,3 @@
-import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 
 export const SidebarContainer = styled.div`
@@ -25,6 +24,7 @@ export const Container = styled.div`
 export const SidebarButtonContainer = styled.div`
   width: 265px;
   padding: 5px 16px 5px 5px;
+  border-radius: 3px;
 `
 
 export const SidebarItem = styled.div`
@@ -97,6 +97,7 @@ export const ProjectTitles = styled.ul`
     list-style: none;
     cursor: pointer;
     border-radius: 3px;
+    overflow: hidden;
     transition: color 0.1s ease-in, background-color 0.1s ease-in;
     color: var(--text-white);
     line-height: 24px;
@@ -139,7 +140,7 @@ export const BulletPoint = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 38px;
+  width: 38px;
 
   div {
     &::before {
