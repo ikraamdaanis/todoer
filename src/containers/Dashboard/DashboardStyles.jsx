@@ -124,10 +124,6 @@ export const TaskItem = styled.li`
   }
 
   &:hover {
-    .delete-button {
-      opacity: 1;
-      pointer-events: all;
-    }
   }
 `
 
@@ -193,13 +189,26 @@ export const TaskMenuContainer = styled.div`
   display: grid;
   place-content: center;
   position: relative;
-  padding-right: 1rem;
+  padding-right: 0.5rem;
+
+  &:hover {
+    .toggler {
+      opacity: 1;
+    }
+  }
 
   .toggler {
+    opacity: 0;
     height: 24px;
     width: 24px;
     display: grid;
     place-content: center;
+    border-radius: 4px;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      background: #353535;
+    }
   }
 `
 
@@ -233,6 +242,14 @@ export const DeleteButton = styled.li`
 
   &:hover {
     background-color: #353535;
+
+    svg {
+      color: var(--light-red);
+    }
+
+    span {
+      color: var(--light-red);
+    }
   }
 
   svg {

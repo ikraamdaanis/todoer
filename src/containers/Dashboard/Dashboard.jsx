@@ -49,8 +49,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [taskToComplete, setTaskToComplete] = useState('')
   const [isUndoVisible, setIsUndoVisible] = useState(false)
 
-  const { current: TaskMenuButtonRef } = useRef(null)
-  const { current: TaskMenuRef } = useRef(null)
+  const TaskMenuButtonRef = useRef(null)
+  const TaskMenuRef = useRef(null)
 
   const dispatch = useDispatch()
   const { id } = match.params
@@ -129,12 +129,12 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   useEffect(() => {
     const toggleFocus = ({ target }) => {
-      if (TaskMenuButtonRef?.contains(target)) return
-      !TaskMenuRef?.contains(target) && setTaskMenuOpen(false)
+      if (TaskMenuButtonRef?.current?.contains(target)) return
+      !TaskMenuRef?.current?.contains(target) && setTaskMenuOpen(false)
     }
-    document.body.addEventListener('click', toggleFocus)
+    taskMenuOpen && document.body.addEventListener('click', toggleFocus)
     return () => document.body.removeEventListener('click', toggleFocus)
-  }, [])
+  }, [TaskMenuButtonRef, TaskMenuRef, taskMenuOpen])
 
   let timer
 
@@ -233,14 +233,11 @@ export const Dashboard = ({ history, match, isClosed }) => {
                                   <div
                                     className='toggler'
                                     ref={TaskMenuButtonRef}
-                                    onClick={() => {
-                                      console.log('hi')
-                                      setTaskMenuOpen(prev => !prev)
-                                    }}
+                                    onClick={() => setTaskMenuOpen(task.id)}
                                   >
                                     <MenuToggler />
                                   </div>
-                                  {taskMenuOpen && (
+                                  {taskMenuOpen === task.id && (
                                     <TaskMenu ref={TaskMenuRef}>
                                       <TaskMenuList>
                                         <Link
