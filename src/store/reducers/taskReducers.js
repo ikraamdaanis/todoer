@@ -15,8 +15,8 @@ import {
   TASKS_CLEAR,
 } from '../constants/taskConstants'
 
-export const taskReducer = (state = {}, action) => {
-  switch (action.type) {
+export const taskReducer = (state = {}, { type, payload }) => {
+  switch (type) {
     case TASK_CREATE_REQUEST:
       return {
         loading: true,
@@ -29,7 +29,7 @@ export const taskReducer = (state = {}, action) => {
     case TASK_CREATE_FAIL:
       return {
         loading: false,
-        error: action.payload,
+        error: payload,
       }
     case TASK_COMPLETE_REQUEST:
       return {
@@ -43,7 +43,7 @@ export const taskReducer = (state = {}, action) => {
     case TASK_COMPLETE_FAIL:
       return {
         loading: false,
-        error: action.payload,
+        error: payload,
       }
     case TASK_DELETE_REQUEST:
       return {
@@ -57,15 +57,15 @@ export const taskReducer = (state = {}, action) => {
     case TASK_DELETE_FAIL:
       return {
         loading: false,
-        error: action.payload,
+        error: payload,
       }
     default:
       return state
   }
 }
 
-export const taskDeleteModalReducer = (state = { isOpen: false }, action) => {
-  switch (action.type) {
+export const taskDeleteModalReducer = (state = { isOpen: false }, { type }) => {
+  switch (type) {
     case TASK_DELETE_MODAL_TOGGLE:
       return { isOpen: !state.isOpen }
     default:
