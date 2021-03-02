@@ -1,18 +1,18 @@
 import { firestore } from '../../firebase/config'
 import {
-  PROJECT_CREATE_FAIL,
-  PROJECT_CREATE_MODAL_TOGGLE,
   PROJECT_CREATE_REQUEST,
   PROJECT_CREATE_SUCCESS,
-  PROJECT_DETAILS_FAIL,
+  PROJECT_CREATE_FAIL,
+  PROJECT_CREATE_MODAL_TOGGLE,
   PROJECT_DETAILS_REQUEST,
   PROJECT_DETAILS_SUCCESS,
-  PROJECT_TASKS_ALL_FAIL,
+  PROJECT_DETAILS_FAIL,
   PROJECT_TASKS_ALL_REQUEST,
   PROJECT_TASKS_ALL_SUCCESS,
-  PROJECT_TASKS_DETAILS_FAIL,
+  PROJECT_TASKS_ALL_FAIL,
   PROJECT_TASKS_DETAILS_REQUEST,
   PROJECT_TASKS_DETAILS_SUCCESS,
+  PROJECT_TASKS_DETAILS_FAIL,
 } from '../constants/projectConstants'
 import { v4 as uuidv4 } from 'uuid'
 import { format } from 'date-fns'
@@ -94,6 +94,7 @@ export const getProjectTasks = project => async (dispatch, getState) => {
     dispatch({
       type: PROJECT_TASKS_DETAILS_REQUEST,
     })
+
     const {
       userLogin: { userInfo },
     } = getState()
@@ -128,12 +129,15 @@ export const getAllTasks = isToday => async (dispatch, getState) => {
     dispatch({
       type: PROJECT_TASKS_ALL_REQUEST,
     })
+
     const {
       userLogin: { userInfo },
       allProjectsDetails: { projects },
     } = getState()
+
     const queries = []
     const all = []
+
     projects.forEach(proj => {
       queries.push(
         firestore
@@ -146,6 +150,7 @@ export const getAllTasks = isToday => async (dispatch, getState) => {
           .get()
       )
     })
+
     Promise.all(queries)
       .then(results => {
         results.forEach(i => i.docs.forEach(doc => all.push(doc.data())))
