@@ -43,7 +43,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [taskMenuOpen, setTaskMenuOpen] = useState(false)
   const [currentProject, setCurrentProject] = useState(null)
   const [dashboardTasks, setDashboardTasks] = useState([])
-  const [taskToComplete, setTaskToComplete] = useState('')
+  const [tasksToComplete, setTasksToComplete] = useState([])
   const [isUndoVisible, setIsUndoVisible] = useState(false)
 
   const TaskMenuButtonRef = useRef(null)
@@ -105,10 +105,10 @@ export const Dashboard = ({ history, match, isClosed }) => {
     isProject && setDashboardTasks(projectTasks?.sort(sortByDate))
   }, [allTasks, projectTasks, projectsLoading, isProject, dashboardTasks])
 
-  useEffect(() => {
-    console.clear()
-    console.log('Dashboard =>', dashboardTasks, allTasks)
-  }, [dashboardTasks, allTasks])
+  // useEffect(() => {
+  //   console.clear()
+  //   console.log('Dashboard =>', dashboardTasks, allTasks)
+  // }, [dashboardTasks, allTasks])
 
   useEffect(() => {
     if (projects) {
@@ -121,7 +121,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
   }, [currentProject, isProject, id, projects])
 
   useEffect(() => {
-    console.log({ taskMenuOpen })
     const toggleFocus = ({ target }) => {
       if (TaskMenuButtonRef?.current?.contains(target)) {
         setTaskMenuOpen(prev => !prev)
@@ -135,25 +134,27 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   let timer
 
-  const completeSelectedTask = (project, id) => {
+  const completeSelectedTask = () => {
     timer = setTimeout(() => {
-      dispatch(completeTask(project, id))
+      tasksToComplete.forEach(task => {
+        const { project, id } = task
+        dispatch(completeTask(project, id))
+      })
       setIsUndoVisible(false)
     }, 5000)
   }
 
   const cancelCompleteTask = () => {
     clearTimeout(timer)
-    setTaskToComplete('')
+    setTasksToComplete([])
     setIsUndoVisible(false)
   }
 
   useEffect(() => {
-    if (taskToComplete) {
-      const { project, id } = taskToComplete
-      completeSelectedTask(project, id)
+    if (tasksToComplete.length) {
+      completeSelectedTask()
     }
-  }, [taskToComplete])
+  }, [tasksToComplete, timer])
 
   const checkDate = actualDate => {
     if (isToday(new Date(actualDate))) {
@@ -203,18 +204,23 @@ export const Dashboard = ({ history, match, isClosed }) => {
                           <TaskItem
                             key={task.id}
                             className={
-                              taskToComplete.id === task.id ? 'hide' : undefined
+                              tasksToComplete?.some(item => item.id === task.id)
+                                ? 'hide'
+                                : undefined
                             }
                           >
                             <TaskItemContainer>
                               <TaskDetails>
                                 <TaskCheck
                                   onClick={() => {
-                                    console.log(task.project)
-                                    setTaskToComplete({
-                                      project: task.project,
-                                      id: task.id,
-                                    })
+                                    clearTimeout(timer)
+                                    setTasksToComplete(prev => [
+                                      ...prev,
+                                      {
+                                        project: task.project,
+                                        id: task.id,
+                                      },
+                                    ])
                                     setIsUndoVisible(true)
                                   }}
                                 >
