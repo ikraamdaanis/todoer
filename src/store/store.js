@@ -11,7 +11,7 @@ import {
 import {
   taskDeleteModalReducer,
   taskReducer,
-  tasksReducer,
+  taskListReducer,
 } from './reducers/taskReducers'
 
 const reducer = combineReducers({
@@ -22,7 +22,7 @@ const reducer = combineReducers({
   projectTasksDetails: projectTasksReducer,
   taskCreate: taskReducer,
   taskDeleteModal: taskDeleteModalReducer,
-  allTasks: tasksReducer,
+  taskList: taskListReducer,
   projectList: projectListReducer,
 })
 

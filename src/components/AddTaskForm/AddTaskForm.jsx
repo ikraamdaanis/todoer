@@ -32,11 +32,8 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
-  const allProjectsDetails = useSelector(state => state.allProjectsDetails)
-  const {
-    loading: projectsLoading,
-    projects: projectsDetails,
-  } = allProjectsDetails
+  const projectList = useSelector(state => state.projectList)
+  const { loading: projectsLoading, projects: projectsDetails } = projectList
 
   useEffect(() => {
     const toggleFocus = ({ target }) => {

@@ -60,8 +60,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const projectTasksDetails = useSelector(state => state.projectTasksDetails)
   const { loading: tasksLoading, tasks: projectTasks } = projectTasksDetails
 
-  const allTasks = useSelector(state => state.allTasks)
-  const { loading: allTasksLoading, tasks: allProjectTasks } = allTasks
+  const taskList = useSelector(state => state.taskList)
+  const { loading: taskListLoading, tasks: allTasks } = taskList
 
   setTimeout(() => {
     setIsLoading(false)
@@ -71,7 +71,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
     const [current] = projects?.filter(
       project => project.title.toLowerCase() === match.params.id
     )
-
     setCurrentProject(() => current)
   }
 
@@ -106,10 +105,10 @@ export const Dashboard = ({ history, match, isClosed }) => {
     isProject && setDashboardTasks(projectTasks?.sort(sortByDate))
   }, [allTasks, projectTasks, projectsLoading, isProject, dashboardTasks])
 
-  // useEffect(() => {
-  //   console.clear()
-  //   console.log('Dashboard =>', dashboardTasks)
-  // }, [dashboardTasks])
+  useEffect(() => {
+    console.clear()
+    console.log('Dashboard =>', dashboardTasks, allTasks)
+  }, [dashboardTasks, allTasks])
 
   useEffect(() => {
     if (projects) {
@@ -185,7 +184,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 <small>{format(new Date(), 'iii do MMM')}</small>
               )}
             </Title>
-            {isLoading || projectsLoading || tasksLoading || allTasksLoading ? (
+            {isLoading || projectsLoading || tasksLoading || taskListLoading ? (
               <div style={{ marginTop: '10rem' }}>
                 <Spinner />
               </div>
