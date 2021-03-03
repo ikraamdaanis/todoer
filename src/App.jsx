@@ -62,11 +62,6 @@ export const App = () => {
             <AddProjectModal />
           </Modal>
         )}
-        <Route exact path='/app/:id/:action/:task'>
-          <Modal>
-            <DeleteTaskModal />
-          </Modal>
-        </Route>
       </Router>
     </>
   )

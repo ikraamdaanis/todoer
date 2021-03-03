@@ -1,6 +1,9 @@
-import React from 'react'
+import ReactDOM from 'react-dom'
 import { ModalContainer } from './ModalStyles'
 
 export const Modal = ({ children }) => {
-  return <ModalContainer>{children}</ModalContainer>
+  return ReactDOM.createPortal(
+    <ModalContainer>{children}</ModalContainer>,
+    document.getElementById('root')
+  )
 }

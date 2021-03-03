@@ -17,6 +17,8 @@ import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
 import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
 import { Link } from 'react-router-dom'
+import { Modal } from '../Modal/Modal'
+import { DeleteTaskModal } from '../DeleteTaskModal/DeleteTaskModal'
 
 export const TaskItem = ({
   task,
@@ -26,6 +28,7 @@ export const TaskItem = ({
   clearTime,
 }) => {
   const [taskMenuOpen, setTaskMenuOpen] = useState(false)
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
   const TaskMenuButtonRef = useRef(null)
   const TaskMenuRef = useRef(null)
@@ -102,17 +105,20 @@ export const TaskItem = ({
             {taskMenuOpen === task.id && (
               <TaskMenu ref={TaskMenuRef}>
                 <TaskMenuList>
-                  <Link
+                  {/* <Link
                     to={`/app/${task.project.toLowerCase()}/delete/${task.id}`}
+                  > */}
+                  <DeleteButton
+                    title='Delete this task'
+                    onClick={() => {
+                      setDeleteModalOpen(true)
+                      setTaskMenuOpen(false)
+                    }}
                   >
-                    <DeleteButton
-                      title='Delete this task'
-                      onClick={() => setTaskMenuOpen(false)}
-                    >
-                      <DeleteIcon />
-                      <span>Delete task</span>
-                    </DeleteButton>
-                  </Link>
+                    <DeleteIcon />
+                    <span>Delete task</span>
+                  </DeleteButton>
+                  {/* </Link> */}
                 </TaskMenuList>
               </TaskMenu>
             )}
@@ -132,6 +138,14 @@ export const TaskItem = ({
           </TaskTags>
         )}
       </TaskItemContainer>
+      {deleteModalOpen && (
+        <Modal>
+          <DeleteTaskModal
+            task={task}
+            setDeleteModalOpen={setDeleteModalOpen}
+          />
+        </Modal>
+      )}
     </TaskListItem>
   )
 }

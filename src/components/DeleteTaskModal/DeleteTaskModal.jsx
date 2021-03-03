@@ -1,5 +1,5 @@
-import { useRef, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useRef, useEffect, å } from 'react'
+import { useDispatch } from 'react-redux'
 import {
   TaskModal,
   TaskModalBody,
@@ -7,29 +7,21 @@ import {
   DeleteTaskButton,
 } from './DeleteTaskModalStyles'
 import { deleteTask } from '../../store/actions/taskActions'
-import { useParams, useHistory } from 'react-router-dom'
 import { Spinner } from '../Spinner/Spinner'
 
-export const DeleteTaskModal = () => {
-  const [taskToDelete, setTaskToDelete] = useState(null)
-
+export const DeleteTaskModal = ({ task, setDeleteModalOpen }) => {
   const dispatch = useDispatch()
-  const params = useParams()
-  const history = useHistory()
 
   const modal = useRef(null)
   const cancelButton = useRef(null)
 
-  const projectTasksDetails = useSelector(state => state.projectTasksDetails)
-  const { tasks } = projectTasksDetails
-
   useEffect(() => {
     const toggleFocus = ({ target }) => {
       if (cancelButton.current?.contains(target)) {
-        history.push(`/app/${params.id}`)
+        setDeleteModalOpen(false)
         return
       }
-      !modal.current?.contains(target) && history.push(`/app/${params.id}`)
+      !modal.current?.contains(target) && setDeleteModalOpen(false)
     }
     document.body.addEventListener('click', toggleFocus)
     return () => {
@@ -37,18 +29,13 @@ export const DeleteTaskModal = () => {
     }
   }, [])
 
-  useEffect(() => {
-    tasks && setTaskToDelete(tasks.filter(task => task.id === params.task)[0])
-  }, [tasks])
-
-  return !taskToDelete ? (
+  return !task ? (
     <Spinner />
   ) : (
     <TaskModal ref={modal}>
       <TaskModalBody>
         <h3>
-          Are you sure you want to delete{' '}
-          <strong>{taskToDelete.description}</strong>?
+          Are you sure you want to delete <strong>{task.description}</strong>?
         </h3>
       </TaskModalBody>
       <TaskModalFooter>
@@ -59,8 +46,8 @@ export const DeleteTaskModal = () => {
           type='button'
           className='delete'
           onClick={() => {
-            dispatch(deleteTask(taskToDelete.project, taskToDelete.id))
-            history.push(`/app/${params.id}`)
+            dispatch(deleteTask(task.project, task.id))
+            setDeleteModalOpen(false)
           }}
         >
           Delete
