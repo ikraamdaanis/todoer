@@ -307,7 +307,11 @@ export const Dashboard = ({ history, match, isClosed }) => {
       {isUndoVisible && (
         <UndoNotification>
           <UndoContainer>
-            <UndoText>1 task completed</UndoText>
+            <UndoText>
+              {tasksToComplete.length > 1
+                ? `${tasksToComplete.length} tasks completed`
+                : `${tasksToComplete.length} task completed`}
+            </UndoText>
             <UndoButton type='button' onClick={() => cancelCompleteTask()}>
               Undo
             </UndoButton>
