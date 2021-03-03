@@ -5,16 +5,10 @@ import { ReactComponent as Checkmark } from '../../assets/images/checkmark.svg'
 import { ReactComponent as InboxIcon } from '../../assets/images/inbox.svg'
 
 export const Menu = forwardRef((props, ref) => {
-  const { data, state, setState, toggleOpen } = props
-  // const inbox = data?.filter(project => project.title === 'Inbox')
-  // const filtered = data?.filter(project => project.title !== 'Inbox')
-
-  // inbox.push(filtered)
-
-  // console.log({ filtered, inbox })
+  const { data, state, setState } = props
 
   return (
-    <MenuContainer onClick={() => toggleOpen(false)} ref={ref}>
+    <MenuContainer ref={ref}>
       <Arrow />
       <MenuList>
         {data?.map(project => (

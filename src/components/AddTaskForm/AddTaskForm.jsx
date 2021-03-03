@@ -16,6 +16,7 @@ import { Menu } from '../Menu/Menu'
 import { createTask } from '../../store/actions/taskActions'
 import { v4 as uuidv4 } from 'uuid'
 import { ReactComponent as InboxIconSmall } from '../../assets/images/inbox-small.svg'
+import { useMenu } from '../../hooks/useMenu'
 
 export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
   const [todoDescription, setTodoDescription] = useState('')
@@ -26,41 +27,20 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isActive, setIsActive] = useState(false)
 
-  const todoInput = useRef(null)
-  const form = useRef(null)
-  const menuButton = useRef(null)
-  const menu = useRef(null)
-
   const dispatch = useDispatch()
 
   const projectList = useSelector(state => state.projectList)
-  const { loading: projectsLoading, projects: projectsDetails } = projectList
+  const { projects } = projectList
 
-  useEffect(() => {
-    const toggleFocus = ({ target }) => {
-      !form.current?.contains(target) ? setIsActive(false) : setIsActive(true)
-    }
-    document.body.addEventListener('click', toggleFocus)
-    return () => {
-      document.body.removeEventListener('click', toggleFocus)
-    }
-  }, [])
+  const todoInput = useRef(null)
+  const form = useRef(null)
 
-  useEffect(() => {
-    const toggleFocus = ({ target }) => {
-      if (menuButton?.current?.contains(target)) {
-        setIsMenuOpen(prev => !prev)
-        return
-      }
-      !menu.current?.contains(target)
-        ? setIsMenuOpen(false)
-        : setIsMenuOpen(true)
-    }
-    document.body.addEventListener('click', toggleFocus)
-    return () => {
-      document.body.removeEventListener('click', toggleFocus)
-    }
-  }, [])
+  useMenu(form, null, setIsActive)
+
+  const menuButton = useRef(null)
+  const menu = useRef(null)
+
+  useMenu(menuButton, menu, setIsMenuOpen)
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -84,17 +64,14 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
     history.push(`/app/${project.toLowerCase()}`)
   }
 
-  // useEffect(() => {
-  //   console.log(date, selectedProject, todoDescription)
-  // }, [date, selectedProject, todoDescription])
-
   return (
     <AddTaskFormContainer>
       <AddTaskFormForm
         autoComplete='off'
-        onClick={({ target }) =>
+        onClick={({ target }) => {
           target === form.current && todoInput.current.focus()
-        }
+          setIsActive(true)
+        }}
         onSubmit={handleSubmit}
       >
         <Container className={isActive && 'focused'} ref={form}>
@@ -114,7 +91,11 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
           <SubOptions>
             <DatePicker chosenDate={date} setDate={setDate} />
             <ProjectSelection>
-              <button type='button' ref={menuButton}>
+              <button
+                type='button'
+                ref={menuButton}
+                onClick={() => setIsMenuOpen(prev => !prev)}
+              >
                 {selectedProject !== 'Inbox' ? (
                   <>
                     <BulletPoint>
@@ -133,10 +114,9 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
               </button>
               {isMenuOpen && (
                 <Menu
-                  data={projectsDetails}
+                  data={projects}
                   state={selectedProject}
                   setState={setSelectedProject}
-                  toggleOpen={setIsMenuOpen}
                   ref={menu}
                 />
               )}
