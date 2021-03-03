@@ -1,29 +1,19 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import {
   AddTask,
   AddTaskText,
   DashboardContainer,
   PlusButton,
   ProjectContainer,
-  TaskCheck,
-  TaskDescription,
-  TaskDetails,
-  TaskItem,
-  TaskItemContainer,
-  TaskTags,
   Title,
   UndoNotification,
   UndoContainer,
   UndoText,
   UndoButton,
   UndoCloseButton,
-  DeleteButton,
-  TaskMenuContainer,
-  TaskMenu,
-  TaskMenuList,
 } from './DashboardStyles'
-import { AddTaskForm, Spinner } from '../../components'
-import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
+import { AddTaskForm, Spinner, TaskItem } from '../../components'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { getProjectTasks } from '../../store/actions/projectActions'
 import { completeTask, getAllTasks } from '../../store/actions/taskActions'
@@ -31,10 +21,8 @@ import { Sidebar } from '../Sidebar/Sidebar'
 import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConstants'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 
-import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
-
-import { Link } from 'react-router-dom'
+import { format } from 'date-fns'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -116,18 +104,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
     }
   }, [currentProject, isProject, id, projects])
 
-  useEffect(() => {
-    const toggleFocus = ({ target }) => {
-      if (TaskMenuButtonRef?.current?.contains(target)) {
-        setTaskMenuOpen(prev => !prev)
-        return
-      }
-      !TaskMenuRef?.current?.contains(target) && setTaskMenuOpen(false)
-    }
-    taskMenuOpen && document.body.addEventListener('click', toggleFocus)
-    return () => document.body.removeEventListener('click', toggleFocus)
-  }, [TaskMenuButtonRef, TaskMenuRef, taskMenuOpen])
-
   let timer
 
   const completeSelectedTask = () => {
@@ -146,32 +122,15 @@ export const Dashboard = ({ history, match, isClosed }) => {
     setIsUndoVisible(false)
   }
 
+  const clearTime = () => {
+    clearTimeout(timer)
+  }
+
   useEffect(() => {
     if (tasksToComplete.length) {
       completeSelectedTask()
     }
   }, [tasksToComplete, timer])
-
-  const checkDate = actualDate => {
-    if (isToday(new Date(actualDate))) {
-      return 'Today'
-    } else if (isTomorrow(new Date(actualDate))) {
-      return 'Tomorrow'
-    } else if (isBefore(new Date(actualDate), add(new Date(), { days: 7 }))) {
-      return format(new Date(actualDate), 'EEEE')
-    } else {
-      return format(new Date(actualDate), 'do MMM')
-    }
-  }
-
-  const dateColour = (displayDate, actualDate) =>
-    displayDate === 'Today'
-      ? '#25b84c'
-      : displayDate === 'Tomorrow'
-      ? '#ff9a14'
-      : isBefore(new Date(actualDate), add(new Date(), { days: 7 }))
-      ? '#a970ff'
-      : 'unset'
 
   return (
     <>
@@ -197,7 +156,14 @@ export const Dashboard = ({ history, match, isClosed }) => {
                       {dashboardTasks
                         .filter(task => !task.isComplete)
                         .map(task => (
-                          <TaskItem task={task} />
+                          <TaskItem
+                            key={task.id}
+                            task={task}
+                            tasksToComplete={tasksToComplete}
+                            setTasksToComplete={setTasksToComplete}
+                            setIsUndoVisible={setIsUndoVisible}
+                            clearTime={clearTime}
+                          />
                         ))}
                     </ul>
                   </div>

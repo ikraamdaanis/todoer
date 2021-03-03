@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   DeleteButton,
   TaskCheck,
@@ -15,13 +15,54 @@ import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
 import { ReactComponent as MenuToggler } from '../../assets/images/more-icon.svg'
 import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
+import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
 import { Link } from 'react-router-dom'
 
-export const TaskItem = ({ task, tasksToComplete }) => {
+export const TaskItem = ({
+  task,
+  tasksToComplete,
+  setTasksToComplete,
+  setIsUndoVisible,
+  clearTime,
+}) => {
   const [taskMenuOpen, setTaskMenuOpen] = useState(false)
 
   const TaskMenuButtonRef = useRef(null)
   const TaskMenuRef = useRef(null)
+
+  const checkDate = actualDate => {
+    if (isToday(new Date(actualDate))) {
+      return 'Today'
+    } else if (isTomorrow(new Date(actualDate))) {
+      return 'Tomorrow'
+    } else if (isBefore(new Date(actualDate), add(new Date(), { days: 7 }))) {
+      return format(new Date(actualDate), 'EEEE')
+    } else {
+      return format(new Date(actualDate), 'do MMM')
+    }
+  }
+
+  const dateColour = (displayDate, actualDate) =>
+    displayDate === 'Today'
+      ? '#25b84c'
+      : displayDate === 'Tomorrow'
+      ? '#ff9a14'
+      : isBefore(new Date(actualDate), add(new Date(), { days: 7 }))
+      ? '#a970ff'
+      : 'unset'
+
+  useEffect(() => {
+    const toggleFocus = ({ target }) => {
+      if (TaskMenuButtonRef?.current?.contains(target)) {
+        setTaskMenuOpen(prev => !prev)
+        return
+      }
+      !TaskMenuRef?.current?.contains(target) && setTaskMenuOpen(false)
+    }
+    taskMenuOpen && document.body.addEventListener('click', toggleFocus)
+    return () => document.body.removeEventListener('click', toggleFocus)
+  }, [TaskMenuButtonRef, TaskMenuRef, taskMenuOpen])
+
   return (
     <TaskListItem
       key={task.id}
@@ -33,7 +74,7 @@ export const TaskItem = ({ task, tasksToComplete }) => {
         <TaskDetails>
           <TaskCheck
             onClick={() => {
-              clearTimeout(timer)
+              clearTime()
               setTasksToComplete(prev => [
                 ...prev,
                 {
