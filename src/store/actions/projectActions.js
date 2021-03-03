@@ -45,12 +45,6 @@ export const createProject = project => async (dispatch, getState) => {
   }
 }
 
-export const toggleProjectModal = () => dispatch => {
-  dispatch({
-    type: PROJECT_CREATE_MODAL_TOGGLE,
-  })
-}
-
 export const getAllProjects = () => async (dispatch, getState) => {
   try {
     dispatch({

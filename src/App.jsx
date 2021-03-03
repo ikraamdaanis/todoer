@@ -6,12 +6,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom'
-import {
-  DeleteTaskModal,
-  Modal,
-  ScrollToTop,
-  AddProjectModal,
-} from './components'
+import { ScrollToTop } from './components'
 import { Dashboard, Navbar } from './containers'
 import { Home, SignIn, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
@@ -20,12 +15,6 @@ export const App = () => {
   const [isClosed, setIsClosed] = useState(false)
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
-
-  const projectCreateModal = useSelector(state => state.projectCreateModal)
-  const { isOpen: isProjectModalOpen } = projectCreateModal
-
-  const taskDeleteModal = useSelector(state => state.taskDeleteModal)
-  const { isOpen: isTaskModalOpen } = taskDeleteModal
 
   return (
     <>
@@ -57,11 +46,6 @@ export const App = () => {
             </Route>
           </Switch>
         </main>
-        {isProjectModalOpen && (
-          <Modal>
-            <AddProjectModal />
-          </Modal>
-        )}
       </Router>
     </>
   )

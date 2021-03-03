@@ -1,4 +1,4 @@
-import { useRef, useEffect, å } from 'react'
+import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import {
   TaskModal,
@@ -8,6 +8,7 @@ import {
 } from './DeleteTaskModalStyles'
 import { deleteTask } from '../../store/actions/taskActions'
 import { Spinner } from '../Spinner/Spinner'
+import { useMenu } from '../../hooks/useMenu'
 
 export const DeleteTaskModal = ({ task, setDeleteModalOpen }) => {
   const dispatch = useDispatch()
@@ -15,19 +16,7 @@ export const DeleteTaskModal = ({ task, setDeleteModalOpen }) => {
   const modal = useRef(null)
   const cancelButton = useRef(null)
 
-  useEffect(() => {
-    const toggleFocus = ({ target }) => {
-      if (cancelButton.current?.contains(target)) {
-        setDeleteModalOpen(false)
-        return
-      }
-      !modal.current?.contains(target) && setDeleteModalOpen(false)
-    }
-    document.body.addEventListener('click', toggleFocus)
-    return () => {
-      document.body.removeEventListener('click', toggleFocus)
-    }
-  }, [])
+  useMenu(modal, cancelButton, setDeleteModalOpen)
 
   return !task ? (
     <Spinner />

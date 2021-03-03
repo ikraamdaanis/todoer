@@ -34,18 +34,6 @@ export const projectCreateReducer = (state = {}, { type, payload }) => {
   }
 }
 
-export const projectCreateModalReducer = (
-  state = { isOpen: false },
-  { type }
-) => {
-  switch (type) {
-    case PROJECT_CREATE_MODAL_TOGGLE:
-      return { isOpen: !state.isOpen }
-    default:
-      return state
-  }
-}
-
 export const projectListReducer = (
   state = { projects: [] },
   { type, payload }

@@ -4,7 +4,6 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { userLoginReducer, userRegisterReducer } from './reducers/userReducers'
 import {
   projectListReducer,
-  projectCreateModalReducer,
   projectCreateReducer,
   projectTasksReducer,
 } from './reducers/projectReducers'
@@ -18,7 +17,6 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   projectCreate: projectCreateReducer,
-  projectCreateModal: projectCreateModalReducer,
   projectTasksDetails: projectTasksReducer,
   taskCreate: taskReducer,
   taskDeleteModal: taskDeleteModalReducer,

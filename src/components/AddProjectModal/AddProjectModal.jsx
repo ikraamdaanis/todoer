@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import {
-  createProject,
-  toggleProjectModal,
-} from '../../store/actions/projectActions'
+import { useMenu } from '../../hooks/useMenu'
+import { createProject } from '../../store/actions/projectActions'
 import {
   AddProjectButton,
   AddProjectFooter,
@@ -17,7 +15,7 @@ import {
   ProjectModal,
 } from './AddProjectModalStyles'
 
-export const AddProjectModal = () => {
+export const AddProjectModal = ({ setIsProjectModalOpen }) => {
   const [project, setProject] = useState('')
   const dispatch = useDispatch()
 
@@ -36,26 +34,14 @@ export const AddProjectModal = () => {
       const proj = project
       setProject('')
       proj && history.push(`/app/${proj.toLowerCase()}`)
-      proj && dispatch(toggleProjectModal())
+      proj && setIsProjectModalOpen(false)
     }
   }, [success])
 
   const form = useRef(null)
   const cancelButton = useRef(null)
 
-  useEffect(() => {
-    const toggleFocus = ({ target }) => {
-      if (cancelButton.current?.contains(target)) {
-        dispatch(toggleProjectModal())
-        return
-      }
-      !form.current?.contains(target) && dispatch(toggleProjectModal())
-    }
-    document.body.addEventListener('click', toggleFocus)
-    return () => {
-      document.body.removeEventListener('click', toggleFocus)
-    }
-  }, [])
+  useMenu(form, cancelButton, setIsProjectModalOpen)
 
   return (
     <ProjectModal>

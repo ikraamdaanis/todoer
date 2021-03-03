@@ -12,11 +12,9 @@ import {
   SidebarButtonContainer,
   SidebarContainer,
 } from './SidebarStyles'
+import { AddProjectModal } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  getAllProjects,
-  toggleProjectModal,
-} from '../../store/actions/projectActions'
+import { getAllProjects } from '../../store/actions/projectActions'
 import { ReactComponent as Upcoming } from '../../assets/images/upcoming-icon.svg'
 import { ReactComponent as PlusIcon } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as DropdownIcon } from '../../assets/images/dropdown.svg'
@@ -24,6 +22,7 @@ import { ReactComponent as InboxIcon } from '../../assets/images/inbox.svg'
 import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
+import { Modal } from '../../components'
 
 const Inbox = () => {
   return (
@@ -95,6 +94,7 @@ const UpcomingIcon = () => {
 export const Sidebar = ({ isClosed, param }) => {
   const [isOpen, setIsOpen] = useState(true)
   const [allProjects, setAllProjects] = useState([])
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -183,7 +183,7 @@ export const Sidebar = ({ isClosed, param }) => {
 
             <AddProjectFormToggler>
               <AddProjectFormTogglerButton
-                onClick={() => dispatch(toggleProjectModal())}
+                onClick={() => setIsProjectModalOpen(true)}
               >
                 <div className='icon'>
                   <div className='icon-wrapper'>
@@ -198,6 +198,11 @@ export const Sidebar = ({ isClosed, param }) => {
           </ProjectTitles>
         )}
       </Container>
+      {isProjectModalOpen && (
+        <Modal>
+          <AddProjectModal setIsProjectModalOpen={setIsProjectModalOpen} />
+        </Modal>
+      )}
     </SidebarContainer>
   )
 }
