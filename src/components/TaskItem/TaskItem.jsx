@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import {
   DeleteButton,
   TaskCheck,
@@ -16,9 +16,9 @@ import { ReactComponent as MenuToggler } from '../../assets/images/more-icon.svg
 import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
 import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
-import { Link } from 'react-router-dom'
 import { Modal } from '../Modal/Modal'
 import { DeleteTaskModal } from '../DeleteTaskModal/DeleteTaskModal'
+import { useMenu } from '../../hooks/useMenu'
 
 export const TaskItem = ({
   task,
@@ -32,6 +32,8 @@ export const TaskItem = ({
 
   const TaskMenuButtonRef = useRef(null)
   const TaskMenuRef = useRef(null)
+
+  useMenu(TaskMenuButtonRef, TaskMenuRef, setTaskMenuOpen)
 
   const checkDate = actualDate => {
     if (isToday(new Date(actualDate))) {
@@ -53,18 +55,6 @@ export const TaskItem = ({
       : isBefore(new Date(actualDate), add(new Date(), { days: 7 }))
       ? '#a970ff'
       : 'unset'
-
-  useEffect(() => {
-    const toggleFocus = ({ target }) => {
-      if (TaskMenuButtonRef?.current?.contains(target)) {
-        setTaskMenuOpen(prev => !prev)
-        return
-      }
-      !TaskMenuRef?.current?.contains(target) && setTaskMenuOpen(false)
-    }
-    taskMenuOpen && document.body.addEventListener('click', toggleFocus)
-    return () => document.body.removeEventListener('click', toggleFocus)
-  }, [TaskMenuButtonRef, TaskMenuRef, taskMenuOpen])
 
   return (
     <TaskListItem
@@ -98,16 +88,13 @@ export const TaskItem = ({
             <div
               className='toggler'
               ref={TaskMenuButtonRef}
-              onClick={() => setTaskMenuOpen(task.id)}
+              onClick={() => setTaskMenuOpen(prev => !prev)}
             >
               <MenuToggler />
             </div>
-            {taskMenuOpen === task.id && (
+            {taskMenuOpen && (
               <TaskMenu ref={TaskMenuRef}>
                 <TaskMenuList>
-                  {/* <Link
-                    to={`/app/${task.project.toLowerCase()}/delete/${task.id}`}
-                  > */}
                   <DeleteButton
                     title='Delete this task'
                     onClick={() => {
@@ -118,7 +105,6 @@ export const TaskItem = ({
                     <DeleteIcon />
                     <span>Delete task</span>
                   </DeleteButton>
-                  {/* </Link> */}
                 </TaskMenuList>
               </TaskMenu>
             )}
