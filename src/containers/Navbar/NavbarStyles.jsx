@@ -23,6 +23,8 @@ export const Container = styled.div`
   .menu-toggler {
     cursor: pointer;
     transition: 0.2s ease-in-out;
+    margin-right: 0.5rem;
+
     &:hover {
       @media (min-width: 600px) {
         color: var(--light-red);
@@ -33,6 +35,7 @@ export const Container = styled.div`
   .home {
     cursor: pointer;
     transition: 0.2s ease-in-out;
+
     &:hover {
       @media (min-width: 600px) {
         color: var(--light-red);

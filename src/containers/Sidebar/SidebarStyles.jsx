@@ -17,14 +17,20 @@ export const SidebarContainer = styled.div`
 `
 
 export const Container = styled.div`
-  padding: 2rem 0 0 42px;
+  padding: 2rem 0 0 47px;
   transform: translateX(-12px);
 `
 
 export const SidebarButtonContainer = styled.div`
   width: 265px;
-  padding: 5px 16px 5px 5px;
+  padding: 5px 16px 5px 0px;
   border-radius: 3px;
+
+  &.active {
+    span {
+      font-weight: 500;
+    }
+  }
 `
 
 export const SidebarItem = styled.div`
@@ -46,7 +52,7 @@ export const SidebarItem = styled.div`
 export const ProjectsButtonContainer = styled.div`
   width: 265px;
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
-  padding: 10px 16px 10px 5px;
+  padding: 10px 16px 10px 0px;
 
   .dropdown {
     width: 38px;
@@ -71,7 +77,7 @@ export const ProjectsButton = styled.button`
   outline: 0;
   background: none;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   text-align: left;
   width: 224px;
   height: 100%;
@@ -108,7 +114,7 @@ export const ProjectTitles = styled.ul`
       display: block;
       width: 100%;
       height: 100%;
-      padding: 5px 16px 5px 5px;
+      padding: 5px 16px 5px 0px;
 
       .container {
         display: flex;
@@ -120,8 +126,9 @@ export const ProjectTitles = styled.ul`
       background-color: #363636;
     }
 
-    &.active {
+    .active {
       background-color: #363636;
+
       font-weight: 500;
 
       &:hover {
@@ -155,7 +162,7 @@ export const BulletPoint = styled.div`
 `
 
 export const AddProjectFormToggler = styled.div`
-  padding: 5px 16px 5px 5px;
+  padding: 5px 16px 5px 0px;
 `
 
 export const AddProjectFormTogglerButton = styled.button`
