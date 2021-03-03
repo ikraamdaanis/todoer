@@ -125,7 +125,7 @@ export const getAllTasks = isToday => async (dispatch, getState) => {
     dispatch({
       type: TASKS_REQUEST,
     })
-    console.log('what', isToday)
+
     const {
       userLogin: { userInfo },
       projectList: { projects },
@@ -133,7 +133,6 @@ export const getAllTasks = isToday => async (dispatch, getState) => {
 
     const queries = []
     const all = []
-    console.log(all, queries, 'All')
 
     projects.forEach(proj => {
       queries.push(

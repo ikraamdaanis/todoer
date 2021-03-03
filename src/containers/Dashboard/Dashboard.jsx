@@ -47,9 +47,12 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const taskList = useSelector(state => state.taskList)
   const { loading: taskListLoading, tasks: allTasks } = taskList
 
-  setTimeout(() => {
-    setIsLoading(false)
-  }, 1000)
+  useEffect(() => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
+  }, [currentProject])
 
   const assignCurrentProject = () => {
     const [current] = projects?.filter(
