@@ -30,8 +30,8 @@ export const TaskItem = ({
   const [taskMenuOpen, setTaskMenuOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
-  const TaskMenuButtonRef = useRef(null)
   const TaskMenuRef = useRef(null)
+  const TaskMenuButtonRef = useRef(null)
 
   useMenu(TaskMenuButtonRef, TaskMenuRef, setTaskMenuOpen)
 

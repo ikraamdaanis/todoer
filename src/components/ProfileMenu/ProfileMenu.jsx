@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   LogoutButton,
@@ -11,6 +11,7 @@ import {
 } from './ProfileMenuStyles'
 import { ReactComponent as LogoutIcon } from '../../assets/images/logout-icon.svg'
 import { logoutAction } from '../../store/actions/userActions'
+import { useMenu } from '../../hooks/useMenu'
 
 export const ProfileMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -23,29 +24,20 @@ export const ProfileMenu = () => {
   const menu = useRef(null)
   const menuIcon = useRef(null)
 
-  useEffect(() => {
-    const toggleOpen = ({ target }) => {
-      if (menuIcon?.current?.contains(target)) return
-      menu?.current?.contains(target) ? setIsOpen(true) : setIsOpen(false)
-    }
-    document.body.addEventListener('click', toggleOpen)
-    return () => {
-      document.body.removeEventListener('click', toggleOpen)
-    }
-  }, [menu])
+  useMenu(menuIcon, menu, setIsOpen)
 
   return (
-    <ProfileMenuContainer ref={menu}>
+    <ProfileMenuContainer>
       {userInfo && (
         <ProfileImage
           src={userInfo.photo}
           alt='Profile Image'
           ref={menuIcon}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen(prev => !prev)}
         />
       )}
       {isOpen && (
-        <ProfileMenuDropDown>
+        <ProfileMenuDropDown ref={menu}>
           <UserDetails>
             <ProfileImage
               src={userInfo.photo}
