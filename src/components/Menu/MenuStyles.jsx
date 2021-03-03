@@ -43,6 +43,7 @@ export const MenuItem = styled.li`
   transition: 0.2s ease-in-out;
   cursor: pointer;
   align-items: center;
+  position: relative;
 
   span {
     width: 100%;
@@ -57,6 +58,14 @@ export const MenuItem = styled.li`
   }
 
   .checkmark {
-    color: var(--light-red);
+    position: absolute;
+    color: #dd4b39;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+
+    svg {
+      transform: scale(1.2);
+    }
   }
 `
