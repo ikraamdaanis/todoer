@@ -8,7 +8,6 @@ export const NavbarContainer = styled.nav`
   position: relative;
   z-index: 1000;
   width: 100%;
-  position: fixed;
 `
 
 export const Container = styled.div`

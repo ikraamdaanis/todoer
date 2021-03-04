@@ -27,6 +27,7 @@ import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
 import { format } from 'date-fns'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
 import { useScrollToBottom } from '../../hooks/useScrollToBottom'
+import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -143,15 +144,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const dashboard = useRef()
 
   useScrollToBottom(dashboard, dashboardTasks)
-
-  const height = dashboard.current?.scrollTop
-
-  useEffect(() => {}, [])
-  const checkIfScrolling = height => {
-    console.log('hi')
-    // height > 901 ? setIsScrolling(true) : setIsScrolling(false)
-  }
-  document.body.addEventListener('scroll', () => checkIfScrolling(height))
+  useCheckScrolling(dashboard, setIsScrolling)
 
   return (
     <>

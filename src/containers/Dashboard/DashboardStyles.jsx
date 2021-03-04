@@ -8,7 +8,9 @@ export const DashboardContainer = styled.div`
   min-width: 320px;
   transition: 0.3s ease-in-out;
   overflow-x: hidden;
-  padding: 44px 0 4rem;
+  height: calc(100vh - 44px);
+  overflow-y: auto;
+  padding: 0 0 4rem;
 
   &::-webkit-scrollbar {
     width: 7px;
@@ -64,7 +66,7 @@ export const ProjectHeading = styled.div`
   z-index: 100;
   width: 100%;
   max-width: 910px;
-  padding: 30px 55px 0;
+  padding: 36px 55px 0;
   transform: translateX(-55px);
   margin: 0 auto;
   background: var(--very-dark-gray);
@@ -75,14 +77,19 @@ export const ProjectHeading = styled.div`
     width: 100%;
     height: 100%;
     padding-bottom: 8px;
-    border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+    border-bottom: 1px solid transparent;
+    transition: 0.2s ease-in-out;
+
+    &.scrolling {
+      border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+    }
   }
 `
 
 export const Title = styled.h1`
   text-transform: capitalize;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 25px;
   margin: 0;
 
@@ -95,7 +102,7 @@ export const Title = styled.h1`
 `
 
 export const TaskContainer = styled.div`
-  margin-top: 70px;
+  margin-top: 75px;
 `
 
 export const AddTask = styled.div`

@@ -25,6 +25,7 @@ html {
 }
 
 body {
+  overflow: hidden;
   background: var(--very-dark-gray);
   color: var(--text-white);
 
