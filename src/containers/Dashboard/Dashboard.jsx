@@ -24,6 +24,7 @@ import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.s
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
 import { format } from 'date-fns'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
+import { useScrollToBottom } from '../../hooks/useScrollToBottom'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -138,13 +139,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   const dashboard = useRef()
 
-  useEffect(() => {
-    console.log(dashboard.current.lastElementChild)
-    dashboard.current.scrollTo({
-      top: 1000000000000000000000000000000,
-      behavior: 'smooth',
-    })
-  }, [dashboardTasks])
+  useScrollToBottom(dashboard, dashboardTasks)
 
   return (
     <>
