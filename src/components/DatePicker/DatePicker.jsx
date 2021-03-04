@@ -5,8 +5,8 @@ import {
   ToggleButton,
 } from './DatePickerStyles'
 import { ReactComponent as ScheduleIcon } from '../../assets/images/schedule-icon.svg'
-import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
 import { setDateColour } from '../../utils/setDateColour'
+import { setDateText } from '../../utils/setDateText'
 
 export const DatePicker = ({ chosenDate, setDate }) => {
   const [dueDateText, setDueDateText] = useState('Today')
@@ -14,17 +14,7 @@ export const DatePicker = ({ chosenDate, setDate }) => {
   const handleChange = ({ target }) => {
     const date = target.value
     setDate(date)
-    setDueDateText(() => {
-      if (isToday(new Date(date))) {
-        return 'Today'
-      } else if (isTomorrow(new Date(date))) {
-        return 'Tomorrow'
-      } else if (isBefore(new Date(date), add(new Date(), { days: 7 }))) {
-        return format(new Date(date), 'EEEE')
-      } else {
-        return format(new Date(date), 'do MMM')
-      }
-    })
+    setDueDateText(() => setDateText(date))
   }
 
   useEffect(() => {
