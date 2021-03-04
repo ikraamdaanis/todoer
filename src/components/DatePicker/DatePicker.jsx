@@ -6,6 +6,7 @@ import {
 } from './DatePickerStyles'
 import { ReactComponent as ScheduleIcon } from '../../assets/images/schedule-icon.svg'
 import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
+import { setDateColour } from '../../utils/setDateColour'
 
 export const DatePicker = ({ chosenDate, setDate }) => {
   const [dueDateText, setDueDateText] = useState('Today')
@@ -32,18 +33,11 @@ export const DatePicker = ({ chosenDate, setDate }) => {
       : !chosenDate && setDueDateText('Schedule')
   }, [chosenDate])
 
-  const color =
-    dueDateText === 'Today'
-      ? '#25b84c'
-      : dueDateText === 'Tomorrow'
-      ? '#ff9a14'
-      : isBefore(new Date(chosenDate), add(new Date(), { days: 7 }))
-      ? '#a970ff'
-      : 'hsla(0, 0%, 100%, 0.6)'
-
   return (
     <>
-      <DatePickerToggle style={{ color }}>
+      <DatePickerToggle
+        style={{ color: setDateColour(dueDateText, chosenDate) }}
+      >
         <ScheduleIcon />
         <ToggleButton>{dueDateText}</ToggleButton>
         <DatePickerInput
