@@ -19,6 +19,7 @@ import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
 import { Modal } from '../Modal/Modal'
 import { DeleteTaskModal } from '../DeleteTaskModal/DeleteTaskModal'
 import { useMenu } from '../../hooks/useMenu'
+import { setDateColour } from '../../utils/setDateColour'
 
 export const TaskItem = ({
   task,
@@ -46,15 +47,6 @@ export const TaskItem = ({
       return format(new Date(actualDate), 'do MMM')
     }
   }
-
-  const dateColour = (displayDate, actualDate) =>
-    displayDate === 'Today'
-      ? '#25b84c'
-      : displayDate === 'Tomorrow'
-      ? '#ff9a14'
-      : isBefore(new Date(actualDate), add(new Date(), { days: 7 }))
-      ? '#a970ff'
-      : 'unset'
 
   return (
     <TaskListItem
@@ -115,7 +107,7 @@ export const TaskItem = ({
             <div
               className='date'
               style={{
-                color: dateColour(checkDate(task.dueDate), task.dueDate),
+                color: setDateColour(checkDate(task.dueDate), task.dueDate),
               }}
             >
               <DueDateIcon />
