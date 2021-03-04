@@ -153,6 +153,11 @@ export const BulletPoint = styled.div`
   }
 `
 
+export const AddTaskContainer = styled.div`
+  width: 100%;
+  height: 150px;
+`
+
 export const AddTaskSubmitButton = styled.button`
   cursor: pointer;
   margin: 0.5rem 0;

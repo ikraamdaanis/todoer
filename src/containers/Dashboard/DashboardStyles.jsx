@@ -11,6 +11,7 @@ export const DashboardContainer = styled.div`
   overflow-y: auto;
   overflow-x: hidden;
   padding-bottom: 4rem;
+
   @media (max-width: 750px) {
     margin-left: 0;
   }

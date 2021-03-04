@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   AddTask,
   AddTaskText,
@@ -23,6 +23,7 @@ import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.s
 
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
 import { format } from 'date-fns'
+import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -135,11 +136,21 @@ export const Dashboard = ({ history, match, isClosed }) => {
     }
   }, [tasksToComplete, timer])
 
+  const dashboard = useRef()
+
+  useEffect(() => {
+    console.log(dashboard.current.lastElementChild)
+    dashboard.current.scrollTo({
+      top: 1000000000000000000000000000000,
+      behavior: 'smooth',
+    })
+  }, [dashboardTasks])
+
   return (
     <>
       <div>
         <Sidebar isClosed={isClosed} param={id} history={history} />
-        <DashboardContainer className={isClosed && 'closed'}>
+        <DashboardContainer className={isClosed && 'closed'} ref={dashboard}>
           <ProjectContainer>
             <Title>
               {match.params.id}
@@ -170,20 +181,23 @@ export const Dashboard = ({ history, match, isClosed }) => {
                         ))}
                     </ul>
                   </div>
-                  {!isOpen ? (
-                    <AddTask onClick={() => setIsOpen(!isOpen)}>
-                      <PlusButton className='plus'>
-                        <PlusButtonSVG />
-                      </PlusButton>
-                      <AddTaskText>Add task</AddTaskText>
-                    </AddTask>
-                  ) : (
-                    <AddTaskForm
-                      history={history}
-                      setIsOpen={setIsOpen}
-                      currentProject={currentProject}
-                    />
-                  )}
+                  <AddTaskContainer>
+                    {!isOpen ? (
+                      <AddTask onClick={() => setIsOpen(!isOpen)}>
+                        <PlusButton className='plus'>
+                          <PlusButtonSVG />
+                        </PlusButton>
+                        <AddTaskText>Add task</AddTaskText>
+                      </AddTask>
+                    ) : (
+                      <AddTaskForm
+                        history={history}
+                        setIsOpen={setIsOpen}
+                        currentProject={currentProject}
+                        id='taskForm'
+                      />
+                    )}
+                  </AddTaskContainer>
                 </>
               )
             )}
