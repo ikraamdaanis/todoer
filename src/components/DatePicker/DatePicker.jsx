@@ -7,6 +7,7 @@ import {
 import { ReactComponent as ScheduleIcon } from '../../assets/images/schedule-icon.svg'
 import { setDateColour } from '../../utils/setDateColour'
 import { setDateText } from '../../utils/setDateText'
+import { format } from 'date-fns'
 
 export const DatePicker = ({ chosenDate, setDate }) => {
   const [dueDateText, setDueDateText] = useState('Today')

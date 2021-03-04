@@ -15,11 +15,11 @@ import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
 import { ReactComponent as MenuToggler } from '../../assets/images/more-icon.svg'
 import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
-import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
-import { Modal } from '../Modal/Modal'
+import { Modal } from '../'
 import { DeleteTaskModal } from '../DeleteTaskModal/DeleteTaskModal'
 import { useMenu } from '../../hooks/useMenu'
 import { setDateColour } from '../../utils/setDateColour'
+import { setDateText } from '../../utils/setDateText'
 
 export const TaskItem = ({
   task,
@@ -35,18 +35,6 @@ export const TaskItem = ({
   const TaskMenuButtonRef = useRef(null)
 
   useMenu(TaskMenuButtonRef, TaskMenuRef, setTaskMenuOpen)
-
-  const checkDate = actualDate => {
-    if (isToday(new Date(actualDate))) {
-      return 'Today'
-    } else if (isTomorrow(new Date(actualDate))) {
-      return 'Tomorrow'
-    } else if (isBefore(new Date(actualDate), add(new Date(), { days: 7 }))) {
-      return format(new Date(actualDate), 'EEEE')
-    } else {
-      return format(new Date(actualDate), 'do MMM')
-    }
-  }
 
   return (
     <TaskListItem
@@ -74,7 +62,6 @@ export const TaskItem = ({
               <TickIcon />
             </div>
           </TaskCheck>
-
           <TaskDescription>{task.description}</TaskDescription>
           <TaskMenuContainer>
             <div
@@ -107,11 +94,11 @@ export const TaskItem = ({
             <div
               className='date'
               style={{
-                color: setDateColour(checkDate(task.dueDate), task.dueDate),
+                color: setDateColour(setDateText(task.dueDate), task.dueDate),
               }}
             >
               <DueDateIcon />
-              <span>{checkDate(task.dueDate)}</span>
+              <span>{setDateText(task.dueDate)}</span>
             </div>
           </TaskTags>
         )}
