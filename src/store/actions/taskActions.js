@@ -8,7 +8,6 @@ import {
   TASK_CREATE_REQUEST,
   TASK_CREATE_SUCCESS,
   TASK_DELETE_FAIL,
-  TASK_DELETE_MODAL_TOGGLE,
   TASK_DELETE_REQUEST,
   TASK_DELETE_SUCCESS,
   TASKS_REQUEST,
@@ -112,12 +111,6 @@ export const deleteTask = (project, task) => async (dispatch, getState) => {
       payload: error,
     })
   }
-}
-
-export const toggleTaskDeleteModal = () => dispatch => {
-  dispatch({
-    type: TASK_DELETE_MODAL_TOGGLE,
-  })
 }
 
 export const getAllTasks = search => async (dispatch, getState) => {

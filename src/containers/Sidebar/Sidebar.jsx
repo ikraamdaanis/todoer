@@ -111,13 +111,17 @@ export const Sidebar = ({ isClosed, param }) => {
 
   useEffect(() => {
     dispatch(getAllProjects())
-    dispatch(getAllTasks())
+  }, [])
+
+  useEffect(() => {
+    dispatch(
+      getAllTasks({ field: 'isComplete', condition: '==', query: false })
+    )
   }, [])
 
   useEffect(() => {
     projects && setAllProjects([...projects])
     tasks && console.log({ tasks })
-    // console.log({ projects, projectTaskList })
   }, [projects, tasks])
 
   const activeCheck = el => el.toLowerCase() === param

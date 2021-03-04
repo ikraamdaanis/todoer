@@ -64,15 +64,6 @@ export const taskReducer = (state = {}, { type, payload }) => {
   }
 }
 
-export const taskDeleteModalReducer = (state = { isOpen: false }, { type }) => {
-  switch (type) {
-    case TASK_DELETE_MODAL_TOGGLE:
-      return { isOpen: !state.isOpen }
-    default:
-      return state
-  }
-}
-
 export const taskListReducer = (state = { tasks: [] }, { type, payload }) => {
   switch (type) {
     case TASKS_REQUEST:

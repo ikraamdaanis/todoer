@@ -155,7 +155,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   const dashboard = useRef()
 
-  useScrollToBottom(dashboard, dashboardTasks)
+  useScrollToBottom(dashboard, dashboardTasks, projectTaskList, dashboardTasks)
   useCheckScrolling(dashboard, setIsScrolling)
 
   return (

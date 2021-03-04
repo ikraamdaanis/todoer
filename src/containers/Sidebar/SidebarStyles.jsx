@@ -18,7 +18,7 @@ export const SidebarContainer = styled.div`
 `
 
 export const Container = styled.div`
-  padding: 2rem 0 0 47px;
+  padding: 30px 0 0 47px;
   transform: translateX(-12px);
 `
 
