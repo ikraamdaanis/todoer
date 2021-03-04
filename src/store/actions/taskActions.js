@@ -120,7 +120,7 @@ export const toggleTaskDeleteModal = () => dispatch => {
   })
 }
 
-export const getAllTasks = isToday => async (dispatch, getState) => {
+export const getAllTasks = search => async (dispatch, getState) => {
   try {
     dispatch({
       type: TASKS_REQUEST,
@@ -134,6 +134,8 @@ export const getAllTasks = isToday => async (dispatch, getState) => {
     const queries = []
     const all = []
 
+    const { field, condition, query } = search
+
     projects.forEach(proj => {
       queries.push(
         firestore
@@ -142,7 +144,7 @@ export const getAllTasks = isToday => async (dispatch, getState) => {
           .collection('projects')
           .doc(proj.title)
           .collection('tasks')
-          .where('dueDate', isToday, format(new Date(), 'yyyy-MM-dd'))
+          .where(field, condition, query)
           .get()
       )
     })

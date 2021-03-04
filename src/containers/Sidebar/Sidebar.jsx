@@ -14,7 +14,10 @@ import {
 } from './SidebarStyles'
 import { AddProjectModal } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllProjects } from '../../store/actions/projectActions'
+import {
+  getAllProjects,
+  getProjectTasks,
+} from '../../store/actions/projectActions'
 import { ReactComponent as Upcoming } from '../../assets/images/upcoming-icon.svg'
 import { ReactComponent as PlusIcon } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as DropdownIcon } from '../../assets/images/dropdown.svg'
@@ -23,6 +26,7 @@ import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import { Modal } from '../../components'
+import { getAllTasks } from '../../store/actions/taskActions'
 
 const Inbox = () => {
   return (
@@ -95,22 +99,26 @@ export const Sidebar = ({ isClosed, param }) => {
   const [isOpen, setIsOpen] = useState(true)
   const [allProjects, setAllProjects] = useState([])
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
+  const [taskNumbers, setTaskNumbers] = useState([])
 
   const dispatch = useDispatch()
 
   const projectList = useSelector(state => state.projectList)
   const { projects } = projectList
 
+  const taskList = useSelector(state => state.taskList)
+  const { loading: tasksLoading, tasks } = taskList
+
   useEffect(() => {
     dispatch(getAllProjects())
-    return () => {
-      dispatch(getAllProjects())
-    }
+    dispatch(getAllTasks())
   }, [])
 
   useEffect(() => {
     projects && setAllProjects([...projects])
-  }, [projects])
+    tasks && console.log({ tasks })
+    // console.log({ projects, projectTaskList })
+  }, [projects, tasks])
 
   const activeCheck = el => el.toLowerCase() === param
 

@@ -17,7 +17,7 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   projectCreate: projectCreateReducer,
-  projectTasksDetails: projectTasksReducer,
+  projectTasks: projectTasksReducer,
   taskCreate: taskReducer,
   taskDeleteModal: taskDeleteModalReducer,
   taskList: taskListReducer,

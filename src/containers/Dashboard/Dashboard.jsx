@@ -47,8 +47,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const projectList = useSelector(state => state.projectList)
   const { loading: projectsLoading, projects } = projectList
 
-  const projectTasksDetails = useSelector(state => state.projectTasksDetails)
-  const { loading: tasksLoading, tasks: projectTasks } = projectTasksDetails
+  const projectTasks = useSelector(state => state.projectTasks)
+  const { loading: tasksLoading, tasks: projectTaskList } = projectTasks
 
   const taskList = useSelector(state => state.taskList)
   const { loading: taskListLoading, tasks: allTasks } = taskList
@@ -71,9 +71,21 @@ export const Dashboard = ({ history, match, isClosed }) => {
     if (!projectsLoading) {
       setCurrentProject(null)
       if (param === 'today') {
-        dispatch(getAllTasks('=='))
+        dispatch(
+          getAllTasks({
+            field: 'dueDate',
+            condition: '==',
+            query: format(new Date(), 'yyyy-MM-dd'),
+          })
+        )
       } else if (param === 'upcoming') {
-        dispatch(getAllTasks('>'))
+        dispatch(
+          getAllTasks({
+            field: 'dueDate',
+            condition: '>',
+            query: format(new Date(), 'yyyy-MM-dd'),
+          })
+        )
       } else {
         assignCurrentProject()
         currentProject && dispatch(getProjectTasks(currentProject.title))
@@ -95,8 +107,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   useEffect(() => {
     !isProject && setDashboardTasks(allTasks?.sort(sortByDate))
-    isProject && setDashboardTasks(projectTasks?.sort(sortByDate))
-  }, [allTasks, projectTasks, projectsLoading, isProject, dashboardTasks])
+    isProject && setDashboardTasks(projectTaskList?.sort(sortByDate))
+  }, [allTasks, projectTaskList, projectsLoading, isProject, dashboardTasks])
 
   // useEffect(() => {
   //   console.clear()
