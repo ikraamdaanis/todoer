@@ -12,24 +12,26 @@ export const DashboardContainer = styled.div`
   overflow-x: hidden;
   padding-bottom: 4rem;
 
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #8b8b8b;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #8b8b8b;
+  }
+  &::-webkit-scrollbar-track {
+    background: #181818;
+    border-radius: 0px;
+  }
+
   @media (max-width: 750px) {
     margin-left: 0;
   }
-  &::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #a03634;
-    border-radius: 0px;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: #b43e3c;
-  }
-  &::-webkit-scrollbar-track {
-    background: #414141;
-    border-radius: 0px;
-  }
+
   &.closed {
     @media (min-width: 550px) {
       margin-left: 0;
