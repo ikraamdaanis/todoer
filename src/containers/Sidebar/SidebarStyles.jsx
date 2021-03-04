@@ -10,6 +10,7 @@ export const SidebarContainer = styled.div`
   transition: transform 0.3s ease-in-out;
   z-index: 100;
   overflow-x: hidden;
+  position: fixed;
 
   &.closed {
     transform: translateX(-310px);

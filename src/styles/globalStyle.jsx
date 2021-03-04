@@ -25,9 +25,24 @@ html {
 }
 
 body {
-  overflow: hidden;
   background: var(--very-dark-gray);
   color: var(--text-white);
+
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #8b8b8b;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #8b8b8b;
+  }
+  &::-webkit-scrollbar-track {
+    background: #181818;
+    border-radius: 0px;
+  }
 }
 
 .no-cursor {

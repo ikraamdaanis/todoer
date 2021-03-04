@@ -7,6 +7,8 @@ export const NavbarContainer = styled.nav`
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
   position: relative;
   z-index: 1000;
+  width: 100%;
+  position: fixed;
 `
 
 export const Container = styled.div`

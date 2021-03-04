@@ -11,6 +11,8 @@ import {
   UndoText,
   UndoButton,
   UndoCloseButton,
+  TaskContainer,
+  ProjectHeading,
 } from './DashboardStyles'
 import { AddTaskForm, Spinner, TaskItem } from '../../components'
 
@@ -29,6 +31,7 @@ import { useScrollToBottom } from '../../hooks/useScrollToBottom'
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(false)
+  const [isScrolling, setIsScrolling] = useState(false)
 
   const [currentProject, setCurrentProject] = useState(null)
   const [dashboardTasks, setDashboardTasks] = useState([])
@@ -141,61 +144,79 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   useScrollToBottom(dashboard, dashboardTasks)
 
+  const height = dashboard.current?.scrollTop
+
+  useEffect(() => {}, [])
+  const checkIfScrolling = height => {
+    console.log('hi')
+    // height > 901 ? setIsScrolling(true) : setIsScrolling(false)
+  }
+  document.body.addEventListener('scroll', () => checkIfScrolling(height))
+
   return (
     <>
       <div>
         <Sidebar isClosed={isClosed} param={id} history={history} />
         <DashboardContainer className={isClosed && 'closed'} ref={dashboard}>
           <ProjectContainer>
-            <Title>
-              {match.params.id}
-              {match.params.id === 'today' && (
-                <small>{format(new Date(), 'iii do MMM')}</small>
-              )}
-            </Title>
-            {isLoading || projectsLoading || tasksLoading || taskListLoading ? (
-              <div style={{ marginTop: '10rem' }}>
-                <Spinner />
+            <ProjectHeading>
+              <div className={`div ${isScrolling ? 'scrolling ' : undefined}`}>
+                <Title>
+                  {match.params.id}
+                  {match.params.id === 'today' && (
+                    <small>{format(new Date(), 'iii do MMM')}</small>
+                  )}
+                </Title>
               </div>
-            ) : (
-              dashboardTasks && (
-                <>
-                  <div className='tasks'>
-                    <ul>
-                      {dashboardTasks
-                        .filter(task => !task.isComplete)
-                        .map(task => (
-                          <TaskItem
-                            key={task.id}
-                            task={task}
-                            tasksToComplete={tasksToComplete}
-                            setTasksToComplete={setTasksToComplete}
-                            setIsUndoVisible={setIsUndoVisible}
-                            clearTime={clearTime}
-                          />
-                        ))}
-                    </ul>
-                  </div>
-                  <AddTaskContainer>
-                    {!isOpen ? (
-                      <AddTask onClick={() => setIsOpen(!isOpen)}>
-                        <PlusButton className='plus'>
-                          <PlusButtonSVG />
-                        </PlusButton>
-                        <AddTaskText>Add task</AddTaskText>
-                      </AddTask>
-                    ) : (
-                      <AddTaskForm
-                        history={history}
-                        setIsOpen={setIsOpen}
-                        currentProject={currentProject}
-                        id='taskForm'
-                      />
-                    )}
-                  </AddTaskContainer>
-                </>
-              )
-            )}
+            </ProjectHeading>
+            <TaskContainer>
+              {isLoading ||
+              projectsLoading ||
+              tasksLoading ||
+              taskListLoading ? (
+                <div style={{ marginTop: '10rem' }}>
+                  <Spinner />
+                </div>
+              ) : (
+                dashboardTasks && (
+                  <>
+                    <div className='tasks'>
+                      <ul>
+                        {dashboardTasks
+                          .filter(task => !task.isComplete)
+                          .map(task => (
+                            <TaskItem
+                              key={task.id}
+                              task={task}
+                              tasksToComplete={tasksToComplete}
+                              setTasksToComplete={setTasksToComplete}
+                              setIsUndoVisible={setIsUndoVisible}
+                              clearTime={clearTime}
+                            />
+                          ))}
+                      </ul>
+                    </div>
+                    <AddTaskContainer>
+                      {!isOpen ? (
+                        <AddTask onClick={() => setIsOpen(!isOpen)}>
+                          <PlusButton className='plus'>
+                            <PlusButtonSVG />
+                          </PlusButton>
+                          <AddTaskText>Add task</AddTaskText>
+                        </AddTask>
+                      ) : (
+                        <AddTaskForm
+                          history={history}
+                          setIsOpen={setIsOpen}
+                          currentProject={currentProject}
+                          id='taskForm'
+                        />
+                      )}
+                    </AddTaskContainer>
+                  </>
+                )
+              )}
+            </TaskContainer>
           </ProjectContainer>
         </DashboardContainer>
       </div>

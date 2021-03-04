@@ -7,10 +7,8 @@ export const DashboardContainer = styled.div`
   flex-direction: column;
   min-width: 320px;
   transition: 0.3s ease-in-out;
-  height: calc(100vh - 43px);
-  overflow-y: auto;
   overflow-x: hidden;
-  padding-bottom: 4rem;
+  padding: 44px 0 4rem;
 
   &::-webkit-scrollbar {
     width: 7px;
@@ -40,24 +38,44 @@ export const DashboardContainer = styled.div`
 `
 
 export const ProjectContainer = styled.div`
-  padding: 30px 55px 0;
   width: 100%;
   max-width: 910px;
   margin: 0 auto;
-  @media (max-width: 750px) {
-    padding: 30px 30px 0;
-  }
-  @media (max-width: 550px) {
-    padding: 30px 10px 0;
-  }
-  h1 {
-    margin-bottom: 1.5rem;
+  padding: 0 55px;
 
+  @media (max-width: 750px) {
+    padding: 0 30px;
+  }
+
+  @media (max-width: 550px) {
+    padding: 0 10px;
+  }
+
+  h1 {
     &.empty {
       text-align: center;
       padding: 1rem;
       font-size: 1.5rem;
     }
+  }
+`
+export const ProjectHeading = styled.div`
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  max-width: 910px;
+  padding: 30px 55px 0;
+  transform: translateX(-55px);
+  margin: 0 auto;
+  background: var(--very-dark-gray);
+
+  .div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 8px;
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
   }
 `
 
@@ -66,6 +84,7 @@ export const Title = styled.h1`
   font-size: 20px;
   font-weight: 700;
   line-height: 25px;
+  margin: 0;
 
   small {
     color: grey;
@@ -73,6 +92,10 @@ export const Title = styled.h1`
     font-size: 12px;
     font-weight: 300;
   }
+`
+
+export const TaskContainer = styled.div`
+  margin-top: 70px;
 `
 
 export const AddTask = styled.div`
