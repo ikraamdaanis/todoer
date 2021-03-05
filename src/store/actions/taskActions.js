@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import firebase from 'firebase/app'
 import { firestore } from '../../firebase/config'
 import {
   TASK_COMPLETE_FAIL,
@@ -25,6 +25,8 @@ export const createTask = (project, task) => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState()
 
+    console.log({ project })
+
     await firestore
       .collection('users')
       .doc(userInfo?.id)
@@ -33,6 +35,15 @@ export const createTask = (project, task) => async (dispatch, getState) => {
       .collection('tasks')
       .doc(task.id)
       .set(task)
+
+    const increment = firebase.firestore.FieldValue.increment(1)
+
+    await firestore
+      .collection('users')
+      .doc(userInfo?.id)
+      .collection('projects')
+      .doc(project)
+      .update({ completedTasks: increment })
 
     dispatch({
       type: TASK_CREATE_SUCCESS,
@@ -66,6 +77,15 @@ export const completeTask = (project, task) => async (dispatch, getState) => {
       .then(() => {
         console.log('Document successfully completed!')
       })
+
+    const decrement = firebase.firestore.FieldValue.increment(-1)
+
+    await firestore
+      .collection('users')
+      .doc(userInfo?.id)
+      .collection('projects')
+      .doc(project)
+      .update({ completedTasks: decrement })
 
     dispatch({
       type: TASK_COMPLETE_SUCCESS,

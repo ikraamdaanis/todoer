@@ -15,11 +15,10 @@ import {
   ProjectHeading,
 } from './DashboardStyles'
 import { AddTaskForm, Spinner, TaskItem } from '../../components'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { getProjectTasks } from '../../store/actions/projectActions'
 import { completeTask, getAllTasks } from '../../store/actions/taskActions'
-import { Sidebar } from '../Sidebar/Sidebar'
+import { Sidebar } from '../'
 import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConstants'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
@@ -29,7 +28,7 @@ import { useScrollToBottom } from '../../hooks/useScrollToBottom'
 import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 
 export const Dashboard = ({ history, match, isClosed }) => {
-  const [isLoading, setIsLoading] = useState(true)
+  // const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
   const [currentProject, setCurrentProject] = useState(null)
@@ -51,12 +50,12 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const taskList = useSelector(state => state.taskList)
   const { loading: taskListLoading, tasks: allTasks } = taskList
 
-  useEffect(() => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 500)
-  }, [currentProject])
+  // useEffect(() => {
+  //   setIsLoading(true)
+  //   setTimeout(() => {
+  //     setIsLoading(false)
+  //   }, 0)
+  // }, [currentProject])
 
   useEffect(() => {
     if (projects) {
@@ -173,10 +172,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
               </div>
             </ProjectHeading>
             <TaskContainer>
-              {isLoading ||
-              projectsLoading ||
-              tasksLoading ||
-              taskListLoading ? (
+              {projectsLoading ? (
                 <div style={{ marginTop: '10rem' }}>
                   <Spinner />
                 </div>

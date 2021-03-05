@@ -3,7 +3,6 @@ import {
   PROJECT_CREATE_REQUEST,
   PROJECT_CREATE_SUCCESS,
   PROJECT_CREATE_FAIL,
-  PROJECT_CREATE_MODAL_TOGGLE,
   PROJECT_DETAILS_REQUEST,
   PROJECT_DETAILS_SUCCESS,
   PROJECT_DETAILS_FAIL,
@@ -32,6 +31,7 @@ export const createProject = project => async (dispatch, getState) => {
         title: project,
         createdAt: new Date(),
         id: uuidv4(),
+        completedTasks: 0,
       })
 
     dispatch({
