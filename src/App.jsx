@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,8 +12,6 @@ import { GlobalStyle } from './styles/globalStyle'
 
 export const App = () => {
   const [isClosed, setIsClosed] = useState(false)
-  const userLogin = useSelector(state => state.userLogin)
-  const { userInfo } = userLogin
 
   return (
     <>
