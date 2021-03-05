@@ -108,7 +108,7 @@ export const TaskContainer = styled.div`
 export const AddTask = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 6px;
   cursor: pointer;
 
   &:hover {

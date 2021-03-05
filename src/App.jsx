@@ -24,7 +24,7 @@ export const App = () => {
         <ScrollToTop />
         <main>
           <Switch style={{ display: 'flex' }}>
-            <Route exact path='/app'>
+            <Route path='/app'>
               {userInfo && <Redirect to='/app/today' />}
             </Route>
             <Route
@@ -41,9 +41,6 @@ export const App = () => {
               path='/signup'
               render={props => <SignUp {...props} />}
             />
-            <Route exact path='/'>
-              {userInfo && <Redirect to='/app/today' />}
-            </Route>
           </Switch>
         </main>
       </Router>
