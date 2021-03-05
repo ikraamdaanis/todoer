@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   AddTaskCancel,
   AddTaskFormContainer,
@@ -63,6 +63,10 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
 
     history.push(`/app/${project.toLowerCase()}`)
   }
+
+  useEffect(() => {
+    todoInput?.current?.focus()
+  }, [todoInput])
 
   return (
     <AddTaskFormContainer>
