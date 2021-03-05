@@ -23,7 +23,7 @@ import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import { Modal } from '../../components'
-import { getAllTasks } from '../../store/actions/taskActions'
+import { getAllTasks, getTaskStats } from '../../store/actions/taskActions'
 
 const Inbox = () => {
   return (
@@ -105,6 +105,9 @@ export const Sidebar = ({ isClosed, param }) => {
   const taskList = useSelector(state => state.taskList)
   const { tasks } = taskList
 
+  const taskStats = useSelector(state => state.taskStats)
+  const { loading, tasks: taskStatDetails } = taskStats
+
   useEffect(() => {
     dispatch(getAllProjects())
   }, [])
@@ -116,12 +119,19 @@ export const Sidebar = ({ isClosed, param }) => {
   }, [])
 
   useEffect(() => {
+    dispatch(getTaskStats())
+  }, [projects])
+
+  useEffect(() => {
+    taskStatDetails && console.log({ taskStatDetails })
+    taskStatDetails?.Second && console.log(taskStatDetails.Second)
+  }, [taskStatDetails])
+
+  useEffect(() => {
     projects && setAllProjects([...projects])
   }, [projects, tasks])
 
   const activeCheck = el => el.toLowerCase() === param
-
-  const inbox = projects?.filter(project => project.title === 'Inbox')[0]
 
   return (
     <SidebarContainer className={isClosed && 'closed'}>
@@ -133,9 +143,7 @@ export const Sidebar = ({ isClosed, param }) => {
             <SidebarItem>
               <Inbox />
               <span>Inbox</span>
-              <small>
-                {inbox?.incompleteTasks > 0 && inbox?.incompleteTasks}
-              </small>
+              <small>{taskStatDetails?.Inbox?.length}</small>
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>
@@ -190,8 +198,8 @@ export const Sidebar = ({ isClosed, param }) => {
                         <div className='text'>
                           <span>{project.title}</span>
                           <small>
-                            {project.incompleteTasks > 0 &&
-                              project.incompleteTasks}
+                            {taskStatDetails?.[project.title]?.length > 0 &&
+                              taskStatDetails?.[project.title]?.length}
                           </small>
                         </div>
                       </div>

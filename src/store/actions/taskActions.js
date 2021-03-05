@@ -13,6 +13,9 @@ import {
   TASKS_REQUEST,
   TASKS_SUCCESS,
   TASKS_FAIL,
+  TASK_STATS_REQUEST,
+  TASK_STATS_SUCCESS,
+  TASK_STATS_FAIL,
 } from '../constants/taskConstants'
 
 export const createTask = (project, task) => async (dispatch, getState) => {
@@ -25,8 +28,6 @@ export const createTask = (project, task) => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState()
 
-    console.log({ project })
-
     await firestore
       .collection('users')
       .doc(userInfo?.id)
@@ -35,15 +36,6 @@ export const createTask = (project, task) => async (dispatch, getState) => {
       .collection('tasks')
       .doc(task.id)
       .set(task)
-
-    const increment = firebase.firestore.FieldValue.increment(1)
-
-    await firestore
-      .collection('users')
-      .doc(userInfo?.id)
-      .collection('projects')
-      .doc(project)
-      .update({ incompleteTasks: increment })
 
     dispatch({
       type: TASK_CREATE_SUCCESS,
@@ -78,15 +70,6 @@ export const completeTask = (project, task) => async (dispatch, getState) => {
         console.log('Document successfully completed!')
       })
 
-    const decrement = firebase.firestore.FieldValue.increment(-1)
-
-    await firestore
-      .collection('users')
-      .doc(userInfo?.id)
-      .collection('projects')
-      .doc(project)
-      .update({ incompleteTasks: decrement })
-
     dispatch({
       type: TASK_COMPLETE_SUCCESS,
     })
@@ -107,8 +90,6 @@ export const deleteTask = (project, task) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState()
-
-    console.log(project, task)
 
     await firestore
       .collection('users')
@@ -175,6 +156,59 @@ export const getAllTasks = search => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: TASKS_FAIL,
+      payload: error,
+    })
+  }
+}
+
+export const getTaskStats = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TASK_STATS_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+      projectList: { projects },
+    } = getState()
+
+    const queries = []
+    const all = {}
+
+    await projects.forEach(proj => {
+      queries.push(
+        firestore
+          .collection('users')
+          .doc(userInfo?.id)
+          .collection('projects')
+          .doc(proj.title)
+          .collection('tasks')
+          .where('isComplete', '==', false)
+          .onSnapshot(querySnapshot => {
+            const data = []
+            querySnapshot.forEach(doc => {
+              data.push(doc.data())
+            })
+            all[proj.title] = data
+          })
+      )
+    })
+
+    Promise.all(queries)
+      .then(results => {
+        // results.forEach(project => console.log(project))
+        // results.forEach(i => i.docs.forEach(doc => all.push(doc.data())))
+      })
+      .then(() => {
+        // console.log({ all })
+        dispatch({
+          type: TASK_STATS_SUCCESS,
+          payload: all,
+        })
+      })
+  } catch (error) {
+    dispatch({
+      type: TASK_STATS_FAIL,
       payload: error,
     })
   }

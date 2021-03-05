@@ -31,7 +31,6 @@ export const createProject = project => async (dispatch, getState) => {
         title: project,
         createdAt: new Date(),
         id: uuidv4(),
-        incompleteTasks: 0,
       })
 
     dispatch({
@@ -65,6 +64,7 @@ export const getAllProjects = () => async (dispatch, getState) => {
         querySnapshot.forEach(doc => {
           data.push(doc.data())
         })
+
         dispatch({
           type: PROJECT_DETAILS_SUCCESS,
           payload: data,

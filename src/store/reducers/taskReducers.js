@@ -6,13 +6,14 @@ import {
   TASK_CREATE_REQUEST,
   TASK_CREATE_SUCCESS,
   TASK_DELETE_FAIL,
-  TASK_DELETE_MODAL_TOGGLE,
   TASK_DELETE_REQUEST,
   TASK_DELETE_SUCCESS,
   TASKS_REQUEST,
   TASKS_SUCCESS,
   TASKS_FAIL,
-  TASKS_CLEAR,
+  TASK_STATS_REQUEST,
+  TASK_STATS_SUCCESS,
+  TASK_STATS_FAIL,
 } from '../constants/taskConstants'
 
 export const taskReducer = (state = {}, { type, payload }) => {
@@ -80,8 +81,27 @@ export const taskListReducer = (state = { tasks: [] }, { type, payload }) => {
         loading: false,
         error: payload,
       }
-    case TASKS_CLEAR:
-      return {}
+    default:
+      return state
+  }
+}
+
+export const taskStatsReducer = (state = { tasks: {} }, { type, payload }) => {
+  switch (type) {
+    case TASK_STATS_REQUEST:
+      return {
+        loading: true,
+      }
+    case TASK_STATS_SUCCESS:
+      return {
+        loading: false,
+        tasks: payload,
+      }
+    case TASK_STATS_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      }
     default:
       return state
   }
