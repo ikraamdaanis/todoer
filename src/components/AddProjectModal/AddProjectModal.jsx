@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useMenu } from '../../hooks/useMenu'
+import { useFocus } from '../../hooks/useFocus'
 import { createProject } from '../../store/actions/projectActions'
 import {
   AddProjectButton,
@@ -44,10 +45,7 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
   useMenu(form, cancelButton, setIsProjectModalOpen)
 
   const input = useRef(null)
-
-  useEffect(() => {
-    input?.current?.focus()
-  }, [input])
+  useFocus(input)
 
   return (
     <ProjectModal>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useRef } from 'react'
 import {
   AddTaskCancel,
   AddTaskFormContainer,
@@ -17,6 +17,7 @@ import { createTask } from '../../store/actions/taskActions'
 import { v4 as uuidv4 } from 'uuid'
 import { ReactComponent as InboxIconSmall } from '../../assets/images/inbox-small.svg'
 import { useMenu } from '../../hooks/useMenu'
+import { useFocus } from '../../hooks/useFocus'
 
 export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
   const [todoDescription, setTodoDescription] = useState('')
@@ -36,6 +37,7 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
   const form = useRef(null)
 
   useMenu(form, null, setIsActive)
+  useFocus(todoInput)
 
   const menuButton = useRef(null)
   const menu = useRef(null)
@@ -63,10 +65,6 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
 
     history.push(`/app/${project.toLowerCase()}`)
   }
-
-  useEffect(() => {
-    todoInput?.current?.focus()
-  }, [todoInput])
 
   return (
     <AddTaskFormContainer>
