@@ -22,7 +22,6 @@ import { completeTask, getAllTasks } from '../../store/actions/taskActions'
 import { Sidebar } from '../Sidebar/Sidebar'
 import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConstants'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
-
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
 import { format } from 'date-fns'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
@@ -33,7 +32,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
-
   const [currentProject, setCurrentProject] = useState(null)
   const [dashboardTasks, setDashboardTasks] = useState([])
   const [tasksToComplete, setTasksToComplete] = useState([])
@@ -59,6 +57,16 @@ export const Dashboard = ({ history, match, isClosed }) => {
       setIsLoading(false)
     }, 500)
   }, [currentProject])
+
+  useEffect(() => {
+    if (projects) {
+      const projectExists = projects.some(
+        project => project.title.toLowerCase() === id
+      )
+      if (!isProject || projectExists) return
+      history.push('/app/inbox')
+    }
+  }, [currentProject, isProject, id, projects])
 
   const assignCurrentProject = () => {
     const [current] = projects?.filter(
@@ -114,16 +122,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
   //   console.clear()
   //   console.log('Dashboard =>', dashboardTasks, allTasks)
   // }, [dashboardTasks, allTasks])
-
-  useEffect(() => {
-    if (projects) {
-      const projectExists = projects.some(
-        project => project.title.toLowerCase() === id
-      )
-      if (!isProject || projectExists) return
-      history.push('/app/today')
-    }
-  }, [currentProject, isProject, id, projects])
 
   let timer
 

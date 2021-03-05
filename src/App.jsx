@@ -5,7 +5,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom'
-import { ScrollToTop } from './components'
+import { PrivateRoute, ScrollToTop } from './components'
 import { Dashboard, Navbar } from './containers'
 import { Home, SignIn, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
@@ -21,12 +21,17 @@ export const App = () => {
         <ScrollToTop />
         <main>
           <Switch style={{ display: 'flex' }}>
-            <Route path='/app'>
-              {userInfo && <Redirect to='/app/today' />}
-            </Route>
-            <Route
+            <PrivateRoute
+              path='/app'
+              exact
+              component={Dashboard}
+              isClosed={isClosed}
+            />
+            <PrivateRoute
               path='/app/:id'
-              render={props => <Dashboard {...props} isClosed={isClosed} />}
+              exact
+              component={Dashboard}
+              isClosed={isClosed}
             />
             <Route
               exact
@@ -38,6 +43,7 @@ export const App = () => {
               path='/signup'
               render={props => <SignUp {...props} />}
             />
+            <PrivateRoute path='/' component={Redirect} to='/app/inbox' />
           </Switch>
         </main>
       </Router>

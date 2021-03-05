@@ -121,7 +121,7 @@ export const Sidebar = ({ isClosed, param }) => {
 
   useEffect(() => {
     projects && setAllProjects([...projects])
-    tasks && console.log({ tasks })
+    // tasks && console.log({ tasks })
   }, [projects, tasks])
 
   const activeCheck = el => el.toLowerCase() === param
