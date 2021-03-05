@@ -48,6 +48,14 @@ export const SidebarItem = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
+
+  small {
+    margin-top: 2px;
+    display: inline-block;
+    color: #aaa;
+    padding-left: 5px;
+    font-size: 12px;
+  }
 `
 
 export const ProjectsButtonContainer = styled.div`
@@ -120,6 +128,24 @@ export const ProjectTitles = styled.ul`
       .container {
         display: flex;
         align-items: center;
+
+        .text {
+          display: flex;
+          align-items: center;
+
+          span {
+            color: hsla(0, 0%, 100%, 0.87);
+            word-break: break-word;
+          }
+
+          small {
+            display: inline-block;
+            margin-top: 2px;
+            color: #aaa;
+            padding-left: 5px;
+            font-size: 12px;
+          }
+        }
       }
     }
 

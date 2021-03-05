@@ -20,7 +20,7 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
   const dispatch = useDispatch()
 
   const projectCreate = useSelector(state => state.projectCreate)
-  const { loading, success, error } = projectCreate
+  const { success } = projectCreate
 
   const handleSubmit = async event => {
     event.preventDefault()
@@ -43,6 +43,12 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
 
   useMenu(form, cancelButton, setIsProjectModalOpen)
 
+  const input = useRef(null)
+
+  useEffect(() => {
+    input?.current?.focus()
+  }, [input])
+
   return (
     <ProjectModal>
       <AddProjectForm onSubmit={handleSubmit} autoComplete='off' ref={form}>
@@ -56,6 +62,7 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
               type='text'
               id='projectName'
               value={project}
+              ref={input}
               onChange={({ target }) => setProject(target.value)}
             />
           </AddProjectFormField>

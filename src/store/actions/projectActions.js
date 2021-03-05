@@ -31,7 +31,7 @@ export const createProject = project => async (dispatch, getState) => {
         title: project,
         createdAt: new Date(),
         id: uuidv4(),
-        completedTasks: 0,
+        incompleteTasks: 0,
       })
 
     dispatch({

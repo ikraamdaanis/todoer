@@ -43,7 +43,7 @@ export const createTask = (project, task) => async (dispatch, getState) => {
       .doc(userInfo?.id)
       .collection('projects')
       .doc(project)
-      .update({ completedTasks: increment })
+      .update({ incompleteTasks: increment })
 
     dispatch({
       type: TASK_CREATE_SUCCESS,
@@ -85,7 +85,7 @@ export const completeTask = (project, task) => async (dispatch, getState) => {
       .doc(userInfo?.id)
       .collection('projects')
       .doc(project)
-      .update({ completedTasks: decrement })
+      .update({ incompleteTasks: decrement })
 
     dispatch({
       type: TASK_COMPLETE_SUCCESS,

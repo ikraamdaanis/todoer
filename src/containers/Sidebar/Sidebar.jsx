@@ -14,10 +14,7 @@ import {
 } from './SidebarStyles'
 import { AddProjectModal } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  getAllProjects,
-  getProjectTasks,
-} from '../../store/actions/projectActions'
+import { getAllProjects } from '../../store/actions/projectActions'
 import { ReactComponent as Upcoming } from '../../assets/images/upcoming-icon.svg'
 import { ReactComponent as PlusIcon } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as DropdownIcon } from '../../assets/images/dropdown.svg'
@@ -99,7 +96,6 @@ export const Sidebar = ({ isClosed, param }) => {
   const [isOpen, setIsOpen] = useState(true)
   const [allProjects, setAllProjects] = useState([])
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
-  const [taskNumbers, setTaskNumbers] = useState([])
 
   const dispatch = useDispatch()
 
@@ -107,7 +103,7 @@ export const Sidebar = ({ isClosed, param }) => {
   const { projects } = projectList
 
   const taskList = useSelector(state => state.taskList)
-  const { loading: tasksLoading, tasks } = taskList
+  const { tasks } = taskList
 
   useEffect(() => {
     dispatch(getAllProjects())
@@ -121,10 +117,11 @@ export const Sidebar = ({ isClosed, param }) => {
 
   useEffect(() => {
     projects && setAllProjects([...projects])
-    // tasks && console.log({ tasks })
   }, [projects, tasks])
 
   const activeCheck = el => el.toLowerCase() === param
+
+  const inbox = projects?.filter(project => project.title === 'Inbox')[0]
 
   return (
     <SidebarContainer className={isClosed && 'closed'}>
@@ -136,6 +133,9 @@ export const Sidebar = ({ isClosed, param }) => {
             <SidebarItem>
               <Inbox />
               <span>Inbox</span>
+              <small>
+                {inbox?.incompleteTasks > 0 && inbox?.incompleteTasks}
+              </small>
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>
@@ -187,7 +187,13 @@ export const Sidebar = ({ isClosed, param }) => {
                         <BulletPoint>
                           <div></div>
                         </BulletPoint>
-                        <span>{project.title}</span>
+                        <div className='text'>
+                          <span>{project.title}</span>
+                          <small>
+                            {project.incompleteTasks > 0 &&
+                              project.incompleteTasks}
+                          </small>
+                        </div>
                       </div>
                     </NavLink>
                   </li>
