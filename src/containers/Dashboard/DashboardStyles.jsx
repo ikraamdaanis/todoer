@@ -62,12 +62,11 @@ export const ProjectContainer = styled.div`
   }
 `
 export const ProjectHeading = styled.div`
-  position: fixed;
+  position: sticky;
+  top: 0;
   z-index: 10;
-  width: calc(100% - 305px);
+  width: 100%;
   max-width: 910px;
-  padding: 0 55px 0;
-  transform: translateX(-55px);
 
   @media (max-width: 750px) {
     padding: 0 30px;
@@ -138,7 +137,7 @@ export const Title = styled.h1`
 `
 
 export const TaskContainer = styled.div`
-  margin-top: 75px;
+  /* margin-top: 75px; */
 `
 
 export const AddTask = styled.div`
