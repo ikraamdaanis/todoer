@@ -53,6 +53,10 @@ export const TaskCheck = styled.div`
   .complete {
     background: #808080;
 
+    &:hover {
+      background: #808080;
+    }
+
     svg {
       display: block;
     }

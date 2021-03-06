@@ -156,6 +156,11 @@ export const BulletPoint = styled.div`
 export const AddTaskContainer = styled.div`
   width: 100%;
   height: 150px;
+
+  &.complete {
+    min-height: 24px;
+    height: auto;
+  }
 `
 
 export const AddTaskSubmitButton = styled.button`

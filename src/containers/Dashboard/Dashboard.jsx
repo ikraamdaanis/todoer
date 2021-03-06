@@ -244,7 +244,9 @@ export const Dashboard = ({ history, match, isClosed }) => {
                           ))}
                       </ul>
                     </div>
-                    <AddTaskContainer>
+                    <AddTaskContainer
+                      className={showCompletedTasks ? 'complete' : undefined}
+                    >
                       {!isAddTaskOpen ? (
                         <AddTask
                           onClick={() => setIsAddTaskOpen(!isAddTaskOpen)}
