@@ -171,8 +171,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
     .right
 
   const reportWindowSize = () => {
-    // console.log('Width: ', window.innerWidth)
-    // console.log({ projectMenuPos })
     if (projectMenuButtonPos + 125 < window.innerWidth) {
       console.log('Width')
       setProjectMenuRight(projectMenuButtonPos - 150)
@@ -181,20 +179,11 @@ export const Dashboard = ({ history, match, isClosed }) => {
       setProjectMenuRight(window.innerWidth - 258)
     }
   }
+
   useEffect(() => {
     reportWindowSize()
     window.addEventListener('resize', reportWindowSize)
-  }, [projectMenuRef, projectMenuButtonRef, projectMenuButtonPos, isClosed])
-
-  useEffect(() => {
-    console.log({ projectMenuRight })
-  }, [projectMenuRight])
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     reportWindowSize()
-  //   }, 1)
-  // }, [isClosed])
+  }, [projectMenuButtonPos])
 
   return (
     <>
