@@ -61,7 +61,7 @@ export const deleteProject = project => async (dispatch, getState) => {
       .collection('users')
       .doc(userInfo?.id)
       .collection('projects')
-      .doc(project.title)
+      .doc(project)
       .delete()
       .then(() => {
         console.log('Project successfully deleted!')

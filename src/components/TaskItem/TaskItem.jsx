@@ -15,10 +15,12 @@ import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
 import { ReactComponent as MenuToggler } from '../../assets/images/more-icon.svg'
 import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
-import { Modal, DeleteTaskModal } from '../'
 import { useMenu } from '../../hooks/useMenu'
 import { setDateColour } from '../../utils/setDateColour'
 import { setDateText } from '../../utils/setDateText'
+import { DeleteModal } from '../DeleteModal/DeleteModal'
+import { deleteTask } from '../../store/actions/taskActions'
+import { Modal } from '../Modal/Modal'
 
 export const TaskItem = ({
   task,
@@ -104,9 +106,12 @@ export const TaskItem = ({
       </TaskItemContainer>
       {deleteModalOpen && (
         <Modal>
-          <DeleteTaskModal
-            task={task}
+          <DeleteModal
+            id={task.id}
+            detail={task.description}
+            action={deleteTask}
             setDeleteModalOpen={setDeleteModalOpen}
+            project={task.project}
           />
         </Modal>
       )}

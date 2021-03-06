@@ -5,12 +5,16 @@ import {
   TaskModalBody,
   TaskModalFooter,
   DeleteTaskButton,
-} from './DeleteTaskModalStyles'
-import { deleteTask } from '../../store/actions/taskActions'
-import { Spinner } from '../Spinner/Spinner'
+} from './DeleteModalStyles'
 import { useMenu } from '../../hooks/useMenu'
 
-export const DeleteTaskModal = ({ task, setDeleteModalOpen }) => {
+export const DeleteModal = ({
+  id,
+  detail,
+  action,
+  setDeleteModalOpen,
+  project,
+}) => {
   const dispatch = useDispatch()
 
   const modal = useRef(null)
@@ -18,13 +22,11 @@ export const DeleteTaskModal = ({ task, setDeleteModalOpen }) => {
 
   useMenu(modal, cancelButton, setDeleteModalOpen)
 
-  return !task ? (
-    <Spinner />
-  ) : (
+  return (
     <TaskModal ref={modal}>
       <TaskModalBody>
         <h3>
-          Are you sure you want to delete <strong>{task.description}</strong>?
+          Are you sure you want to delete <strong>{detail}</strong>?
         </h3>
       </TaskModalBody>
       <TaskModalFooter>
@@ -35,7 +37,7 @@ export const DeleteTaskModal = ({ task, setDeleteModalOpen }) => {
           type='button'
           className='delete'
           onClick={() => {
-            dispatch(deleteTask(task.project, task.id))
+            dispatch(action(id, project))
             setDeleteModalOpen(false)
           }}
         >

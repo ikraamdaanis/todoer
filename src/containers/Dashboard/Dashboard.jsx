@@ -21,15 +21,19 @@ import {
   Modal,
   Spinner,
   TaskItem,
-  DeleteProjectModal,
+  DeleteModal,
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProjectTasks } from '../../store/actions/projectActions'
+import {
+  deleteProject,
+  getProjectTasks,
+} from '../../store/actions/projectActions'
 import {
   completeTask,
   getAllTasks,
   incompleteTask,
 } from '../../store/actions/taskActions'
+
 import { Sidebar } from '../'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
@@ -325,11 +329,12 @@ export const Dashboard = ({ history, match, isClosed }) => {
           )}
         </TaskMenuList>
       </TaskMenu>
-
       {deleteModalOpen && (
         <Modal>
-          <DeleteProjectModal
-            project={currentProject}
+          <DeleteModal
+            id={currentProject.title}
+            detail={currentProject.title}
+            action={deleteProject}
             setDeleteModalOpen={setDeleteModalOpen}
           />
         </Modal>

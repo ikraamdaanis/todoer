@@ -114,7 +114,7 @@ export const incompleteTask = (project, task) => async (dispatch, getState) => {
   }
 }
 
-export const deleteTask = (project, task) => async (dispatch, getState) => {
+export const deleteTask = (task, project) => async (dispatch, getState) => {
   try {
     dispatch({
       type: TASK_DELETE_REQUEST,
