@@ -6,11 +6,6 @@ import {
   PlusButton,
   ProjectContainer,
   Title,
-  UndoNotification,
-  UndoContainer,
-  UndoText,
-  UndoButton,
-  UndoCloseButton,
   TaskContainer,
   ProjectHeading,
   ProjectOptions,
@@ -22,6 +17,7 @@ import {
   Spinner,
   TaskItem,
   DeleteModal,
+  UndoComplete,
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -36,7 +32,6 @@ import {
 
 import { Sidebar } from '../'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
-import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
 import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
 import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
 import { format } from 'date-fns'
@@ -288,24 +283,11 @@ export const Dashboard = ({ history, match, isClosed }) => {
         </DashboardContainer>
       </div>
       {isUndoVisible && (
-        <UndoNotification>
-          <UndoContainer>
-            <UndoText>
-              {tasksToComplete.length > 1
-                ? `${tasksToComplete.length} tasks completed`
-                : `${tasksToComplete.length} task completed`}
-            </UndoText>
-            <UndoButton type='button' onClick={() => cancelCompleteTask()}>
-              Undo
-            </UndoButton>
-            <UndoCloseButton
-              type='button'
-              onClick={() => setIsUndoVisible(false)}
-            >
-              <CloseIcon />
-            </UndoCloseButton>
-          </UndoContainer>
-        </UndoNotification>
+        <UndoComplete
+          tasksToComplete={tasksToComplete}
+          cancelCompleteTask={cancelCompleteTask}
+          setIsUndoVisible={setIsUndoVisible}
+        />
       )}
       <TaskMenu
         ref={projectMenuRef}
