@@ -13,6 +13,8 @@ import {
   UndoCloseButton,
   TaskContainer,
   ProjectHeading,
+  ProjectOptions,
+  ProjectOptionsButton,
 } from './DashboardStyles'
 import { AddTaskForm, Spinner, TaskItem } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
@@ -23,17 +25,24 @@ import {
   incompleteTask,
 } from '../../store/actions/taskActions'
 import { Sidebar } from '../'
-import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConstants'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
+import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
+import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
 import { format } from 'date-fns'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
 import { useScrollToBottom } from '../../hooks/useScrollToBottom'
 import { useCheckScrolling } from '../../hooks/useCheckScrolling'
+import {
+  DeleteButton,
+  TaskMenu,
+  TaskMenuList,
+} from '../../components/TaskItem/TaskItemStyles'
+import { useMenu } from '../../hooks/useMenu'
 
 export const Dashboard = ({ history, match, isClosed }) => {
-  // const [isLoading, setIsLoading] = useState(true)
   const [isOpen, setIsOpen] = useState(false)
+  const [projectMenuOpen, setProjectMenuOpen] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
   const [currentProject, setCurrentProject] = useState(null)
   const [dashboardTasks, setDashboardTasks] = useState([])
@@ -53,13 +62,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   const taskList = useSelector(state => state.taskList)
   const { loading: taskListLoading, tasks: allTasks } = taskList
-
-  // useEffect(() => {
-  //   setIsLoading(true)
-  //   setTimeout(() => {
-  //     setIsLoading(false)
-  //   }, 0)
-  // }, [currentProject])
 
   useEffect(() => {
     if (projects) {
@@ -158,6 +160,11 @@ export const Dashboard = ({ history, match, isClosed }) => {
   useScrollToBottom(dashboard, dashboardTasks, projectTaskList, dashboardTasks)
   useCheckScrolling(dashboard, setIsScrolling)
 
+  const projectMenuRef = useRef(null)
+  const projectMenuButtonRef = useRef(null)
+
+  useMenu(projectMenuButtonRef, projectMenuRef, setProjectMenuOpen)
+
   return (
     <>
       <div>
@@ -172,6 +179,27 @@ export const Dashboard = ({ history, match, isClosed }) => {
                     <small>{format(new Date(), 'iii do MMM')}</small>
                   )}
                 </Title>
+                <ProjectOptions ref={projectMenuButtonRef}>
+                  <ProjectOptionsButton>
+                    <ProjectMore />
+                  </ProjectOptionsButton>
+                  {!projectMenuOpen && (
+                    <TaskMenu ref={projectMenuRef} className='project-menu'>
+                      <TaskMenuList>
+                        <DeleteButton
+                          title='Delete this project'
+                          onClick={() => {
+                            // setDeleteModalOpen(true)
+                            setProjectMenuOpen(false)
+                          }}
+                        >
+                          <DeleteIcon />
+                          <span>Delete project</span>
+                        </DeleteButton>
+                      </TaskMenuList>
+                    </TaskMenu>
+                  )}{' '}
+                </ProjectOptions>
               </div>
             </ProjectHeading>
             <TaskContainer>

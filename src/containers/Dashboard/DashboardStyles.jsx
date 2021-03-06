@@ -74,6 +74,7 @@ export const ProjectHeading = styled.div`
   .div {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     height: 100%;
     padding-bottom: 8px;
@@ -83,6 +84,39 @@ export const ProjectHeading = styled.div`
     &.scrolling {
       border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
     }
+  }
+`
+
+export const ProjectOptions = styled.div`
+  position: relative;
+
+  .project-menu {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+`
+
+export const ProjectOptionsButton = styled.button`
+  height: 24px;
+  width: 26px;
+  display: grid;
+  place-content: center;
+  color: unset;
+  outline: none;
+  border: 0;
+  border-radius: 4px;
+  transition: 0.2s ease-in-out;
+  outline: none;
+  background: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #353535;
+  }
+
+  svg {
   }
 `
 
