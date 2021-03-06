@@ -165,6 +165,44 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   useMenu(projectMenuButtonRef, projectMenuRef, setProjectMenuOpen)
 
+  const [projectMenuRight, setProjectMenuRight] = useState(0)
+  useEffect(() => {
+    const projectMenuPos = projectMenuRef?.current?.getBoundingClientRect()
+      .right
+    const projectMenuButtonPos = projectMenuButtonRef?.current?.getBoundingClientRect()
+      .right
+    const projectMenuButtonWidth =
+      projectMenuButtonRef?.current?.getBoundingClientRect().width / 2
+    if (window.innerWidth < projectMenuPos) {
+      setProjectMenuRight(window.innerWidth - 258)
+    } else {
+      setProjectMenuRight(projectMenuButtonPos - projectMenuButtonWidth - 125)
+    }
+
+    const reportWindowSize = () => {
+      const projectMenuPos = projectMenuRef?.current?.getBoundingClientRect()
+        .right
+      const projectMenuButtonPos = projectMenuButtonRef?.current?.getBoundingClientRect()
+        .right
+      const projectMenuButtonWidth =
+        projectMenuButtonRef?.current?.getBoundingClientRect().width / 2
+      console.log('Width: ', window.innerWidth)
+      console.log({ projectMenuPos })
+      console.log({ projectMenuButtonPos })
+      if (window.innerWidth < projectMenuPos) {
+        setProjectMenuRight(window.innerWidth - 258)
+      } else {
+        setProjectMenuRight(projectMenuButtonPos - projectMenuButtonWidth - 125)
+      }
+    }
+
+    window.addEventListener('resize', reportWindowSize)
+  }, [projectMenuRef, projectMenuButtonRef])
+
+  useEffect(() => {
+    console.log(projectMenuRight)
+  }, [projectMenuRight])
+
   return (
     <>
       <div>
@@ -180,25 +218,11 @@ export const Dashboard = ({ history, match, isClosed }) => {
                   )}
                 </Title>
                 <ProjectOptions ref={projectMenuButtonRef}>
-                  <ProjectOptionsButton>
+                  <ProjectOptionsButton
+                    onClick={() => setProjectMenuOpen(prev => !prev)}
+                  >
                     <ProjectMore />
                   </ProjectOptionsButton>
-                  {!projectMenuOpen && (
-                    <TaskMenu ref={projectMenuRef} className='project-menu'>
-                      <TaskMenuList>
-                        <DeleteButton
-                          title='Delete this project'
-                          onClick={() => {
-                            // setDeleteModalOpen(true)
-                            setProjectMenuOpen(false)
-                          }}
-                        >
-                          <DeleteIcon />
-                          <span>Delete project</span>
-                        </DeleteButton>
-                      </TaskMenuList>
-                    </TaskMenu>
-                  )}{' '}
                 </ProjectOptions>
               </div>
             </ProjectHeading>
@@ -269,6 +293,31 @@ export const Dashboard = ({ history, match, isClosed }) => {
             </UndoCloseButton>
           </UndoContainer>
         </UndoNotification>
+      )}
+
+      {projectMenuOpen && (
+        <TaskMenu
+          ref={projectMenuRef}
+          className='project-menu'
+          style={{
+            top: 0,
+            left: 0,
+            transform: `translate(${projectMenuRight}px, 100px)`,
+          }}
+        >
+          <TaskMenuList>
+            <DeleteButton
+              title='Delete this project'
+              onClick={() => {
+                // setDeleteModalOpen(true)
+                setProjectMenuOpen(false)
+              }}
+            >
+              <DeleteIcon />
+              <span>Delete project</span>
+            </DeleteButton>
+          </TaskMenuList>
+        </TaskMenu>
       )}
     </>
   )

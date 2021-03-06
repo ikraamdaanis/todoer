@@ -9,7 +9,7 @@ export const DashboardContainer = styled.div`
   transition: 0.3s ease-in-out;
   overflow-x: hidden;
   height: calc(100vh - 44px);
-  overflow-y: auto;
+  overflow-y: scroll;
   padding: 0 0 4rem;
 
   &::-webkit-scrollbar {
@@ -63,21 +63,30 @@ export const ProjectContainer = styled.div`
 `
 export const ProjectHeading = styled.div`
   position: fixed;
-  z-index: 100;
-  width: 100%;
+  z-index: 10;
+  width: calc(100% - 305px);
   max-width: 910px;
-  padding: 36px 55px 0;
+  padding: 0 55px 0;
   transform: translateX(-55px);
-  margin: 0 auto;
-  background: var(--very-dark-gray);
+
+  @media (max-width: 750px) {
+    padding: 0 30px;
+    transform: translateX(-30px);
+  }
+
+  @media (max-width: 550px) {
+    padding: 0 10px;
+    transform: translateX(-10px);
+  }
 
   .div {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: var(--very-dark-gray);
     width: 100%;
     height: 100%;
-    padding-bottom: 8px;
+    padding: 36px 0 0;
     border-bottom: 1px solid transparent;
     transition: 0.2s ease-in-out;
 
@@ -89,13 +98,6 @@ export const ProjectHeading = styled.div`
 
 export const ProjectOptions = styled.div`
   position: relative;
-
-  .project-menu {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
 `
 
 export const ProjectOptionsButton = styled.button`
