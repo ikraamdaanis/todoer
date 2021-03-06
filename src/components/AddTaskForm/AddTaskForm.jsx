@@ -19,7 +19,12 @@ import { ReactComponent as InboxIconSmall } from '../../assets/images/inbox-smal
 import { useMenu } from '../../hooks/useMenu'
 import { useFocus } from '../../hooks/useFocus'
 
-export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
+export const AddTaskForm = ({
+  history,
+  currentProject,
+  setIsOpen,
+  scrollDownToLastTask,
+}) => {
   const [todoDescription, setTodoDescription] = useState('')
   const [selectedProject, setSelectedProject] = useState(
     currentProject?.title || 'Inbox'
@@ -64,6 +69,7 @@ export const AddTaskForm = ({ history, currentProject, setIsOpen }) => {
     setDate('')
 
     history.push(`/app/${project.toLowerCase()}`)
+    scrollDownToLastTask()
   }
 
   return (

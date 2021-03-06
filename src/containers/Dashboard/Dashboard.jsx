@@ -37,7 +37,7 @@ import { ReactComponent as ProjectMore } from '../../assets/images/project-more.
 import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
 import { format } from 'date-fns'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
-import { useScrollToBottom } from '../../hooks/useScrollToBottom'
+import { scrollToBottom } from '../../utils/scrollToBottom'
 import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 import {
   DeleteButton,
@@ -163,8 +163,11 @@ export const Dashboard = ({ history, match, isClosed }) => {
   }, [tasksToComplete, timer])
 
   const dashboard = useRef()
+  const taskContainer = useRef()
 
-  useScrollToBottom(dashboard, dashboardTasks, projectTaskList, dashboardTasks)
+  const scrollDownToLastTask = () => {
+    scrollToBottom(dashboard, dashboardTasks, projectTaskList)
+  }
   useCheckScrolling(dashboard, setIsScrolling)
 
   const projectMenuRef = useRef(null)
@@ -179,10 +182,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   const reportWindowSize = () => {
     if (projectMenuButtonPos + 125 < window.innerWidth) {
-      console.log('Width')
       setProjectMenuRight(projectMenuButtonPos - 150)
     } else {
-      console.log('Window')
       setProjectMenuRight(window.innerWidth - 250)
     }
   }
@@ -191,18 +192,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
     reportWindowSize()
     window.addEventListener('resize', reportWindowSize)
   }, [projectMenuButtonPos, isClosed])
-
-  // useEffect(() => {
-  //   console.log('Is closed -------- ^')
-  //   setTimeout(() => {
-  //     reportWindowSize()
-  //     console.log('Is closed -------- V')
-  //   }, 500)
-  // }, [isClosed])
-
-  useEffect(() => {
-    console.log(projectMenuRight)
-  }, [projectMenuRight])
 
   return (
     <>
@@ -236,7 +225,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 dashboardTasks && (
                   <>
                     <div className='tasks'>
-                      <ul>
+                      <ul ref={taskContainer}>
                         {dashboardTasks
                           .filter(task => !task.isComplete)
                           .map(task => (
@@ -267,9 +256,26 @@ export const Dashboard = ({ history, match, isClosed }) => {
                           setIsOpen={setIsAddTaskOpen}
                           currentProject={currentProject}
                           id='taskForm'
+                          scrollDownToLastTask={scrollDownToLastTask}
                         />
                       )}
                     </AddTaskContainer>
+                    <div className='tasks'>
+                      <ul>
+                        {dashboardTasks
+                          .filter(task => task.isComplete)
+                          .map(task => (
+                            <TaskItem
+                              key={task.id}
+                              task={task}
+                              tasksToComplete={tasksToComplete}
+                              setTasksToComplete={setTasksToComplete}
+                              setIsUndoVisible={setIsUndoVisible}
+                              clearTime={clearTime}
+                            />
+                          ))}
+                      </ul>
+                    </div>
                   </>
                 )
               )}
@@ -319,6 +325,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
           )}
         </TaskMenuList>
       </TaskMenu>
+
       {deleteModalOpen && (
         <Modal>
           <DeleteProjectModal
