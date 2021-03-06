@@ -16,7 +16,13 @@ import {
   ProjectOptions,
   ProjectOptionsButton,
 } from './DashboardStyles'
-import { AddTaskForm, Spinner, TaskItem } from '../../components'
+import {
+  AddTaskForm,
+  Modal,
+  Spinner,
+  TaskItem,
+  DeleteProjectModal,
+} from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProjectTasks } from '../../store/actions/projectActions'
 import {
@@ -43,6 +49,7 @@ import { useMenu } from '../../hooks/useMenu'
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
   const [projectMenuOpen, setProjectMenuOpen] = useState(false)
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
   const [currentProject, setCurrentProject] = useState(null)
   const [dashboardTasks, setDashboardTasks] = useState([])
@@ -298,18 +305,28 @@ export const Dashboard = ({ history, match, isClosed }) => {
         }}
       >
         <TaskMenuList>
-          <DeleteButton
-            title='Delete this project'
-            onClick={() => {
-              // setDeleteModalOpen(true)
-              setProjectMenuOpen(false)
-            }}
-          >
-            <DeleteIcon />
-            <span>Delete project</span>
-          </DeleteButton>
+          {currentProject?.title !== 'Inbox' && isProject && (
+            <DeleteButton
+              title='Delete this project'
+              onClick={() => {
+                setDeleteModalOpen(true)
+                setProjectMenuOpen(false)
+              }}
+            >
+              <DeleteIcon />
+              <span>Delete project</span>
+            </DeleteButton>
+          )}
         </TaskMenuList>
       </TaskMenu>
+      {deleteModalOpen && (
+        <Modal>
+          <DeleteProjectModal
+            project={currentProject}
+            setDeleteModalOpen={setDeleteModalOpen}
+          />
+        </Modal>
+      )}
     </>
   )
 }
