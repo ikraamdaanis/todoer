@@ -8,6 +8,7 @@ import {
 } from '../DeleteTaskModal/DeleteTaskModalStyles'
 import { Spinner } from '../Spinner/Spinner'
 import { useMenu } from '../../hooks/useMenu'
+import { deleteProject } from '../../store/actions/projectActions'
 
 export const DeleteProjectModal = ({ project, setDeleteModalOpen }) => {
   const dispatch = useDispatch()
@@ -34,7 +35,7 @@ export const DeleteProjectModal = ({ project, setDeleteModalOpen }) => {
           type='button'
           className='delete'
           onClick={() => {
-            // dispatch(deleteTask(task.project, task.id))
+            dispatch(deleteProject(project))
             setDeleteModalOpen(false)
           }}
         >
