@@ -109,6 +109,19 @@ export const TaskMenu = styled.div`
   box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
   border-radius: 3px;
   padding: 4px 0;
+
+  &.project-menu {
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0s ease-in-out 0.1s;
+
+    &.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
 `
 
 export const TaskMenuList = styled.ul``

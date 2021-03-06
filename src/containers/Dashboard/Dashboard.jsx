@@ -41,7 +41,7 @@ import {
 import { useMenu } from '../../hooks/useMenu'
 
 export const Dashboard = ({ history, match, isClosed }) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
   const [projectMenuOpen, setProjectMenuOpen] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
   const [currentProject, setCurrentProject] = useState(null)
@@ -176,14 +176,26 @@ export const Dashboard = ({ history, match, isClosed }) => {
       setProjectMenuRight(projectMenuButtonPos - 150)
     } else {
       console.log('Window')
-      setProjectMenuRight(window.innerWidth - 258)
+      setProjectMenuRight(window.innerWidth - 250)
     }
   }
 
   useEffect(() => {
     reportWindowSize()
     window.addEventListener('resize', reportWindowSize)
-  }, [projectMenuButtonPos])
+  }, [projectMenuButtonPos, isClosed])
+
+  // useEffect(() => {
+  //   console.log('Is closed -------- ^')
+  //   setTimeout(() => {
+  //     reportWindowSize()
+  //     console.log('Is closed -------- V')
+  //   }, 500)
+  // }, [isClosed])
+
+  useEffect(() => {
+    console.log(projectMenuRight)
+  }, [projectMenuRight])
 
   return (
     <>
@@ -233,8 +245,10 @@ export const Dashboard = ({ history, match, isClosed }) => {
                       </ul>
                     </div>
                     <AddTaskContainer>
-                      {!isOpen ? (
-                        <AddTask onClick={() => setIsOpen(!isOpen)}>
+                      {!isAddTaskOpen ? (
+                        <AddTask
+                          onClick={() => setIsAddTaskOpen(!isAddTaskOpen)}
+                        >
                           <PlusButton className='plus'>
                             <PlusButtonSVG />
                           </PlusButton>
@@ -243,7 +257,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                       ) : (
                         <AddTaskForm
                           history={history}
-                          setIsOpen={setIsOpen}
+                          setIsOpen={setIsAddTaskOpen}
                           currentProject={currentProject}
                           id='taskForm'
                         />
@@ -276,31 +290,26 @@ export const Dashboard = ({ history, match, isClosed }) => {
           </UndoContainer>
         </UndoNotification>
       )}
-
-      {projectMenuOpen && (
-        <TaskMenu
-          ref={projectMenuRef}
-          className='project-menu'
-          style={{
-            top: 0,
-            left: 0,
-            transform: `translate(${projectMenuRight}px, 100px)`,
-          }}
-        >
-          <TaskMenuList>
-            <DeleteButton
-              title='Delete this project'
-              onClick={() => {
-                // setDeleteModalOpen(true)
-                setProjectMenuOpen(false)
-              }}
-            >
-              <DeleteIcon />
-              <span>Delete project</span>
-            </DeleteButton>
-          </TaskMenuList>
-        </TaskMenu>
-      )}
+      <TaskMenu
+        ref={projectMenuRef}
+        className={`project-menu ${projectMenuOpen ? 'open' : undefined}`}
+        style={{
+          transform: `translate(${projectMenuRight}px, 100px)`,
+        }}
+      >
+        <TaskMenuList>
+          <DeleteButton
+            title='Delete this project'
+            onClick={() => {
+              // setDeleteModalOpen(true)
+              setProjectMenuOpen(false)
+            }}
+          >
+            <DeleteIcon />
+            <span>Delete project</span>
+          </DeleteButton>
+        </TaskMenuList>
+      </TaskMenu>
     </>
   )
 }
