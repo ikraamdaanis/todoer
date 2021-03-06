@@ -123,11 +123,6 @@ export const Sidebar = ({ isClosed, param }) => {
   }, [projects])
 
   useEffect(() => {
-    taskStatDetails && console.log({ taskStatDetails })
-    taskStatDetails?.Second && console.log(taskStatDetails.Second)
-  }, [taskStatDetails])
-
-  useEffect(() => {
     projects && setAllProjects([...projects])
   }, [projects, tasks])
 
@@ -143,7 +138,10 @@ export const Sidebar = ({ isClosed, param }) => {
             <SidebarItem>
               <Inbox />
               <span>Inbox</span>
-              <small>{taskStatDetails?.Inbox?.length}</small>
+              <small>
+                {taskStatDetails?.Inbox?.length > 0 &&
+                  taskStatDetails.Inbox.length}
+              </small>
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>

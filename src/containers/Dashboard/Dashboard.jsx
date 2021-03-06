@@ -17,7 +17,11 @@ import {
 import { AddTaskForm, Spinner, TaskItem } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProjectTasks } from '../../store/actions/projectActions'
-import { completeTask, getAllTasks } from '../../store/actions/taskActions'
+import {
+  completeTask,
+  getAllTasks,
+  incompleteTask,
+} from '../../store/actions/taskActions'
 import { Sidebar } from '../'
 import { PROJECT_TASKS_DETAILS_CLEAR } from '../../store/constants/projectConstants'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
@@ -104,12 +108,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
     fetchTasks(id)
   }, [dispatch, id, projects, currentProject])
 
-  useEffect(() => {
-    dispatch({
-      type: PROJECT_TASKS_DETAILS_CLEAR,
-    })
-  }, [currentProject])
-
   const sortByDate = (a, b) => a.createdAt - b.createdAt
 
   useEffect(() => {
@@ -125,16 +123,21 @@ export const Dashboard = ({ history, match, isClosed }) => {
   let timer
 
   const completeSelectedTask = () => {
+    tasksToComplete.forEach(task => {
+      const { project, id } = task
+      dispatch(completeTask(project, id))
+    })
     timer = setTimeout(() => {
-      tasksToComplete.forEach(task => {
-        const { project, id } = task
-        dispatch(completeTask(project, id))
-      })
       setIsUndoVisible(false)
+      setTasksToComplete([])
     }, 5000)
   }
 
   const cancelCompleteTask = () => {
+    tasksToComplete.forEach(task => {
+      const { project, id } = task
+      dispatch(incompleteTask(project, id))
+    })
     clearTimeout(timer)
     setTasksToComplete([])
     setIsUndoVisible(false)

@@ -81,6 +81,39 @@ export const completeTask = (project, task) => async (dispatch, getState) => {
   }
 }
 
+export const incompleteTask = (project, task) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TASK_COMPLETE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    await firestore
+      .collection('users')
+      .doc(userInfo?.id)
+      .collection('projects')
+      .doc(project)
+      .collection('tasks')
+      .doc(task)
+      .update({ isComplete: false })
+      .then(() => {
+        console.log('Document successfully incompleted!')
+      })
+
+    dispatch({
+      type: TASK_COMPLETE_SUCCESS,
+    })
+  } catch (error) {
+    dispatch({
+      type: TASK_COMPLETE_FAIL,
+      payload: error,
+    })
+  }
+}
+
 export const deleteTask = (project, task) => async (dispatch, getState) => {
   try {
     dispatch({
