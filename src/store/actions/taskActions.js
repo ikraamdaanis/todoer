@@ -81,7 +81,7 @@ export const completeTask = (project, task) => async (dispatch, getState) => {
   }
 }
 
-export const incompleteTask = (project, task) => async (dispatch, getState) => {
+export const incompleteTask = (task, project) => async (dispatch, getState) => {
   try {
     dispatch({
       type: TASK_COMPLETE_REQUEST,

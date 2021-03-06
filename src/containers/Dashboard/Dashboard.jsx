@@ -34,21 +34,25 @@ import { Sidebar } from '../'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
 import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
+import { ReactComponent as CompleteIcon } from '../../assets/images/complete-icon.svg'
+import { ReactComponent as HideIcon } from '../../assets/images/hide-icon.svg'
 import { format } from 'date-fns'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
 import { scrollToBottom } from '../../utils/scrollToBottom'
 import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 import {
-  DeleteButton,
+  MenuItem,
   TaskMenu,
-  TaskMenuList,
+  MenuList,
 } from '../../components/TaskItem/TaskItemStyles'
 import { useMenu } from '../../hooks/useMenu'
+import { Line } from '../../components/ProfileMenu/ProfileMenuStyles'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
   const [projectMenuOpen, setProjectMenuOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [showCompletedTasks, setShowCompletedTasks] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
   const [currentProject, setCurrentProject] = useState(null)
   const [dashboardTasks, setDashboardTasks] = useState([])
@@ -133,7 +137,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const completeSelectedTask = () => {
     tasksToComplete.forEach(task => {
       const { project, id } = task
-      dispatch(completeTask(project, id))
+      dispatch(completeTask(id, project))
     })
     timer = setTimeout(() => {
       setIsUndoVisible(false)
@@ -143,8 +147,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   const cancelCompleteTask = () => {
     tasksToComplete.forEach(task => {
-      const { project, id } = task
-      dispatch(incompleteTask(project, id))
+      const { id, project } = task
+      dispatch(incompleteTask(id, project))
     })
     clearTimeout(timer)
     setTasksToComplete([])
@@ -235,6 +239,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                               setTasksToComplete={setTasksToComplete}
                               setIsUndoVisible={setIsUndoVisible}
                               clearTime={clearTime}
+                              cancelCompleteTask={cancelCompleteTask}
                             />
                           ))}
                       </ul>
@@ -259,22 +264,25 @@ export const Dashboard = ({ history, match, isClosed }) => {
                         />
                       )}
                     </AddTaskContainer>
-                    <div className='tasks'>
-                      <ul>
-                        {dashboardTasks
-                          .filter(task => task.isComplete)
-                          .map(task => (
-                            <TaskItem
-                              key={task.id}
-                              task={task}
-                              tasksToComplete={tasksToComplete}
-                              setTasksToComplete={setTasksToComplete}
-                              setIsUndoVisible={setIsUndoVisible}
-                              clearTime={clearTime}
-                            />
-                          ))}
-                      </ul>
-                    </div>
+                    {showCompletedTasks && (
+                      <div className='tasks'>
+                        <ul>
+                          {dashboardTasks
+                            .filter(task => task.isComplete)
+                            .map(task => (
+                              <TaskItem
+                                key={task.id}
+                                task={task}
+                                tasksToComplete={tasksToComplete}
+                                setTasksToComplete={setTasksToComplete}
+                                setIsUndoVisible={setIsUndoVisible}
+                                clearTime={clearTime}
+                                cancelCompleteTask={cancelCompleteTask}
+                              />
+                            ))}
+                        </ul>
+                      </div>
+                    )}
                   </>
                 )
               )}
@@ -296,9 +304,20 @@ export const Dashboard = ({ history, match, isClosed }) => {
           transform: `translate(${projectMenuRight}px, 100px)`,
         }}
       >
-        <TaskMenuList>
+        <MenuList>
+          <Line style={{ width: '96%', margin: '0.2rem auto' }} />
+          <MenuItem
+            title={`${showCompletedTasks ? 'Hide' : 'Show'} completed tasks`}
+            onClick={() => {
+              setShowCompletedTasks(prev => !prev)
+            }}
+          >
+            {showCompletedTasks ? <HideIcon /> : <CompleteIcon />}
+            <span>{showCompletedTasks ? 'Hide' : 'Show'} completed tasks</span>
+          </MenuItem>
+          <Line style={{ width: '96%', margin: '0.2rem auto' }} />
           {currentProject?.title !== 'Inbox' && isProject && (
-            <DeleteButton
+            <MenuItem
               title='Delete this project'
               onClick={() => {
                 setDeleteModalOpen(true)
@@ -307,9 +326,9 @@ export const Dashboard = ({ history, match, isClosed }) => {
             >
               <DeleteIcon />
               <span>Delete project</span>
-            </DeleteButton>
+            </MenuItem>
           )}
-        </TaskMenuList>
+        </MenuList>
       </TaskMenu>
       {deleteModalOpen && (
         <Modal>

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import {
-  DeleteButton,
+  MenuItem,
   TaskCheck,
   TaskDescription,
   TaskDetails,
@@ -8,7 +8,7 @@ import {
   TaskListItem,
   TaskMenu,
   TaskMenuContainer,
-  TaskMenuList,
+  MenuList,
   TaskTags,
 } from './TaskItemStyles'
 import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
@@ -28,6 +28,7 @@ export const TaskItem = ({
   setTasksToComplete,
   setIsUndoVisible,
   clearTime,
+  cancelCompleteTask,
 }) => {
   const [taskMenuOpen, setTaskMenuOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
@@ -48,22 +49,39 @@ export const TaskItem = ({
         <TaskDetails>
           <TaskCheck
             onClick={() => {
-              clearTime()
-              setTasksToComplete(prev => [
-                ...prev,
-                {
-                  project: task.project,
-                  id: task.id,
-                },
-              ])
-              setIsUndoVisible(true)
+              if (!task.isComplete) {
+                clearTime()
+                setTasksToComplete(prev => [
+                  ...prev,
+                  {
+                    project: task.project,
+                    id: task.id,
+                  },
+                ])
+                setIsUndoVisible(true)
+              } else if (task.isComplete) {
+                cancelCompleteTask(task)
+                setTasksToComplete(prev => [
+                  ...prev,
+                  {
+                    project: task.project,
+                    id: task.id,
+                  },
+                ])
+              }
             }}
           >
-            <div className='circle'>
+            <div
+              className={`circle ${task.isComplete ? 'complete' : undefined}`}
+            >
               <TickIcon />
             </div>
           </TaskCheck>
-          <TaskDescription>{task.description}</TaskDescription>
+          <TaskDescription
+            className={`${task.isComplete ? 'complete' : undefined}`}
+          >
+            {task.description}
+          </TaskDescription>
           <TaskMenuContainer>
             <div
               className='toggler'
@@ -74,9 +92,10 @@ export const TaskItem = ({
             </div>
             {taskMenuOpen && (
               <TaskMenu ref={TaskMenuRef}>
-                <TaskMenuList>
-                  <DeleteButton
+                <MenuList>
+                  <MenuItem
                     title='Delete this task'
+                    className='delete'
                     onClick={() => {
                       setDeleteModalOpen(true)
                       setTaskMenuOpen(false)
@@ -84,8 +103,8 @@ export const TaskItem = ({
                   >
                     <DeleteIcon />
                     <span>Delete task</span>
-                  </DeleteButton>
-                </TaskMenuList>
+                  </MenuItem>
+                </MenuList>
               </TaskMenu>
             )}
           </TaskMenuContainer>

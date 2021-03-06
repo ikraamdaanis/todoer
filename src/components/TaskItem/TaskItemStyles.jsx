@@ -50,6 +50,14 @@ export const TaskCheck = styled.div`
     }
   }
 
+  .complete {
+    background: #808080;
+
+    svg {
+      display: block;
+    }
+  }
+
   svg {
     display: none;
     position: relative;
@@ -76,6 +84,11 @@ export const TaskDescription = styled.p`
   word-break: break-word;
   color: hsla(0, 0%, 100%, 0.87);
   font-weight: 300;
+
+  &.complete {
+    text-decoration: line-through;
+    color: grey;
+  }
 `
 
 export const TaskMenuContainer = styled.div`
@@ -115,7 +128,7 @@ export const TaskMenu = styled.div`
     left: 0;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0s ease-in-out 0.1s;
+    transition: opacity 0s ease-in-out 0.01s;
 
     &.open {
       opacity: 1;
@@ -124,9 +137,9 @@ export const TaskMenu = styled.div`
   }
 `
 
-export const TaskMenuList = styled.ul``
+export const MenuList = styled.ul``
 
-export const DeleteButton = styled.li`
+export const MenuItem = styled.li`
   color: hsla(0, 0%, 100%, 0.56);
   text-shadow: none;
   background: none;
@@ -135,7 +148,6 @@ export const DeleteButton = styled.li`
   display: flex;
   align-items: center;
   cursor: pointer;
-  border-radius: 3px;
   transition: 0.2s ease-in-out;
   outline: none;
   padding: 4px 10px;
@@ -143,12 +155,14 @@ export const DeleteButton = styled.li`
   &:hover {
     background-color: #353535;
 
-    svg {
-      color: var(--light-red);
-    }
+    &.delete {
+      svg {
+        color: var(--light-red);
+      }
 
-    span {
-      color: var(--light-red);
+      span {
+        color: var(--light-red);
+      }
     }
   }
 
