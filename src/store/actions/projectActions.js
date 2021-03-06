@@ -67,6 +67,26 @@ export const deleteProject = project => async (dispatch, getState) => {
         console.log('Project successfully deleted!')
       })
 
+    await firestore
+      .collection('users')
+      .doc(userInfo?.id)
+      .collection('projects')
+      .doc(project)
+      .collection('tasks')
+      .get()
+      .then(snapshot => {
+        snapshot.forEach(doc => {
+          firestore
+            .collection('users')
+            .doc(userInfo?.id)
+            .collection('projects')
+            .doc(project)
+            .collection('tasks')
+            .doc(doc.id)
+            .delete()
+        })
+      })
+
     dispatch({
       type: PROJECT_DELETE_SUCCESS,
     })

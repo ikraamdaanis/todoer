@@ -57,6 +57,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [currentProject, setCurrentProject] = useState(null)
   const [dashboardTasks, setDashboardTasks] = useState([])
   const [tasksToComplete, setTasksToComplete] = useState([])
+  const [tasksToNotComplete, setTasksToNotComplete] = useState([])
   const [isUndoVisible, setIsUndoVisible] = useState(false)
 
   const dispatch = useDispatch()
@@ -128,21 +129,32 @@ export const Dashboard = ({ history, match, isClosed }) => {
   }, [allTasks, projectTaskList, projectsLoading, isProject, dashboardTasks])
 
   // useEffect(() => {
-  //   console.clear()
-  //   console.log('Dashboard =>', dashboardTasks, allTasks)
+  //   // console.clear()
+  //   console.log(
+  //     'Dashboard =>',
+  //     dashboardTasks?.filter(task => task.isComplete)
+  //     // allTasks
+  //   )
   // }, [dashboardTasks, allTasks])
 
   let timer
 
   const completeSelectedTask = () => {
     tasksToComplete.forEach(task => {
-      const { project, id } = task
+      const { id, project } = task
       dispatch(completeTask(id, project))
     })
     timer = setTimeout(() => {
       setIsUndoVisible(false)
       setTasksToComplete([])
     }, 5000)
+  }
+
+  const notCompleteSelectedTask = () => {
+    tasksToNotComplete.forEach(task => {
+      const { id, project } = task
+      dispatch(incompleteTask(id, project))
+    })
   }
 
   const cancelCompleteTask = () => {
@@ -155,7 +167,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
     setIsUndoVisible(false)
   }
 
-  const clearTime = () => {
+  const clearTimer = () => {
     clearTimeout(timer)
   }
 
@@ -164,6 +176,13 @@ export const Dashboard = ({ history, match, isClosed }) => {
       completeSelectedTask()
     }
   }, [tasksToComplete, timer])
+
+  useEffect(() => {
+    if (tasksToNotComplete.length) {
+      notCompleteSelectedTask()
+      setTasksToComplete([])
+    }
+  }, [tasksToNotComplete])
 
   const dashboard = useRef()
   const taskContainer = useRef()
@@ -235,11 +254,10 @@ export const Dashboard = ({ history, match, isClosed }) => {
                             <TaskItem
                               key={task.id}
                               task={task}
-                              tasksToComplete={tasksToComplete}
                               setTasksToComplete={setTasksToComplete}
+                              setTasksToNotComplete={setTasksToNotComplete}
                               setIsUndoVisible={setIsUndoVisible}
-                              clearTime={clearTime}
-                              cancelCompleteTask={cancelCompleteTask}
+                              clearTimer={clearTimer}
                             />
                           ))}
                       </ul>
@@ -275,11 +293,10 @@ export const Dashboard = ({ history, match, isClosed }) => {
                               <TaskItem
                                 key={task.id}
                                 task={task}
-                                tasksToComplete={tasksToComplete}
                                 setTasksToComplete={setTasksToComplete}
+                                setTasksToNotComplete={setTasksToNotComplete}
                                 setIsUndoVisible={setIsUndoVisible}
-                                clearTime={clearTime}
-                                cancelCompleteTask={cancelCompleteTask}
+                                clearTimer={clearTimer}
                               />
                             ))}
                         </ul>

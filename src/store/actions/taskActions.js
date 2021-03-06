@@ -1,4 +1,3 @@
-import firebase from 'firebase/app'
 import { firestore } from '../../firebase/config'
 import {
   TASK_COMPLETE_FAIL,
@@ -48,7 +47,7 @@ export const createTask = (project, task) => async (dispatch, getState) => {
   }
 }
 
-export const completeTask = (project, task) => async (dispatch, getState) => {
+export const completeTask = (task, project) => async (dispatch, getState) => {
   try {
     dispatch({
       type: TASK_COMPLETE_REQUEST,
@@ -100,7 +99,7 @@ export const incompleteTask = (task, project) => async (dispatch, getState) => {
       .doc(task)
       .update({ isComplete: false })
       .then(() => {
-        console.log('Document successfully incompleted!')
+        console.log('Document successfully not completed!')
       })
 
     dispatch({
@@ -227,18 +226,12 @@ export const getTaskStats = () => async (dispatch, getState) => {
       )
     })
 
-    Promise.all(queries)
-      .then(results => {
-        // results.forEach(project => console.log(project))
-        // results.forEach(i => i.docs.forEach(doc => all.push(doc.data())))
+    Promise.all(queries).then(() => {
+      dispatch({
+        type: TASK_STATS_SUCCESS,
+        payload: all,
       })
-      .then(() => {
-        // console.log({ all })
-        dispatch({
-          type: TASK_STATS_SUCCESS,
-          payload: all,
-        })
-      })
+    })
   } catch (error) {
     dispatch({
       type: TASK_STATS_FAIL,

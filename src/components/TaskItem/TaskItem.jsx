@@ -24,11 +24,10 @@ import { Modal } from '../Modal/Modal'
 
 export const TaskItem = ({
   task,
-  tasksToComplete,
   setTasksToComplete,
+  setTasksToNotComplete,
   setIsUndoVisible,
-  clearTime,
-  cancelCompleteTask,
+  clearTimer,
 }) => {
   const [taskMenuOpen, setTaskMenuOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
@@ -39,18 +38,13 @@ export const TaskItem = ({
   useMenu(TaskMenuButtonRef, TaskMenuRef, setTaskMenuOpen)
 
   return (
-    <TaskListItem
-      key={task.id}
-      className={
-        tasksToComplete?.some(item => item.id === task.id) ? 'hide' : undefined
-      }
-    >
+    <TaskListItem key={task.id}>
       <TaskItemContainer>
         <TaskDetails>
           <TaskCheck
             onClick={() => {
               if (!task.isComplete) {
-                clearTime()
+                clearTimer()
                 setTasksToComplete(prev => [
                   ...prev,
                   {
@@ -60,8 +54,7 @@ export const TaskItem = ({
                 ])
                 setIsUndoVisible(true)
               } else if (task.isComplete) {
-                cancelCompleteTask(task)
-                setTasksToComplete(prev => [
+                setTasksToNotComplete(prev => [
                   ...prev,
                   {
                     project: task.project,
