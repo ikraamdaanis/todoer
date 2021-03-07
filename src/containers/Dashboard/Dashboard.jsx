@@ -42,6 +42,7 @@ import { scrollToBottom } from '../../utils/scrollToBottom'
 import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 
 import { useMenu } from '../../hooks/useMenu'
+import { useSetPosition } from '../../hooks/useSetPosition'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
@@ -176,46 +177,15 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const projectMenuRef = useRef(null)
   const projectMenuButtonRef = useRef(null)
   useMenu(projectMenuButtonRef, projectMenuRef, setProjectMenuOpen)
-
-  const [projectMenuRight, setProjectMenuRight] = useState(0)
-  const projectMenuButtonPos = projectMenuButtonRef?.current?.getBoundingClientRect()
-    .right
-
-  const positionProjectMenu = () => {
-    if (projectMenuButtonPos + 125 < window.innerWidth) {
-      setProjectMenuRight(projectMenuButtonPos - 150)
-    } else {
-      setProjectMenuRight(window.innerWidth - 250)
-    }
-  }
-
-  useEffect(() => {
-    positionProjectMenu()
-    console.log({ projectMenuRef })
-    window.addEventListener('resize', positionProjectMenu)
-  }, [projectMenuButtonPos, isClosed])
+  const [projectMenuRight] = useSetPosition(projectMenuButtonRef, isClosed)
 
   const projectSortMenuRef = useRef(null)
   const projectSortMenuButtonRef = useRef(null)
   useMenu(projectSortMenuButtonRef, projectSortMenuRef, setProjectSortOpen)
-
-  const [projectSortMenuRight, setProjectSortMenuRight] = useState(0)
-  const projectSortButtonPos = projectSortMenuButtonRef?.current?.getBoundingClientRect()
-    .right
-
-  const positionProjectSortMenu = () => {
-    if (projectSortButtonPos + 125 < window.innerWidth) {
-      setProjectSortMenuRight(projectSortButtonPos - 150)
-    } else {
-      setProjectSortMenuRight(window.innerWidth - 250)
-    }
-  }
-
-  useEffect(() => {
-    positionProjectSortMenu()
-    console.log({ projectSortMenuRef })
-    window.addEventListener('resize', positionProjectSortMenu)
-  }, [projectSortButtonPos, isClosed])
+  const [projectSortMenuRight] = useSetPosition(
+    projectSortMenuButtonRef,
+    isClosed
+  )
 
   return (
     <>
