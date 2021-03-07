@@ -136,10 +136,6 @@ export const Title = styled.h1`
   }
 `
 
-export const TaskContainer = styled.div`
-  /* margin-top: 75px; */
-`
-
 export const AddTask = styled.div`
   display: flex;
   align-items: center;

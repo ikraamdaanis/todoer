@@ -6,19 +6,11 @@ import {
   PlusButton,
   ProjectContainer,
   Title,
-  TaskContainer,
   ProjectHeading,
   ProjectOptions,
   ProjectOptionsButton,
 } from './DashboardStyles'
-import {
-  AddTaskForm,
-  Modal,
-  Spinner,
-  TaskItem,
-  DeleteModal,
-  UndoComplete,
-} from '../../components'
+import { AddTaskForm, Modal, DeleteModal, UndoComplete } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject } from '../../store/actions/projectActions'
 import {
@@ -27,7 +19,7 @@ import {
   incompleteTask,
 } from '../../store/actions/taskActions'
 
-import { Sidebar } from '../'
+import { Sidebar, TaskContainer } from '../'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
 import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
@@ -45,7 +37,7 @@ import {
 import { useMenu } from '../../hooks/useMenu'
 import { Line } from '../../components/ProfileMenu/ProfileMenuStyles'
 import { useCollection } from 'react-firebase-hooks/firestore'
-import { firestore } from '../../firebase/config'
+import { ProjectTasksReference } from '../../firebase/References'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
@@ -63,21 +55,15 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const dispatch = useDispatch()
   const { id } = match.params
 
-  const userLogin = useSelector(state => state.userLogin)
-  const { userInfo } = userLogin
-
-  const ref = firestore
-    .collection('users')
-    .doc(userInfo?.id)
-    .collection('projects')
-    .doc(currentProject?.title)
-    .collection('tasks')
-  const [snapshots, loading] = useCollection(ref)
+  const [snapshots, loading] = useCollection(
+    ProjectTasksReference(currentProject?.title)
+  )
 
   useEffect(() => {
     console.clear()
     const data = []
     snapshots?.docs.forEach(task => data.push(task.data()))
+    data.sort((a, b) => a.createdAt - b.createdAt)
     setProjectTaskList(data)
   }, [snapshots])
 
@@ -194,7 +180,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
   }, [tasksToNotComplete])
 
   const dashboard = useRef()
-  const taskContainer = useRef()
 
   const scrollDownToLastTask = () => {
     scrollToBottom(dashboard, dashboardTasks, projectTaskList)
@@ -245,74 +230,45 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 </ProjectOptions>
               </div>
             </ProjectHeading>
-            <TaskContainer>
-              {loading ? (
-                <div style={{ marginTop: '5rem' }}>
-                  <Spinner />
-                </div>
+            <TaskContainer
+              project={currentProject}
+              isComplete={false}
+              setTasksToComplete={setTasksToComplete}
+              setTasksToNotComplete={setTasksToNotComplete}
+              setIsUndoVisible={setIsUndoVisible}
+              clearTimer={clearTimer}
+            />
+
+            <AddTaskContainer
+              className={showCompletedTasks ? 'complete' : undefined}
+            >
+              {!isAddTaskOpen ? (
+                <AddTask onClick={() => setIsAddTaskOpen(!isAddTaskOpen)}>
+                  <PlusButton className='plus'>
+                    <PlusButtonSVG />
+                  </PlusButton>
+                  <AddTaskText>Add task</AddTaskText>
+                </AddTask>
               ) : (
-                projectTaskList && (
-                  <>
-                    <div className='tasks'>
-                      <ul ref={taskContainer}>
-                        {projectTaskList
-                          .filter(task => !task.isComplete)
-                          .map(task => (
-                            <TaskItem
-                              key={task.id}
-                              task={task}
-                              setTasksToComplete={setTasksToComplete}
-                              setTasksToNotComplete={setTasksToNotComplete}
-                              setIsUndoVisible={setIsUndoVisible}
-                              clearTimer={clearTimer}
-                            />
-                          ))}
-                      </ul>
-                    </div>
-                    <AddTaskContainer
-                      className={showCompletedTasks ? 'complete' : undefined}
-                    >
-                      {!isAddTaskOpen ? (
-                        <AddTask
-                          onClick={() => setIsAddTaskOpen(!isAddTaskOpen)}
-                        >
-                          <PlusButton className='plus'>
-                            <PlusButtonSVG />
-                          </PlusButton>
-                          <AddTaskText>Add task</AddTaskText>
-                        </AddTask>
-                      ) : (
-                        <AddTaskForm
-                          history={history}
-                          setIsOpen={setIsAddTaskOpen}
-                          currentProject={currentProject}
-                          id='taskForm'
-                          scrollDownToLastTask={scrollDownToLastTask}
-                        />
-                      )}
-                    </AddTaskContainer>
-                    {showCompletedTasks && (
-                      <div className='tasks'>
-                        <ul>
-                          {projectTaskList
-                            .filter(task => task.isComplete)
-                            .map(task => (
-                              <TaskItem
-                                key={task.id}
-                                task={task}
-                                setTasksToComplete={setTasksToComplete}
-                                setTasksToNotComplete={setTasksToNotComplete}
-                                setIsUndoVisible={setIsUndoVisible}
-                                clearTimer={clearTimer}
-                              />
-                            ))}
-                        </ul>
-                      </div>
-                    )}
-                  </>
-                )
+                <AddTaskForm
+                  history={history}
+                  setIsOpen={setIsAddTaskOpen}
+                  currentProject={currentProject}
+                  id='taskForm'
+                  scrollDownToLastTask={scrollDownToLastTask}
+                />
               )}
-            </TaskContainer>
+            </AddTaskContainer>
+            {showCompletedTasks && (
+              <TaskContainer
+                project={currentProject}
+                isComplete={true}
+                setTasksToComplete={setTasksToComplete}
+                setTasksToNotComplete={setTasksToNotComplete}
+                setIsUndoVisible={setIsUndoVisible}
+                clearTimer={clearTimer}
+              />
+            )}
           </ProjectContainer>
         </DashboardContainer>
       </div>
