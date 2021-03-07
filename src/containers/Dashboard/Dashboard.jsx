@@ -20,6 +20,7 @@ import {
   DeleteModal,
   UndoComplete,
   ProjectMenu,
+  ProjectSortMenu,
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject } from '../../store/actions/projectActions'
@@ -45,6 +46,7 @@ import { useMenu } from '../../hooks/useMenu'
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
   const [projectMenuOpen, setProjectMenuOpen] = useState(false)
+  const [projectSortOpen, setProjectSortOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
   const [showCompletedTasks, setShowCompletedTasks] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
@@ -53,7 +55,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [tasksToComplete, setTasksToComplete] = useState([])
   const [tasksToNotComplete, setTasksToNotComplete] = useState([])
   const [isUndoVisible, setIsUndoVisible] = useState(false)
-  const [projectTaskList, setProjectTaskList] = useState([])
 
   const dispatch = useDispatch()
   const { id } = match.params
@@ -180,7 +181,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const projectMenuButtonPos = projectMenuButtonRef?.current?.getBoundingClientRect()
     .right
 
-  const reportWindowSize = () => {
+  const positionProjectMenu = () => {
     if (projectMenuButtonPos + 125 < window.innerWidth) {
       setProjectMenuRight(projectMenuButtonPos - 150)
     } else {
@@ -189,9 +190,32 @@ export const Dashboard = ({ history, match, isClosed }) => {
   }
 
   useEffect(() => {
-    reportWindowSize()
-    window.addEventListener('resize', reportWindowSize)
+    positionProjectMenu()
+    console.log({ projectMenuRef })
+    window.addEventListener('resize', positionProjectMenu)
   }, [projectMenuButtonPos, isClosed])
+
+  const projectSortMenuRef = useRef(null)
+  const projectSortMenuButtonRef = useRef(null)
+  useMenu(projectSortMenuButtonRef, projectSortMenuRef, setProjectSortOpen)
+
+  const [projectSortMenuRight, setProjectSortMenuRight] = useState(0)
+  const projectSortButtonPos = projectSortMenuButtonRef?.current?.getBoundingClientRect()
+    .right
+
+  const positionProjectSortMenu = () => {
+    if (projectSortButtonPos + 125 < window.innerWidth) {
+      setProjectSortMenuRight(projectSortButtonPos - 150)
+    } else {
+      setProjectSortMenuRight(window.innerWidth - 250)
+    }
+  }
+
+  useEffect(() => {
+    positionProjectSortMenu()
+    console.log({ projectSortMenuRef })
+    window.addEventListener('resize', positionProjectSortMenu)
+  }, [projectSortButtonPos, isClosed])
 
   return (
     <>
@@ -210,8 +234,10 @@ export const Dashboard = ({ history, match, isClosed }) => {
                   )}
                 </Title>
                 <ProjectMenus>
-                  <ProjectSort>
-                    <ProjectSortButton>
+                  <ProjectSort ref={projectSortMenuButtonRef}>
+                    <ProjectSortButton
+                      onClick={() => setProjectSortOpen(prev => !prev)}
+                    >
                       <SortIcon />
                       <span>Sort</span>
                     </ProjectSortButton>
@@ -278,7 +304,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
       <ProjectMenu
         reference={projectMenuRef}
-        projectMenuRef={projectMenuRef}
         projectMenuRight={projectMenuRight}
         showCompletedTasks={showCompletedTasks}
         setShowCompletedTasks={setShowCompletedTasks}
@@ -287,6 +312,12 @@ export const Dashboard = ({ history, match, isClosed }) => {
         projectMenuOpen={projectMenuOpen}
         setProjectMenuOpen={setProjectMenuOpen}
         setDeleteModalOpen={setDeleteModalOpen}
+      />
+      <ProjectSortMenu
+        reference={projectSortMenuRef}
+        projectSortOpen={projectSortOpen}
+        setProjectSortOpen={setProjectSortOpen}
+        projectSortMenuRight={projectSortMenuRight}
       />
 
       {deleteModalOpen && (
