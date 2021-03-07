@@ -9,6 +9,10 @@ import {
   ProjectHeading,
   ProjectOptions,
   ProjectOptionsButton,
+  ProjectHeadingContainer,
+  ProjectMenus,
+  ProjectSort,
+  ProjectSortButton,
 } from './DashboardStyles'
 import {
   AddTaskForm,
@@ -26,8 +30,10 @@ import {
 } from '../../store/actions/taskActions'
 
 import { Sidebar, TaskContainer } from '../'
+
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
+import { ReactComponent as SortIcon } from '../../assets/images/sort-icon.svg'
 
 import { format } from 'date-fns'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
@@ -112,11 +118,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
     !isProject && setDashboardTasks(allTasks?.sort(sortByDate))
   }, [projectsLoading, isProject])
 
-  useEffect(() => {
-    console.clear()
-    console.log('Dashboard =>', projectTaskList)
-  }, [projectTaskList])
-
   let timer
 
   const completeSelectedTask = () => {
@@ -167,7 +168,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const dashboard = useRef()
 
   const scrollDownToLastTask = () => {
-    scrollToBottom(dashboard, dashboardTasks, projectTaskList)
+    scrollToBottom(dashboard, dashboardTasks)
   }
   useCheckScrolling(dashboard, setIsScrolling)
 
@@ -199,21 +200,31 @@ export const Dashboard = ({ history, match, isClosed }) => {
         <DashboardContainer className={isClosed && 'closed'} ref={dashboard}>
           <ProjectContainer>
             <ProjectHeading>
-              <div className={`div ${isScrolling ? 'scrolling ' : undefined}`}>
+              <ProjectHeadingContainer
+                className={`div ${isScrolling ? 'scrolling ' : undefined}`}
+              >
                 <Title>
                   {match.params.id}
                   {match.params.id === 'today' && (
                     <small>{format(new Date(), 'iii do MMM')}</small>
                   )}
                 </Title>
-                <ProjectOptions ref={projectMenuButtonRef}>
-                  <ProjectOptionsButton
-                    onClick={() => setProjectMenuOpen(prev => !prev)}
-                  >
-                    <ProjectMore />
-                  </ProjectOptionsButton>
-                </ProjectOptions>
-              </div>
+                <ProjectMenus>
+                  <ProjectSort>
+                    <ProjectSortButton>
+                      <SortIcon />
+                      <span>Sort</span>
+                    </ProjectSortButton>
+                  </ProjectSort>
+                  <ProjectOptions ref={projectMenuButtonRef}>
+                    <ProjectOptionsButton
+                      onClick={() => setProjectMenuOpen(prev => !prev)}
+                    >
+                      <ProjectMore />
+                    </ProjectOptionsButton>
+                  </ProjectOptions>
+                </ProjectMenus>
+              </ProjectHeadingContainer>
             </ProjectHeading>
             <TaskContainer
               project={currentProject}

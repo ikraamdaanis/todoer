@@ -77,21 +77,68 @@ export const ProjectHeading = styled.div`
     padding: 0 10px;
     transform: translateX(-10px);
   }
+`
 
-  .div {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--very-dark-gray);
-    width: 100%;
-    height: 100%;
-    padding: 36px 0 8px;
-    border-bottom: 1px solid transparent;
-    transition: 0.2s ease-in-out;
+export const ProjectHeadingContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--very-dark-gray);
+  width: 100%;
+  height: 100%;
+  padding: 36px 0 8px;
+  border-bottom: 1px solid transparent;
+  transition: 0.2s ease-in-out;
 
-    &.scrolling {
-      border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  &.scrolling {
+    border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  }
+`
+
+export const ProjectMenus = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const ProjectSort = styled.div`
+  position: relative;
+`
+
+export const ProjectSortButton = styled.button`
+  height: 24px;
+  padding: 0 5px 0 3px;
+  display: flex;
+  align-items: center;
+  color: unset;
+  outline: none;
+  border: 0;
+  border-radius: 4px;
+  transition: 0.2s ease-in-out;
+  outline: none;
+  background: none;
+  cursor: pointer;
+  margin-right: 16px;
+
+  &:hover {
+    background: #353535;
+
+    svg {
+      color: hsla(0, 0%, 100%, 0.87);
     }
+
+    span {
+      color: hsla(0, 0%, 100%, 0.87);
+    }
+  }
+
+  svg {
+    color: hsla(0, 0%, 100%, 0.56);
+  }
+
+  span {
+    color: hsla(0, 0%, 100%, 0.56);
+    font-weight: 300;
+    font-size: 12px;
   }
 `
 
@@ -115,9 +162,14 @@ export const ProjectOptionsButton = styled.button`
 
   &:hover {
     background: #353535;
+
+    svg {
+      color: hsla(0, 0%, 100%, 0.87);
+    }
   }
 
   svg {
+    color: hsla(0, 0%, 100%, 0.56);
   }
 `
 

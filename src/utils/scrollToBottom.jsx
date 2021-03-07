@@ -1,5 +1,5 @@
-export const scrollToBottom = (container, dependency1, dependency2) => {
-  const position = dependency2?.filter(task => !task.isComplete).length
+export const scrollToBottom = (container, dependency) => {
+  const position = dependency?.filter(task => !task.isComplete).length
 
   container.current.scrollTo({
     top: position * 37 - 200,
