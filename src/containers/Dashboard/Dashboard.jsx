@@ -10,7 +10,13 @@ import {
   ProjectOptions,
   ProjectOptionsButton,
 } from './DashboardStyles'
-import { AddTaskForm, Modal, DeleteModal, UndoComplete } from '../../components'
+import {
+  AddTaskForm,
+  Modal,
+  DeleteModal,
+  UndoComplete,
+  ProjectMenu,
+} from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject } from '../../store/actions/projectActions'
 import {
@@ -22,20 +28,13 @@ import {
 import { Sidebar, TaskContainer } from '../'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
-import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
-import { ReactComponent as CompleteIcon } from '../../assets/images/complete-icon.svg'
-import { ReactComponent as HideIcon } from '../../assets/images/hide-icon.svg'
+
 import { format } from 'date-fns'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
 import { scrollToBottom } from '../../utils/scrollToBottom'
 import { useCheckScrolling } from '../../hooks/useCheckScrolling'
-import {
-  MenuItem,
-  TaskMenu,
-  MenuList,
-} from '../../components/TaskItem/TaskItemStyles'
+
 import { useMenu } from '../../hooks/useMenu'
-import { Line } from '../../components/ProfileMenu/ProfileMenuStyles'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { ProjectTasksReference } from '../../firebase/References'
 
@@ -279,38 +278,19 @@ export const Dashboard = ({ history, match, isClosed }) => {
           setIsUndoVisible={setIsUndoVisible}
         />
       )}
-      <TaskMenu
-        ref={projectMenuRef}
-        className={`project-menu ${projectMenuOpen ? 'open' : undefined}`}
-        style={{
-          transform: `translate(${projectMenuRight}px, 100px)`,
-        }}
-      >
-        <MenuList>
-          <MenuItem
-            title={`${showCompletedTasks ? 'Hide' : 'Show'} completed tasks`}
-            onClick={() => {
-              setShowCompletedTasks(prev => !prev)
-            }}
-          >
-            {showCompletedTasks ? <HideIcon /> : <CompleteIcon />}
-            <span>{showCompletedTasks ? 'Hide' : 'Show'} completed tasks</span>
-          </MenuItem>
-          <Line style={{ width: '96%', margin: '0.2rem auto' }} />
-          {currentProject?.title !== 'Inbox' && isProject && (
-            <MenuItem
-              title='Delete this project'
-              onClick={() => {
-                setDeleteModalOpen(true)
-                setProjectMenuOpen(false)
-              }}
-            >
-              <DeleteIcon />
-              <span>Delete project</span>
-            </MenuItem>
-          )}
-        </MenuList>
-      </TaskMenu>
+      {projectMenuOpen && (
+        <ProjectMenu
+          reference={projectMenuRef}
+          projectMenuRef={projectMenuRef}
+          projectMenuRight={projectMenuRight}
+          showCompletedTasks={showCompletedTasks}
+          setShowCompletedTasks={setShowCompletedTasks}
+          currentProject={currentProject}
+          isProject={isProject}
+          setDeleteModalOpen={setDeleteModalOpen}
+          setProjectMenuOpen={setProjectMenuOpen}
+        />
+      )}
       {deleteModalOpen && (
         <Modal>
           <DeleteModal

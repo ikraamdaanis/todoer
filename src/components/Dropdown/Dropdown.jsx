@@ -69,8 +69,8 @@ export const DropdownItem = styled.li`
 `
 
 export const Line = styled.div`
-  width: 100%;
+  width: 96%;
   height: 1px;
   background: hsla(0, 0%, 100%, 0.1);
-  margin: 0.2rem 0;
+  margin: 0.2rem auto;
 `
