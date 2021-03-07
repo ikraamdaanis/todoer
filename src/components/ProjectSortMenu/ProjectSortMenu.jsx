@@ -6,10 +6,11 @@ import {
 import { ReactComponent as DueDate } from '../../assets/images/due-date-large.svg'
 
 export const ProjectSortMenu = ({
+  reference,
   projectSortOpen,
   setProjectSortOpen,
   projectSortMenuRight,
-  reference,
+  setSortOptions,
 }) => {
   return (
     <DropdownContainer
@@ -20,7 +21,13 @@ export const ProjectSortMenu = ({
       }}
     >
       <DropdownList>
-        <DropdownItem title={'Sort by due date'} onClick={() => {}}>
+        <DropdownItem
+          title={'Sort by due date'}
+          onClick={() => {
+            setSortOptions({ option: 'dueDate', direction: 'asc' })
+            setProjectSortOpen(false)
+          }}
+        >
           <DueDate />
           <span>Sort by due date</span>
         </DropdownItem>

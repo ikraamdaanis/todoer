@@ -56,6 +56,11 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [tasksToComplete, setTasksToComplete] = useState([])
   const [tasksToNotComplete, setTasksToNotComplete] = useState([])
   const [isUndoVisible, setIsUndoVisible] = useState(false)
+  const [sortOptions, setSortOptions] = useState(null)
+
+  useEffect(() => {
+    console.log(sortOptions)
+  }, [sortOptions])
 
   const dispatch = useDispatch()
   const { id } = match.params
@@ -229,6 +234,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
               setTasksToNotComplete={setTasksToNotComplete}
               setIsUndoVisible={setIsUndoVisible}
               clearTimer={clearTimer}
+              sortOptions={sortOptions}
             />
 
             <AddTaskContainer
@@ -271,7 +277,13 @@ export const Dashboard = ({ history, match, isClosed }) => {
           setIsUndoVisible={setIsUndoVisible}
         />
       )}
-
+      <ProjectSortMenu
+        reference={projectSortMenuRef}
+        projectSortOpen={projectSortOpen}
+        setProjectSortOpen={setProjectSortOpen}
+        projectSortMenuRight={projectSortMenuRight}
+        setSortOptions={setSortOptions}
+      />
       <ProjectMenu
         reference={projectMenuRef}
         projectMenuRight={projectMenuRight}
@@ -283,13 +295,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
         setProjectMenuOpen={setProjectMenuOpen}
         setDeleteModalOpen={setDeleteModalOpen}
       />
-      <ProjectSortMenu
-        reference={projectSortMenuRef}
-        projectSortOpen={projectSortOpen}
-        setProjectSortOpen={setProjectSortOpen}
-        projectSortMenuRight={projectSortMenuRight}
-      />
-
       {deleteModalOpen && (
         <Modal>
           <DeleteModal

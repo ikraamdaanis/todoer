@@ -32,6 +32,7 @@ export const ProjectMenu = ({
           title={`${showCompletedTasks ? 'Hide' : 'Show'} completed tasks`}
           onClick={() => {
             setShowCompletedTasks(prev => !prev)
+            setProjectMenuOpen(false)
           }}
         >
           {showCompletedTasks ? <HideIcon /> : <CompleteIcon />}

@@ -11,19 +11,36 @@ export const TaskContainer = ({
   setTasksToNotComplete,
   setIsUndoVisible,
   clearTimer,
+  sortOptions,
 }) => {
+  const defaultQuery = { option: 'createdAt', direction: 'asc' }
+
   const [projectTaskList, setProjectTaskList] = useState([])
+  const [searchQuery, setSearchQuery] = useState(defaultQuery)
 
   const [snapshots, loading] = useCollection(
-    ProjectTasksReference(project?.title)
+    ProjectTasksReference(project?.title).orderBy(
+      searchQuery.option,
+      searchQuery.direction
+    )
   )
 
   useEffect(() => {
     const data = []
     snapshots?.docs.forEach(task => data.push(task.data()))
-    data.sort((a, b) => a.createdAt - b.createdAt)
     setProjectTaskList(data)
-  }, [snapshots])
+  }, [snapshots, searchQuery, project])
+
+  useEffect(() => {
+    if (sortOptions) {
+      setSearchQuery({
+        option: sortOptions.option,
+        direction: sortOptions.direction,
+      })
+    } else {
+      setSearchQuery(defaultQuery)
+    }
+  }, [sortOptions])
 
   return loading ? (
     <div style={{ marginTop: '5rem' }}>
