@@ -287,7 +287,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
         }}
       >
         <MenuList>
-          <Line style={{ width: '96%', margin: '0.2rem auto' }} />
           <MenuItem
             title={`${showCompletedTasks ? 'Hide' : 'Show'} completed tasks`}
             onClick={() => {
