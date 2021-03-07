@@ -35,8 +35,6 @@ import { scrollToBottom } from '../../utils/scrollToBottom'
 import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 
 import { useMenu } from '../../hooks/useMenu'
-import { useCollection } from 'react-firebase-hooks/firestore'
-import { ProjectTasksReference } from '../../firebase/References'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
@@ -53,18 +51,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   const dispatch = useDispatch()
   const { id } = match.params
-
-  const [snapshots, loading] = useCollection(
-    ProjectTasksReference(currentProject?.title)
-  )
-
-  useEffect(() => {
-    console.clear()
-    const data = []
-    snapshots?.docs.forEach(task => data.push(task.data()))
-    data.sort((a, b) => a.createdAt - b.createdAt)
-    setProjectTaskList(data)
-  }, [snapshots])
 
   const isProject = id !== 'today' && id !== 'upcoming'
 
@@ -278,19 +264,20 @@ export const Dashboard = ({ history, match, isClosed }) => {
           setIsUndoVisible={setIsUndoVisible}
         />
       )}
-      {projectMenuOpen && (
-        <ProjectMenu
-          reference={projectMenuRef}
-          projectMenuRef={projectMenuRef}
-          projectMenuRight={projectMenuRight}
-          showCompletedTasks={showCompletedTasks}
-          setShowCompletedTasks={setShowCompletedTasks}
-          currentProject={currentProject}
-          isProject={isProject}
-          setDeleteModalOpen={setDeleteModalOpen}
-          setProjectMenuOpen={setProjectMenuOpen}
-        />
-      )}
+
+      <ProjectMenu
+        reference={projectMenuRef}
+        projectMenuRef={projectMenuRef}
+        projectMenuRight={projectMenuRight}
+        showCompletedTasks={showCompletedTasks}
+        setShowCompletedTasks={setShowCompletedTasks}
+        currentProject={currentProject}
+        isProject={isProject}
+        projectMenuOpen={projectMenuOpen}
+        setProjectMenuOpen={setProjectMenuOpen}
+        setDeleteModalOpen={setDeleteModalOpen}
+      />
+
       {deleteModalOpen && (
         <Modal>
           <DeleteModal

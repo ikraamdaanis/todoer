@@ -10,18 +10,20 @@ import { ReactComponent as CompleteIcon } from '../../assets/images/complete-ico
 import { ReactComponent as HideIcon } from '../../assets/images/hide-icon.svg'
 
 export const ProjectMenu = ({
-  projectMenuRef,
+  reference,
   projectMenuRight,
   showCompletedTasks,
   setShowCompletedTasks,
   currentProject,
   isProject,
+  projectMenuOpen,
   setDeleteModalOpen,
   setProjectMenuOpen,
 }) => {
   return (
     <DropdownContainer
-      className={`project-menu ${projectMenuRef ? 'open' : undefined}`}
+      ref={reference}
+      className={`project-menu ${projectMenuOpen ? 'open' : undefined}`}
       style={{
         transform: `translate(${projectMenuRight}px, 100px)`,
       }}
