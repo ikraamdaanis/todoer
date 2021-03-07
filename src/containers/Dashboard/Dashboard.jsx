@@ -20,10 +20,7 @@ import {
   UndoComplete,
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  deleteProject,
-  getProjectTasks,
-} from '../../store/actions/projectActions'
+import { deleteProject } from '../../store/actions/projectActions'
 import {
   completeTask,
   getAllTasks,
@@ -47,6 +44,8 @@ import {
 } from '../../components/TaskItem/TaskItemStyles'
 import { useMenu } from '../../hooks/useMenu'
 import { Line } from '../../components/ProfileMenu/ProfileMenuStyles'
+import { useCollection } from 'react-firebase-hooks/firestore'
+import { firestore } from '../../firebase/config'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
@@ -59,17 +58,33 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [tasksToComplete, setTasksToComplete] = useState([])
   const [tasksToNotComplete, setTasksToNotComplete] = useState([])
   const [isUndoVisible, setIsUndoVisible] = useState(false)
+  const [projectTaskList, setProjectTaskList] = useState([])
 
   const dispatch = useDispatch()
   const { id } = match.params
+
+  const userLogin = useSelector(state => state.userLogin)
+  const { userInfo } = userLogin
+
+  const ref = firestore
+    .collection('users')
+    .doc(userInfo?.id)
+    .collection('projects')
+    .doc(currentProject?.title)
+    .collection('tasks')
+  const [snapshots, loading] = useCollection(ref)
+
+  useEffect(() => {
+    console.clear()
+    const data = []
+    snapshots?.docs.forEach(task => data.push(task.data()))
+    setProjectTaskList(data)
+  }, [snapshots])
 
   const isProject = id !== 'today' && id !== 'upcoming'
 
   const projectList = useSelector(state => state.projectList)
   const { loading: projectsLoading, projects } = projectList
-
-  const projectTasks = useSelector(state => state.projectTasks)
-  const { loading: tasksLoading, tasks: projectTaskList } = projectTasks
 
   const taskList = useSelector(state => state.taskList)
   const { loading: taskListLoading, tasks: allTasks } = taskList
@@ -112,30 +127,24 @@ export const Dashboard = ({ history, match, isClosed }) => {
         )
       } else {
         assignCurrentProject()
-        currentProject && dispatch(getProjectTasks(currentProject.title))
       }
     }
   }
 
   useEffect(() => {
     fetchTasks(id)
-  }, [dispatch, id, projects, currentProject])
+  }, [dispatch, id, currentProject])
 
   const sortByDate = (a, b) => a.createdAt - b.createdAt
 
   useEffect(() => {
     !isProject && setDashboardTasks(allTasks?.sort(sortByDate))
-    isProject && setDashboardTasks(projectTaskList?.sort(sortByDate))
-  }, [allTasks, projectTaskList, projectsLoading, isProject, dashboardTasks])
+  }, [projectsLoading, isProject])
 
-  // useEffect(() => {
-  //   // console.clear()
-  //   console.log(
-  //     'Dashboard =>',
-  //     dashboardTasks?.filter(task => task.isComplete)
-  //     // allTasks
-  //   )
-  // }, [dashboardTasks, allTasks])
+  useEffect(() => {
+    console.clear()
+    console.log('Dashboard =>', projectTaskList)
+  }, [projectTaskList])
 
   let timer
 
@@ -194,11 +203,9 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   const projectMenuRef = useRef(null)
   const projectMenuButtonRef = useRef(null)
-
   useMenu(projectMenuButtonRef, projectMenuRef, setProjectMenuOpen)
 
   const [projectMenuRight, setProjectMenuRight] = useState(0)
-
   const projectMenuButtonPos = projectMenuButtonRef?.current?.getBoundingClientRect()
     .right
 
@@ -239,16 +246,16 @@ export const Dashboard = ({ history, match, isClosed }) => {
               </div>
             </ProjectHeading>
             <TaskContainer>
-              {projectsLoading ? (
-                <div style={{ marginTop: '10rem' }}>
+              {loading ? (
+                <div style={{ marginTop: '5rem' }}>
                   <Spinner />
                 </div>
               ) : (
-                dashboardTasks && (
+                projectTaskList && (
                   <>
                     <div className='tasks'>
                       <ul ref={taskContainer}>
-                        {dashboardTasks
+                        {projectTaskList
                           .filter(task => !task.isComplete)
                           .map(task => (
                             <TaskItem
@@ -287,7 +294,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                     {showCompletedTasks && (
                       <div className='tasks'>
                         <ul>
-                          {dashboardTasks
+                          {projectTaskList
                             .filter(task => task.isComplete)
                             .map(task => (
                               <TaskItem

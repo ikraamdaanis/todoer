@@ -11,11 +11,23 @@ import { useSelector } from 'react-redux'
 
 import { Link } from 'react-router-dom'
 import { ProfileMenu } from '../../components'
+import { useCollection } from 'react-firebase-hooks/firestore'
+import { firestore } from '../../firebase/config'
 
 export const Navbar = ({ setIsClosed }) => {
   const userLogin = useSelector(state => state.userLogin)
   const { loading, error, userInfo } = userLogin
-  useEffect(() => {}, [])
+
+  const ref = firestore
+    .collection('users')
+    .doc(userInfo?.id)
+    .collection('projects')
+    .doc('Inbox')
+    .collection('tasks')
+  const [snapshots] = useCollection(ref)
+  useEffect(() => {
+    console.log({ snapshots })
+  }, [snapshots])
 
   return (
     <header>

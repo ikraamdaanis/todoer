@@ -58,26 +58,3 @@ export const projectListReducer = (
       return state
   }
 }
-
-export const projectTasksReducer = (state = {}, { type, payload }) => {
-  switch (type) {
-    case PROJECT_TASKS_DETAILS_REQUEST:
-      return {
-        loading: true,
-      }
-    case PROJECT_TASKS_DETAILS_SUCCESS:
-      return {
-        loading: false,
-        tasks: payload,
-      }
-    case PROJECT_TASKS_DETAILS_FAIL:
-      return {
-        loading: false,
-        error: payload,
-      }
-    case PROJECT_TASKS_DETAILS_CLEAR:
-      return {}
-    default:
-      return state
-  }
-}
