@@ -39,6 +39,7 @@ export const createTask = (project, task) => async (dispatch, getState) => {
     dispatch({
       type: TASK_CREATE_SUCCESS,
     })
+    dispatch(getTaskStats())
   } catch (error) {
     dispatch({
       type: TASK_CREATE_FAIL,
@@ -72,6 +73,7 @@ export const completeTask = (task, project) => async (dispatch, getState) => {
     dispatch({
       type: TASK_COMPLETE_SUCCESS,
     })
+    dispatch(getTaskStats())
   } catch (error) {
     dispatch({
       type: TASK_COMPLETE_FAIL,
@@ -110,6 +112,7 @@ export const incompleteTask = (task, project) => async (dispatch, getState) => {
       type: TASK_COMPLETE_FAIL,
       payload: error,
     })
+    dispatch(getTaskStats())
   }
 }
 
@@ -138,6 +141,7 @@ export const deleteTask = (task, project) => async (dispatch, getState) => {
     dispatch({
       type: TASK_DELETE_SUCCESS,
     })
+    dispatch(getTaskStats())
   } catch (error) {
     dispatch({
       type: TASK_DELETE_FAIL,
@@ -207,8 +211,6 @@ export const getTaskStats = () => async (dispatch, getState) => {
     const allProjectsQuery = []
     const allIncompleteTasks = {}
 
-    console.log({ projects })
-
     await projects.forEach(proj => {
       allProjectsQuery.push(
         firestore
@@ -218,18 +220,20 @@ export const getTaskStats = () => async (dispatch, getState) => {
           .doc(proj.title)
           .collection('tasks')
           .where('isComplete', '==', false)
-          .onSnapshot(querySnapshot => {
-            const data = []
-            querySnapshot.forEach(doc => {
-              data.push(doc.data())
-            })
-            allIncompleteTasks[proj.title] = data
-          })
+          .get()
       )
     })
 
     Promise.all(allProjectsQuery)
-      .then(results => results)
+      .then(results => {
+        results.forEach((project, index) => {
+          const data = []
+          project.docs.forEach(task => {
+            data.push(task.data())
+          })
+          allIncompleteTasks[projects[index].title] = data
+        })
+      })
       .then(() => {
         dispatch({
           type: TASK_STATS_SUCCESS,

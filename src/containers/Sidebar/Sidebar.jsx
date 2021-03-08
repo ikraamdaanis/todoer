@@ -95,6 +95,7 @@ const UpcomingIcon = () => {
 export const Sidebar = ({ isClosed, param }) => {
   const [isOpen, setIsOpen] = useState(true)
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
+  const [projectStats, setProjectStats] = useState(null)
 
   const dispatch = useDispatch()
 
@@ -113,7 +114,7 @@ export const Sidebar = ({ isClosed, param }) => {
   }, [projects])
 
   useEffect(() => {
-    console.log('Tasks =>', tasks)
+    tasks && setProjectStats(tasks)
   }, [tasks])
 
   const activeCheck = el => el.toLowerCase() === param
@@ -128,7 +129,9 @@ export const Sidebar = ({ isClosed, param }) => {
             <SidebarItem>
               <Inbox />
               <span>Inbox</span>
-              {tasks?.Inbox?.length > 0 && <small>{tasks.Inbox.length}</small>}
+              {projectStats?.Inbox?.length > 0 && (
+                <small>{projectStats.Inbox.length}</small>
+              )}
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>
@@ -183,8 +186,8 @@ export const Sidebar = ({ isClosed, param }) => {
                         <div className='text'>
                           <span>{project.title}</span>
                           <small>
-                            {tasks?.[project.title]?.length > 0 &&
-                              tasks?.[project.title]?.length}
+                            {projectStats?.[project.title]?.length > 0 &&
+                              projectStats?.[project.title]?.length}
                           </small>
                         </div>
                       </div>
