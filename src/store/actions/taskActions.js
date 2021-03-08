@@ -204,13 +204,13 @@ export const getTaskStats = () => async (dispatch, getState) => {
       projectList: { projects },
     } = getState()
 
-    const queries = []
-    const all = {}
+    const allProjectsQuery = []
+    const allIncompleteTasks = {}
 
-    // console.log({ projects })
+    console.log({ projects })
     if (projects) {
       await projects.forEach(proj => {
-        queries.push(
+        allProjectsQuery.push(
           firestore
             .collection('users')
             .doc(userInfo?.id)
@@ -223,20 +223,19 @@ export const getTaskStats = () => async (dispatch, getState) => {
               querySnapshot.forEach(doc => {
                 data.push(doc.data())
               })
-              all[proj.title] = data
+              allIncompleteTasks[proj.title] = data
             })
         )
       })
 
-      Promise.all(queries).then(() => {
+      Promise.all(allProjectsQuery).then(() => {
         dispatch({
           type: TASK_STATS_SUCCESS,
-          payload: all,
+          payload: allIncompleteTasks,
         })
       })
     }
   } catch (error) {
-    console.error(error)
     dispatch({
       type: TASK_STATS_FAIL,
       payload: error,
