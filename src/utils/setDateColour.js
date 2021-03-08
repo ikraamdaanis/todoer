@@ -1,7 +1,9 @@
 import { add, isBefore } from 'date-fns'
 
 export const setDateColour = (colour, date) =>
-  colour === 'Today'
+  isBefore(new Date(date), new Date())
+    ? '#ff7066'
+    : colour === 'Today'
     ? '#25b84c'
     : colour === 'Tomorrow'
     ? '#ff9a14'

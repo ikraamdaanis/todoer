@@ -1,7 +1,18 @@
-import { add, format, isBefore, isToday, isTomorrow } from 'date-fns'
+import {
+  add,
+  format,
+  isBefore,
+  isToday,
+  isTomorrow,
+  isYesterday,
+} from 'date-fns'
 
 export const setDateText = date => {
-  if (isToday(new Date(date))) {
+  if (isYesterday(new Date(date))) {
+    return 'Yesterday'
+  } else if (isBefore(new Date(date), new Date())) {
+    return format(new Date(date), 'do MMM')
+  } else if (isToday(new Date(date))) {
     return 'Today'
   } else if (isTomorrow(new Date(date))) {
     return 'Tomorrow'
