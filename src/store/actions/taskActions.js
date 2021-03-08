@@ -107,12 +107,12 @@ export const incompleteTask = (task, project) => async (dispatch, getState) => {
     dispatch({
       type: TASK_COMPLETE_SUCCESS,
     })
+    dispatch(getTaskStats())
   } catch (error) {
     dispatch({
       type: TASK_COMPLETE_FAIL,
       payload: error,
     })
-    dispatch(getTaskStats())
   }
 }
 

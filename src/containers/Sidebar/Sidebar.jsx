@@ -129,9 +129,9 @@ export const Sidebar = ({ isClosed, param }) => {
             <SidebarItem>
               <Inbox />
               <span>Inbox</span>
-              {projectStats?.Inbox?.length > 0 && (
-                <small>{projectStats.Inbox.length}</small>
-              )}
+              <small>
+                {projectStats?.Inbox?.length > 0 && projectStats.Inbox.length}
+              </small>
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>

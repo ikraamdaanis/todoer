@@ -50,11 +50,12 @@ export const SidebarItem = styled.div`
   align-items: center;
 
   small {
-    margin-top: 2px;
+    padding: 2px 0 0 5px;
     display: inline-block;
     color: #aaa;
-    padding-left: 5px;
     font-size: 12px;
+    min-width: 10px;
+    min-height: 26px;
   }
 `
 
@@ -140,10 +141,11 @@ export const ProjectTitles = styled.ul`
 
           small {
             display: inline-block;
-            margin-top: 2px;
+            padding: 2px 0 0 5px;
             color: #aaa;
-            padding-left: 5px;
             font-size: 12px;
+            min-width: 10px;
+            min-height: 26px;
           }
         }
       }
