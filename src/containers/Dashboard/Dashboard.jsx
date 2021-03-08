@@ -121,6 +121,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
       const { id, project } = task
       dispatch(incompleteTask(id, project))
     })
+    setTasksToNotComplete([])
   }
 
   const cancelCompleteTask = () => {
