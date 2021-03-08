@@ -59,7 +59,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [sortOptions, setSortOptions] = useState(null)
 
   useEffect(() => {
-    console.log(sortOptions)
+    console.log('Sort Options =>', sortOptions)
   }, [sortOptions])
 
   const dispatch = useDispatch()
@@ -84,46 +84,24 @@ export const Dashboard = ({ history, match, isClosed }) => {
   }, [currentProject, isProject, id, projects])
 
   const assignCurrentProject = () => {
-    const [current] = projects?.filter(
-      project => project.title.toLowerCase() === match.params.id
-    )
-    setCurrentProject(() => current)
+    if (projects) {
+      const [current] = projects?.filter(
+        project => project.title.toLowerCase() === id
+      )
+      current && setCurrentProject(current)
+    }
   }
 
-  const fetchTasks = param => {
+  const fetchTasks = () => {
     if (!projectsLoading) {
       setCurrentProject(null)
-      if (param === 'today') {
-        dispatch(
-          getAllTasks({
-            field: 'dueDate',
-            condition: '==',
-            query: format(new Date(), 'yyyy-MM-dd'),
-          })
-        )
-      } else if (param === 'upcoming') {
-        dispatch(
-          getAllTasks({
-            field: 'dueDate',
-            condition: '>',
-            query: format(new Date(), 'yyyy-MM-dd'),
-          })
-        )
-      } else {
-        assignCurrentProject()
-      }
+      assignCurrentProject()
     }
   }
 
   useEffect(() => {
     fetchTasks(id)
-  }, [dispatch, id, currentProject])
-
-  const sortByDate = (a, b) => a.createdAt - b.createdAt
-
-  useEffect(() => {
-    !isProject && setDashboardTasks(allTasks?.sort(sortByDate))
-  }, [projectsLoading, isProject])
+  }, [id, projects, currentProject])
 
   let timer
 
