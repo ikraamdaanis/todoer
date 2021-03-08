@@ -132,7 +132,7 @@ export const Sidebar = ({ isClosed, param }) => {
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>
-        <SidebarButtonContainer
+        {/* <SidebarButtonContainer
           className={activeCheck('today') ? 'active' : undefined}
         >
           <Link to={'/app/today'}>
@@ -151,7 +151,7 @@ export const Sidebar = ({ isClosed, param }) => {
               <span>Upcoming</span>
             </SidebarItem>
           </Link>
-        </SidebarButtonContainer>
+        </SidebarButtonContainer> */}
         <ProjectsButtonContainer>
           <ProjectsButton onClick={() => setIsOpen(!isOpen)}>
             <div className='dropdown'>

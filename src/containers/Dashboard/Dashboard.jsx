@@ -173,7 +173,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   return (
     <>
       <div>
-        <Sidebar isClosed={isClosed} param={id} />
+        <Sidebar isClosed={isClosed} param={id} history={history} />
         <DashboardContainer className={isClosed && 'closed'} ref={dashboard}>
           <ProjectContainer>
             <ProjectHeading>

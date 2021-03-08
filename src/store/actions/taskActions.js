@@ -208,33 +208,34 @@ export const getTaskStats = () => async (dispatch, getState) => {
     const allIncompleteTasks = {}
 
     console.log({ projects })
-    if (projects) {
-      await projects.forEach(proj => {
-        allProjectsQuery.push(
-          firestore
-            .collection('users')
-            .doc(userInfo?.id)
-            .collection('projects')
-            .doc(proj.title)
-            .collection('tasks')
-            .where('isComplete', '==', false)
-            .onSnapshot(querySnapshot => {
-              const data = []
-              querySnapshot.forEach(doc => {
-                data.push(doc.data())
-              })
-              allIncompleteTasks[proj.title] = data
-            })
-        )
-      })
 
-      Promise.all(allProjectsQuery).then(() => {
+    await projects.forEach(proj => {
+      allProjectsQuery.push(
+        firestore
+          .collection('users')
+          .doc(userInfo?.id)
+          .collection('projects')
+          .doc(proj.title)
+          .collection('tasks')
+          .where('isComplete', '==', false)
+          .onSnapshot(querySnapshot => {
+            const data = []
+            querySnapshot.forEach(doc => {
+              data.push(doc.data())
+            })
+            allIncompleteTasks[proj.title] = data
+          })
+      )
+    })
+
+    Promise.all(allProjectsQuery)
+      .then(results => results)
+      .then(() => {
         dispatch({
           type: TASK_STATS_SUCCESS,
           payload: allIncompleteTasks,
         })
       })
-    }
   } catch (error) {
     dispatch({
       type: TASK_STATS_FAIL,
