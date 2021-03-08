@@ -207,32 +207,36 @@ export const getTaskStats = () => async (dispatch, getState) => {
     const queries = []
     const all = {}
 
-    await projects.forEach(proj => {
-      queries.push(
-        firestore
-          .collection('users')
-          .doc(userInfo?.id)
-          .collection('projects')
-          .doc(proj.title)
-          .collection('tasks')
-          .where('isComplete', '==', false)
-          .onSnapshot(querySnapshot => {
-            const data = []
-            querySnapshot.forEach(doc => {
-              data.push(doc.data())
+    // console.log({ projects })
+    if (projects) {
+      await projects.forEach(proj => {
+        queries.push(
+          firestore
+            .collection('users')
+            .doc(userInfo?.id)
+            .collection('projects')
+            .doc(proj.title)
+            .collection('tasks')
+            .where('isComplete', '==', false)
+            .onSnapshot(querySnapshot => {
+              const data = []
+              querySnapshot.forEach(doc => {
+                data.push(doc.data())
+              })
+              all[proj.title] = data
             })
-            all[proj.title] = data
-          })
-      )
-    })
-
-    Promise.all(queries).then(() => {
-      dispatch({
-        type: TASK_STATS_SUCCESS,
-        payload: all,
+        )
       })
-    })
+
+      Promise.all(queries).then(() => {
+        dispatch({
+          type: TASK_STATS_SUCCESS,
+          payload: all,
+        })
+      })
+    }
   } catch (error) {
+    console.error(error)
     dispatch({
       type: TASK_STATS_FAIL,
       payload: error,

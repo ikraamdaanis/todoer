@@ -26,7 +26,7 @@ export const TaskContainer = ({
   )
 
   useEffect(() => {
-    console.log('Project => ', project)
+    // console.log('Project => ', project)
     const data = []
     snapshots?.docs.forEach(task => data.push(task.data()))
     setProjectTaskList(data)

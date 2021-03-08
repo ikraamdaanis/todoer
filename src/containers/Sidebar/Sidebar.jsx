@@ -23,7 +23,7 @@ import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import { Modal } from '../../components'
-import { getAllTasks, getTaskStats } from '../../store/actions/taskActions'
+import { getTaskStats } from '../../store/actions/taskActions'
 
 const Inbox = () => {
   return (
@@ -94,7 +94,6 @@ const UpcomingIcon = () => {
 
 export const Sidebar = ({ isClosed, param }) => {
   const [isOpen, setIsOpen] = useState(true)
-  const [allProjects, setAllProjects] = useState([])
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
 
   const dispatch = useDispatch()
@@ -102,29 +101,17 @@ export const Sidebar = ({ isClosed, param }) => {
   const projectList = useSelector(state => state.projectList)
   const { projects } = projectList
 
-  const taskList = useSelector(state => state.taskList)
-  const { tasks } = taskList
-
   const taskStats = useSelector(state => state.taskStats)
-  const { loading, tasks: taskStatDetails } = taskStats
+  const { tasks } = taskStats
 
   useEffect(() => {
+    console.log('Get projects =>')
     dispatch(getAllProjects())
-  }, [])
-
-  useEffect(() => {
-    dispatch(
-      getAllTasks({ field: 'isComplete', condition: '==', query: false })
-    )
   }, [])
 
   useEffect(() => {
     dispatch(getTaskStats())
   }, [projects])
-
-  useEffect(() => {
-    projects && setAllProjects([...projects])
-  }, [projects, tasks])
 
   const activeCheck = el => el.toLowerCase() === param
 
@@ -138,10 +125,7 @@ export const Sidebar = ({ isClosed, param }) => {
             <SidebarItem>
               <Inbox />
               <span>Inbox</span>
-              <small>
-                {taskStatDetails?.Inbox?.length > 0 &&
-                  taskStatDetails.Inbox.length}
-              </small>
+              {tasks?.Inbox?.length > 0 && <small>{tasks.Inbox.length}</small>}
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>
@@ -175,13 +159,13 @@ export const Sidebar = ({ isClosed, param }) => {
             <span>Projects</span>
           </ProjectsButton>
         </ProjectsButtonContainer>
-        {allProjects && (
+        {projects && (
           <ProjectTitles
             className={!isOpen && 'projects-closed'}
-            height={allProjects.length * 37.2 + 45}
+            height={projects.length * 37.2 + 45}
           >
-            {allProjects?.length > 0 &&
-              allProjects
+            {projects?.length > 0 &&
+              projects
                 .filter(project => project.title !== 'Inbox')
                 .map(project => (
                   <li key={project.title}>
@@ -196,8 +180,8 @@ export const Sidebar = ({ isClosed, param }) => {
                         <div className='text'>
                           <span>{project.title}</span>
                           <small>
-                            {taskStatDetails?.[project.title]?.length > 0 &&
-                              taskStatDetails?.[project.title]?.length}
+                            {tasks?.[project.title]?.length > 0 &&
+                              tasks?.[project.title]?.length}
                           </small>
                         </div>
                       </div>

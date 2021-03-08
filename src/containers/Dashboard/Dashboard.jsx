@@ -59,7 +59,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [sortOptions, setSortOptions] = useState(null)
 
   useEffect(() => {
-    console.log('Sort Options =>', sortOptions)
+    // console.log('Sort Options =>', sortOptions)
   }, [sortOptions])
 
   const dispatch = useDispatch()
@@ -173,7 +173,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   return (
     <>
       <div>
-        <Sidebar isClosed={isClosed} param={id} history={history} />
+        <Sidebar isClosed={isClosed} param={id} />
         <DashboardContainer className={isClosed && 'closed'} ref={dashboard}>
           <ProjectContainer>
             <ProjectHeading>
