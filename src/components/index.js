@@ -1,6 +1,7 @@
 export { AddProjectModal } from './AddProjectModal/AddProjectModal'
 export { AddTaskForm } from './AddTaskForm/AddTaskForm'
 export * from './AuthComponents/AuthComponents'
+export * from './Buttons/Buttons'
 export { DatePicker } from './DatePicker/DatePicker'
 export { DeleteModal } from './DeleteModal/DeleteModal'
 export * from './Dropdown/Dropdown'

@@ -13,6 +13,9 @@ import {
   ProjectMenus,
   ProjectSort,
   ProjectSortButton,
+  SortHeading,
+  SortDetails,
+  SortTitle,
 } from './DashboardStyles'
 import {
   AddTaskForm,
@@ -21,6 +24,7 @@ import {
   UndoComplete,
   ProjectMenu,
   ProjectSortMenu,
+  GreyButton,
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject } from '../../store/actions/projectActions'
@@ -35,6 +39,8 @@ import { Sidebar, TaskContainer } from '../'
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
 import { ReactComponent as SortIcon } from '../../assets/images/sort-icon.svg'
+import { ReactComponent as Arrow } from '../../assets/images/arrow.svg'
+import { ReactComponent as XIcon } from '../../assets/images/x-icon.svg'
 
 import { format } from 'date-fns'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
@@ -59,7 +65,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [sortOptions, setSortOptions] = useState(null)
 
   useEffect(() => {
-    // console.log('Sort Options =>', sortOptions)
+    console.log('Sort Options =>', sortOptions)
   }, [sortOptions])
 
   const dispatch = useDispatch()
@@ -206,6 +212,17 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 </ProjectMenus>
               </ProjectHeadingContainer>
             </ProjectHeading>
+            <SortHeading>
+              <SortDetails>
+                <GreyButton>
+                  <Arrow />
+                </GreyButton>
+                <SortTitle>Sorted by Due Date</SortTitle>
+                <GreyButton>
+                  <XIcon />
+                </GreyButton>
+              </SortDetails>
+            </SortHeading>
             <TaskContainer
               project={currentProject}
               isComplete={false}

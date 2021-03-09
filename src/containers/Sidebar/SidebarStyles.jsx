@@ -55,7 +55,6 @@ export const SidebarItem = styled.div`
     color: #aaa;
     font-size: 12px;
     min-width: 10px;
-    min-height: 26px;
   }
 `
 

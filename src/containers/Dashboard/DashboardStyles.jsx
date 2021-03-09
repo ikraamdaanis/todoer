@@ -188,6 +188,29 @@ export const Title = styled.h1`
   }
 `
 
+export const SortHeading = styled.div`
+  width: 100%;
+  display: flex;
+  padding: 10px 0;
+  justify-content: flex-end;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+`
+
+export const SortDetails = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+export const SortTitle = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+  width: auto;
+  padding: 0 8px;
+  color: hsla(0, 0%, 100%, 0.56);
+`
+
+export const SortCancelButton = styled.button``
+
 export const AddTask = styled.div`
   display: flex;
   align-items: center;
