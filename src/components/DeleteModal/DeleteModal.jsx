@@ -30,7 +30,11 @@ export const DeleteModal = ({
         </h3>
       </TaskModalBody>
       <TaskModalFooter>
-        <DeleteTaskButton type='button' ref={cancelButton}>
+        <DeleteTaskButton
+          type='button'
+          ref={cancelButton}
+          onClick={() => setDeleteModalOpen(false)}
+        >
           Cancel
         </DeleteTaskButton>
         <DeleteTaskButton
