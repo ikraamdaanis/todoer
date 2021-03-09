@@ -19,21 +19,32 @@ export const TaskContainer = ({
   const [searchQuery, setSearchQuery] = useState(defaultQuery)
 
   const [snapshots, loading] = useCollection(
-    ProjectTasksReference(project?.title).orderBy(searchQuery.option, 'asc')
+    ProjectTasksReference(project?.title).orderBy('createdAt', 'asc')
   )
 
   useEffect(() => {
     const sortedData = []
     const restOfData = []
 
+    const { option, direction } = searchQuery
+
     snapshots?.docs.forEach(task => {
-      searchQuery && task.data()[searchQuery.option]
+      searchQuery && task.data()[option]
         ? sortedData.push(task.data())
         : restOfData.push(task.data())
     })
 
-    const data = sortedData.concat(restOfData)
-    searchQuery.direction === 'desc' && data.reverse()
+    const data = sortedData
+      .concat(restOfData)
+      .filter(task => task.isComplete === isComplete)
+      .sort((a, b) => a[option] - b[option])
+
+    option === 'description' &&
+      data.sort((a, b) =>
+        a[option].toLowerCase().localeCompare(b[option].toLowerCase())
+      )
+
+    direction === 'desc' && data.reverse()
 
     setProjectTaskList(data)
   }, [snapshots, searchQuery, project])

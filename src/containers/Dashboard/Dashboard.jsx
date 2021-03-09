@@ -107,6 +107,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   useEffect(() => {
     fetchTasks(id)
+    setSortOptions(null)
   }, [id, projects, currentProject])
 
   let timer
