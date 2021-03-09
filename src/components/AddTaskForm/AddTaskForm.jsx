@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   AddTaskCancel,
   AddTaskFormContainer,
@@ -33,6 +33,10 @@ export const AddTaskForm = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isActive, setIsActive] = useState(false)
 
+  useEffect(() => {
+    setSelectedProject(currentProject?.title || 'Inbox')
+  }, [currentProject])
+
   const dispatch = useDispatch()
 
   const projectList = useSelector(state => state.projectList)
@@ -48,6 +52,8 @@ export const AddTaskForm = ({
   const menu = useRef(null)
 
   useMenu(menuButton, menu, setIsMenuOpen)
+
+  console.log(currentProject.title)
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -65,7 +71,7 @@ export const AddTaskForm = ({
     )
 
     setTodoDescription('')
-    setSelectedProject(currentProject?.title)
+    setSelectedProject(currentProject?.title || 'Inbox')
     setDate('')
 
     history.push(`/app/${project.toLowerCase()}`)
@@ -104,7 +110,7 @@ export const AddTaskForm = ({
                 ref={menuButton}
                 onClick={() => setIsMenuOpen(prev => !prev)}
               >
-                {selectedProject !== 'Inbox' ? (
+                {!['Inbox', 'today', 'upcoming'].includes(selectedProject) ? (
                   <>
                     <BulletPoint>
                       <div></div>

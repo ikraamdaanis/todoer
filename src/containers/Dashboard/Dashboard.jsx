@@ -28,11 +28,7 @@ import {
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject } from '../../store/actions/projectActions'
-import {
-  completeTask,
-  getAllTasks,
-  incompleteTask,
-} from '../../store/actions/taskActions'
+import { completeTask, incompleteTask } from '../../store/actions/taskActions'
 
 import { Sidebar, TaskContainer } from '../'
 
@@ -90,14 +86,14 @@ export const Dashboard = ({ history, match, isClosed }) => {
       if (!isProject || projectExists) return
       history.push('/app/inbox')
     }
-  }, [currentProject, isProject, id, projects])
+  }, [isProject, id, projects])
 
   const assignCurrentProject = () => {
     if (projects) {
       const [current] = projects?.filter(
         project => project.title.toLowerCase() === id
       )
-      current && setCurrentProject(current)
+      current ? setCurrentProject(current) : setCurrentProject({ title: id })
     }
   }
 
@@ -114,7 +110,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
       option: 'createdAt',
       direction: 'asc',
     })
-  }, [id, projects, currentProject])
+  }, [id, projects])
 
   let timer
 
@@ -288,6 +284,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 setTasksToNotComplete={setTasksToNotComplete}
                 setIsUndoVisible={setIsUndoVisible}
                 clearTimer={clearTimer}
+                sortOptions={sortOptions}
               />
             )}
           </ProjectContainer>
