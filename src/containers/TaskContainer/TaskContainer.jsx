@@ -28,22 +28,27 @@ export const TaskContainer = ({
 
     const { option, direction } = searchQuery
 
-    snapshots?.docs.forEach(task => {
-      searchQuery && task.data()[option]
-        ? sortedData.push(task.data())
-        : restOfData.push(task.data())
+    snapshots?.docs.forEach(item => {
+      const task = item.data()
+      if (task.isComplete && !isComplete) return
+
+      searchQuery && task[option]
+        ? sortedData.push(task)
+        : restOfData.push(task)
     })
 
-    const data = sortedData
-      .concat(restOfData)
-      .filter(task => task.isComplete === isComplete)
-      .sort((a, b) => a[option] - b[option])
+    const data = sortedData.concat(restOfData)
 
-    option === 'description' &&
-      data.sort((a, b) =>
-        a[option].toLowerCase().localeCompare(b[option].toLowerCase())
-      )
+    switch (option) {
+      case 'description':
+        data.sort((a, b) =>
+          a[option].toLowerCase().localeCompare(b[option].toLowerCase())
+        )
+      default:
+        data.sort((a, b) => a[option] - b[option])
+    }
 
+    console.log(data)
     direction === 'desc' && data.reverse()
 
     setProjectTaskList(data)
