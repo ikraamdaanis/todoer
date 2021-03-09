@@ -13,57 +13,39 @@ export const TaskContainer = ({
   clearTimer,
   sortOptions,
 }) => {
-  const defaultQuery = { option: 'createdAt', direction: 'asc' }
-
   const [projectTaskList, setProjectTaskList] = useState([])
-  const [searchQuery, setSearchQuery] = useState(defaultQuery)
 
   const [snapshots, loading] = useCollection(
     ProjectTasksReference(project?.title).orderBy('createdAt', 'asc')
   )
 
   useEffect(() => {
+    const { option, direction } = sortOptions
     const sortedData = []
     const restOfData = []
-
-    const { option, direction } = searchQuery
 
     snapshots?.docs.forEach(item => {
       const task = item.data()
       if (task.isComplete && !isComplete) return
-
-      searchQuery && task[option]
+      sortOptions && task[option]
         ? sortedData.push(task)
         : restOfData.push(task)
     })
 
     const data = sortedData.concat(restOfData)
-
     switch (option) {
       case 'description':
         data.sort((a, b) =>
           a[option].toLowerCase().localeCompare(b[option].toLowerCase())
         )
+        break
       default:
         data.sort((a, b) => a[option] - b[option])
     }
 
-    console.log(data)
     direction === 'desc' && data.reverse()
-
     setProjectTaskList(data)
-  }, [snapshots, searchQuery, project])
-
-  useEffect(() => {
-    if (sortOptions) {
-      setSearchQuery({
-        option: sortOptions.option,
-        direction: sortOptions.direction,
-      })
-    } else {
-      setSearchQuery(defaultQuery)
-    }
-  }, [sortOptions])
+  }, [snapshots, sortOptions, project])
 
   return loading ? (
     <div style={{ marginTop: '5rem' }}>

@@ -62,11 +62,14 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [tasksToComplete, setTasksToComplete] = useState([])
   const [tasksToNotComplete, setTasksToNotComplete] = useState([])
   const [isUndoVisible, setIsUndoVisible] = useState(false)
-  const [sortOptions, setSortOptions] = useState(null)
+  const [sortOptions, setSortOptions] = useState({
+    option: 'createdAt',
+    direction: 'asc',
+  })
 
-  // useEffect(() => {
-  //   console.log('Sort Options =>', sortOptions)
-  // }, [sortOptions])
+  useEffect(() => {
+    console.log('Sort Options =>', sortOptions)
+  }, [sortOptions])
 
   const dispatch = useDispatch()
   const { id } = match.params
@@ -107,7 +110,10 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   useEffect(() => {
     fetchTasks(id)
-    setSortOptions(null)
+    setSortOptions({
+      option: 'createdAt',
+      direction: 'asc',
+    })
   }, [id, projects, currentProject])
 
   let timer
@@ -213,7 +219,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 </ProjectMenus>
               </ProjectHeadingContainer>
             </ProjectHeading>
-            {sortOptions && (
+            {sortOptions.option != 'createdAt' && (
               <SortHeading>
                 <SortDetails
                   className={
@@ -231,7 +237,14 @@ export const Dashboard = ({ history, match, isClosed }) => {
                     <Arrow />
                   </GreyButton>
                   <SortTitle>Sorted {sortOptions.optionName}</SortTitle>
-                  <GreyButton handleClick={() => setSortOptions(null)}>
+                  <GreyButton
+                    handleClick={() =>
+                      setSortOptions({
+                        option: 'createdAt',
+                        direction: 'asc',
+                      })
+                    }
+                  >
                     <XIcon />
                   </GreyButton>
                 </SortDetails>
