@@ -38,18 +38,20 @@ export const ProjectMenu = ({
           {showCompletedTasks ? <HideIcon /> : <CompleteIcon />}
           <span>{showCompletedTasks ? 'Hide' : 'Show'} completed tasks</span>
         </DropdownItem>
-        <Line style={{ width: '96%', margin: '0.2rem auto' }} />
         {currentProject?.title !== 'Inbox' && isProject && (
-          <DropdownItem
-            title='Delete this project'
-            onClick={() => {
-              setDeleteModalOpen(true)
-              setProjectMenuOpen(false)
-            }}
-          >
-            <DeleteIcon />
-            <span>Delete project</span>
-          </DropdownItem>
+          <>
+            <Line style={{ width: '96%', margin: '0.2rem auto' }} />
+            <DropdownItem
+              title='Delete this project'
+              onClick={() => {
+                setDeleteModalOpen(true)
+                setProjectMenuOpen(false)
+              }}
+            >
+              <DeleteIcon />
+              <span>Delete project</span>
+            </DropdownItem>
+          </>
         )}
       </DropdownList>
     </DropdownContainer>

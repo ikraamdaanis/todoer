@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import { firestore } from '../../firebase/config'
 import {
   TASK_COMPLETE_FAIL,
@@ -226,13 +227,23 @@ export const getTaskStats = () => async (dispatch, getState) => {
 
     Promise.all(allProjectsQuery)
       .then(results => {
+        const allTasks = []
         results.forEach((project, index) => {
           const data = []
           project.docs.forEach(task => {
             data.push(task.data())
+            allTasks.push(task.data())
           })
           allIncompleteTasks[projects[index].title] = data
         })
+        allIncompleteTasks.Today = allTasks.filter(
+          task => task.dueDate === format(new Date(), 'yyyy-MM-dd')
+        )
+
+        allIncompleteTasks.Upcoming = allTasks.filter(
+          task =>
+            new Date(task.dueDate) > new Date(format(new Date(), 'yyyy-MM-dd'))
+        )
       })
       .then(() => {
         dispatch({
