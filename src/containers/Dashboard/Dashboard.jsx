@@ -64,9 +64,9 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [isUndoVisible, setIsUndoVisible] = useState(false)
   const [sortOptions, setSortOptions] = useState(null)
 
-  useEffect(() => {
-    console.log('Sort Options =>', sortOptions)
-  }, [sortOptions])
+  // useEffect(() => {
+  //   console.log('Sort Options =>', sortOptions)
+  // }, [sortOptions])
 
   const dispatch = useDispatch()
   const { id } = match.params
@@ -229,7 +229,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                   >
                     <Arrow />
                   </GreyButton>
-                  <SortTitle>Sorted by {sortOptions.optionName}</SortTitle>
+                  <SortTitle>Sorted {sortOptions.optionName}</SortTitle>
                   <GreyButton handleClick={() => setSortOptions(null)}>
                     <XIcon />
                   </GreyButton>
