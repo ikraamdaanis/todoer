@@ -1,7 +1,7 @@
-import { add, isBefore } from 'date-fns'
+import { add, format, isBefore, parseISO } from 'date-fns'
 
 export const setDateColour = (colour, date) =>
-  isBefore(new Date(date), new Date())
+  isBefore(new Date(date), parseISO(format(new Date(), 'yyyy-MM-dd')))
     ? '#ff7066'
     : colour === 'Today'
     ? '#25b84c'

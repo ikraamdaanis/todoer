@@ -53,8 +53,6 @@ export const AddTaskForm = ({
 
   useMenu(menuButton, menu, setIsMenuOpen)
 
-  console.log(currentProject.title)
-
   const handleSubmit = event => {
     event.preventDefault()
     let project = selectedProject
@@ -64,7 +62,7 @@ export const AddTaskForm = ({
         description: todoDescription,
         project: selectedProject,
         isComplete: false,
-        dueDate: date,
+        dueDate: date ? date : null,
         createdAt: new Date(),
         id: uuidv4(),
       })

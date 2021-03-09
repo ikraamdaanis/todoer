@@ -178,6 +178,7 @@ export const Title = styled.h1`
   font-size: 20px;
   font-weight: 500;
   line-height: 25px;
+  height: 25px;
   margin: 0;
 
   small {

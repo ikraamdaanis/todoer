@@ -54,6 +54,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [showCompletedTasks, setShowCompletedTasks] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
   const [currentProject, setCurrentProject] = useState(null)
+  const [projectLoading, setProjectLoading] = useState(true)
   const [dashboardTasks, setDashboardTasks] = useState([])
   const [tasksToComplete, setTasksToComplete] = useState([])
   const [tasksToNotComplete, setTasksToNotComplete] = useState([])
@@ -62,10 +63,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
     option: 'createdAt',
     direction: 'asc',
   })
-
-  useEffect(() => {
-    console.log('Sort Options =>', sortOptions)
-  }, [sortOptions])
 
   const dispatch = useDispatch()
   const { id } = match.params
@@ -106,6 +103,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   useEffect(() => {
     fetchTasks(id)
+    setIsAddTaskOpen(false)
+    setProjectLoading(true)
     setSortOptions({
       option: 'createdAt',
       direction: 'asc',
@@ -179,7 +178,9 @@ export const Dashboard = ({ history, match, isClosed }) => {
     projectSortMenuButtonRef,
     isClosed
   )
-
+  useEffect(() => {
+    console.log('Loading: ', projectLoading)
+  }, [projectLoading])
   return (
     <>
       <div>
@@ -191,8 +192,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 className={`div ${isScrolling ? 'scrolling ' : undefined}`}
               >
                 <Title>
-                  {match.params.id}
-                  {match.params.id === 'today' && (
+                  {id}
+                  {id === 'today' && (
                     <small>{format(new Date(), 'iii do MMM')}</small>
                   )}
                 </Title>
@@ -254,6 +255,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
               setIsUndoVisible={setIsUndoVisible}
               clearTimer={clearTimer}
               sortOptions={sortOptions}
+              setDashboardTasks={setDashboardTasks}
+              setProjectLoading={setProjectLoading}
             />
 
             <AddTaskContainer
@@ -285,6 +288,8 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 setIsUndoVisible={setIsUndoVisible}
                 clearTimer={clearTimer}
                 sortOptions={sortOptions}
+                setDashboardTasks={setDashboardTasks}
+                setProjectLoading={setProjectLoading}
               />
             )}
           </ProjectContainer>

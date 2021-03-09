@@ -163,7 +163,7 @@ export const getAllTasks = search => async (dispatch, getState) => {
     } = getState()
 
     const queries = []
-    const all = []
+    const allTasks = []
 
     const { field, condition, query } = search
 
@@ -182,12 +182,14 @@ export const getAllTasks = search => async (dispatch, getState) => {
 
     Promise.all(queries)
       .then(results => {
-        results.forEach(i => i.docs.forEach(doc => all.push(doc.data())))
+        results.forEach(project =>
+          project.docs.forEach(doc => allTasks.push(doc.data()))
+        )
       })
       .then(() => {
         dispatch({
           type: TASKS_SUCCESS,
-          payload: all,
+          payload: allTasks,
         })
       })
   } catch (error) {
