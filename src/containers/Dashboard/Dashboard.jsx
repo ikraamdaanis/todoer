@@ -40,7 +40,7 @@ import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.s
 import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
 import { ReactComponent as SortIcon } from '../../assets/images/sort-icon.svg'
 import { ReactComponent as Arrow } from '../../assets/images/arrow.svg'
-import { ReactComponent as XIcon } from '../../assets/images/x-icon.svg'
+import { ReactComponent as XIcon } from '../../assets/images/x-icon-small.svg'
 
 import { format } from 'date-fns'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
@@ -212,17 +212,30 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 </ProjectMenus>
               </ProjectHeadingContainer>
             </ProjectHeading>
-            <SortHeading>
-              <SortDetails>
-                <GreyButton>
-                  <Arrow />
-                </GreyButton>
-                <SortTitle>Sorted by Due Date</SortTitle>
-                <GreyButton>
-                  <XIcon />
-                </GreyButton>
-              </SortDetails>
-            </SortHeading>
+            {sortOptions && (
+              <SortHeading>
+                <SortDetails
+                  className={
+                    sortOptions.direction === 'desc' ? 'desc' : undefined
+                  }
+                >
+                  <GreyButton
+                    handleClick={() => {
+                      setSortOptions(prev => ({
+                        ...prev,
+                        direction: prev.direction === 'asc' ? 'desc' : 'asc',
+                      }))
+                    }}
+                  >
+                    <Arrow />
+                  </GreyButton>
+                  <SortTitle>Sorted by {sortOptions.optionName}</SortTitle>
+                  <GreyButton handleClick={() => setSortOptions(null)}>
+                    <XIcon />
+                  </GreyButton>
+                </SortDetails>
+              </SortHeading>
+            )}
             <TaskContainer
               project={currentProject}
               isComplete={false}

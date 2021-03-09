@@ -1,5 +1,9 @@
 import { GreyButtonStyles } from './ButtonsStyles'
 
-export const GreyButton = ({ children }) => {
-  return <GreyButtonStyles>{children}</GreyButtonStyles>
+export const GreyButton = ({ handleClick, children }) => {
+  return (
+    <GreyButtonStyles onClick={() => handleClick()}>
+      {children}
+    </GreyButtonStyles>
+  )
 }

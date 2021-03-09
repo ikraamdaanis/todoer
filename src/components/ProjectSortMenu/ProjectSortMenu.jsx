@@ -24,7 +24,11 @@ export const ProjectSortMenu = ({
         <DropdownItem
           title={'Sort by due date'}
           onClick={() => {
-            setSortOptions({ option: 'dueDate', direction: 'asc' })
+            setSortOptions({
+              option: 'dueDate',
+              optionName: 'due date',
+              direction: 'asc',
+            })
             setProjectSortOpen(false)
           }}
         >

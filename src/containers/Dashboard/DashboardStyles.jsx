@@ -194,11 +194,20 @@ export const SortHeading = styled.div`
   padding: 10px 0;
   justify-content: flex-end;
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  margin-bottom: 2rem;
 `
 
 export const SortDetails = styled.div`
   display: flex;
   align-items: center;
+
+  &.desc {
+    button {
+      svg {
+        transform: rotate(180deg);
+      }
+    }
+  }
 `
 
 export const SortTitle = styled.span`
