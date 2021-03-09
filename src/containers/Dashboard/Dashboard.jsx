@@ -36,7 +36,7 @@ import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.s
 import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
 import { ReactComponent as SortIcon } from '../../assets/images/sort-icon.svg'
 import { ReactComponent as Arrow } from '../../assets/images/arrow.svg'
-import { ReactComponent as XIcon } from '../../assets/images/x-icon-small.svg'
+import { ReactComponent as CloseIcon } from '../../assets/images/x-icon-small.svg'
 
 import { format } from 'date-fns'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
@@ -54,7 +54,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const [showCompletedTasks, setShowCompletedTasks] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
   const [currentProject, setCurrentProject] = useState(null)
-  const [projectLoading, setProjectLoading] = useState(true)
   const [dashboardTasks, setDashboardTasks] = useState([])
   const [tasksToComplete, setTasksToComplete] = useState([])
   const [tasksToNotComplete, setTasksToNotComplete] = useState([])
@@ -104,7 +103,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
   useEffect(() => {
     fetchTasks(id)
     setIsAddTaskOpen(false)
-    setProjectLoading(true)
     setSortOptions({
       option: 'createdAt',
       direction: 'asc',
@@ -178,9 +176,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
     projectSortMenuButtonRef,
     isClosed
   )
-  useEffect(() => {
-    console.log('Loading: ', projectLoading)
-  }, [projectLoading])
+
   return (
     <>
       <div>
@@ -242,7 +238,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                       })
                     }
                   >
-                    <XIcon />
+                    <CloseIcon />
                   </GreyButton>
                 </SortDetails>
               </SortHeading>
@@ -256,7 +252,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
               clearTimer={clearTimer}
               sortOptions={sortOptions}
               setDashboardTasks={setDashboardTasks}
-              setProjectLoading={setProjectLoading}
             />
 
             <AddTaskContainer
@@ -289,7 +284,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 clearTimer={clearTimer}
                 sortOptions={sortOptions}
                 setDashboardTasks={setDashboardTasks}
-                setProjectLoading={setProjectLoading}
               />
             )}
           </ProjectContainer>

@@ -16,7 +16,6 @@ export const TaskContainer = ({
   clearTimer,
   sortOptions,
   setDashboardTasks,
-  setProjectLoading,
 }) => {
   const [taskData, setTaskData] = useState(null)
   const [projectTaskList, setProjectTaskList] = useState(null)
@@ -30,11 +29,6 @@ export const TaskContainer = ({
 
   const taskList = useSelector(state => state.taskList)
   const { tasks } = taskList
-
-  // useEffect(() => {
-  //   setTaskData(null)
-
-  // }, [project])
 
   const fetchData = () => {
     if (['today', 'upcoming'].includes(project?.title)) {
@@ -112,11 +106,6 @@ export const TaskContainer = ({
     setProjectTaskList(data)
     setDashboardTasks(data)
   }, [taskData, sortOptions, project])
-
-  useEffect(() => {
-    console.log('Tasks: ', projectTaskList)
-    projectTaskList && setProjectLoading(false)
-  }, [projectTaskList])
 
   return (
     <TaskList>
