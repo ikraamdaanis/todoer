@@ -71,9 +71,6 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const projectList = useSelector(state => state.projectList)
   const { loading: projectsLoading, projects } = projectList
 
-  const taskList = useSelector(state => state.taskList)
-  const { loading: taskListLoading, tasks: allTasks } = taskList
-
   useEffect(() => {
     if (projects) {
       const projectExists = projects.some(
