@@ -2,15 +2,16 @@
 
 **Check out** the app [here]()
 
-This
-
 ### Libraries/Frameworks used:
 
 - React
--
+- Redux
+- React Router
+- Firebase Firestore
+- Styled Components
 
 ### Features of this app:
 
 ## Preview:
 
-![Preview 1](./src/assets/screenshots/preview.png)
+![Preview](./src/assets/screenshots/preview.png)
