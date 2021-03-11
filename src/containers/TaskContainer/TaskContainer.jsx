@@ -71,7 +71,6 @@ export const TaskContainer = ({
 
   useEffect(() => {
     overdueTasks && setTasksLoading(false)
-    overdueTasks && console.log({ overdueTasks })
   }, [overdueTasks])
 
   return (
