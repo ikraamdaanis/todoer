@@ -3,7 +3,7 @@ import { useCollection } from 'react-firebase-hooks/firestore'
 import { useDispatch, useSelector } from 'react-redux'
 import { TaskItem } from '../../components'
 import { ProjectTasksReference } from '../../firebase/References'
-import { getAllTasks } from '../../store/actions/taskActions'
+import { getAllTasks, getTaskStats } from '../../store/actions/taskActions'
 import { TaskList } from './TaskContainerStyles'
 import { format } from 'date-fns'
 
@@ -30,33 +30,39 @@ export const TaskContainer = ({
   const taskList = useSelector(state => state.taskList)
   const { tasks } = taskList
 
+  const taskStats = useSelector(state => state.taskStats)
+  const { loading: loadingTasks, tasks: allTasks } = taskStats
+
   const fetchData = () => {
     if (['today', 'upcoming'].includes(project?.title)) {
-      const today = {
-        field: 'dueDate',
-        condition: '<=',
-        query: format(new Date(), 'yyyy-MM-dd'),
-      }
-
-      const afterToday = {
-        field: 'dueDate',
-        condition: '>',
-        query: format(new Date(), 'yyyy-MM-dd'),
-      }
-
-      project.title === 'today'
-        ? dispatch(getAllTasks(today))
-        : dispatch(getAllTasks(afterToday))
+      // const today = {
+      //   field: 'dueDate',
+      //   condition: '<=',
+      //   query: format(new Date(), 'yyyy-MM-dd'),
+      // }
+      // const afterToday = {
+      //   field: 'dueDate',
+      //   condition: '>',
+      //   query: format(new Date(), 'yyyy-MM-dd'),
+      // }
+      // project.title === 'today'
+      //   ? dispatch(getAllTasks(today))
+      //   : dispatch(getAllTasks(afterToday))
     } else {
-      const data = []
-      snapshots.docs.forEach(task => data.push(task.data()))
-      data.length ? setTaskData(data) : setTaskData([])
+      // const data = []
+      // snapshots.docs.forEach(task => data.push(task.data()))
+      // data.length ? setTaskData(data) : setTaskData([])
     }
+    allTasks && setTaskData(allTasks[project?.title])
   }
 
   useEffect(() => {
-    !loading && fetchData()
-  }, [loading, snapshots])
+    dispatch(getTaskStats())
+  }, [])
+
+  useEffect(() => {
+    !loadingTasks && fetchData()
+  }, [loadingTasks, allTasks, project])
 
   useEffect(() => {
     if (project?.title === 'today' && tasks) {

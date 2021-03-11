@@ -81,7 +81,7 @@ export const Sidebar = ({ isClosed, param }) => {
               <TodayIcon date={format(new Date(), 'dd')} />
               <span>Today</span>
               <small>
-                {projectStats?.Today?.length > 0 && projectStats.Today.length}
+                {projectStats?.today?.length > 0 && projectStats.today.length}
               </small>
             </SidebarItem>
           </Link>
@@ -94,8 +94,8 @@ export const Sidebar = ({ isClosed, param }) => {
               <UpcomingIcon />
               <span>Upcoming</span>
               <small>
-                {projectStats?.Upcoming?.length > 0 &&
-                  projectStats.Upcoming.length}
+                {projectStats?.upcoming?.length > 0 &&
+                  projectStats.upcoming.length}
               </small>
             </SidebarItem>
           </Link>

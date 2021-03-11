@@ -238,11 +238,11 @@ export const getTaskStats = () => async (dispatch, getState) => {
           })
           allIncompleteTasks[projects[index].title] = data
         })
-        allIncompleteTasks.Today = allTasks.filter(
+        allIncompleteTasks.today = allTasks.filter(
           task => task.dueDate === format(new Date(), 'yyyy-MM-dd')
         )
 
-        allIncompleteTasks.Upcoming = allTasks.filter(
+        allIncompleteTasks.upcoming = allTasks.filter(
           task =>
             new Date(task.dueDate) > new Date(format(new Date(), 'yyyy-MM-dd'))
         )
