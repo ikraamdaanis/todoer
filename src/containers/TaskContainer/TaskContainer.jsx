@@ -16,6 +16,7 @@ export const TaskContainer = ({
   clearTimer,
   sortOptions,
   setDashboardTasks,
+  setTasksLoading,
 }) => {
   const [taskData, setTaskData] = useState(null)
   const [projectTaskList, setProjectTaskList] = useState(null)
@@ -71,7 +72,7 @@ export const TaskContainer = ({
   }, [taskData, sortOptions, project])
 
   useEffect(() => {
-    console.log('Overdue', overdueTasks)
+    overdueTasks && setTasksLoading(false)
   }, [overdueTasks])
 
   return (

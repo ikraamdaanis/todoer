@@ -263,3 +263,11 @@ export const AddTaskText = styled.p`
   font-weight: 300;
   transform: translate(-1px, -1px);
 `
+
+export const DashboardLoading = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background: var(--very-dark-gray);
+  display: grid;
+  place-content: center;
+`

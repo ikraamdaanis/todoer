@@ -16,6 +16,7 @@ import {
   SortHeading,
   SortDetails,
   SortTitle,
+  DashboardLoading,
 } from './DashboardStyles'
 import {
   AddTaskForm,
@@ -25,6 +26,7 @@ import {
   ProjectMenu,
   ProjectSortMenu,
   GreyButton,
+  Spinner,
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject } from '../../store/actions/projectActions'
@@ -48,6 +50,7 @@ import { useSetPosition } from '../../hooks/useSetPosition'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
+  const [tasksLoading, setTasksLoading] = useState(true)
   const [projectMenuOpen, setProjectMenuOpen] = useState(false)
   const [projectSortOpen, setProjectSortOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
@@ -250,6 +253,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
               clearTimer={clearTimer}
               sortOptions={sortOptions}
               setDashboardTasks={setDashboardTasks}
+              setTasksLoading={setTasksLoading}
             />
 
             <AddTaskContainer
@@ -282,6 +286,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 clearTimer={clearTimer}
                 sortOptions={sortOptions}
                 setDashboardTasks={setDashboardTasks}
+                setTasksLoading={setTasksLoading}
               />
             )}
           </ProjectContainer>
@@ -320,6 +325,13 @@ export const Dashboard = ({ history, match, isClosed }) => {
             action={deleteProject}
             setDeleteModalOpen={setDeleteModalOpen}
           />
+        </Modal>
+      )}
+      {tasksLoading && (
+        <Modal>
+          <DashboardLoading>
+            <Spinner />
+          </DashboardLoading>
         </Modal>
       )}
     </>
