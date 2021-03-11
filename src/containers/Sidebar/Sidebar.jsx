@@ -52,11 +52,16 @@ export const Sidebar = ({ isClosed, param }) => {
   }, [projects])
 
   useEffect(() => {
-    tasks && setProjectStats(tasks)
+    if (tasks) {
+      const incompleteTasks = {}
+      for (const [key, value] of Object.entries(tasks)) {
+        incompleteTasks[key] = value.filter(item => !item.isComplete).length
+      }
+      setProjectStats(incompleteTasks)
+    }
   }, [tasks])
 
   const activeCheck = el => el.toLowerCase() === param
-  const filterComplete = item => !item.isComplete
 
   return (
     <SidebarContainer className={isClosed && 'closed'}>
@@ -68,10 +73,7 @@ export const Sidebar = ({ isClosed, param }) => {
             <SidebarItem>
               <InboxIcon />
               <span>Inbox</span>
-              <small>
-                {projectStats?.Inbox?.filter(filterComplete).length > 0 &&
-                  projectStats.Inbox.filter(filterComplete).length}
-              </small>
+              <small>{projectStats?.Inbox > 0 && projectStats.Inbox}</small>
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>
@@ -82,10 +84,7 @@ export const Sidebar = ({ isClosed, param }) => {
             <SidebarItem>
               <TodayIcon date={format(new Date(), 'dd')} />
               <span>Today</span>
-              <small>
-                {projectStats?.today?.filter(filterComplete).length > 0 &&
-                  projectStats.today.filter(filterComplete).length}
-              </small>
+              <small>{projectStats?.today > 0 && projectStats.today}</small>
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>
@@ -97,8 +96,7 @@ export const Sidebar = ({ isClosed, param }) => {
               <UpcomingIcon />
               <span>Upcoming</span>
               <small>
-                {projectStats?.upcoming?.filter(filterComplete).length > 0 &&
-                  projectStats.upcoming.filter(filterComplete).length}
+                {projectStats?.upcoming > 0 && projectStats.upcoming}
               </small>
             </SidebarItem>
           </Link>
@@ -134,8 +132,8 @@ export const Sidebar = ({ isClosed, param }) => {
                         <div className='text'>
                           <span>{project.title}</span>
                           <small>
-                            {projectStats?.[project.title]?.length > 0 &&
-                              projectStats?.[project.title]?.length}
+                            {projectStats?.[project.title] > 0 &&
+                              projectStats?.[project.title]}
                           </small>
                         </div>
                       </div>

@@ -61,7 +61,6 @@ export const AddTaskForm = ({
   const menu = useRef(null)
 
   useMenu(menuButton, menu, setIsMenuOpen)
-  console.log(selectedProject)
 
   const handleSubmit = event => {
     event.preventDefault()
