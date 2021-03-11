@@ -1,11 +1,16 @@
 import { forwardRef } from 'react'
 import { BulletPoint } from '../../containers/Sidebar/SidebarStyles'
-import { Arrow, MenuContainer, MenuItem, MenuList } from './MenuStyles'
+import {
+  Arrow,
+  MenuContainer,
+  MenuItem,
+  MenuList,
+} from './ProjectSelectMenuStyles'
 import { ReactComponent as Checkmark } from '../../assets/images/checkmark.svg'
 import { ReactComponent as InboxIcon } from '../../assets/images/inbox.svg'
 
-export const Menu = forwardRef((props, ref) => {
-  const { data, state, setState } = props
+export const ProjectSelectMenu = forwardRef((props, ref) => {
+  const { data, state, setState, setIsMenuOpen } = props
 
   return (
     <MenuContainer ref={ref}>
@@ -14,7 +19,10 @@ export const Menu = forwardRef((props, ref) => {
         {data?.map(project => (
           <MenuItem
             key={project.id}
-            onClick={() => setState && setState(project.title)}
+            onClick={() => {
+              setState && setState(project.title)
+              setIsMenuOpen(false)
+            }}
             className={state === project.title ? 'selected' : undefined}
           >
             {project.title === 'Inbox' ? (

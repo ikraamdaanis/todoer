@@ -10,9 +10,8 @@ import {
   SubOptions,
   BulletPoint,
 } from './AddTaskFormStyles'
-import { DatePicker } from '../DatePicker/DatePicker'
+import { DatePicker, ProjectSelectMenu } from '../'
 import { useDispatch, useSelector } from 'react-redux'
-import { Menu } from '../Menu/Menu'
 import { createTask } from '../../store/actions/taskActions'
 import { v4 as uuidv4 } from 'uuid'
 import { ReactComponent as InboxIconSmall } from '../../assets/images/inbox-small.svg'
@@ -142,10 +141,11 @@ export const AddTaskForm = ({
                 )}
               </button>
               {isMenuOpen && (
-                <Menu
+                <ProjectSelectMenu
                   data={projects}
                   state={selectedProject}
                   setState={setSelectedProject}
+                  setIsMenuOpen={setIsMenuOpen}
                   ref={menu}
                 />
               )}
