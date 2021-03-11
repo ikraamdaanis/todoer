@@ -18,6 +18,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { ReactComponent as InboxIconSmall } from '../../assets/images/inbox-small.svg'
 import { useMenu } from '../../hooks/useMenu'
 import { useFocus } from '../../hooks/useFocus'
+import { format } from 'date-fns'
 
 export const AddTaskForm = ({
   history,
@@ -25,15 +26,17 @@ export const AddTaskForm = ({
   setIsOpen,
   scrollDownToLastTask,
 }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isActive, setIsActive] = useState(false)
   const [todoDescription, setTodoDescription] = useState('')
   const [selectedProject, setSelectedProject] = useState(
     (!['today', 'upcoming'].includes(currentProject?.title) &&
       currentProject?.title) ||
       'Inbox'
   )
-  const [date, setDate] = useState('')
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isActive, setIsActive] = useState(false)
+  const [date, setDate] = useState(
+    currentProject?.title === 'today' ? format(new Date(), 'yyyy-MM-dd') : ''
+  )
 
   useEffect(() => {
     setSelectedProject(
@@ -76,10 +79,18 @@ export const AddTaskForm = ({
     )
 
     setTodoDescription('')
-    setSelectedProject(currentProject?.title || 'Inbox')
-    setDate('')
+    setSelectedProject(
+      (!['today', 'upcoming'].includes(currentProject?.title) &&
+        currentProject?.title) ||
+        'Inbox'
+    )
+    setDate(
+      currentProject?.title === 'today' ? format(new Date(), 'yyyy-MM-dd') : ''
+    )
 
-    history.push(`/app/${project.toLowerCase()}`)
+    currentProject.title !== 'today' &&
+      history.push(`/app/${project.toLowerCase()}`)
+
     scrollDownToLastTask()
   }
 
