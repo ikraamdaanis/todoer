@@ -1,3 +1,21 @@
+import { ReactComponent as Inbox } from '../../assets/images/inbox.svg'
+import { ReactComponent as Upcoming } from '../../assets/images/upcoming-icon.svg'
+
+export const InboxIcon = () => {
+  return (
+    <div
+      style={{
+        color: '#5297ff',
+        width: '38px',
+        display: 'grid',
+        placeContent: 'center',
+      }}
+    >
+      <Inbox />
+    </div>
+  )
+}
+
 export const TodayIcon = ({ date }) => {
   return (
     <div
@@ -31,6 +49,21 @@ export const TodayIcon = ({ date }) => {
           </text>
         </g>
       </svg>
+    </div>
+  )
+}
+
+export const UpcomingIcon = () => {
+  return (
+    <div
+      style={{
+        color: '#a970ff',
+        width: '38px',
+        display: 'grid',
+        placeContent: 'center',
+      }}
+    >
+      <Upcoming />
     </div>
   )
 }

@@ -12,48 +12,23 @@ import {
   SidebarButtonContainer,
   SidebarContainer,
 } from './SidebarStyles'
-import { AddProjectModal, TodayIcon } from '../../components'
+import {
+  AddProjectModal,
+  TodayIcon,
+  InboxIcon,
+  UpcomingIcon,
+} from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllProjects } from '../../store/actions/projectActions'
-import { ReactComponent as Upcoming } from '../../assets/images/upcoming-icon.svg'
+
 import { ReactComponent as PlusIcon } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as DropdownIcon } from '../../assets/images/dropdown.svg'
-import { ReactComponent as InboxIcon } from '../../assets/images/inbox.svg'
+
 import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import { Modal } from '../../components'
 import { getTaskStats } from '../../store/actions/taskActions'
-
-const Inbox = () => {
-  return (
-    <div
-      style={{
-        color: '#5297ff',
-        width: '38px',
-        display: 'grid',
-        placeContent: 'center',
-      }}
-    >
-      <InboxIcon />
-    </div>
-  )
-}
-
-const UpcomingIcon = () => {
-  return (
-    <div
-      style={{
-        color: '#a970ff',
-        width: '38px',
-        display: 'grid',
-        placeContent: 'center',
-      }}
-    >
-      <Upcoming />
-    </div>
-  )
-}
 
 export const Sidebar = ({ isClosed, param }) => {
   const [isOpen, setIsOpen] = useState(true)
@@ -90,7 +65,7 @@ export const Sidebar = ({ isClosed, param }) => {
         >
           <Link to={'/app/inbox'}>
             <SidebarItem>
-              <Inbox />
+              <InboxIcon />
               <span>Inbox</span>
               <small>
                 {projectStats?.Inbox?.length > 0 && projectStats.Inbox.length}
