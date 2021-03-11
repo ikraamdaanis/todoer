@@ -272,10 +272,10 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 </AddTask>
               ) : (
                 <AddTaskForm
-                  history={history}
+                  id='taskForm'
+                  edit={false}
                   setIsOpen={setIsAddTaskOpen}
                   currentProject={currentProject}
-                  id='taskForm'
                   scrollDownToLastTask={scrollDownToLastTask}
                 />
               )}

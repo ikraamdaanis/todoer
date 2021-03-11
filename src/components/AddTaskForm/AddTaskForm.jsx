@@ -12,29 +12,39 @@ import {
 } from './AddTaskFormStyles'
 import { DatePicker, ProjectSelectMenu } from '../'
 import { useDispatch, useSelector } from 'react-redux'
-import { createTask } from '../../store/actions/taskActions'
+import { createTask, editTask } from '../../store/actions/taskActions'
 import { v4 as uuidv4 } from 'uuid'
 import { ReactComponent as InboxIconSmall } from '../../assets/images/inbox-small.svg'
 import { useMenu } from '../../hooks/useMenu'
 import { useFocus } from '../../hooks/useFocus'
 import { format } from 'date-fns'
+import { useHistory } from 'react-router'
 
 export const AddTaskForm = ({
-  history,
-  currentProject,
+  edit,
   setIsOpen,
-  scrollDownToLastTask,
+  currentProject,
+  scrollDownToLastTask = null,
+  taskDetails = {},
 }) => {
+  const history = useHistory()
+
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isActive, setIsActive] = useState(false)
-  const [todoDescription, setTodoDescription] = useState('')
+  const [todoDescription, setTodoDescription] = useState(
+    taskDetails.description || ''
+  )
   const [selectedProject, setSelectedProject] = useState(
     (!['today', 'upcoming'].includes(currentProject?.title) &&
       currentProject?.title) ||
       'Inbox'
   )
   const [date, setDate] = useState(
-    currentProject?.title === 'today' ? format(new Date(), 'yyyy-MM-dd') : ''
+    taskDetails.dueDate
+      ? taskDetails.dueDate
+      : currentProject?.title === 'today'
+      ? format(new Date(), 'yyyy-MM-dd')
+      : ''
   )
 
   useEffect(() => {
@@ -65,31 +75,46 @@ export const AddTaskForm = ({
     event.preventDefault()
     let project = selectedProject
 
-    dispatch(
-      createTask(selectedProject, {
-        description: todoDescription,
-        project: selectedProject,
-        isComplete: false,
-        dueDate: date ? date : null,
-        createdAt: new Date(),
-        id: uuidv4(),
-      })
-    )
+    if (edit) {
+      dispatch(
+        editTask(selectedProject, {
+          description: todoDescription,
+          project: selectedProject,
+          isComplete: taskDetails.isComplete || false,
+          dueDate: date ? date : null,
+          createdAt: taskDetails.createdAt || new Date(),
+          id: taskDetails.id || uuidv4(),
+        })
+      )
 
-    setTodoDescription('')
-    setSelectedProject(
-      (!['today', 'upcoming'].includes(currentProject?.title) &&
-        currentProject?.title) ||
-        'Inbox'
-    )
-    setDate(
-      currentProject?.title === 'today' ? format(new Date(), 'yyyy-MM-dd') : ''
-    )
+      setIsOpen(false)
+    } else {
+      dispatch(
+        createTask(selectedProject, {
+          description: todoDescription,
+          project: selectedProject,
+          isComplete: false,
+          dueDate: date ? date : null,
+          createdAt: new Date(),
+          id: uuidv4(),
+        })
+      )
+      setTodoDescription('')
+      setSelectedProject(
+        (!['today', 'upcoming'].includes(currentProject?.title) &&
+          currentProject?.title) ||
+          'Inbox'
+      )
+      setDate(
+        currentProject?.title === 'today'
+          ? format(new Date(), 'yyyy-MM-dd')
+          : ''
+      )
 
+      scrollDownToLastTask()
+    }
     currentProject.title !== 'today' &&
       history.push(`/app/${project.toLowerCase()}`)
-
-    scrollDownToLastTask()
   }
 
   return (
@@ -157,7 +182,7 @@ export const AddTaskForm = ({
           type='submit'
           disabled={todoDescription.length < 1 || !selectedProject}
         >
-          Add task
+          {edit ? 'Save' : 'Add task'}
         </AddTaskSubmitButton>
         <AddTaskCancel type='button' onClick={() => setIsOpen(false)}>
           Cancel

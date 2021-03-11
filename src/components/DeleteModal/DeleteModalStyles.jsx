@@ -44,7 +44,7 @@ export const DeleteTaskButton = styled.button`
   border: none;
   margin-left: 10px;
   padding: 6px 12px 7px;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 13px;
   line-height: 17px;
   text-decoration: none;

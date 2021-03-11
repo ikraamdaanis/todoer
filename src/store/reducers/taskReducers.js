@@ -1,10 +1,13 @@
 import {
-  TASK_COMPLETE_FAIL,
-  TASK_COMPLETE_REQUEST,
-  TASK_COMPLETE_SUCCESS,
   TASK_CREATE_FAIL,
   TASK_CREATE_REQUEST,
   TASK_CREATE_SUCCESS,
+  TASK_EDIT_FAIL,
+  TASK_EDIT_REQUEST,
+  TASK_EDIT_SUCCESS,
+  TASK_COMPLETE_FAIL,
+  TASK_COMPLETE_REQUEST,
+  TASK_COMPLETE_SUCCESS,
   TASK_DELETE_FAIL,
   TASK_DELETE_REQUEST,
   TASK_DELETE_SUCCESS,
@@ -25,6 +28,20 @@ export const taskReducer = (state = {}, { type, payload }) => {
         success: true,
       }
     case TASK_CREATE_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      }
+    case TASK_EDIT_REQUEST:
+      return {
+        loading: true,
+      }
+    case TASK_EDIT_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      }
+    case TASK_EDIT_FAIL:
       return {
         loading: false,
         error: payload,

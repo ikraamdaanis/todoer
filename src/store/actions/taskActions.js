@@ -38,6 +38,38 @@ export const createTask = (project, task) => async (dispatch, getState) => {
       type: TASK_CREATE_SUCCESS,
     })
   } catch (error) {
+    console.log({ error })
+    dispatch({
+      type: TASK_CREATE_FAIL,
+      payload: error,
+    })
+  }
+}
+
+export const editTask = (project, task) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: TASK_CREATE_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    await firestore
+      .collection('users')
+      .doc(userInfo?.id)
+      .collection('projects')
+      .doc(project)
+      .collection('tasks')
+      .doc(task.id)
+      .update(task)
+
+    dispatch({
+      type: TASK_CREATE_SUCCESS,
+    })
+  } catch (error) {
+    console.log({ error })
     dispatch({
       type: TASK_CREATE_FAIL,
       payload: error,

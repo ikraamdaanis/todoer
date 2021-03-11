@@ -10,7 +10,9 @@ import { setDateText } from '../../utils/setDateText'
 import { format } from 'date-fns'
 
 export const DatePicker = ({ chosenDate, setDate }) => {
-  const [dueDateText, setDueDateText] = useState('Today')
+  const [dueDateText, setDueDateText] = useState(
+    chosenDate ? setDateText(chosenDate) : 'Today'
+  )
 
   const handleChange = ({ target }) => {
     const date = target.value

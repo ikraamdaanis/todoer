@@ -13,6 +13,7 @@ import {
 } from './TaskItemStyles'
 import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
 import { ReactComponent as MenuToggler } from '../../assets/images/more-icon.svg'
+import { ReactComponent as EditIcon } from '../../assets/images/edit-icon.svg'
 import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
 import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
 import { useMenu } from '../../hooks/useMenu'
@@ -21,6 +22,7 @@ import { setDateText } from '../../utils/setDateText'
 import { DeleteModal } from '../DeleteModal/DeleteModal'
 import { deleteTask } from '../../store/actions/taskActions'
 import { Modal } from '../Modal/Modal'
+import { AddTaskForm } from '../AddTaskForm/AddTaskForm'
 
 export const TaskItem = ({
   task,
@@ -30,6 +32,7 @@ export const TaskItem = ({
   clearTimer,
 }) => {
   const [taskMenuOpen, setTaskMenuOpen] = useState(false)
+  const [editMenuOpen, setEditMenuOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
   const TaskMenuRef = useRef(null)
@@ -40,80 +43,106 @@ export const TaskItem = ({
   return (
     <TaskListItem key={task.id}>
       <TaskItemContainer>
-        <TaskDetails>
-          <TaskCheck
-            onClick={() => {
-              if (!task.isComplete) {
-                clearTimer()
-                setTasksToComplete(prev => [
-                  ...prev,
-                  {
-                    project: task.project,
-                    id: task.id,
-                  },
-                ])
-                setIsUndoVisible(true)
-              } else if (task.isComplete) {
-                setTasksToNotComplete(prev => [
-                  ...prev,
-                  {
-                    project: task.project,
-                    id: task.id,
-                  },
-                ])
-              }
-            }}
-          >
-            <div
-              className={`circle ${task.isComplete ? 'complete' : undefined}`}
-            >
-              <TickIcon />
-            </div>
-          </TaskCheck>
-          <TaskDescription
-            className={`${task.isComplete ? 'complete' : undefined}`}
-          >
-            {task.description}
-          </TaskDescription>
-          <TaskMenuContainer>
-            <div
-              className='toggler'
-              ref={TaskMenuButtonRef}
-              onClick={() => setTaskMenuOpen(prev => !prev)}
-            >
-              <MenuToggler />
-            </div>
-            {taskMenuOpen && (
-              <TaskMenu ref={TaskMenuRef}>
-                <MenuList>
-                  <MenuItem
-                    title='Delete this task'
-                    className='delete'
-                    onClick={() => {
-                      setDeleteModalOpen(true)
-                      setTaskMenuOpen(false)
-                    }}
-                  >
-                    <DeleteIcon />
-                    <span>Delete task</span>
-                  </MenuItem>
-                </MenuList>
-              </TaskMenu>
+        {editMenuOpen ? (
+          <AddTaskForm
+            edit={true}
+            setIsOpen={setEditMenuOpen}
+            currentProject={{ title: task.project }}
+            taskDetails={task}
+          />
+        ) : (
+          <>
+            <TaskDetails>
+              <TaskCheck
+                onClick={() => {
+                  if (!task.isComplete) {
+                    clearTimer()
+                    setTasksToComplete(prev => [
+                      ...prev,
+                      {
+                        project: task.project,
+                        id: task.id,
+                      },
+                    ])
+                    setIsUndoVisible(true)
+                  } else if (task.isComplete) {
+                    setTasksToNotComplete(prev => [
+                      ...prev,
+                      {
+                        project: task.project,
+                        id: task.id,
+                      },
+                    ])
+                  }
+                }}
+              >
+                <div
+                  className={`circle ${
+                    task.isComplete ? 'complete' : undefined
+                  }`}
+                >
+                  <TickIcon />
+                </div>
+              </TaskCheck>
+              <TaskDescription
+                className={`${task.isComplete ? 'complete' : undefined}`}
+              >
+                {task.description}
+              </TaskDescription>
+              <TaskMenuContainer>
+                <div
+                  className='toggler'
+                  ref={TaskMenuButtonRef}
+                  onClick={() => setTaskMenuOpen(prev => !prev)}
+                >
+                  <MenuToggler />
+                </div>
+                {taskMenuOpen && (
+                  <TaskMenu ref={TaskMenuRef}>
+                    <MenuList>
+                      <MenuItem
+                        title='Edit this task'
+                        onClick={() => {
+                          setEditMenuOpen(true)
+                          setTaskMenuOpen(false)
+                        }}
+                      >
+                        <EditIcon />
+                        <span>Edit task</span>
+                      </MenuItem>
+                      <MenuItem
+                        title='Delete this task'
+                        className='delete'
+                        onClick={() => {
+                          setDeleteModalOpen(true)
+                          setTaskMenuOpen(false)
+                        }}
+                      >
+                        <DeleteIcon />
+                        <span>Delete task</span>
+                      </MenuItem>
+                    </MenuList>
+                  </TaskMenu>
+                )}
+              </TaskMenuContainer>
+            </TaskDetails>{' '}
+            {task.dueDate && (
+              <TaskTags>
+                <div
+                  className='date'
+                  style={{
+                    color: setDateColour(
+                      setDateText(task.dueDate),
+                      task.dueDate
+                    ),
+                  }}
+                >
+                  <DueDateIcon />
+                  <span>{setDateText(task.dueDate)}</span>
+                </div>
+              </TaskTags>
             )}
-          </TaskMenuContainer>
-        </TaskDetails>
-        {task.dueDate && (
-          <TaskTags>
-            <div
-              className='date'
-              style={{
-                color: setDateColour(setDateText(task.dueDate), task.dueDate),
-              }}
-            >
-              <DueDateIcon />
-              <span>{setDateText(task.dueDate)}</span>
-            </div>
-          </TaskTags>
+          </>
         )}
       </TaskItemContainer>
       {deleteModalOpen && (
