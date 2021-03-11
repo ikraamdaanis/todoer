@@ -27,14 +27,20 @@ export const AddTaskForm = ({
 }) => {
   const [todoDescription, setTodoDescription] = useState('')
   const [selectedProject, setSelectedProject] = useState(
-    currentProject?.title || 'Inbox'
+    (!['today', 'upcoming'].includes(currentProject?.title) &&
+      currentProject?.title) ||
+      'Inbox'
   )
   const [date, setDate] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isActive, setIsActive] = useState(false)
 
   useEffect(() => {
-    setSelectedProject(currentProject?.title || 'Inbox')
+    setSelectedProject(
+      (!['today', 'upcoming'].includes(currentProject?.title) &&
+        currentProject?.title) ||
+        'Inbox'
+    )
   }, [currentProject])
 
   const dispatch = useDispatch()
@@ -52,6 +58,7 @@ export const AddTaskForm = ({
   const menu = useRef(null)
 
   useMenu(menuButton, menu, setIsMenuOpen)
+  console.log(selectedProject)
 
   const handleSubmit = event => {
     event.preventDefault()
