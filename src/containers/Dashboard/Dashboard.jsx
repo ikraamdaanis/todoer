@@ -204,13 +204,15 @@ export const Dashboard = ({ history, match, isClosed }) => {
                       <span>Sort</span>
                     </ProjectSortButton>
                   </ProjectSort>
-                  <ProjectOptions ref={projectMenuButtonRef}>
-                    <ProjectOptionsButton
-                      onClick={() => setProjectMenuOpen(prev => !prev)}
-                    >
-                      <ProjectMore />
-                    </ProjectOptionsButton>
-                  </ProjectOptions>
+                  {!['today', 'upcoming'].includes(currentProject?.title) && (
+                    <ProjectOptions ref={projectMenuButtonRef}>
+                      <ProjectOptionsButton
+                        onClick={() => setProjectMenuOpen(prev => !prev)}
+                      >
+                        <ProjectMore />
+                      </ProjectOptionsButton>
+                    </ProjectOptions>
+                  )}
                 </ProjectMenus>
               </ProjectHeadingContainer>
             </ProjectHeading>
@@ -245,6 +247,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
                 </SortDetails>
               </SortHeading>
             )}
+
             <TaskContainer
               project={currentProject}
               isComplete={false}
@@ -307,17 +310,19 @@ export const Dashboard = ({ history, match, isClosed }) => {
         projectSortMenuRight={projectSortMenuRight}
         setSortOptions={setSortOptions}
       />
-      <ProjectMenu
-        reference={projectMenuRef}
-        projectMenuRight={projectMenuRight}
-        showCompletedTasks={showCompletedTasks}
-        setShowCompletedTasks={setShowCompletedTasks}
-        currentProject={currentProject}
-        isProject={isProject}
-        projectMenuOpen={projectMenuOpen}
-        setProjectMenuOpen={setProjectMenuOpen}
-        setDeleteModalOpen={setDeleteModalOpen}
-      />
+      {!['today', 'upcoming'].includes(currentProject?.title) && (
+        <ProjectMenu
+          reference={projectMenuRef}
+          projectMenuRight={projectMenuRight}
+          showCompletedTasks={showCompletedTasks}
+          setShowCompletedTasks={setShowCompletedTasks}
+          currentProject={currentProject}
+          isProject={isProject}
+          projectMenuOpen={projectMenuOpen}
+          setProjectMenuOpen={setProjectMenuOpen}
+          setDeleteModalOpen={setDeleteModalOpen}
+        />
+      )}
       {deleteModalOpen && (
         <Modal>
           <DeleteModal

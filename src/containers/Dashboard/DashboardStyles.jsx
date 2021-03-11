@@ -117,7 +117,6 @@ export const ProjectSortButton = styled.button`
   outline: none;
   background: none;
   cursor: pointer;
-  margin-right: 16px;
 
   &:hover {
     background: #353535;
@@ -144,6 +143,7 @@ export const ProjectSortButton = styled.button`
 
 export const ProjectOptions = styled.div`
   position: relative;
+  margin-left: 16px;
 `
 
 export const ProjectOptionsButton = styled.button`

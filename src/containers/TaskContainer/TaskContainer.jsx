@@ -1,8 +1,9 @@
+import { format } from 'date-fns'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TaskItem } from '../../components'
 import { getAllTasks } from '../../store/actions/taskActions'
-import { TaskList } from './TaskContainerStyles'
+import { TaskList, TaskListHeading } from './TaskContainerStyles'
 
 export const TaskContainer = ({
   project,
@@ -70,22 +71,50 @@ export const TaskContainer = ({
 
   useEffect(() => {
     overdueTasks && setTasksLoading(false)
+    overdueTasks && console.log({ overdueTasks })
   }, [overdueTasks])
 
   return (
-    <TaskList>
-      {projectTaskList
-        ?.filter(task => task.isComplete == isComplete)
-        .map(task => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            setTasksToComplete={setTasksToComplete}
-            setTasksToNotComplete={setTasksToNotComplete}
-            setIsUndoVisible={setIsUndoVisible}
-            clearTimer={clearTimer}
-          />
-        ))}
-    </TaskList>
+    <>
+      {project?.title === 'today' &&
+        overdueTasks?.some(task => !task.isComplete) && (
+          <>
+            <TaskListHeading>
+              <h3>Overdue</h3>
+            </TaskListHeading>
+            <TaskList className='overdue'>
+              {overdueTasks
+                ?.filter(task => task.isComplete == isComplete)
+                .map(task => (
+                  <TaskItem
+                    key={task.id}
+                    task={task}
+                    setTasksToComplete={setTasksToComplete}
+                    setTasksToNotComplete={setTasksToNotComplete}
+                    setIsUndoVisible={setIsUndoVisible}
+                    clearTimer={clearTimer}
+                  />
+                ))}
+            </TaskList>
+            <TaskListHeading>
+              <h3>Today ‧ {format(new Date(), 'iii do MMM')}</h3>
+            </TaskListHeading>
+          </>
+        )}
+      <TaskList>
+        {projectTaskList
+          ?.filter(task => task.isComplete == isComplete)
+          .map(task => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              setTasksToComplete={setTasksToComplete}
+              setTasksToNotComplete={setTasksToNotComplete}
+              setIsUndoVisible={setIsUndoVisible}
+              clearTimer={clearTimer}
+            />
+          ))}
+      </TaskList>
+    </>
   )
 }
