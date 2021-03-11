@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react'
-import { useCollection } from 'react-firebase-hooks/firestore'
 import { useDispatch, useSelector } from 'react-redux'
 import { TaskItem } from '../../components'
-import { ProjectTasksReference } from '../../firebase/References'
-import { getAllTasks, getTaskStats } from '../../store/actions/taskActions'
+import { getAllTasks } from '../../store/actions/taskActions'
 import { TaskList } from './TaskContainerStyles'
-import { format } from 'date-fns'
 
 export const TaskContainer = ({
   project,
@@ -24,11 +21,11 @@ export const TaskContainer = ({
 
   const dispatch = useDispatch()
 
-  const taskStats = useSelector(state => state.taskStats)
-  const { loading: loadingTasks, tasks: allTasks } = taskStats
+  const taskList = useSelector(state => state.taskList)
+  const { loading: loadingTasks, tasks: allTasks } = taskList
 
   useEffect(() => {
-    dispatch(getTaskStats())
+    dispatch(getAllTasks())
   }, [])
 
   const fetchData = () => {

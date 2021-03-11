@@ -13,9 +13,6 @@ import {
   TASKS_REQUEST,
   TASKS_SUCCESS,
   TASKS_FAIL,
-  TASK_STATS_REQUEST,
-  TASK_STATS_SUCCESS,
-  TASK_STATS_FAIL,
 } from '../constants/taskConstants'
 
 export const createTask = (project, task) => async (dispatch, getState) => {
@@ -147,59 +144,10 @@ export const deleteTask = (task, project) => async (dispatch, getState) => {
   }
 }
 
-export const getAllTasks = search => async (dispatch, getState) => {
+export const getAllTasks = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: TASKS_REQUEST,
-    })
-
-    const {
-      userLogin: { userInfo },
-      projectList: { projects },
-    } = getState()
-
-    const queries = []
-    const allTasks = []
-
-    const { field, condition, query } = search
-
-    projects.forEach(proj => {
-      queries.push(
-        firestore
-          .collection('users')
-          .doc(userInfo?.id)
-          .collection('projects')
-          .doc(proj.title)
-          .collection('tasks')
-          .where(field, condition, query)
-          .get()
-      )
-    })
-
-    Promise.all(queries)
-      .then(results => {
-        results.forEach(project =>
-          project.docs.forEach(doc => allTasks.push(doc.data()))
-        )
-      })
-      .then(() => {
-        dispatch({
-          type: TASKS_SUCCESS,
-          payload: allTasks,
-        })
-      })
-  } catch (error) {
-    dispatch({
-      type: TASKS_FAIL,
-      payload: error,
-    })
-  }
-}
-
-export const getTaskStats = () => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: TASK_STATS_REQUEST,
     })
 
     const {
@@ -232,14 +180,14 @@ export const getTaskStats = () => async (dispatch, getState) => {
           })
 
           dispatch({
-            type: TASK_STATS_SUCCESS,
+            type: TASKS_SUCCESS,
             payload: {
               [proj.title]: data,
             },
           })
 
           dispatch({
-            type: TASK_STATS_SUCCESS,
+            type: TASKS_SUCCESS,
             payload: {
               overdue: allTasks.filter(
                 task =>
@@ -264,7 +212,7 @@ export const getTaskStats = () => async (dispatch, getState) => {
     })
   } catch (error) {
     dispatch({
-      type: TASK_STATS_FAIL,
+      type: TASKS_FAIL,
       payload: error,
     })
   }

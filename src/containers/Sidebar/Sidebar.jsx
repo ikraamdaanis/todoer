@@ -20,6 +20,7 @@ import {
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllProjects } from '../../store/actions/projectActions'
+import { getAllTasks } from '../../store/actions/taskActions'
 
 import { ReactComponent as PlusIcon } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as DropdownIcon } from '../../assets/images/dropdown.svg'
@@ -28,27 +29,26 @@ import { format } from 'date-fns'
 import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import { Modal } from '../../components'
-import { getTaskStats } from '../../store/actions/taskActions'
 
 export const Sidebar = ({ isClosed, param }) => {
   const [isOpen, setIsOpen] = useState(true)
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
-  const [projectStats, setProjectStats] = useState(null)
+  const [incompleteTasksCount, setIncompleteTasksCount] = useState(null)
 
   const dispatch = useDispatch()
 
   const projectList = useSelector(state => state.projectList)
   const { projects } = projectList
 
-  const taskStats = useSelector(state => state.taskStats)
-  const { tasks } = taskStats
+  const taskList = useSelector(state => state.taskList)
+  const { tasks } = taskList
 
   useEffect(() => {
     dispatch(getAllProjects())
   }, [])
 
   useEffect(() => {
-    dispatch(getTaskStats())
+    dispatch(getAllTasks())
   }, [projects])
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export const Sidebar = ({ isClosed, param }) => {
       for (const [key, value] of Object.entries(tasks)) {
         incompleteTasks[key] = value.filter(item => !item.isComplete).length
       }
-      setProjectStats(incompleteTasks)
+      setIncompleteTasksCount(incompleteTasks)
     }
   }, [tasks])
 
@@ -73,7 +73,9 @@ export const Sidebar = ({ isClosed, param }) => {
             <SidebarItem>
               <InboxIcon />
               <span>Inbox</span>
-              <small>{projectStats?.Inbox > 0 && projectStats.Inbox}</small>
+              <small>
+                {incompleteTasksCount?.Inbox > 0 && incompleteTasksCount.Inbox}
+              </small>
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>
@@ -84,7 +86,9 @@ export const Sidebar = ({ isClosed, param }) => {
             <SidebarItem>
               <TodayIcon date={format(new Date(), 'dd')} />
               <span>Today</span>
-              <small>{projectStats?.today > 0 && projectStats.today}</small>
+              <small>
+                {incompleteTasksCount?.today > 0 && incompleteTasksCount.today}
+              </small>
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>
@@ -96,7 +100,8 @@ export const Sidebar = ({ isClosed, param }) => {
               <UpcomingIcon />
               <span>Upcoming</span>
               <small>
-                {projectStats?.upcoming > 0 && projectStats.upcoming}
+                {incompleteTasksCount?.upcoming > 0 &&
+                  incompleteTasksCount.upcoming}
               </small>
             </SidebarItem>
           </Link>
@@ -132,8 +137,8 @@ export const Sidebar = ({ isClosed, param }) => {
                         <div className='text'>
                           <span>{project.title}</span>
                           <small>
-                            {projectStats?.[project.title] > 0 &&
-                              projectStats?.[project.title]}
+                            {incompleteTasksCount?.[project.title] > 0 &&
+                              incompleteTasksCount?.[project.title]}
                           </small>
                         </div>
                       </div>

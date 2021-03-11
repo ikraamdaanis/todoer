@@ -11,9 +11,6 @@ import {
   TASKS_REQUEST,
   TASKS_SUCCESS,
   TASKS_FAIL,
-  TASK_STATS_REQUEST,
-  TASK_STATS_SUCCESS,
-  TASK_STATS_FAIL,
 } from '../constants/taskConstants'
 
 export const taskReducer = (state = {}, { type, payload }) => {
@@ -65,43 +62,22 @@ export const taskReducer = (state = {}, { type, payload }) => {
   }
 }
 
-export const taskListReducer = (state = { tasks: [] }, { type, payload }) => {
+export const taskListReducer = (
+  state = { tasks: { today: [], upcoming: [] } },
+  { type, payload }
+) => {
   switch (type) {
     case TASKS_REQUEST:
       return {
+        ...state,
         loading: true,
       }
     case TASKS_SUCCESS:
       return {
         loading: false,
-        tasks: payload,
-      }
-    case TASKS_FAIL:
-      return {
-        loading: false,
-        error: payload,
-      }
-    default:
-      return state
-  }
-}
-
-export const taskStatsReducer = (
-  state = { tasks: { today: [], upcoming: [] } },
-  { type, payload }
-) => {
-  switch (type) {
-    case TASK_STATS_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      }
-    case TASK_STATS_SUCCESS:
-      return {
-        loading: false,
         tasks: { ...state.tasks, ...payload },
       }
-    case TASK_STATS_FAIL:
+    case TASKS_FAIL:
       return {
         loading: false,
         error: payload,

@@ -6,11 +6,7 @@ import {
   projectListReducer,
   projectCreateReducer,
 } from './reducers/projectReducers'
-import {
-  taskReducer,
-  taskListReducer,
-  taskStatsReducer,
-} from './reducers/taskReducers'
+import { taskReducer, taskListReducer } from './reducers/taskReducers'
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
@@ -18,7 +14,6 @@ const reducer = combineReducers({
   projectCreate: projectCreateReducer,
   taskCreate: taskReducer,
   taskList: taskListReducer,
-  taskStats: taskStatsReducer,
   projectList: projectListReducer,
 })
 
