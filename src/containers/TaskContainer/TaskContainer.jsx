@@ -20,26 +20,11 @@ export const TaskContainer = ({
   const [taskData, setTaskData] = useState(null)
   const [projectTaskList, setProjectTaskList] = useState(null)
   const [overdueTasks, setOverdueTasks] = useState(null)
-  const [usingSnapshot, setUsingSnapShot] = useState(false)
-
-  useEffect(() => {
-    setUsingSnapShot(false)
-  }, [project])
 
   const dispatch = useDispatch()
 
-  const [snapshots, loading] = useCollection(
-    ProjectTasksReference(project?.title).orderBy('createdAt', 'asc')
-  )
-
-  const taskList = useSelector(state => state.taskList)
-  const { tasks } = taskList
-
   const taskStats = useSelector(state => state.taskStats)
   const { loading: loadingTasks, tasks: allTasks } = taskStats
-
-  const taskCreate = useSelector(state => state.taskCreate)
-  const { loading: creating } = taskCreate
 
   useEffect(() => {
     dispatch(getTaskStats())
@@ -49,70 +34,45 @@ export const TaskContainer = ({
     allTasks && setTaskData(allTasks[project?.title])
   }
 
-  // useEffect(() => {
-  //   creating && setUsingSnapShot(true)
-  // }, [creating])
-
   useEffect(() => {
-    // if (
-    //   isComplete ||
-    //   (usingSnapshot && !['today', 'upcoming'].includes(project?.title))
-    // ) {
-    //   const data = []
-    //   !loading && snapshots.docs.forEach(task => data.push(task.data()))
-    //   data.length ? setTaskData(data) : setTaskData([])
-    // } else {
-    // }
     !loadingTasks && fetchData()
-  }, [loading, loadingTasks, project, allTasks])
-
-  // useEffect(() => {
-  //   if (project?.title === 'today' && tasks) {
-  //     const today = []
-  //     const overdue = []
-
-  //     tasks.forEach(task => {
-  //       if (task.dueDate === format(new Date(), 'yyyy-MM-dd')) {
-  //         today.push(task)
-  //       } else {
-  //         overdue.push(task)
-  //       }
-  //     })
-
-  //     setOverdueTasks(overdue)
-  //     setTaskData(today)
-  //   } else {
-  //     tasks && setTaskData(tasks)
-  //   }
-  // }, [tasks])
+  }, [loadingTasks, project, allTasks])
 
   useEffect(() => {
+    const tasksToSort = []
+    const tasksToNotSort = []
     const { option, direction } = sortOptions
-    const sortedData = []
-    const restOfData = []
 
     taskData?.forEach(task => {
       sortOptions && task[option]
-        ? sortedData.push(task)
-        : restOfData.push(task)
+        ? tasksToSort.push(task)
+        : tasksToNotSort.push(task)
     })
 
-    const data = sortedData.concat(restOfData)
     switch (option) {
       case 'description':
-        data.sort((a, b) =>
+        tasksToSort.sort((a, b) =>
           a[option].toLowerCase().localeCompare(b[option].toLowerCase())
         )
         break
+      case 'dueDate':
+        tasksToSort.sort((a, b) => new Date(a[option]) - new Date(b[option]))
+        break
       default:
-        data.sort((a, b) => a[option] - b[option])
+        tasksToSort.sort((a, b) => a[option] - b[option])
     }
 
+    const data = tasksToSort.concat(tasksToNotSort)
     direction === 'desc' && data.reverse()
 
+    setOverdueTasks(allTasks?.overdue)
     setProjectTaskList(data)
     setDashboardTasks(data)
   }, [taskData, sortOptions, project])
+
+  useEffect(() => {
+    console.log('Overdue', overdueTasks)
+  }, [overdueTasks])
 
   return (
     <TaskList>

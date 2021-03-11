@@ -241,6 +241,14 @@ export const getTaskStats = () => async (dispatch, getState) => {
           dispatch({
             type: TASK_STATS_SUCCESS,
             payload: {
+              overdue: allTasks.filter(
+                task =>
+                  task.dueDate &&
+                  task.dueDate !== format(new Date(), 'yyyy-MM-dd') &&
+                  new Date(task.dueDate) <
+                    new Date(format(new Date(), 'yyyy-MM-dd'))
+              ),
+
               today: allTasks.filter(
                 task => task.dueDate === format(new Date(), 'yyyy-MM-dd')
               ),
