@@ -41,66 +41,50 @@ export const TaskContainer = ({
   const taskCreate = useSelector(state => state.taskCreate)
   const { loading: creating } = taskCreate
 
-  const fetchData = () => {
-    if (['today', 'upcoming'].includes(project?.title)) {
-      const today = {
-        field: 'dueDate',
-        condition: '<=',
-        query: format(new Date(), 'yyyy-MM-dd'),
-      }
-      const afterToday = {
-        field: 'dueDate',
-        condition: '>',
-        query: format(new Date(), 'yyyy-MM-dd'),
-      }
-      project.title === 'today'
-        ? dispatch(getAllTasks(today))
-        : dispatch(getAllTasks(afterToday))
-    }
-
-    allTasks && setTaskData(allTasks[project?.title])
-  }
-
   useEffect(() => {
     dispatch(getTaskStats())
   }, [])
 
-  useEffect(() => {
-    creating && setUsingSnapShot(true)
-  }, [creating])
+  const fetchData = () => {
+    allTasks && setTaskData(allTasks[project?.title])
+  }
+
+  // useEffect(() => {
+  //   creating && setUsingSnapShot(true)
+  // }, [creating])
 
   useEffect(() => {
-    if (
-      isComplete ||
-      (usingSnapshot && !['today', 'upcoming'].includes(project?.title))
-    ) {
-      const data = []
-      !loading && snapshots.docs.forEach(task => data.push(task.data()))
-      data.length ? setTaskData(data) : setTaskData([])
-    } else {
-      !loadingTasks && !loading && fetchData()
-    }
-  }, [loading, loadingTasks, project, usingSnapshot])
+    // if (
+    //   isComplete ||
+    //   (usingSnapshot && !['today', 'upcoming'].includes(project?.title))
+    // ) {
+    //   const data = []
+    //   !loading && snapshots.docs.forEach(task => data.push(task.data()))
+    //   data.length ? setTaskData(data) : setTaskData([])
+    // } else {
+    // }
+    !loadingTasks && fetchData()
+  }, [loading, loadingTasks, project, allTasks])
 
-  useEffect(() => {
-    if (project?.title === 'today' && tasks) {
-      const today = []
-      const overdue = []
+  // useEffect(() => {
+  //   if (project?.title === 'today' && tasks) {
+  //     const today = []
+  //     const overdue = []
 
-      tasks.forEach(task => {
-        if (task.dueDate === format(new Date(), 'yyyy-MM-dd')) {
-          today.push(task)
-        } else {
-          overdue.push(task)
-        }
-      })
+  //     tasks.forEach(task => {
+  //       if (task.dueDate === format(new Date(), 'yyyy-MM-dd')) {
+  //         today.push(task)
+  //       } else {
+  //         overdue.push(task)
+  //       }
+  //     })
 
-      setOverdueTasks(overdue)
-      setTaskData(today)
-    } else {
-      tasks && setTaskData(tasks)
-    }
-  }, [tasks])
+  //     setOverdueTasks(overdue)
+  //     setTaskData(today)
+  //   } else {
+  //     tasks && setTaskData(tasks)
+  //   }
+  // }, [tasks])
 
   useEffect(() => {
     const { option, direction } = sortOptions

@@ -86,16 +86,20 @@ export const taskListReducer = (state = { tasks: [] }, { type, payload }) => {
   }
 }
 
-export const taskStatsReducer = (state = { tasks: {} }, { type, payload }) => {
+export const taskStatsReducer = (
+  state = { tasks: { today: [], upcoming: [] } },
+  { type, payload }
+) => {
   switch (type) {
     case TASK_STATS_REQUEST:
       return {
+        ...state,
         loading: true,
       }
     case TASK_STATS_SUCCESS:
       return {
         loading: false,
-        tasks: payload,
+        tasks: { ...state.tasks, ...payload },
       }
     case TASK_STATS_FAIL:
       return {

@@ -40,7 +40,6 @@ export const createTask = (project, task) => async (dispatch, getState) => {
     dispatch({
       type: TASK_CREATE_SUCCESS,
     })
-    dispatch(getTaskStats())
   } catch (error) {
     dispatch({
       type: TASK_CREATE_FAIL,
@@ -74,7 +73,6 @@ export const completeTask = (task, project) => async (dispatch, getState) => {
     dispatch({
       type: TASK_COMPLETE_SUCCESS,
     })
-    dispatch(getTaskStats())
   } catch (error) {
     dispatch({
       type: TASK_COMPLETE_FAIL,
@@ -108,7 +106,6 @@ export const incompleteTask = (task, project) => async (dispatch, getState) => {
     dispatch({
       type: TASK_COMPLETE_SUCCESS,
     })
-    dispatch(getTaskStats())
   } catch (error) {
     dispatch({
       type: TASK_COMPLETE_FAIL,
@@ -142,7 +139,6 @@ export const deleteTask = (task, project) => async (dispatch, getState) => {
     dispatch({
       type: TASK_DELETE_SUCCESS,
     })
-    dispatch(getTaskStats())
   } catch (error) {
     dispatch({
       type: TASK_DELETE_FAIL,
@@ -211,48 +207,53 @@ export const getTaskStats = () => async (dispatch, getState) => {
       projectList: { projects },
     } = getState()
 
-    const allProjectsQuery = []
-    const allIncompleteTasks = {}
-
+    const allTasks = []
     await projects.forEach(proj => {
-      allProjectsQuery.push(
-        firestore
-          .collection('users')
-          .doc(userInfo?.id)
-          .collection('projects')
-          .doc(proj.title)
-          .collection('tasks')
-          .where('isComplete', '==', false)
-          .get()
-      )
-    })
-
-    Promise.all(allProjectsQuery)
-      .then(results => {
-        const allTasks = []
-        results.forEach((project, index) => {
+      firestore
+        .collection('users')
+        .doc(userInfo?.id)
+        .collection('projects')
+        .doc(proj.title)
+        .collection('tasks')
+        .onSnapshot(snapshot => {
           const data = []
-          project.docs.forEach(task => {
-            data.push(task.data())
-            allTasks.push(task.data())
-          })
-          allIncompleteTasks[projects[index].title] = data
-        })
-        allIncompleteTasks.today = allTasks.filter(
-          task => task.dueDate === format(new Date(), 'yyyy-MM-dd')
-        )
+          snapshot.docs.forEach(task => {
+            const currentTask = task.data()
+            const taskExists = allTasks.find(item => item.id === task.id)
 
-        allIncompleteTasks.upcoming = allTasks.filter(
-          task =>
-            new Date(task.dueDate) > new Date(format(new Date(), 'yyyy-MM-dd'))
-        )
-      })
-      .then(() => {
-        dispatch({
-          type: TASK_STATS_SUCCESS,
-          payload: allIncompleteTasks,
+            if (taskExists && currentTask.project) {
+              const index = allTasks.findIndex(item => item.id === task.id)
+              allTasks[index] = { ...taskExists, ...currentTask }
+              data.push({ ...taskExists, ...currentTask })
+            } else {
+              allTasks.push(currentTask)
+              data.push(currentTask)
+            }
+          })
+
+          dispatch({
+            type: TASK_STATS_SUCCESS,
+            payload: {
+              [proj.title]: data,
+            },
+          })
+
+          dispatch({
+            type: TASK_STATS_SUCCESS,
+            payload: {
+              today: allTasks.filter(
+                task => task.dueDate === format(new Date(), 'yyyy-MM-dd')
+              ),
+
+              upcoming: allTasks.filter(
+                task =>
+                  new Date(task.dueDate) >
+                  new Date(format(new Date(), 'yyyy-MM-dd'))
+              ),
+            },
+          })
         })
-      })
+    })
   } catch (error) {
     dispatch({
       type: TASK_STATS_FAIL,
