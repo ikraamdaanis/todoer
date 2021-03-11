@@ -56,6 +56,7 @@ export const Sidebar = ({ isClosed, param }) => {
   }, [tasks])
 
   const activeCheck = el => el.toLowerCase() === param
+  const filterComplete = item => !item.isComplete
 
   return (
     <SidebarContainer className={isClosed && 'closed'}>
@@ -68,7 +69,8 @@ export const Sidebar = ({ isClosed, param }) => {
               <InboxIcon />
               <span>Inbox</span>
               <small>
-                {projectStats?.Inbox?.length > 0 && projectStats.Inbox.length}
+                {projectStats?.Inbox?.filter(filterComplete).length > 0 &&
+                  projectStats.Inbox.filter(filterComplete).length}
               </small>
             </SidebarItem>
           </Link>
@@ -81,7 +83,8 @@ export const Sidebar = ({ isClosed, param }) => {
               <TodayIcon date={format(new Date(), 'dd')} />
               <span>Today</span>
               <small>
-                {projectStats?.today?.length > 0 && projectStats.today.length}
+                {projectStats?.today?.filter(filterComplete).length > 0 &&
+                  projectStats.today.filter(filterComplete).length}
               </small>
             </SidebarItem>
           </Link>
@@ -94,8 +97,8 @@ export const Sidebar = ({ isClosed, param }) => {
               <UpcomingIcon />
               <span>Upcoming</span>
               <small>
-                {projectStats?.upcoming?.length > 0 &&
-                  projectStats.upcoming.length}
+                {projectStats?.upcoming?.filter(filterComplete).length > 0 &&
+                  projectStats.upcoming.filter(filterComplete).length}
               </small>
             </SidebarItem>
           </Link>
