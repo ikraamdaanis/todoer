@@ -12,8 +12,15 @@ export const SidebarContainer = styled.div`
   overflow-x: hidden;
   position: fixed;
 
+  @media (max-width: 750px) {
+    transform: translateX(-310px);
+  }
   &.closed {
     transform: translateX(-310px);
+
+    @media (max-width: 750px) {
+      transform: translateX(0px);
+    }
   }
 `
 
