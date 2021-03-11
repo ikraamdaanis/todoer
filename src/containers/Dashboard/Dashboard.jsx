@@ -94,6 +94,7 @@ export const Dashboard = ({ history, match, isClosed }) => {
     if (!projectsLoading) {
       setCurrentProject(null)
       assignCurrentProject()
+      setShowCompletedTasks(false)
     }
   }
 

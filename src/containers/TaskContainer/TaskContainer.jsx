@@ -56,11 +56,8 @@ export const TaskContainer = ({
       project.title === 'today'
         ? dispatch(getAllTasks(today))
         : dispatch(getAllTasks(afterToday))
-    } else {
-      // const data = []
-      // snapshots.docs.forEach(task => data.push(task.data()))
-      // data.length ? setTaskData(data) : setTaskData([])
     }
+
     allTasks && setTaskData(allTasks[project?.title])
   }
 
@@ -73,14 +70,17 @@ export const TaskContainer = ({
   }, [creating])
 
   useEffect(() => {
-    if (usingSnapshot) {
+    if (
+      isComplete ||
+      (usingSnapshot && !['today', 'upcoming'].includes(project?.title))
+    ) {
       const data = []
-      snapshots.docs.forEach(task => data.push(task.data()))
+      !loading && snapshots.docs.forEach(task => data.push(task.data()))
       data.length ? setTaskData(data) : setTaskData([])
     } else {
-      !loadingTasks && fetchData()
+      !loadingTasks && !loading && fetchData()
     }
-  }, [loadingTasks, allTasks, project, usingSnapshot])
+  }, [loading, loadingTasks, project, usingSnapshot])
 
   useEffect(() => {
     if (project?.title === 'today' && tasks) {
@@ -108,7 +108,6 @@ export const TaskContainer = ({
     const restOfData = []
 
     taskData?.forEach(task => {
-      if (task.isComplete && !isComplete) return
       sortOptions && task[option]
         ? sortedData.push(task)
         : restOfData.push(task)
