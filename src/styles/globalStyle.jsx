@@ -29,6 +29,11 @@ body {
   background: var(--very-dark-gray);
   color: var(--text-white);
 
+  @media(max-width: 450px){
+    overflow: unset;
+    overflow-x: hidden;
+  }
+  
   &::-webkit-scrollbar {
     width: 7px;
     height: 7px;

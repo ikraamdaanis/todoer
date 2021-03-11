@@ -270,4 +270,9 @@ export const DashboardLoading = styled.div`
   background: var(--very-dark-gray);
   display: grid;
   place-content: center;
+
+  img {
+    width: 70px;
+    height: 70px;
+  }
 `
