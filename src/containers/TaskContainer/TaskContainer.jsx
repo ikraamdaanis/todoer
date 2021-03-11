@@ -20,6 +20,11 @@ export const TaskContainer = ({
   const [taskData, setTaskData] = useState(null)
   const [projectTaskList, setProjectTaskList] = useState(null)
   const [overdueTasks, setOverdueTasks] = useState(null)
+  const [usingSnapshot, setUsingSnapShot] = useState(false)
+
+  useEffect(() => {
+    setUsingSnapShot(false)
+  }, [project])
 
   const dispatch = useDispatch()
 
@@ -33,21 +38,24 @@ export const TaskContainer = ({
   const taskStats = useSelector(state => state.taskStats)
   const { loading: loadingTasks, tasks: allTasks } = taskStats
 
+  const taskCreate = useSelector(state => state.taskCreate)
+  const { loading: creating } = taskCreate
+
   const fetchData = () => {
     if (['today', 'upcoming'].includes(project?.title)) {
-      // const today = {
-      //   field: 'dueDate',
-      //   condition: '<=',
-      //   query: format(new Date(), 'yyyy-MM-dd'),
-      // }
-      // const afterToday = {
-      //   field: 'dueDate',
-      //   condition: '>',
-      //   query: format(new Date(), 'yyyy-MM-dd'),
-      // }
-      // project.title === 'today'
-      //   ? dispatch(getAllTasks(today))
-      //   : dispatch(getAllTasks(afterToday))
+      const today = {
+        field: 'dueDate',
+        condition: '<=',
+        query: format(new Date(), 'yyyy-MM-dd'),
+      }
+      const afterToday = {
+        field: 'dueDate',
+        condition: '>',
+        query: format(new Date(), 'yyyy-MM-dd'),
+      }
+      project.title === 'today'
+        ? dispatch(getAllTasks(today))
+        : dispatch(getAllTasks(afterToday))
     } else {
       // const data = []
       // snapshots.docs.forEach(task => data.push(task.data()))
@@ -61,8 +69,18 @@ export const TaskContainer = ({
   }, [])
 
   useEffect(() => {
-    !loadingTasks && fetchData()
-  }, [loadingTasks, allTasks, project])
+    creating && setUsingSnapShot(true)
+  }, [creating])
+
+  useEffect(() => {
+    if (usingSnapshot) {
+      const data = []
+      snapshots.docs.forEach(task => data.push(task.data()))
+      data.length ? setTaskData(data) : setTaskData([])
+    } else {
+      !loadingTasks && fetchData()
+    }
+  }, [loadingTasks, allTasks, project, usingSnapshot])
 
   useEffect(() => {
     if (project?.title === 'today' && tasks) {
