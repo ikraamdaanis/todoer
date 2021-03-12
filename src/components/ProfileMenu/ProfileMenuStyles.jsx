@@ -18,10 +18,10 @@ export const ProfileMenuDropDown = styled.div`
   top: 32px;
   right: 0;
   width: 276px;
-  background: var(--dark-gray);
+  background: ${props => props.theme.foreground};
   z-index: 1000;
   border-radius: 3px;
-  border: 1px solid hsla(0, 0%, 100%, 0.1);
+  border: 1px solid ${props => props.theme.border};
 `
 
 export const UserDetails = styled.div`
@@ -31,7 +31,7 @@ export const UserDetails = styled.div`
   transition: 0.2s ease-in-out;
 
   &:hover {
-    background: #363636;
+    background: ${props => props.theme.active};
   }
 
   .profile {
@@ -50,14 +50,14 @@ export const NameEmail = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #ffffffde;
+    color: ${props => props.theme.textColour};
   }
 
   .email {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: hsla(0, 0%, 100%, 0.6);
+    color: ${props => props.theme.textSecondary};
     margin: 3px 0 0;
   }
 `
@@ -71,13 +71,13 @@ export const LogoutButton = styled.button`
   margin: 0 !important;
   background: none;
   outline: none;
-  color: hsla(0, 0%, 100%, 0.87);
+  color: ${props => props.theme.textColour};
   border: 0;
   cursor: pointer;
   transition: 0.2s ease-in-out;
 
   &:hover {
-    background: #363636;
+    background: ${props => props.theme.active};
   }
 
   svg {
@@ -93,6 +93,6 @@ export const LogoutButton = styled.button`
 export const Line = styled.div`
   width: 100%;
   height: 1px;
-  background: hsla(0, 0%, 100%, 0.1);
+  background: ${props => props.theme.border};
   margin: 0.2rem 0;
 `

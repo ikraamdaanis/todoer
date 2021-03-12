@@ -36,7 +36,7 @@ export const App = () => {
     textColour: '#202020',
     textSecondary: '#aaa',
     active: '#ececec',
-    border: 'hsla(0, 0%, 100%, 0.1)',
+    border: '#dcdcdc',
     lightRed: '#de4c4a',
     hoverTransparent: 'hsla(0,0%,100%,.2)',
     navColour: '#fff',
