@@ -7,9 +7,6 @@ export const TaskListItem = styled.li`
   &.hide {
     display: none;
   }
-
-  &:hover {
-  }
 `
 
 export const TaskItemContainer = styled.div`
@@ -123,8 +120,9 @@ export const TaskMenu = styled.div`
   top: 0px;
   right: 0;
   width: 250px;
-  background: ${props => props.theme.background};
-  box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+  background: ${props => props.theme.foreground};
+  box-shadow: ${props => props.theme.boxShadow};
+  border: 1px solid ${props => props.theme.border};
   border-radius: 3px;
   padding: 4px 0;
 

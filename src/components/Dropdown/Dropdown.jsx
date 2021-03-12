@@ -7,7 +7,7 @@ export const DropdownContainer = styled.div`
   right: 0;
   width: 250px;
   background: ${props => props.theme.background};
-  box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+  box-shadow: ${props => props.theme.boxShadow};
   border-radius: 3px;
   padding: 4px 0;
 

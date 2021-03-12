@@ -10,7 +10,7 @@ export const UndoNotification = styled.div`
   background: var(--dark-gray);
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
+  box-shadow: ${props => props.theme.boxShadow};
 `
 
 export const UndoContainer = styled.div`

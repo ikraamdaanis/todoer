@@ -28,6 +28,7 @@ export const App = () => {
     hoverTransparent: 'hsla(0,0%,100%,.2)',
     navColour: 'unset',
     inputColour: '#202020',
+    boxShadow: '0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%)',
   }
 
   const themeLight = {
@@ -44,6 +45,7 @@ export const App = () => {
     hoverTransparent: 'hsla(0,0%,100%,.2)',
     navColour: '#fff',
     inputColour: '#fff',
+    boxShadow: '0 1px 8px 0 rgb(0 0 0 / 8%)',
   }
 
   return (
