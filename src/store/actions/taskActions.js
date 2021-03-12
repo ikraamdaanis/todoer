@@ -187,7 +187,7 @@ export const getAllTasks = () => async (dispatch, getState) => {
       projectList: { projects },
     } = getState()
 
-    const allTasks = []
+    let allTasks = []
     await projects.forEach(proj => {
       firestore
         .collection('users')
@@ -197,6 +197,13 @@ export const getAllTasks = () => async (dispatch, getState) => {
         .collection('tasks')
         .onSnapshot(snapshot => {
           const data = []
+
+          if (snapshot.docChanges()[0]?.type === 'removed') {
+            allTasks = allTasks.filter(
+              task => task.id !== snapshot.docChanges()[0]?.doc?.id
+            )
+          }
+
           snapshot.docs.forEach(task => {
             const currentTask = task.data()
             const taskExists = allTasks.find(item => item.id === task.id)
