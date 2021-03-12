@@ -19,11 +19,25 @@ export const App = () => {
     foreground: '#282828',
     taskForm: '#171717',
     textColour: 'hsla(0,0%,100%,0.87)',
+    textSecondary: '#aaa',
     active: '#363636',
+    border: 'hsla(0, 0%, 100%, 0.1)',
+    lightRed: '#de4c4a',
+  }
+
+  const themeLight = {
+    background: '#fff',
+    foreground: '#fafafa',
+    taskForm: '#fff',
+    textColour: '#202020',
+    textSecondary: '#aaa',
+    active: '#ececec',
+    border: 'hsla(0, 0%, 100%, 0.1)',
+    lightRed: '#de4c4a',
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeLight}>
       <Router>
         <GlobalStyle />
         <Navbar setSidebarClosed={setSidebarClosed} />

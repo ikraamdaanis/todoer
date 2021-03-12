@@ -36,21 +36,19 @@ export const SidebarButtonContainer = styled.div`
 
   &.active {
     span {
-      font-weight: 500;
+      font-weight: 400;
     }
   }
 `
 
 export const SidebarItem = styled.div`
-  color: hsla(0, 0%, 100%, 0.87);
+  color: ${props => props.theme.text};
   border: 0;
   outline: 0;
   background: none;
   font-size: 14px;
   font-weight: 300;
-  color: hsla(0, 0%, 100%, 0.87);
   text-align: left;
-  width: 224px;
   height: 100%;
   cursor: pointer;
   display: flex;
@@ -59,15 +57,16 @@ export const SidebarItem = styled.div`
   small {
     padding: 2px 0 0 5px;
     display: inline-block;
-    color: #aaa;
+    color: ${props => props.theme.textSecondary};
     font-size: 12px;
     min-width: 10px;
+    margin-left: auto;
   }
 `
 
 export const ProjectsButtonContainer = styled.div`
   width: 265px;
-  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  border-bottom: 1px solid ${props => props.theme.border};
   padding: 10px 16px 10px 0px;
 
   .dropdown {
@@ -88,7 +87,8 @@ export const ProjectsButtonContainer = styled.div`
 `
 
 export const ProjectsButton = styled.button`
-  color: hsla(0, 0%, 100%, 0.87);
+  margin-top: 1rem;
+  color: ${props => props.theme.text};
   border: 0;
   outline: 0;
   background: none;
@@ -121,7 +121,7 @@ export const ProjectTitles = styled.ul`
     border-radius: 3px;
     overflow: hidden;
     transition: color 0.1s ease-in, background-color 0.1s ease-in;
-    color: var(--text-white);
+    color: ${props => props.theme.text};
     line-height: 24px;
     margin: 0 0 0.2rem;
 
@@ -139,32 +139,33 @@ export const ProjectTitles = styled.ul`
         .text {
           display: flex;
           align-items: center;
+          flex: 1;
 
           span {
-            color: hsla(0, 0%, 100%, 0.87);
+            color: ${props => props.theme.text};
             word-break: break-word;
           }
 
           small {
             display: inline-block;
             padding: 2px 0 0 5px;
-            color: #aaa;
+            color: ${props => props.theme.textSecondary};
             font-size: 12px;
             min-width: 10px;
             min-height: 26px;
+            margin-left: auto;
           }
         }
       }
     }
 
     &:hover {
-      background-color: #363636;
+      background-color: ${props => props.theme.active};
     }
 
     .active {
-      background-color: #363636;
-
-      font-weight: 500;
+      background-color: ${props => props.theme.active};
+      font-weight: 400;
 
       &:hover {
         button {
@@ -213,15 +214,15 @@ export const AddProjectFormTogglerButton = styled.button`
 
   &:hover {
     span {
-      color: var(--light-red);
+      color: ${props => props.theme.lightRed};
     }
 
     .icon {
       &-wrapper {
-        background: var(--light-red);
+        background: ${props => props.theme.lightRed};
 
         svg {
-          color: var(--dark-gray);
+          color: ${props => props.theme.foreground};
         }
       }
     }
@@ -242,7 +243,7 @@ export const AddProjectFormTogglerButton = styled.button`
       border-radius: 50%;
 
       svg {
-        color: var(--light-red);
+        color: ${props => props.theme.lightRed};
       }
     }
   }
@@ -255,14 +256,7 @@ export const AddProjectFormTogglerText = styled.span`
   padding: 5px 16px 5px 0;
   font-size: 14px;
   font-weight: 300;
-  color: grey;
+  color: ${props => props.theme.textSecondary};
   transition: 0.2s ease-in-out;
   transform: translateY(0px);
-
-  &:focus {
-    color: white;
-  }
-
-  &:hover {
-  }
 `
