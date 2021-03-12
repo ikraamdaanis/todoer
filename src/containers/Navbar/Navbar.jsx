@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { ProfileMenu } from '../../components'
 
-export const Navbar = ({ setIsClosed }) => {
+export const Navbar = ({ setSidebarClosed }) => {
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
@@ -22,7 +22,7 @@ export const Navbar = ({ setIsClosed }) => {
           {userInfo && (
             <MenuToggler
               className='menu-toggler'
-              onClick={() => setIsClosed(isClosed => !isClosed)}
+              onClick={() => setSidebarClosed(prev => !prev)}
             />
           )}
           <Link

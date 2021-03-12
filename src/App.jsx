@@ -11,13 +11,13 @@ import { Home, SignIn, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
 
 export const App = () => {
-  const [isClosed, setIsClosed] = useState(false)
+  const [sidebarClosed, setSidebarClosed] = useState(false)
 
   return (
     <>
       <Router>
         <GlobalStyle />
-        <Navbar setIsClosed={setIsClosed} />
+        <Navbar setSidebarClosed={setSidebarClosed} />
         <ScrollToTop />
         <main>
           <Switch style={{ display: 'flex' }}>
@@ -25,13 +25,13 @@ export const App = () => {
               path='/app'
               exact
               component={Dashboard}
-              isClosed={isClosed}
+              sidebarClosed={sidebarClosed}
             />
             <PrivateRoute
               path='/app/:id'
               exact
               component={Dashboard}
-              isClosed={isClosed}
+              sidebarClosed={sidebarClosed}
             />
             <Route
               exact

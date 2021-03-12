@@ -49,7 +49,7 @@ import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 import { useMenu } from '../../hooks/useMenu'
 import { useSetPosition } from '../../hooks/useSetPosition'
 
-export const Dashboard = ({ history, match, isClosed }) => {
+export const Dashboard = ({ history, match, sidebarClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
   const [currentTaskForm, setCurrentTaskForm] = useState('')
   const [tasksLoading, setTasksLoading] = useState(true)
@@ -174,21 +174,24 @@ export const Dashboard = ({ history, match, isClosed }) => {
   const projectMenuRef = useRef(null)
   const projectMenuButtonRef = useRef(null)
   useMenu(projectMenuButtonRef, projectMenuRef, setProjectMenuOpen)
-  const [projectMenuRight] = useSetPosition(projectMenuButtonRef, isClosed)
+  const [projectMenuRight] = useSetPosition(projectMenuButtonRef, sidebarClosed)
 
   const projectSortMenuRef = useRef(null)
   const projectSortMenuButtonRef = useRef(null)
   useMenu(projectSortMenuButtonRef, projectSortMenuRef, setProjectSortOpen)
   const [projectSortMenuRight] = useSetPosition(
     projectSortMenuButtonRef,
-    isClosed
+    sidebarClosed
   )
 
   return (
     <>
       <div>
-        <Sidebar isClosed={isClosed} param={id} history={history} />
-        <DashboardContainer className={isClosed && 'closed'} ref={dashboard}>
+        <Sidebar sidebarClosed={sidebarClosed} param={id} history={history} />
+        <DashboardContainer
+          className={sidebarClosed && 'closed'}
+          ref={dashboard}
+        >
           <ProjectContainer>
             <ProjectHeading>
               <ProjectHeadingContainer

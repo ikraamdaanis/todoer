@@ -30,7 +30,7 @@ import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import { Modal } from '../../components'
 
-export const Sidebar = ({ isClosed, param }) => {
+export const Sidebar = ({ sidebarClosed, param }) => {
   const [isOpen, setIsOpen] = useState(true)
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false)
   const [incompleteTasksCount, setIncompleteTasksCount] = useState(null)
@@ -64,7 +64,7 @@ export const Sidebar = ({ isClosed, param }) => {
   const activeCheck = el => el.toLowerCase() === param
 
   return (
-    <SidebarContainer className={isClosed && 'closed'}>
+    <SidebarContainer className={sidebarClosed && 'closed'}>
       <Container>
         <SidebarButtonContainer
           className={activeCheck('inbox') ? 'active' : undefined}
