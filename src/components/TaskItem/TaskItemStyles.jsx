@@ -99,7 +99,6 @@ export const TaskMenuContainer = styled.div`
   display: grid;
   place-content: center;
   position: relative;
-  padding-right: 0.5rem;
 
   .toggler {
     opacity: 0;
@@ -109,6 +108,9 @@ export const TaskMenuContainer = styled.div`
     place-content: center;
     border-radius: 4px;
     transition: 0.2s ease-in-out;
+    position: absolute;
+    top: -12px;
+    right: -30px;
 
     &:hover {
       background: #353535;
@@ -119,7 +121,7 @@ export const TaskMenuContainer = styled.div`
 export const TaskMenu = styled.div`
   position: absolute;
   z-index: 10000;
-  top: 15px;
+  top: 0px;
   right: 0;
   width: 250px;
   background: #282828;
@@ -185,7 +187,7 @@ export const MenuItem = styled.li`
 export const TaskTags = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 0 6px 30px;
+  padding: 0 0 6px 30px;
   height: 16px;
   width: 100%;
   font-size: 12px;
@@ -197,6 +199,40 @@ export const TaskTags = styled.div`
 
     svg {
       margin-right: 4px;
+    }
+  }
+
+  .project {
+    margin-left: auto;
+
+    a {
+      display: flex;
+      align-items: center;
+      transition: 0.2s ease-in-out;
+
+      &:hover {
+        small {
+          color: hsla(0, 0%, 100%, 0.87);
+        }
+      }
+    }
+
+    small {
+      color: hsla(0, 0%, 100%, 0.56);
+      font-size: 12px;
+      font-weight: 300;
+      transform: translateY(-1.5px);
+    }
+
+    .inbox {
+      margin-left: 1px;
+      transform: scale(0.7);
+      color: #246fe0;
+    }
+
+    .dot {
+      transform: translateX(-2px);
+      margin-left: 4px;
     }
   }
 `

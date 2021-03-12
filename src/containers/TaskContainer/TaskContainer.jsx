@@ -1,9 +1,9 @@
-import { format } from 'date-fns'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TaskItem } from '../../components'
 import { getAllTasks } from '../../store/actions/taskActions'
 import { TaskList, TaskListHeading } from './TaskContainerStyles'
+import { format } from 'date-fns'
 
 export const TaskContainer = ({
   project,
@@ -85,7 +85,7 @@ export const TaskContainer = ({
             </TaskListHeading>
             <TaskList className='overdue'>
               {overdueTasks
-                ?.filter(task => task.isComplete == isComplete)
+                ?.filter(task => task.isComplete === isComplete)
                 .map(task => (
                   <TaskItem
                     key={task.id}
@@ -96,6 +96,7 @@ export const TaskContainer = ({
                     clearTimer={clearTimer}
                     currentTaskForm={currentTaskForm}
                     setCurrentTaskForm={setCurrentTaskForm}
+                    currentProject={project}
                   />
                 ))}
             </TaskList>
@@ -106,7 +107,7 @@ export const TaskContainer = ({
         )}
       <TaskList>
         {projectTaskList
-          ?.filter(task => task.isComplete == isComplete)
+          ?.filter(task => task.isComplete === isComplete)
           .map(task => (
             <TaskItem
               key={task.id}
@@ -117,6 +118,7 @@ export const TaskContainer = ({
               clearTimer={clearTimer}
               currentTaskForm={currentTaskForm}
               setCurrentTaskForm={setCurrentTaskForm}
+              currentProject={project}
             />
           ))}
       </TaskList>

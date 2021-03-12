@@ -28,11 +28,12 @@ import {
   GreyButton,
   Spinner,
 } from '../../components'
+import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
+import { Sidebar, TaskContainer } from '../'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject } from '../../store/actions/projectActions'
 import { completeTask, incompleteTask } from '../../store/actions/taskActions'
-
-import { Sidebar, TaskContainer } from '../'
 
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
@@ -42,7 +43,6 @@ import { ReactComponent as CloseIcon } from '../../assets/images/x-icon-small.sv
 import logo from '../../assets/images/logo.png'
 
 import { format } from 'date-fns'
-import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
 import { scrollToBottom } from '../../utils/scrollToBottom'
 import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 

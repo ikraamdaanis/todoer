@@ -87,7 +87,9 @@ export const Sidebar = ({ isClosed, param }) => {
               <TodayIcon date={format(new Date(), 'dd')} />
               <span>Today</span>
               <small
-                style={{ color: incompleteTasksCount?.overdue && '#ff7066' }}
+                style={{
+                  color: incompleteTasksCount?.overdue ? '#ff7066' : '#aaa',
+                }}
               >
                 {incompleteTasksCount?.today + incompleteTasksCount?.overdue >
                   0 &&
