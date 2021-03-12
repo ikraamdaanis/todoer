@@ -5,7 +5,7 @@ export const SidebarContainer = styled.div`
   top: 44px;
   left: 0;
   height: calc(100vh - 44px);
-  background: var(--dark-gray);
+  background: ${props => props.theme.foreground};
   width: 305px;
   transition: transform 0.3s ease-in-out;
   z-index: 100;

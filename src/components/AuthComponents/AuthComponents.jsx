@@ -4,7 +4,7 @@ export const AuthPage = styled.div`
   background: var(--dark-gray);
   margin: 50px auto;
   border-radius: 8px;
-  border: solid 1px var(--light-black);
+  border: solid 1px ${props => props.theme.taskForm};
   padding: 25px;
   width: 500px;
   max-width: 95%;

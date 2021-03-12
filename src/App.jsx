@@ -5,6 +5,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
 import { PrivateRoute, ScrollToTop } from './components'
 import { Dashboard, Navbar } from './containers'
 import { Home, SignIn, SignUp } from './pages'
@@ -13,8 +14,16 @@ import { GlobalStyle } from './styles/globalStyle'
 export const App = () => {
   const [sidebarClosed, setSidebarClosed] = useState(false)
 
+  const theme = {
+    background: '#1f1f1f',
+    foreground: '#282828',
+    taskForm: '#171717',
+    textColour: 'hsla(0,0%,100%,0.87)',
+    active: '#363636',
+  }
+
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Router>
         <GlobalStyle />
         <Navbar setSidebarClosed={setSidebarClosed} />
@@ -47,6 +56,6 @@ export const App = () => {
           </Switch>
         </main>
       </Router>
-    </>
+    </ThemeProvider>
   )
 }

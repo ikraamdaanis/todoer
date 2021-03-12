@@ -26,8 +26,8 @@ html {
 
 body {
   overflow: hidden;
-  background: var(--very-dark-gray);
-  color: var(--text-white);
+  background: ${props => props.theme.background};
+  color: ${props => props.theme.textColour};
 
   @media(max-width: 450px){
     overflow: unset;
@@ -100,6 +100,6 @@ label {
 }
 
 .active {
-  background-color: #363636 !important;
+  background-color: ${props => props.theme.active} !important;
 }
 `

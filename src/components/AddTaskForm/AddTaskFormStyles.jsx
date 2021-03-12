@@ -7,7 +7,7 @@ export const AddTaskFormContainer = styled.div`
 export const AddTaskFormForm = styled.form``
 
 export const Container = styled.div`
-  background: var(--light-black);
+  background: ${props => props.theme.taskForm};
   border: 1px solid hsla(0, 0%, 100%, 0.1);
   border-radius: 5px;
   cursor: text;
