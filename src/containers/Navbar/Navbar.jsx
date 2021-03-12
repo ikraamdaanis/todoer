@@ -25,7 +25,10 @@ export const Navbar = ({ setIsClosed }) => {
               onClick={() => setIsClosed(isClosed => !isClosed)}
             />
           )}
-          <Link to='/' style={{ display: 'flex', alignItems: 'center' }}>
+          <Link
+            to={userInfo ? '/app/today' : '/'}
+            style={{ display: 'flex', alignItems: 'center' }}
+          >
             <HomeIcon className='home' />
           </Link>
           <RightContainer>
