@@ -17,7 +17,6 @@ export const TaskItemContainer = styled.div`
   flex-direction: column;
   position: relative;
   padding: 0;
-  cursor: pointer;
 
   &:hover {
     .toggler {

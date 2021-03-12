@@ -66,7 +66,11 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
           </AddProjectFormField>
         </AddProjectFormBody>
         <AddProjectFooter>
-          <AddProjectButton type='button' ref={cancelButton}>
+          <AddProjectButton
+            type='button'
+            ref={cancelButton}
+            onClick={() => setIsProjectModalOpen(false)}
+          >
             Cancel
           </AddProjectButton>
           <AddProjectButton
