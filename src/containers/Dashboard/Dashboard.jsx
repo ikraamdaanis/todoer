@@ -51,6 +51,7 @@ import { useSetPosition } from '../../hooks/useSetPosition'
 
 export const Dashboard = ({ history, match, isClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
+  const [currentTaskForm, setCurrentTaskForm] = useState('')
   const [tasksLoading, setTasksLoading] = useState(true)
   const [projectMenuOpen, setProjectMenuOpen] = useState(false)
   const [projectSortOpen, setProjectSortOpen] = useState(false)
@@ -74,6 +75,10 @@ export const Dashboard = ({ history, match, isClosed }) => {
 
   const projectList = useSelector(state => state.projectList)
   const { loading: projectsLoading, projects } = projectList
+
+  useEffect(() => {
+    currentTaskForm !== 'add' && setIsAddTaskOpen(false)
+  }, [currentTaskForm])
 
   useEffect(() => {
     if (projects) {
@@ -258,13 +263,20 @@ export const Dashboard = ({ history, match, isClosed }) => {
               sortOptions={sortOptions}
               setDashboardTasks={setDashboardTasks}
               setTasksLoading={setTasksLoading}
+              currentTaskForm={currentTaskForm}
+              setCurrentTaskForm={setCurrentTaskForm}
             />
 
             <AddTaskContainer
               className={showCompletedTasks ? 'complete' : undefined}
             >
               {!isAddTaskOpen ? (
-                <AddTask onClick={() => setIsAddTaskOpen(!isAddTaskOpen)}>
+                <AddTask
+                  onClick={() => {
+                    setIsAddTaskOpen(!isAddTaskOpen)
+                    setCurrentTaskForm('add')
+                  }}
+                >
                   <PlusButton className='plus'>
                     <PlusButtonSVG />
                   </PlusButton>

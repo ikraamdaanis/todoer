@@ -15,6 +15,8 @@ export const TaskContainer = ({
   sortOptions,
   setDashboardTasks,
   setTasksLoading,
+  currentTaskForm = '',
+  setCurrentTaskForm = null,
 }) => {
   const [taskData, setTaskData] = useState(null)
   const [projectTaskList, setProjectTaskList] = useState(null)
@@ -92,6 +94,8 @@ export const TaskContainer = ({
                     setTasksToNotComplete={setTasksToNotComplete}
                     setIsUndoVisible={setIsUndoVisible}
                     clearTimer={clearTimer}
+                    currentTaskForm={currentTaskForm}
+                    setCurrentTaskForm={setCurrentTaskForm}
                   />
                 ))}
             </TaskList>
@@ -111,6 +115,8 @@ export const TaskContainer = ({
               setTasksToNotComplete={setTasksToNotComplete}
               setIsUndoVisible={setIsUndoVisible}
               clearTimer={clearTimer}
+              currentTaskForm={currentTaskForm}
+              setCurrentTaskForm={setCurrentTaskForm}
             />
           ))}
       </TaskList>

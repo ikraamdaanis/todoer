@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   MenuItem,
   TaskCheck,
@@ -30,6 +30,8 @@ export const TaskItem = ({
   setTasksToNotComplete,
   setIsUndoVisible,
   clearTimer,
+  currentTaskForm,
+  setCurrentTaskForm,
 }) => {
   const [taskMenuOpen, setTaskMenuOpen] = useState(false)
   const [editMenuOpen, setEditMenuOpen] = useState(false)
@@ -39,6 +41,10 @@ export const TaskItem = ({
   const TaskMenuButtonRef = useRef(null)
 
   useMenu(TaskMenuButtonRef, TaskMenuRef, setTaskMenuOpen)
+
+  useEffect(() => {
+    currentTaskForm !== 'edit' && setEditMenuOpen(false)
+  }, [currentTaskForm])
 
   return (
     <TaskListItem key={task.id}>
@@ -100,16 +106,19 @@ export const TaskItem = ({
                 {taskMenuOpen && (
                   <TaskMenu ref={TaskMenuRef}>
                     <MenuList>
-                      <MenuItem
-                        title='Edit this task'
-                        onClick={() => {
-                          setEditMenuOpen(true)
-                          setTaskMenuOpen(false)
-                        }}
-                      >
-                        <EditIcon />
-                        <span>Edit task</span>
-                      </MenuItem>
+                      {!task.isComplete && (
+                        <MenuItem
+                          title='Edit this task'
+                          onClick={() => {
+                            setEditMenuOpen(true)
+                            setCurrentTaskForm('edit')
+                            setTaskMenuOpen(false)
+                          }}
+                        >
+                          <EditIcon />
+                          <span>Edit task</span>
+                        </MenuItem>
+                      )}
                       <MenuItem
                         title='Delete this task'
                         className='delete'
