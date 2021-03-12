@@ -88,7 +88,7 @@ export const ProjectsButtonContainer = styled.div`
 
 export const ProjectsButton = styled.button`
   margin-top: 1rem;
-  color: ${props => props.theme.text};
+  color: ${props => props.theme.textColour};
   border: 0;
   outline: 0;
   background: none;

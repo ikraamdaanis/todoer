@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 
 export const NavbarContainer = styled.nav`
-  background: var(--dark-gray);
+  background: ${props => props.theme.themeColour};
   height: 44px;
   border-bottom: 1px solid transparent;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
@@ -20,27 +20,30 @@ export const Container = styled.div`
   @media (max-width: 550px) {
     padding: 0 10px 0;
   }
+`
 
-  .menu-toggler {
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-    margin-right: 0.5rem;
+export const NavbarItem = styled.button`
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  margin-right: 0.5rem;
+  background: none;
+  border: 0;
+  outline: 0;
+  padding: 2px;
+  transform: translateX(-2px);
+  color: ${props => props.theme.navColour};
 
-    &:hover {
-      @media (min-width: 600px) {
-        color: var(--light-red);
-      }
-    }
+  &.home {
+    transform: translateX(-6px);
   }
 
-  .home {
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-
-    &:hover {
-      @media (min-width: 600px) {
-        color: var(--light-red);
-      }
+  &:hover {
+    @media (min-width: 600px) {
+      background: ${props => props.theme.hoverTransparent};
     }
   }
 `
@@ -55,11 +58,11 @@ export const RightContainer = styled.div`
 `
 export const AuthButton = styled.button`
   display: block;
-  background: var(--light-red);
+  background: ${props => props.theme.lightRed};
   border: 0;
   outline: 0;
   font-size: 13px;
-  color: var(--text-white);
+  color: ${props => props.theme.textColour};
   border-radius: 5px;
   padding: 4px 8px 5px;
   line-height: 100%;

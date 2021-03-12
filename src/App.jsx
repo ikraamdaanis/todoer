@@ -15,6 +15,7 @@ export const App = () => {
   const [sidebarClosed, setSidebarClosed] = useState(false)
 
   const theme = {
+    themeColour: '#282828',
     background: '#1f1f1f',
     foreground: '#282828',
     taskForm: '#171717',
@@ -23,9 +24,12 @@ export const App = () => {
     active: '#363636',
     border: 'hsla(0, 0%, 100%, 0.1)',
     lightRed: '#de4c4a',
+    hoverTransparent: 'hsla(0,0%,100%,.2)',
+    navColour: 'unset',
   }
 
   const themeLight = {
+    themeColour: '#DB4C40',
     background: '#fff',
     foreground: '#fafafa',
     taskForm: '#fff',
@@ -34,6 +38,8 @@ export const App = () => {
     active: '#ececec',
     border: 'hsla(0, 0%, 100%, 0.1)',
     lightRed: '#de4c4a',
+    hoverTransparent: 'hsla(0,0%,100%,.2)',
+    navColour: '#fff',
   }
 
   return (

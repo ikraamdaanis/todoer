@@ -3,6 +3,7 @@ import {
   Container,
   NavbarContainer,
   AuthButton,
+  NavbarItem,
 } from './NavbarStyles'
 import { ReactComponent as MenuToggler } from '../../assets/images/menu-toggler.svg'
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg'
@@ -20,17 +21,21 @@ export const Navbar = ({ setSidebarClosed }) => {
       <NavbarContainer>
         <Container>
           {userInfo && (
-            <MenuToggler
-              className='menu-toggler'
-              onClick={() => setSidebarClosed(prev => !prev)}
-            />
+            <NavbarItem>
+              <MenuToggler
+                className='menu-toggler'
+                onClick={() => setSidebarClosed(prev => !prev)}
+              />
+            </NavbarItem>
           )}
-          <Link
-            to={userInfo ? '/app/today' : '/'}
-            style={{ display: 'flex', alignItems: 'center' }}
-          >
-            <HomeIcon className='home' />
-          </Link>
+          <NavbarItem className='home'>
+            <Link
+              to={userInfo ? '/app/today' : '/'}
+              style={{ display: 'flex', alignItems: 'center' }}
+            >
+              <HomeIcon />
+            </Link>
+          </NavbarItem>
           <RightContainer>
             {!userInfo ? (
               <>
