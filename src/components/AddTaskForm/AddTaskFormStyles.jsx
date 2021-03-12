@@ -8,7 +8,7 @@ export const AddTaskFormForm = styled.form``
 
 export const Container = styled.div`
   background: ${props => props.theme.taskForm};
-  border: 1px solid hsla(0, 0%, 100%, 0.1);
+  border: 1px solid ${props => props.theme.border};
   border-radius: 5px;
   cursor: text;
   padding: 0.7rem 1rem 0.8rem;
@@ -53,7 +53,7 @@ export const Container = styled.div`
       outline: none;
       word-break: break-word;
       padding-bottom: 10px;
-      color: hsla(0, 0%, 100%, 0.87);
+      color: ${props => props.theme.textColour};
       font-weight: 300;
     }
   }
@@ -76,12 +76,12 @@ export const SubOptions = styled.div`
       align-items: center;
       justify-content: space-between;
       height: 28px;
-      color: hsla(0, 0%, 100%, 0.87);
+      color: ${props => props.theme.textColour};
       font-size: 13px;
       font-weight: 300;
 
       &:hover {
-        background: #363636;
+        background: ${props => props.theme.active};
       }
     }
   }
@@ -110,7 +110,7 @@ export const ProjectSelection = styled.div`
     align-items: center;
     justify-content: space-between;
     height: 28px;
-    color: hsla(0, 0%, 100%, 0.6);
+    color: ${props => props.theme.textColour};
     font-size: 13px;
     font-weight: 300;
     opacity: 1 !important;
@@ -119,7 +119,7 @@ export const ProjectSelection = styled.div`
     cursor: pointer;
 
     &:hover {
-      background: #363636;
+      background: ${props => props.theme.active};
     }
 
     .inbox {
@@ -176,14 +176,14 @@ export const AddTaskSubmitButton = styled.button`
   border-radius: 3px;
   text-decoration: none;
   text-align: center;
-  background: #de4c4a;
+  background: ${props => props.theme.lightRed};
   border: 1px solid transparent;
   outline: none;
   color: #fff;
   transition: 0.2s ease-in-out;
 
   &:disabled {
-    filter: brightness(0.5);
+    opacity: 0.5;
   }
 `
 
@@ -200,7 +200,7 @@ export const AddTaskCancel = styled.button`
   text-decoration: none;
   text-align: center;
   outline: none;
-  color: hsla(0, 0%, 100%, 0.4);
+  color: ${props => props.theme.textTertiary};
   background: none;
   transition: 0.2s ease-in-out;
   font-size: 13px;
@@ -212,7 +212,7 @@ export const AddTaskCancel = styled.button`
 
   &:hover {
     @media (min-width: 600px) {
-      color: #eee;
+      color: #${props => props.theme.textColour};
       text-decoration: underline;
     }
   }

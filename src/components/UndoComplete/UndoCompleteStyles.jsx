@@ -24,7 +24,7 @@ export const UndoText = styled.h4`
   text-align: left;
   text-overflow: ellipsis;
   line-height: 1em;
-  color: hsla(0, 0%, 100%, 0.87);
+  color: ${props => props.theme.textColour};
   font-size: 13px;
   font-weight: 300;
   width: 150px;

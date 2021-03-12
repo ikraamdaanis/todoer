@@ -35,7 +35,7 @@ export const GoogleSignUp = styled.button`
 
   &:hover {
     background: #2c2c2c;
-    border: 1px solid #363636;
+    border: 1px solid ${props => props.theme.active};
   }
 
   img {
@@ -96,7 +96,7 @@ export const Input = styled.input`
   font-weight: 400;
   width: 100%;
   padding: 0.75em 1em;
-  border: 1px solid var(--very-dark-gray);
+  border: 1px solid ${props => props.theme.background};
   color: var(--text-white);
   border-radius: 5px;
   outline: 0;
@@ -138,6 +138,6 @@ export const AuthQuestion = styled.div`
   font-weight: 500;
 
   a {
-    color: var(--light-red);
+    color: ${props => props.theme.lightRed};
   }
 `

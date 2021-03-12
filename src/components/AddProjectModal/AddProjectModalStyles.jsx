@@ -17,7 +17,7 @@ export const AddProjectForm = styled.form`
 `
 
 export const AddProjectFormHeader = styled.header`
-  background-color: #202020;
+  background-color: ${props => props.theme.inputColour};
   position: relative;
   padding: 0 24px;
   display: -webkit-box;
@@ -25,7 +25,7 @@ export const AddProjectFormHeader = styled.header`
   align-items: center;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  border-bottom: 1px solid ${props => props.theme.border};
 
   h1 {
     padding: 14px 0;
@@ -36,7 +36,7 @@ export const AddProjectFormHeader = styled.header`
 
 export const AddProjectFormBody = styled.section`
   padding: 20px 24px;
-  background: var(--dark-gray);
+  background: ${props => props.theme.foreground};
 `
 
 export const AddProjectFormField = styled.div`
@@ -46,7 +46,7 @@ export const AddProjectFormField = styled.div`
 `
 
 export const AddProjectLabel = styled.label`
-  color: #eee;
+  color: ${props => props.theme.textColour};
   font-size: 14px;
   width: 50%;
   font-weight: 700;
@@ -56,13 +56,13 @@ export const AddProjectLabel = styled.label`
 `
 
 export const AddProjectInput = styled.input`
-  color: #eee;
+  color: ${props => props.theme.textColour};
   border-color: #333;
-  background-color: #202020;
+  background-color: ${props => props.theme.inputColour};
   width: calc(100% - 12px);
   font-size: 14px;
   border-radius: 5px;
-  border: 1px solid hsla(0, 0%, 100%, 0.1);
+  border: 1px solid ${props => props.theme.border};
   padding: 5px;
   outline: none;
 
@@ -77,18 +77,18 @@ export const AddProjectFooter = styled.footer`
   justify-content: flex-end;
   padding: 12px 24px;
   background-color: inherit;
-  border-top: 1px solid #333;
-  background-color: var(--dark-gray);
+  border-top: 1px solid ${props => props.theme.border};
+  background-color: ${props => props.theme.foreground};
 `
 
 export const AddProjectButton = styled.button`
-  color: #eee;
-  background-color: #353535;
+  color: ${props => props.theme.textColour};
+  background-color: ${props => props.theme.active};
   text-shadow: none;
   border: none;
   margin-left: 10px;
   padding: 6px 12px 7px;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 13px;
   line-height: 17px;
   text-decoration: none;
@@ -101,8 +101,9 @@ export const AddProjectButton = styled.button`
   outline: none;
 
   &.add {
-    background: #de4c4a;
+    background: ${props => props.theme.lightRed};
     padding: 6px 14px 7px 12px;
+    color: #fff;
 
     &:disabled {
       opacity: 0.5;

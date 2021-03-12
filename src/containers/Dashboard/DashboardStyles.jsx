@@ -83,7 +83,7 @@ export const ProjectHeadingContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--very-dark-gray);
+  background: ${props => props.theme.background};
   width: 100%;
   height: 100%;
   padding: 36px 0 8px;
@@ -91,7 +91,7 @@ export const ProjectHeadingContainer = styled.div`
   transition: 0.2s ease-in-out;
 
   &.scrolling {
-    border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+    border-bottom: 1px solid ${props => props.theme.border};
   }
 `
 
@@ -119,23 +119,23 @@ export const ProjectSortButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background: #353535;
+    background: ${props => props.theme.active};
 
     svg {
-      color: hsla(0, 0%, 100%, 0.87);
+      color: ${props => props.theme.textColour};
     }
 
     span {
-      color: hsla(0, 0%, 100%, 0.87);
+      color: ${props => props.theme.textColour};
     }
   }
 
   svg {
-    color: hsla(0, 0%, 100%, 0.56);
+    color: ${props => props.theme.textTertiary};
   }
 
   span {
-    color: hsla(0, 0%, 100%, 0.56);
+    color: ${props => props.theme.textTertiary};
     font-weight: 300;
     font-size: 12px;
   }
@@ -161,15 +161,15 @@ export const ProjectOptionsButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background: #353535;
+    background: ${props => props.theme.active};
 
     svg {
-      color: hsla(0, 0%, 100%, 0.87);
+      color: ${props => props.theme.textColour};
     }
   }
 
   svg {
-    color: hsla(0, 0%, 100%, 0.56);
+    color: ${props => props.theme.textTertiary};
   }
 `
 
@@ -182,7 +182,7 @@ export const Title = styled.h1`
   margin: 0;
 
   small {
-    color: grey;
+    color: ${props => props.theme.textTertiary};
     margin-left: 6px;
     font-size: 12px;
     font-weight: 300;
@@ -194,7 +194,7 @@ export const SortHeading = styled.div`
   display: flex;
   padding: 10px 0;
   justify-content: flex-end;
-  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  border-bottom: 1px solid ${props => props.theme.border};
   margin-bottom: 2rem;
 `
 
@@ -216,7 +216,7 @@ export const SortTitle = styled.span`
   font-weight: 500;
   width: auto;
   padding: 0 8px;
-  color: hsla(0, 0%, 100%, 0.56);
+  color: ${props => props.theme.textTertiary};
 `
 
 export const SortCancelButton = styled.button``
@@ -230,12 +230,12 @@ export const AddTask = styled.div`
   &:hover {
     @media (min-width: 600px) {
       .plus {
-        background: #de4c4a;
+        background: ${props => props.theme.lightRed};
         color: white;
       }
 
       p {
-        color: #de4c4a;
+        color: ${props => props.theme.lightRed};
       }
     }
   }
@@ -245,7 +245,7 @@ export const PlusButton = styled.div`
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  color: #de4c4a;
+  color: ${props => props.theme.lightRed};
   position: relative;
 
   svg {
@@ -267,7 +267,7 @@ export const AddTaskText = styled.p`
 export const DashboardLoading = styled.div`
   width: 100vw;
   height: 100vh;
-  background: var(--very-dark-gray);
+  background: ${props => props.theme.background};
   display: grid;
   place-content: center;
 

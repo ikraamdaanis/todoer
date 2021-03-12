@@ -8,7 +8,7 @@ export const TaskList = styled.ul`
 export const TaskListHeading = styled.div`
   display: flex;
   margin-top: 28px;
-  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  border-bottom: 1px solid ${props => props.theme.border};
 
   h3 {
     font-size: 14px;

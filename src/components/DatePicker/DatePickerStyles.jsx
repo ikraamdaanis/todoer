@@ -14,7 +14,7 @@ export const DatePickerToggle = styled.span`
   color: hsla(0, 0%, 100%, 0.6);
 
   &:hover {
-    background: #363636;
+    background: ${props => props.theme.active};
   }
 `
 

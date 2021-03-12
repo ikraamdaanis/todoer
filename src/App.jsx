@@ -21,11 +21,13 @@ export const App = () => {
     taskForm: '#171717',
     textColour: 'hsla(0,0%,100%,0.87)',
     textSecondary: '#aaa',
+    textTertiary: 'hsla(0,0%,100%,0.56)',
     active: '#363636',
     border: 'hsla(0, 0%, 100%, 0.1)',
     lightRed: '#de4c4a',
     hoverTransparent: 'hsla(0,0%,100%,.2)',
     navColour: 'unset',
+    inputColour: '#202020',
   }
 
   const themeLight = {
@@ -35,11 +37,13 @@ export const App = () => {
     taskForm: '#fff',
     textColour: '#202020',
     textSecondary: '#aaa',
+    textTertiary: '#808080',
     active: '#ececec',
     border: '#dcdcdc',
     lightRed: '#de4c4a',
     hoverTransparent: 'hsla(0,0%,100%,.2)',
     navColour: '#fff',
+    inputColour: '#fff',
   }
 
   return (

@@ -2,7 +2,7 @@ import styled from 'styled-components/macro'
 
 export const TaskListItem = styled.li`
   font-size: 14px;
-  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+  border-bottom: 1px solid ${props => props.theme.border};
 
   &.hide {
     display: none;
@@ -85,7 +85,7 @@ export const TaskDescription = styled.p`
   line-height: 21px;
   word-wrap: break-word;
   word-break: break-word;
-  color: hsla(0, 0%, 100%, 0.87);
+  color: ${props => props.theme.textColour};
   font-weight: 300;
 
   &.complete {
@@ -112,7 +112,7 @@ export const TaskMenuContainer = styled.div`
     right: -30px;
 
     &:hover {
-      background: #353535;
+      background: ${props => props.theme.active};
     }
   }
 `
@@ -123,7 +123,7 @@ export const TaskMenu = styled.div`
   top: 0px;
   right: 0;
   width: 250px;
-  background: #282828;
+  background: ${props => props.theme.background};
   box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
   border-radius: 3px;
   padding: 4px 0;
@@ -145,7 +145,7 @@ export const TaskMenu = styled.div`
 export const MenuList = styled.ul``
 
 export const MenuItem = styled.li`
-  color: hsla(0, 0%, 100%, 0.56);
+  color: ${props => props.theme.textTertiary};
   text-shadow: none;
   background: none;
   border: none;
@@ -158,27 +158,27 @@ export const MenuItem = styled.li`
   padding: 4px 10px;
 
   &:hover {
-    background-color: #353535;
+    background-color: ${props => props.theme.active};
 
     &.delete {
       svg {
-        color: var(--light-red);
+        color: ${props => props.theme.lightRed};
       }
 
       span {
-        color: var(--light-red);
+        color: ${props => props.theme.lightRed};
       }
     }
   }
 
   svg {
-    color: hsla(0, 0%, 100%, 0.56);
+    color: ${props => props.theme.textTertiary};
     margin-right: 10px;
   }
 
   span {
     font-size: 13px;
-    color: hsla(0, 0%, 100%, 0.87);
+    color: ${props => props.theme.textColour};
     font-weight: 300;
   }
 `
@@ -211,13 +211,13 @@ export const TaskTags = styled.div`
 
       &:hover {
         small {
-          color: hsla(0, 0%, 100%, 0.87);
+          color: ${props => props.theme.textColour};
         }
       }
     }
 
     small {
-      color: hsla(0, 0%, 100%, 0.56);
+      color: ${props => props.theme.textTertiary};
       font-size: 12px;
       font-weight: 300;
       transform: translateY(-1.5px);

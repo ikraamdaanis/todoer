@@ -6,7 +6,7 @@ export const DropdownContainer = styled.div`
   top: 15px;
   right: 0;
   width: 250px;
-  background: #282828;
+  background: ${props => props.theme.background};
   box-shadow: 0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%);
   border-radius: 3px;
   padding: 4px 0;
@@ -30,7 +30,7 @@ export const DropdownList = styled.ul`
 `
 
 export const DropdownItem = styled.li`
-  color: hsla(0, 0%, 100%, 0.56);
+  color: ${props => props.theme.textTertiary};
   text-shadow: none;
   background: none;
   border: none;
@@ -43,27 +43,27 @@ export const DropdownItem = styled.li`
   padding: 4px 10px;
 
   &:hover {
-    background-color: #353535;
+    background-color: ${props => props.theme.active};
 
     &.delete {
       svg {
-        color: var(--light-red);
+        color: ${props => props.theme.lightRed};
       }
 
       span {
-        color: var(--light-red);
+        color: ${props => props.theme.lightRed};
       }
     }
   }
 
   svg {
-    color: hsla(0, 0%, 100%, 0.56);
+    color: ${props => props.theme.textTertiary};
     margin-right: 10px;
   }
 
   span {
     font-size: 13px;
-    color: hsla(0, 0%, 100%, 0.87);
+    color: ${props => props.theme.textColour};
     font-weight: 300;
   }
 `
@@ -71,6 +71,6 @@ export const DropdownItem = styled.li`
 export const Line = styled.div`
   width: 96%;
   height: 1px;
-  background: hsla(0, 0%, 100%, 0.1);
+  background: ${props => props.theme.border};
   margin: 0.2rem auto;
 `

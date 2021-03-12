@@ -15,14 +15,14 @@ export const GreyButtonStyles = styled.button`
   cursor: pointer;
 
   &:hover {
-    background: #353535;
+    background: ${props => props.theme.active};
 
     svg {
-      color: hsla(0, 0%, 100%, 0.87);
+      color: ${props => props.theme.textColour};
     }
   }
 
   svg {
-    color: hsla(0, 0%, 100%, 0.56);
+    color: ${props => props.theme.textTertiary};
   }
 `

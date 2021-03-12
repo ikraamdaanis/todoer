@@ -12,7 +12,7 @@ export const MenuContainer = styled.div`
   box-shadow: 0 2px 10px rgb(0 0 0 / 30%);
   font-weight: 300;
   font-size: 13px;
-  color: hsla(0, 0%, 100%, 0.87);
+  color: ${props => props.theme.textColour};
   padding: 0.2rem 0;
 `
 
@@ -50,11 +50,11 @@ export const MenuItem = styled.li`
   }
 
   &:hover {
-    background: #363636;
+    background: ${props => props.theme.active};
   }
 
   &.selected {
-    background: #363636;
+    background: ${props => props.theme.active};
   }
 
   .checkmark {

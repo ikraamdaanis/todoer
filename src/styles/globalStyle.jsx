@@ -13,7 +13,7 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 :root {
-  --dark-gray: #282828;
+  --dark-gray: ${props => props.theme.background};
   --very-dark-gray: #1f1f1f;
   --light-black: #171717;
   --text-white: #ffffffde;
