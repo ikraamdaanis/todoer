@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { TaskItem } from '../../components'
 import { TaskList, TaskListHeading } from '../TaskContainer/TaskContainerStyles'
 import { format } from 'date-fns'
 
-export const TodayTaskContainer = ({
-  allTasks,
-  loadingTasks,
+export const OverdueContainer = ({
+  tasks,
   project,
   isComplete,
   setTasksToComplete,
@@ -16,21 +15,15 @@ export const TodayTaskContainer = ({
   currentTaskForm = '',
   setCurrentTaskForm = null,
 }) => {
-  const [overdueTasks, setOverdueTasks] = useState(null)
-
-  useEffect(() => {
-    !loadingTasks && setOverdueTasks(allTasks?.overdue)
-  }, [allTasks, loadingTasks, project])
-
   return (
     <>
-      {overdueTasks?.some(task => !task.isComplete) && (
+      {tasks?.some(task => !task.isComplete) && (
         <>
           <TaskListHeading>
             <h3>Overdue</h3>
           </TaskListHeading>
           <TaskList className='overdue'>
-            {overdueTasks
+            {tasks
               ?.filter(task => task.isComplete === isComplete)
               .map(task => (
                 <TaskItem
@@ -55,9 +48,8 @@ export const TodayTaskContainer = ({
   )
 }
 
-TodayTaskContainer.propTypes = {
-  allTasks: PropTypes.object,
-  loadingTasks: PropTypes.bool,
+OverdueContainer.propTypes = {
+  tasks: PropTypes.array,
   project: PropTypes.object,
   isComplete: PropTypes.bool,
   setTasksToComplete: PropTypes.func,

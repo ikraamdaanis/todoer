@@ -30,7 +30,7 @@ import {
   Spinner,
 } from '../../components'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
-import { Sidebar, TaskContainer } from '../'
+import { Sidebar, TaskContainer, OverdueContainer } from '../'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject } from '../../store/actions/projectActions'
@@ -51,7 +51,6 @@ import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 import { useMenu } from '../../hooks/useMenu'
 import { useSetPosition } from '../../hooks/useSetPosition'
 import { ThemeContext } from '../../App'
-import { TodayTaskContainer } from '../TodayTaskContainer/TodayTaskContainer'
 
 export const Dashboard = ({ history, match, sidebarClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
@@ -75,7 +74,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
   const dispatch = useDispatch()
 
   const taskList = useSelector(state => state.taskList)
-  const { loading: loadingTasks, tasks: allTasks } = taskList
+  const { tasks: allTasks } = taskList
 
   useEffect(() => {
     dispatch(getAllTasks())
@@ -247,73 +246,80 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
                 </SortDetails>
               </SortHeading>
             )}
-            {currentProject?.title === 'today' && (
-              <TodayTaskContainer
-                allTasks={allTasks}
-                loadingTasks={loadingTasks}
-                project={currentProject}
-                isComplete={false}
-                setTasksToComplete={setTasksToComplete}
-                setTasksToNotComplete={setTasksToNotComplete}
-                setIsUndoVisible={setIsUndoVisible}
-                clearTimer={clearTimer}
-                setTasksLoading={setTasksLoading}
-                currentTaskForm={currentTaskForm}
-                setCurrentTaskForm={setCurrentTaskForm}
-              />
-            )}
-            <TaskContainer
-              tasks={allTasks[currentProject.title]}
-              project={currentProject}
-              isComplete={false}
-              setTasksToComplete={setTasksToComplete}
-              setTasksToNotComplete={setTasksToNotComplete}
-              setIsUndoVisible={setIsUndoVisible}
-              clearTimer={clearTimer}
-              sortOptions={sortOptions}
-              setDashboardTasks={setDashboardTasks}
-              setTasksLoading={setTasksLoading}
-              currentTaskForm={currentTaskForm}
-              setCurrentTaskForm={setCurrentTaskForm}
-            />
-
-            <AddTaskContainer className={showCompletedTasks ? 'complete' : undefined}>
-              {!isAddTaskOpen ? (
-                <AddTask
-                  onClick={() => {
-                    setIsAddTaskOpen(!isAddTaskOpen)
-                    setCurrentTaskForm('add')
-                  }}
-                >
-                  <PlusButton className='plus'>
-                    <PlusButtonSVG />
-                  </PlusButton>
-                  <AddTaskText>Add task</AddTaskText>
-                </AddTask>
-              ) : (
-                <AddTaskForm
-                  id='taskForm'
-                  edit={false}
-                  setIsOpen={setIsAddTaskOpen}
-                  currentProject={currentProject}
-                  scrollDownToLastTask={scrollDownToLastTask}
+            {!allTasks ? (
+              <Spinner />
+            ) : (
+              <>
+                {currentProject?.title === 'today' && (
+                  <OverdueContainer
+                    tasks={allTasks.overdue}
+                    project={currentProject}
+                    isComplete={false}
+                    setTasksToComplete={setTasksToComplete}
+                    setTasksToNotComplete={setTasksToNotComplete}
+                    setIsUndoVisible={setIsUndoVisible}
+                    clearTimer={clearTimer}
+                    setTasksLoading={setTasksLoading}
+                    currentTaskForm={currentTaskForm}
+                    setCurrentTaskForm={setCurrentTaskForm}
+                  />
+                )}
+                <TaskContainer
+                  tasks={allTasks[currentProject?.title]}
+                  project={currentProject}
+                  isComplete={false}
+                  setTasksToComplete={setTasksToComplete}
+                  setTasksToNotComplete={setTasksToNotComplete}
+                  setIsUndoVisible={setIsUndoVisible}
+                  clearTimer={clearTimer}
+                  sortOptions={sortOptions}
+                  setDashboardTasks={setDashboardTasks}
+                  setTasksLoading={setTasksLoading}
+                  currentTaskForm={currentTaskForm}
+                  setCurrentTaskForm={setCurrentTaskForm}
+                  overdue={allTasks.overdue}
                 />
-              )}
-            </AddTaskContainer>
-            {showCompletedTasks && (
-              <TaskContainer
-                allTasks={allTasks}
-                loadingTasks={loadingTasks}
-                project={currentProject}
-                isComplete={true}
-                setTasksToComplete={setTasksToComplete}
-                setTasksToNotComplete={setTasksToNotComplete}
-                setIsUndoVisible={setIsUndoVisible}
-                clearTimer={clearTimer}
-                sortOptions={sortOptions}
-                setDashboardTasks={setDashboardTasks}
-                setTasksLoading={setTasksLoading}
-              />
+                <AddTaskContainer className={showCompletedTasks ? 'complete' : undefined}>
+                  {!isAddTaskOpen ? (
+                    <AddTask
+                      onClick={() => {
+                        setIsAddTaskOpen(!isAddTaskOpen)
+                        setCurrentTaskForm('add')
+                      }}
+                    >
+                      <PlusButton className='plus'>
+                        <PlusButtonSVG />
+                      </PlusButton>
+                      <AddTaskText>Add task</AddTaskText>
+                    </AddTask>
+                  ) : (
+                    <AddTaskForm
+                      id='taskForm'
+                      edit={false}
+                      setIsOpen={setIsAddTaskOpen}
+                      currentProject={currentProject}
+                      scrollDownToLastTask={scrollDownToLastTask}
+                    />
+                  )}
+                </AddTaskContainer>
+                {showCompletedTasks && (
+                  <TaskContainer
+                    tasks={allTasks[currentProject?.title]}
+                    project={currentProject}
+                    isComplete={true}
+                    setTasksToComplete={setTasksToComplete}
+                    setTasksToNotComplete={setTasksToNotComplete}
+                    setIsUndoVisible={setIsUndoVisible}
+                    clearTimer={clearTimer}
+                    sortOptions={sortOptions}
+                    setDashboardTasks={setDashboardTasks}
+                    setTasksLoading={setTasksLoading}
+                    currentTaskForm={currentTaskForm}
+                    setCurrentTaskForm={setCurrentTaskForm}
+                    overdue={allTasks.overdue}
+                  />
+                )}
+              </>
             )}
           </ProjectContainer>
         </DashboardContainer>

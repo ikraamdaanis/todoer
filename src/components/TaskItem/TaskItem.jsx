@@ -90,17 +90,11 @@ export const TaskItem = ({
                   }
                 }}
               >
-                <div
-                  className={`circle ${
-                    task.isComplete ? 'complete' : undefined
-                  }`}
-                >
+                <div className={`circle ${task.isComplete ? 'complete' : undefined}`}>
                   <TickIcon />
                 </div>
               </TaskCheck>
-              <TaskDescription
-                className={`${task.isComplete ? 'complete' : undefined}`}
-              >
+              <TaskDescription className={`${task.isComplete ? 'complete' : undefined}`}>
                 {task.description}
               </TaskDescription>
               <TaskMenuContainer>
@@ -113,10 +107,7 @@ export const TaskItem = ({
                   <MenuToggler />
                 </div>
                 {taskMenuOpen && (
-                  <TaskMenu
-                    ref={TaskMenuRef}
-                    style={{ background: !darkTheme && '#fff' }}
-                  >
+                  <TaskMenu ref={TaskMenuRef} style={{ background: !darkTheme && '#fff' }}>
                     <MenuList>
                       {!task.isComplete && (
                         <MenuItem
@@ -152,11 +143,7 @@ export const TaskItem = ({
                 <div
                   className='date'
                   style={{
-                    color: setDateColour(
-                      setDateText(task.dueDate),
-                      task.dueDate,
-                      darkTheme
-                    ),
+                    color: setDateColour(setDateText(task.dueDate), task.dueDate, darkTheme),
                   }}
                 >
                   <DueDateIcon />

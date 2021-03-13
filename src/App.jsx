@@ -58,8 +58,7 @@ export const App = () => {
           <Navbar setSidebarClosed={setSidebarClosed} />
           <ScrollToTop />
           <main>
-            <Switch style={{ display: 'flex' }}>
-              <PrivateRoute path='/app' exact component={Dashboard} sidebarClosed={sidebarClosed} />
+            <Switch>
               <PrivateRoute
                 path='/app/:id'
                 exact

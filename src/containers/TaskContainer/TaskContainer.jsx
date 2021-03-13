@@ -17,9 +17,9 @@ export const TaskContainer = ({
   setTasksLoading,
   currentTaskForm = '',
   setCurrentTaskForm = null,
+  overdue,
 }) => {
   const [projectTaskList, setProjectTaskList] = useState(null)
-  const [overdueTasks, setOverdueTasks] = useState(null)
 
   const { id } = useParams()
 
@@ -46,14 +46,17 @@ export const TaskContainer = ({
     const data = tasksToSort.concat(tasksToNotSort)
     direction === 'desc' && data.reverse()
 
-    setOverdueTasks(tasks?.overdue)
     setDashboardTasks(data)
     setProjectTaskList(data)
-  }, [sortOptions, tasks, setDashboardTasks, id])
+  }, [sortOptions, tasks, setDashboardTasks, id, isComplete])
 
   useEffect(() => {
-    overdueTasks && setTasksLoading(false)
-  }, [overdueTasks, setTasksLoading])
+    overdue && setTasksLoading(false)
+  }, [overdue, setTasksLoading])
+
+  useEffect(() => {
+    console.log('Tasks =>', tasks, project?.title)
+  })
 
   return (
     <TaskList>
@@ -78,6 +81,7 @@ export const TaskContainer = ({
 
 TaskContainer.propTypes = {
   tasks: PropTypes.array,
+  overdue: PropTypes.array,
   project: PropTypes.object,
   isComplete: PropTypes.bool,
   setTasksToComplete: PropTypes.func,
