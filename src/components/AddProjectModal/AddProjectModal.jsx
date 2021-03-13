@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useMenu } from '../../hooks/useMenu'
@@ -76,8 +77,8 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
           <AddProjectButton
             type='submit'
             className='add'
-            aria-disabled={!!!project}
-            disabled={!!!project}
+            aria-disabled={!project}
+            disabled={!project}
           >
             Add
           </AddProjectButton>
@@ -85,4 +86,8 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
       </AddProjectForm>
     </ProjectModal>
   )
+}
+
+AddProjectModal.propTypes = {
+  setIsProjectModalOpen: PropTypes.func,
 }

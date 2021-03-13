@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import {
   AddTaskCancel,
   AddTaskFormContainer,
@@ -21,7 +22,7 @@ import { format } from 'date-fns'
 import { useHistory } from 'react-router'
 
 export const AddTaskForm = ({
-  edit = false,
+  edit,
   setIsOpen,
   currentProject,
   scrollDownToLastTask = null,
@@ -190,4 +191,12 @@ export const AddTaskForm = ({
       </AddTaskFormForm>
     </AddTaskFormContainer>
   )
+}
+
+AddTaskForm.propTypes = {
+  edit: PropTypes.bool,
+  setIsOpen: PropTypes.func,
+  currentProject: PropTypes.object,
+  scrollDownToLastTask: PropTypes.func,
+  taskDetails: PropTypes.object,
 }
