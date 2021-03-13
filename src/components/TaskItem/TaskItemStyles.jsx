@@ -228,7 +228,7 @@ export const TaskTags = styled.div`
     }
 
     .dot {
-      transform: translateX(-2px);
+      transform: translate(-2px, -1px);
       margin-left: 4px;
     }
   }
