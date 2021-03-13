@@ -117,7 +117,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
     })
   }, [id, projects, fetchTasks])
 
-  let timer
+  let timer = useRef(null)
 
   useEffect(() => {
     console.log('Timer', timer)
@@ -128,7 +128,8 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
       const { id, project } = task
       dispatch(completeTask(id, project))
     })
-    timer = setTimeout(() => {
+    timer.current = setTimeout(() => {
+      console.log('hi')
       setIsUndoVisible(false)
       setTasksToComplete([])
     }, 5000)
@@ -147,13 +148,13 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
       const { id, project } = task
       dispatch(incompleteTask(id, project))
     })
-    clearTimeout(timer)
+    clearTimeout(timer.current)
     setTasksToComplete([])
     setIsUndoVisible(false)
   }
 
   const clearTimer = () => {
-    clearTimeout(timer)
+    clearTimeout(timer.current)
   }
 
   useEffect(() => {

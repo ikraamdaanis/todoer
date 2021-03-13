@@ -38,7 +38,7 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
       proj && history.push(`/app/${proj.toLowerCase()}`)
       proj && setIsProjectModalOpen(false)
     }
-  }, [success])
+  }, [history, project, success, setIsProjectModalOpen])
 
   const form = useRef(null)
   const cancelButton = useRef(null)
