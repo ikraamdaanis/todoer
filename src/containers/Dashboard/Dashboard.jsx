@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useContext,
+} from 'react'
 import PropTypes from 'prop-types'
 import {
   AddTask,
@@ -41,7 +47,8 @@ import { ReactComponent as ProjectMore } from '../../assets/images/project-more.
 import { ReactComponent as SortIcon } from '../../assets/images/sort-icon.svg'
 import { ReactComponent as Arrow } from '../../assets/images/arrow.svg'
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon-small.svg'
-import logo from '../../assets/images/logo.png'
+import logoDark from '../../assets/images/logo-dark.png'
+import logoLight from '../../assets/images/logo-light.png'
 
 import { format } from 'date-fns'
 import { scrollToBottom } from '../../utils/scrollToBottom'
@@ -49,6 +56,7 @@ import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 
 import { useMenu } from '../../hooks/useMenu'
 import { useSetPosition } from '../../hooks/useSetPosition'
+import { ThemeContext } from '../../App'
 
 export const Dashboard = ({ history, match, sidebarClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
@@ -68,6 +76,8 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
     option: 'createdAt',
     direction: 'asc',
   })
+
+  const { darkTheme } = useContext(ThemeContext)
 
   const dispatch = useDispatch()
   const { id } = match.params
@@ -353,7 +363,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
       {tasksLoading && (
         <Modal>
           <DashboardLoading>
-            <img src={logo} alt='Logo' />
+            <img src={darkTheme ? logoDark : logoLight} alt='Logo' />
             <Spinner />
           </DashboardLoading>
         </Modal>

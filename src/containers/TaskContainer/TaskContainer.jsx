@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TaskItem } from '../../components'
 import { getAllTasks } from '../../store/actions/taskActions'
 import { TaskList, TaskListHeading } from './TaskContainerStyles'
 import { format } from 'date-fns'
+import { ThemeContext } from '../../App'
 
 export const TaskContainer = ({
   project,
@@ -71,9 +72,15 @@ export const TaskContainer = ({
     setDashboardTasks(data)
   }, [taskData, sortOptions, project])
 
+  const { darkTheme } = useContext(ThemeContext)
+
+  useEffect(() => {
+    console.log(darkTheme)
+  }, [darkTheme])
+
   useEffect(() => {
     overdueTasks && setTasksLoading(false)
-  }, [overdueTasks])
+  }, [overdueTasks, setTasksLoading])
 
   return (
     <>

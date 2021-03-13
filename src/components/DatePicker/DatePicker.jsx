@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import PropTypes from 'prop-types'
 import {
   DatePickerInput,
   DatePickerToggle,
@@ -46,4 +47,9 @@ export const DatePicker = ({ chosenDate, setDate }) => {
       </DatePickerToggle>
     </>
   )
+}
+
+DatePicker.propTypes = {
+  chosenDate: PropTypes.string,
+  setDate: PropTypes.func,
 }
