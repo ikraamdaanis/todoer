@@ -117,11 +117,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
     })
   }, [id, projects, fetchTasks])
 
-  let timer = useRef(null)
-
-  useEffect(() => {
-    console.log('Timer', timer)
-  }, [timer])
+  const timer = useRef(null)
 
   const completeSelectedTask = useCallback(() => {
     tasksToComplete.forEach(task => {

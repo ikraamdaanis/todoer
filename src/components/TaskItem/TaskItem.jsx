@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import {
   MenuItem,
   TaskCheck,
@@ -27,6 +27,7 @@ import { deleteTask } from '../../store/actions/taskActions'
 import { Modal } from '../Modal/Modal'
 import { AddTaskForm } from '../AddTaskForm/AddTaskForm'
 import { Link } from 'react-router-dom'
+import { ThemeContext } from '../../App'
 
 export const TaskItem = ({
   task,
@@ -50,6 +51,8 @@ export const TaskItem = ({
   useEffect(() => {
     currentTaskForm !== 'edit' && setEditMenuOpen(false)
   }, [currentTaskForm])
+
+  const { darkTheme } = useContext(ThemeContext)
 
   return (
     <TaskListItem key={task.id}>
@@ -105,11 +108,15 @@ export const TaskItem = ({
                   className='toggler'
                   ref={TaskMenuButtonRef}
                   onClick={() => setTaskMenuOpen(prev => !prev)}
+                  style={{ color: !darkTheme && 'grey' }}
                 >
                   <MenuToggler />
                 </div>
                 {taskMenuOpen && (
-                  <TaskMenu ref={TaskMenuRef}>
+                  <TaskMenu
+                    ref={TaskMenuRef}
+                    style={{ background: !darkTheme && '#fff' }}
+                  >
                     <MenuList>
                       {!task.isComplete && (
                         <MenuItem
@@ -147,7 +154,8 @@ export const TaskItem = ({
                   style={{
                     color: setDateColour(
                       setDateText(task.dueDate),
-                      task.dueDate
+                      task.dueDate,
+                      darkTheme
                     ),
                   }}
                 >

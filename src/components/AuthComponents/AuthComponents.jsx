@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 
 export const AuthPage = styled.div`
-  background: var(--dark-gray);
+  background: ${props => props.theme.background};
   margin: 50px auto;
   border-radius: 8px;
   border: solid 1px ${props => props.theme.taskForm};
@@ -12,7 +12,7 @@ export const AuthPage = styled.div`
 export const Title = styled.h1`
   font-size: 26px;
   font-weight: 700;
-  color: var(--text-white);
+  color: ${props => props.theme.textColour};
   margin: 0 0 1.1em;
   padding: 0;
 `
@@ -30,7 +30,7 @@ export const GoogleSignUp = styled.button`
   border-radius: 5px;
   outline: none;
   background: #242424;
-  color: var(--text-white);
+  color: ${props => props.theme.textColour};
   transition: 0.2s ease-in-out;
 
   &:hover {
@@ -51,7 +51,7 @@ export const Separator = styled.div`
   margin: 2rem 0;
 
   p {
-    background: var(--dark-gray);
+    background: ${props => props.theme.background};
     color: #4e4e4e;
     position: relative;
     z-index: 1;
@@ -74,7 +74,7 @@ export const AuthForm = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
-  color: var(--text-white);
+  color: ${props => props.theme.textColour};
 `
 
 export const FormItem = styled.div`
@@ -97,7 +97,7 @@ export const Input = styled.input`
   width: 100%;
   padding: 0.75em 1em;
   border: 1px solid ${props => props.theme.background};
-  color: var(--text-white);
+  color: ${props => props.theme.textColour};
   border-radius: 5px;
   outline: 0;
   background: #242424;

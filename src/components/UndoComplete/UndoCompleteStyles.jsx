@@ -7,7 +7,7 @@ export const UndoNotification = styled.div`
   width: min-content;
   padding: 8px 8px 8px 16px;
   white-space: nowrap;
-  background: var(--dark-gray);
+  background: ${props => props.theme.background};
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: ${props => props.theme.boxShadow};

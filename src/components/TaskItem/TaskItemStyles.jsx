@@ -42,19 +42,16 @@ export const TaskCheck = styled.div`
     cursor: pointer;
 
     &:hover {
-      background: #4b4b4b;
+      background: ${props => props.theme.completeHover};
     }
   }
 
   .complete {
-    background: #808080;
-
-    &:hover {
-      background: #808080;
-    }
+    background: ${props => props.theme.complete};
 
     svg {
       display: block;
+      color: #fff;
     }
   }
 
@@ -107,8 +104,10 @@ export const TaskMenuContainer = styled.div`
     position: absolute;
     top: -12px;
     right: -30px;
+    cursor: pointer;
 
     &:hover {
+      color: unset !important;
       background: ${props => props.theme.active};
     }
   }

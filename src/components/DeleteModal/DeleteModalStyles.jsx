@@ -14,7 +14,7 @@ export const TaskModal = styled.div`
 
 export const TaskModalBody = styled.section`
   padding: 40px 24px;
-  background: var(--dark-gray);
+  background: ${props => props.theme.background};
   border-bottom: 1px solid ${props => props.theme.border};
   h3 {
     font-size: 13px;
@@ -34,7 +34,7 @@ export const TaskModalFooter = styled.footer`
   padding: 12px 24px;
   background-color: inherit;
   border-top: 1px solid #333;
-  background-color: var(--dark-gray);
+  background-color: ${props => props.theme.background};
 `
 
 export const DeleteTaskButton = styled.button`

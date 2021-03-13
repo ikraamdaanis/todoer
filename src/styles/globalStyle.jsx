@@ -12,14 +12,6 @@ export const GlobalStyle = createGlobalStyle`
   appearance: none;
 }
 
-:root {
-  --dark-gray: ${props => props.theme.background};
-  --very-dark-gray: #1f1f1f;
-  --light-black: #171717;
-  --text-white: #ffffffde;
-  --light-red: #de4c4a;
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -32,29 +24,6 @@ body {
   @media(max-width: 450px){
     overflow: unset;
     overflow-x: hidden;
-  }
-  
-  &::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #8b8b8b;
-    border-radius: 5px;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: #8b8b8b;
-  }
-  &::-webkit-scrollbar-track {
-    background: #181818;
-    border-radius: 0px;
-  }
-}
-
-.no-cursor {
-  input,
-  select {
-    pointer-events: none !important;
   }
 }
 

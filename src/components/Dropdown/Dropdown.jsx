@@ -9,6 +9,7 @@ export const DropdownContainer = styled.div`
   background: ${props => props.theme.background};
   box-shadow: ${props => props.theme.boxShadow};
   border-radius: 3px;
+  border: 1px solid ${props => props.theme.border};
   padding: 4px 0;
 
   &.project-menu {

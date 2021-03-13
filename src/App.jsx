@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, createContext } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,9 +11,11 @@ import { Dashboard, Navbar } from './containers'
 import { SignIn, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
 
+export const ThemeContext = createContext()
+
 export const App = () => {
   const [sidebarClosed, setSidebarClosed] = useState(false)
-  const [darkTheme] = useState(true)
+  const [darkTheme, setDarkTheme] = useState(true)
 
   const theme = {
     themeColour: '#282828',
@@ -30,6 +32,8 @@ export const App = () => {
     navColour: 'unset',
     inputColour: '#202020',
     boxShadow: '0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%)',
+    complete: '#808080',
+    completeHover: '#4b4b4b',
   }
 
   const themeLight = {
@@ -47,42 +51,46 @@ export const App = () => {
     navColour: '#fff',
     inputColour: '#fff',
     boxShadow: '0 1px 8px 0 rgb(0 0 0 / 8%)',
+    complete: '#808080',
+    completeHover: '#E6E6E6',
   }
 
   return (
-    <ThemeProvider theme={darkTheme ? theme : themeLight}>
-      <Router>
-        <GlobalStyle />
-        <Navbar setSidebarClosed={setSidebarClosed} />
-        <ScrollToTop />
-        <main>
-          <Switch style={{ display: 'flex' }}>
-            <PrivateRoute
-              path='/app'
-              exact
-              component={Dashboard}
-              sidebarClosed={sidebarClosed}
-            />
-            <PrivateRoute
-              path='/app/:id'
-              exact
-              component={Dashboard}
-              sidebarClosed={sidebarClosed}
-            />
-            <Route
-              exact
-              path='/signin'
-              render={props => <SignIn {...props} />}
-            />
-            <Route
-              exact
-              path='/signup'
-              render={props => <SignUp {...props} />}
-            />
-            <PrivateRoute path='/' component={Redirect} to='/app/inbox' />
-          </Switch>
-        </main>
-      </Router>
-    </ThemeProvider>
+    <ThemeContext.Provider value={{ darkTheme, setDarkTheme }}>
+      <ThemeProvider theme={darkTheme ? theme : themeLight}>
+        <Router>
+          <GlobalStyle />
+          <Navbar setSidebarClosed={setSidebarClosed} />
+          <ScrollToTop />
+          <main>
+            <Switch style={{ display: 'flex' }}>
+              <PrivateRoute
+                path='/app'
+                exact
+                component={Dashboard}
+                sidebarClosed={sidebarClosed}
+              />
+              <PrivateRoute
+                path='/app/:id'
+                exact
+                component={Dashboard}
+                sidebarClosed={sidebarClosed}
+              />
+              <Route
+                exact
+                path='/signin'
+                render={props => <SignIn {...props} />}
+              />
+              <Route
+                exact
+                path='/signup'
+                render={props => <SignUp {...props} />}
+              />
+              <PrivateRoute path='/' component={Redirect} to='/app/inbox' />
+            </Switch>
+          </main>
+        </Router>
+      </ThemeProvider>
+    </ThemeContext.Provider>
   )
 }

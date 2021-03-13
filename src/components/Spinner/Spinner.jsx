@@ -1,3 +1,4 @@
+import React from 'react'
 import { ReactComponent as SpinnerSVG } from '../../assets/images/spinner.svg'
 import { SpinnerContainer } from './SpinnerStyles'
 

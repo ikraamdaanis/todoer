@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   DatePickerInput,
   DatePickerToggle,
@@ -8,6 +8,7 @@ import { ReactComponent as ScheduleIcon } from '../../assets/images/schedule-ico
 import { setDateColour } from '../../utils/setDateColour'
 import { setDateText } from '../../utils/setDateText'
 import { format } from 'date-fns'
+import { ThemeContext } from '../../App'
 
 export const DatePicker = ({ chosenDate, setDate }) => {
   const [dueDateText, setDueDateText] = useState(
@@ -26,10 +27,12 @@ export const DatePicker = ({ chosenDate, setDate }) => {
       : !chosenDate && setDueDateText('Schedule')
   }, [chosenDate])
 
+  const { darkTheme } = useContext(ThemeContext)
+
   return (
     <>
       <DatePickerToggle
-        style={{ color: setDateColour(dueDateText, chosenDate) }}
+        style={{ color: setDateColour(dueDateText, chosenDate, darkTheme) }}
       >
         <ScheduleIcon />
         <ToggleButton>{dueDateText}</ToggleButton>
