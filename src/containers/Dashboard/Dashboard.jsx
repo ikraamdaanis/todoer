@@ -247,7 +247,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
                 </SortDetails>
               </SortHeading>
             )}
-            {match?.params.id === 'today' && (
+            {currentProject?.title === 'today' && (
               <TodayTaskContainer
                 allTasks={allTasks}
                 loadingTasks={loadingTasks}
@@ -262,23 +262,20 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
                 setCurrentTaskForm={setCurrentTaskForm}
               />
             )}
-            {match?.params.id === currentProject?.title.toLowerCase() && (
-              <TaskContainer
-                allTasks={allTasks}
-                loadingTasks={loadingTasks}
-                project={currentProject}
-                isComplete={false}
-                setTasksToComplete={setTasksToComplete}
-                setTasksToNotComplete={setTasksToNotComplete}
-                setIsUndoVisible={setIsUndoVisible}
-                clearTimer={clearTimer}
-                sortOptions={sortOptions}
-                setDashboardTasks={setDashboardTasks}
-                setTasksLoading={setTasksLoading}
-                currentTaskForm={currentTaskForm}
-                setCurrentTaskForm={setCurrentTaskForm}
-              />
-            )}
+            <TaskContainer
+              tasks={allTasks[currentProject.title]}
+              project={currentProject}
+              isComplete={false}
+              setTasksToComplete={setTasksToComplete}
+              setTasksToNotComplete={setTasksToNotComplete}
+              setIsUndoVisible={setIsUndoVisible}
+              clearTimer={clearTimer}
+              sortOptions={sortOptions}
+              setDashboardTasks={setDashboardTasks}
+              setTasksLoading={setTasksLoading}
+              currentTaskForm={currentTaskForm}
+              setCurrentTaskForm={setCurrentTaskForm}
+            />
 
             <AddTaskContainer className={showCompletedTasks ? 'complete' : undefined}>
               {!isAddTaskOpen ? (

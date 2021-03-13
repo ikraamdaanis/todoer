@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { TaskItem } from '../../components'
 import { TaskList } from './TaskContainerStyles'
 import { useParams } from 'react-router'
 
 export const TaskContainer = ({
-  allTasks,
-  loadingTasks,
+  tasks,
   project,
   isComplete,
   setTasksToComplete,
@@ -19,49 +18,38 @@ export const TaskContainer = ({
   currentTaskForm = '',
   setCurrentTaskForm = null,
 }) => {
-  const [taskData, setTaskData] = useState(null)
   const [projectTaskList, setProjectTaskList] = useState(null)
   const [overdueTasks, setOverdueTasks] = useState(null)
 
   const { id } = useParams()
 
-  const fetchData = useCallback(() => {
-    allTasks && setTaskData(allTasks[project?.title])
-  }, [allTasks, project])
-
   useEffect(() => {
-    !loadingTasks && fetchData()
-  }, [loadingTasks, project, allTasks, fetchData])
+    const tasksToSort = []
+    const tasksToNotSort = []
+    const { option, direction } = sortOptions
 
-  useEffect(() => {
-    if (project && id === project.title.toLowerCase()) {
-      const tasksToSort = []
-      const tasksToNotSort = []
-      const { option, direction } = sortOptions
+    tasks?.forEach(task => {
+      sortOptions && task[option] ? tasksToSort.push(task) : tasksToNotSort.push(task)
+    })
 
-      taskData?.forEach(task => {
-        sortOptions && task[option] ? tasksToSort.push(task) : tasksToNotSort.push(task)
-      })
-
-      switch (option) {
-        case 'description':
-          tasksToSort.sort((a, b) => a[option].toLowerCase().localeCompare(b[option].toLowerCase()))
-          break
-        case 'dueDate':
-          tasksToSort.sort((a, b) => new Date(a[option]) - new Date(b[option]))
-          break
-        default:
-          tasksToSort.sort((a, b) => a[option] - b[option])
-      }
-
-      const data = tasksToSort.concat(tasksToNotSort)
-      direction === 'desc' && data.reverse()
-
-      setOverdueTasks(allTasks?.overdue)
-      setDashboardTasks(data)
-      setProjectTaskList(data)
+    switch (option) {
+      case 'description':
+        tasksToSort.sort((a, b) => a[option].toLowerCase().localeCompare(b[option].toLowerCase()))
+        break
+      case 'dueDate':
+        tasksToSort.sort((a, b) => new Date(a[option]) - new Date(b[option]))
+        break
+      default:
+        tasksToSort.sort((a, b) => a[option] - b[option])
     }
-  }, [taskData, sortOptions, project, allTasks, setDashboardTasks, id])
+
+    const data = tasksToSort.concat(tasksToNotSort)
+    direction === 'desc' && data.reverse()
+
+    setOverdueTasks(tasks?.overdue)
+    setDashboardTasks(data)
+    setProjectTaskList(data)
+  }, [sortOptions, tasks, setDashboardTasks, id])
 
   useEffect(() => {
     overdueTasks && setTasksLoading(false)
@@ -89,8 +77,7 @@ export const TaskContainer = ({
 }
 
 TaskContainer.propTypes = {
-  allTasks: PropTypes.object,
-  loadingTasks: PropTypes.bool,
+  tasks: PropTypes.array,
   project: PropTypes.object,
   isComplete: PropTypes.bool,
   setTasksToComplete: PropTypes.func,
