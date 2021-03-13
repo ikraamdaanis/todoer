@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,11 +8,12 @@ import {
 import { ThemeProvider } from 'styled-components'
 import { PrivateRoute, ScrollToTop } from './components'
 import { Dashboard, Navbar } from './containers'
-import { Home, SignIn, SignUp } from './pages'
+import { SignIn, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
 
 export const App = () => {
   const [sidebarClosed, setSidebarClosed] = useState(false)
+  const [darkTheme] = useState(true)
 
   const theme = {
     themeColour: '#282828',
@@ -49,7 +50,7 @@ export const App = () => {
   }
 
   return (
-    <ThemeProvider theme={themeLight}>
+    <ThemeProvider theme={darkTheme ? theme : themeLight}>
       <Router>
         <GlobalStyle />
         <Navbar setSidebarClosed={setSidebarClosed} />

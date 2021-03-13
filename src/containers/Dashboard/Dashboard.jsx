@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
+import PropTypes from 'prop-types'
 import {
   AddTask,
   AddTaskText,
@@ -88,24 +89,24 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
       if (!isProject || projectExists) return
       history.push('/app/inbox')
     }
-  }, [isProject, id, projects])
+  }, [isProject, id, projects, history])
 
-  const assignCurrentProject = () => {
+  const assignCurrentProject = useCallback(() => {
     if (projects) {
       const [current] = projects?.filter(
         project => project.title.toLowerCase() === id
       )
       current ? setCurrentProject(current) : setCurrentProject({ title: id })
     }
-  }
+  }, [id, projects])
 
-  const fetchTasks = () => {
+  const fetchTasks = useCallback(() => {
     if (!projectsLoading) {
       setCurrentProject(null)
       assignCurrentProject()
       setShowCompletedTasks(false)
     }
-  }
+  }, [assignCurrentProject, projectsLoading])
 
   useEffect(() => {
     fetchTasks(id)
@@ -114,11 +115,15 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
       option: 'createdAt',
       direction: 'asc',
     })
-  }, [id, projects])
+  }, [id, projects, fetchTasks])
 
   let timer
 
-  const completeSelectedTask = () => {
+  useEffect(() => {
+    console.log('Timer', timer)
+  }, [timer])
+
+  const completeSelectedTask = useCallback(() => {
     tasksToComplete.forEach(task => {
       const { id, project } = task
       dispatch(completeTask(id, project))
@@ -127,15 +132,15 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
       setIsUndoVisible(false)
       setTasksToComplete([])
     }, 5000)
-  }
+  }, [dispatch, tasksToComplete])
 
-  const notCompleteSelectedTask = () => {
+  const notCompleteSelectedTask = useCallback(() => {
     tasksToNotComplete.forEach(task => {
       const { id, project } = task
       dispatch(incompleteTask(id, project))
     })
     setTasksToNotComplete([])
-  }
+  }, [dispatch, tasksToNotComplete])
 
   const cancelCompleteTask = () => {
     tasksToComplete.forEach(task => {
@@ -155,14 +160,14 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
     if (tasksToComplete.length) {
       completeSelectedTask()
     }
-  }, [tasksToComplete, timer])
+  }, [tasksToComplete, timer, completeSelectedTask])
 
   useEffect(() => {
     if (tasksToNotComplete.length) {
       notCompleteSelectedTask()
       setTasksToComplete([])
     }
-  }, [tasksToNotComplete])
+  }, [tasksToNotComplete, notCompleteSelectedTask])
 
   const dashboard = useRef()
 
@@ -224,7 +229,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
                 </ProjectMenus>
               </ProjectHeadingContainer>
             </ProjectHeading>
-            {sortOptions.option != 'createdAt' && (
+            {sortOptions.option !== 'createdAt' && (
               <SortHeading>
                 <SortDetails
                   className={
@@ -358,4 +363,10 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
       )}
     </>
   )
+}
+
+Dashboard.propTypes = {
+  history: PropTypes.object,
+  match: PropTypes.object,
+  sidebarClosed: PropTypes.bool,
 }

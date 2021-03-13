@@ -6,10 +6,6 @@ import {
   PROJECT_DETAILS_SUCCESS,
   PROJECT_DETAILS_FAIL,
   PROJECT_DETAILS_CLEAR,
-  PROJECT_TASKS_DETAILS_REQUEST,
-  PROJECT_TASKS_DETAILS_SUCCESS,
-  PROJECT_TASKS_DETAILS_FAIL,
-  PROJECT_TASKS_DETAILS_CLEAR,
 } from '../constants/projectConstants'
 
 export const projectCreateReducer = (state = {}, { type, payload }) => {

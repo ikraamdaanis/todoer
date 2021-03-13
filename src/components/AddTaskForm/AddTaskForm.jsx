@@ -21,7 +21,7 @@ import { format } from 'date-fns'
 import { useHistory } from 'react-router'
 
 export const AddTaskForm = ({
-  edit,
+  edit = false,
   setIsOpen,
   currentProject,
   scrollDownToLastTask = null,
