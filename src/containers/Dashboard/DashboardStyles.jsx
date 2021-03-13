@@ -6,7 +6,7 @@ export const DashboardContainer = styled.div`
   flex-grow: 1;
   flex-direction: column;
   min-width: 320px;
-  transition: 0.3s ease-in-out;
+  transition: margin 0.3s ease-in-out;
   overflow-x: hidden;
   height: calc(100vh - 44px);
   overflow-y: scroll;
@@ -88,7 +88,7 @@ export const ProjectHeadingContainer = styled.div`
   height: 100%;
   padding: 36px 0 8px;
   border-bottom: 1px solid transparent;
-  transition: 0.2s ease-in-out;
+  transition: border-bottom 0.2s ease-in-out;
 
   &.scrolling {
     border-bottom: 1px solid ${props => props.theme.border};

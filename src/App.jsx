@@ -10,7 +10,9 @@ export const ThemeContext = createContext()
 
 export const App = () => {
   const [sidebarClosed, setSidebarClosed] = useState(false)
-  const [darkTheme, setDarkTheme] = useState(true)
+  const [darkTheme, setDarkTheme] = useState(JSON.parse(localStorage.getItem('darkTheme')) || true)
+
+  localStorage.setItem('darkTheme', JSON.stringify(darkTheme))
 
   const dark = {
     themeColour: '#282828',
@@ -57,7 +59,7 @@ export const App = () => {
       <ThemeProvider theme={darkTheme ? dark : light}>
         <Router>
           <GlobalStyle />
-          <Navbar setSidebarClosed={setSidebarClosed} />
+          <Navbar setSidebarClosed={setSidebarClosed} setDarkTheme={setDarkTheme} />
           <ScrollToTop />
           <main>
             <Switch>

@@ -56,12 +56,10 @@ export const TaskContainer = ({
   }, [sortOptions, tasks, setDashboardTasks, id, isComplete])
 
   useEffect(() => {
-    overdue && setTasksLoading(false)
+    setTimeout(() => {
+      overdue && setTasksLoading(false)
+    }, 500)
   }, [overdue, setTasksLoading])
-
-  useEffect(() => {
-    console.log('Tasks =>', projectTaskList, project?.title)
-  })
 
   return (
     <TaskList>

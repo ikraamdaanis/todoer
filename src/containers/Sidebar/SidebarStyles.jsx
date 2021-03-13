@@ -105,7 +105,6 @@ export const ProjectsButton = styled.button`
 export const ProjectTitles = styled.ul`
   width: 265px;
   overflow-y: hidden;
-  transition: 0.3s ease-in-out;
   max-height: ${props => props.height}px;
 
   &.projects-closed {
@@ -120,7 +119,7 @@ export const ProjectTitles = styled.ul`
     cursor: pointer;
     border-radius: 3px;
     overflow: hidden;
-    transition: color 0.1s ease-in, background-color 0.1s ease-in;
+    transition: background-color 0.1s ease-in;
     color: ${props => props.theme.text};
     line-height: 24px;
     margin: 0 0 0.2rem;
@@ -206,7 +205,7 @@ export const AddProjectFormTogglerButton = styled.button`
   cursor: pointer;
   font-size: 1.3rem;
   font-weight: 300;
-  transition: 0.2s ease-in-out;
+  transition: background 0.2s ease-in-out;
   display: flex;
   align-items: center;
   background: none;
