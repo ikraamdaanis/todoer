@@ -24,7 +24,7 @@ export const DashboardContainer = styled.div`
     background: #8b8b8b;
   }
   &::-webkit-scrollbar-track {
-    background: #181818;
+    background: ${props => props.theme.scrollbarTrack};
     border-radius: 0px;
   }
 
@@ -274,5 +274,12 @@ export const DashboardLoading = styled.div`
   img {
     width: 70px;
     height: 70px;
+  }
+
+  div {
+    transform: scale(0.8);
+    svg {
+      fill: red;
+    }
   }
 `

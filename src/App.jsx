@@ -12,7 +12,7 @@ export const App = () => {
   const [sidebarClosed, setSidebarClosed] = useState(false)
   const [darkTheme, setDarkTheme] = useState(true)
 
-  const theme = {
+  const dark = {
     themeColour: '#282828',
     background: '#1f1f1f',
     foreground: '#282828',
@@ -29,9 +29,10 @@ export const App = () => {
     boxShadow: '0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%)',
     complete: '#808080',
     completeHover: '#4b4b4b',
+    scrollbarTrack: '#181818',
   }
 
-  const themeLight = {
+  const light = {
     themeColour: '#DB4C40',
     background: '#fff',
     foreground: '#fafafa',
@@ -48,11 +49,12 @@ export const App = () => {
     boxShadow: '0 1px 8px 0 rgb(0 0 0 / 8%)',
     complete: '#808080',
     completeHover: '#E6E6E6',
+    scrollbarTrack: '#dbdbdb',
   }
 
   return (
     <ThemeContext.Provider value={{ darkTheme, setDarkTheme }}>
-      <ThemeProvider theme={darkTheme ? theme : themeLight}>
+      <ThemeProvider theme={darkTheme ? dark : light}>
         <Router>
           <GlobalStyle />
           <Navbar setSidebarClosed={setSidebarClosed} />

@@ -247,7 +247,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
               </SortHeading>
             )}
             {!allTasks ? (
-              <Spinner />
+              <Spinner darkTheme={darkTheme} />
             ) : (
               <>
                 {currentProject?.title === 'today' && (
@@ -365,7 +365,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
         <Modal>
           <DashboardLoading>
             <img src={darkTheme ? logoDark : logoLight} alt='Logo' />
-            <Spinner />
+            <Spinner darkTheme={darkTheme} />
           </DashboardLoading>
         </Modal>
       )}
