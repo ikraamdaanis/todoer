@@ -24,12 +24,17 @@ export const TaskContainer = ({
   const { id } = useParams()
 
   useEffect(() => {
+    const { option, direction } = sortOptions
+    if (option === 'createdAt') {
+      setProjectTaskList(null)
+      return
+    }
+
     const tasksToSort = []
     const tasksToNotSort = []
-    const { option, direction } = sortOptions
 
     tasks?.forEach(task => {
-      sortOptions && task[option] ? tasksToSort.push(task) : tasksToNotSort.push(task)
+      task[option] ? tasksToSort.push(task) : tasksToNotSort.push(task)
     })
 
     switch (option) {
@@ -55,26 +60,42 @@ export const TaskContainer = ({
   }, [overdue, setTasksLoading])
 
   useEffect(() => {
-    console.log('Tasks =>', tasks, project?.title)
+    console.log('Tasks =>', projectTaskList, project?.title)
   })
 
   return (
     <TaskList>
-      {projectTaskList
-        ?.filter(task => task.isComplete === isComplete)
-        .map(task => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            setTasksToComplete={setTasksToComplete}
-            setTasksToNotComplete={setTasksToNotComplete}
-            setIsUndoVisible={setIsUndoVisible}
-            clearTimer={clearTimer}
-            currentTaskForm={currentTaskForm}
-            setCurrentTaskForm={setCurrentTaskForm}
-            currentProject={project}
-          />
-        ))}
+      {projectTaskList?.length
+        ? projectTaskList
+            ?.filter(task => task.isComplete === isComplete)
+            .map(task => (
+              <TaskItem
+                key={task.id}
+                task={task}
+                setTasksToComplete={setTasksToComplete}
+                setTasksToNotComplete={setTasksToNotComplete}
+                setIsUndoVisible={setIsUndoVisible}
+                clearTimer={clearTimer}
+                currentTaskForm={currentTaskForm}
+                setCurrentTaskForm={setCurrentTaskForm}
+                currentProject={project}
+              />
+            ))
+        : tasks
+            ?.filter(task => task.isComplete === isComplete)
+            .map(task => (
+              <TaskItem
+                key={task.id}
+                task={task}
+                setTasksToComplete={setTasksToComplete}
+                setTasksToNotComplete={setTasksToNotComplete}
+                setIsUndoVisible={setIsUndoVisible}
+                clearTimer={clearTimer}
+                currentTaskForm={currentTaskForm}
+                setCurrentTaskForm={setCurrentTaskForm}
+                currentProject={project}
+              />
+            ))}
     </TaskList>
   )
 }
