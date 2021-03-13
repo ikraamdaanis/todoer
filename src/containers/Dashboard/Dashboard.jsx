@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useContext,
-} from 'react'
+import React, { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import PropTypes from 'prop-types'
 import {
   AddTask,
@@ -40,7 +34,7 @@ import { Sidebar, TaskContainer } from '../'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject } from '../../store/actions/projectActions'
-import { completeTask, incompleteTask } from '../../store/actions/taskActions'
+import { completeTask, getAllTasks, incompleteTask } from '../../store/actions/taskActions'
 
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
@@ -57,6 +51,7 @@ import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 import { useMenu } from '../../hooks/useMenu'
 import { useSetPosition } from '../../hooks/useSetPosition'
 import { ThemeContext } from '../../App'
+import { TodayTaskContainer } from '../TodayTaskContainer/TodayTaskContainer'
 
 export const Dashboard = ({ history, match, sidebarClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
@@ -77,9 +72,17 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
     direction: 'asc',
   })
 
+  const dispatch = useDispatch()
+
+  const taskList = useSelector(state => state.taskList)
+  const { loading: loadingTasks, tasks: allTasks } = taskList
+
+  useEffect(() => {
+    dispatch(getAllTasks())
+  }, [dispatch])
+
   const { darkTheme } = useContext(ThemeContext)
 
-  const dispatch = useDispatch()
   const { id } = match.params
 
   const isProject = id !== 'today' && id !== 'upcoming'
@@ -93,9 +96,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
 
   useEffect(() => {
     if (projects) {
-      const projectExists = projects.some(
-        project => project.title.toLowerCase() === id
-      )
+      const projectExists = projects.some(project => project.title.toLowerCase() === id)
       if (!isProject || projectExists) return
       history.push('/app/inbox')
     }
@@ -103,9 +104,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
 
   const assignCurrentProject = useCallback(() => {
     if (projects) {
-      const [current] = projects?.filter(
-        project => project.title.toLowerCase() === id
-      )
+      const [current] = projects?.filter(project => project.title.toLowerCase() === id)
       current ? setCurrentProject(current) : setCurrentProject({ title: id })
     }
   }, [id, projects])
@@ -135,7 +134,6 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
       dispatch(completeTask(id, project))
     })
     timer.current = setTimeout(() => {
-      console.log('hi')
       setIsUndoVisible(false)
       setTasksToComplete([])
     }, 5000)
@@ -191,44 +189,30 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
   const projectSortMenuRef = useRef(null)
   const projectSortMenuButtonRef = useRef(null)
   useMenu(projectSortMenuButtonRef, projectSortMenuRef, setProjectSortOpen)
-  const [projectSortMenuRight] = useSetPosition(
-    projectSortMenuButtonRef,
-    sidebarClosed
-  )
+  const [projectSortMenuRight] = useSetPosition(projectSortMenuButtonRef, sidebarClosed)
 
   return (
     <>
       <div>
         <Sidebar sidebarClosed={sidebarClosed} param={id} history={history} />
-        <DashboardContainer
-          className={sidebarClosed && 'closed'}
-          ref={dashboard}
-        >
+        <DashboardContainer className={sidebarClosed && 'closed'} ref={dashboard}>
           <ProjectContainer>
             <ProjectHeading>
-              <ProjectHeadingContainer
-                className={`div ${isScrolling ? 'scrolling ' : undefined}`}
-              >
+              <ProjectHeadingContainer className={`div ${isScrolling ? 'scrolling ' : undefined}`}>
                 <Title>
                   {id}
-                  {id === 'today' && (
-                    <small>{format(new Date(), 'iii do MMM')}</small>
-                  )}
+                  {id === 'today' && <small>{format(new Date(), 'iii do MMM')}</small>}
                 </Title>
                 <ProjectMenus>
                   <ProjectSort ref={projectSortMenuButtonRef}>
-                    <ProjectSortButton
-                      onClick={() => setProjectSortOpen(prev => !prev)}
-                    >
+                    <ProjectSortButton onClick={() => setProjectSortOpen(prev => !prev)}>
                       <SortIcon />
                       <span>Sort</span>
                     </ProjectSortButton>
                   </ProjectSort>
                   {!['today', 'upcoming'].includes(currentProject?.title) && (
                     <ProjectOptions ref={projectMenuButtonRef}>
-                      <ProjectOptionsButton
-                        onClick={() => setProjectMenuOpen(prev => !prev)}
-                      >
+                      <ProjectOptionsButton onClick={() => setProjectMenuOpen(prev => !prev)}>
                         <ProjectMore />
                       </ProjectOptionsButton>
                     </ProjectOptions>
@@ -238,11 +222,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
             </ProjectHeading>
             {sortOptions.option !== 'createdAt' && (
               <SortHeading>
-                <SortDetails
-                  className={
-                    sortOptions.direction === 'desc' ? 'desc' : undefined
-                  }
-                >
+                <SortDetails className={sortOptions.direction === 'desc' ? 'desc' : undefined}>
                   <GreyButton
                     handleClick={() => {
                       setSortOptions(prev => ({
@@ -267,24 +247,40 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
                 </SortDetails>
               </SortHeading>
             )}
+            {match?.params.id === 'today' && (
+              <TodayTaskContainer
+                allTasks={allTasks}
+                loadingTasks={loadingTasks}
+                project={currentProject}
+                isComplete={false}
+                setTasksToComplete={setTasksToComplete}
+                setTasksToNotComplete={setTasksToNotComplete}
+                setIsUndoVisible={setIsUndoVisible}
+                clearTimer={clearTimer}
+                setTasksLoading={setTasksLoading}
+                currentTaskForm={currentTaskForm}
+                setCurrentTaskForm={setCurrentTaskForm}
+              />
+            )}
+            {match?.params.id === currentProject?.title.toLowerCase() && (
+              <TaskContainer
+                allTasks={allTasks}
+                loadingTasks={loadingTasks}
+                project={currentProject}
+                isComplete={false}
+                setTasksToComplete={setTasksToComplete}
+                setTasksToNotComplete={setTasksToNotComplete}
+                setIsUndoVisible={setIsUndoVisible}
+                clearTimer={clearTimer}
+                sortOptions={sortOptions}
+                setDashboardTasks={setDashboardTasks}
+                setTasksLoading={setTasksLoading}
+                currentTaskForm={currentTaskForm}
+                setCurrentTaskForm={setCurrentTaskForm}
+              />
+            )}
 
-            <TaskContainer
-              project={currentProject}
-              isComplete={false}
-              setTasksToComplete={setTasksToComplete}
-              setTasksToNotComplete={setTasksToNotComplete}
-              setIsUndoVisible={setIsUndoVisible}
-              clearTimer={clearTimer}
-              sortOptions={sortOptions}
-              setDashboardTasks={setDashboardTasks}
-              setTasksLoading={setTasksLoading}
-              currentTaskForm={currentTaskForm}
-              setCurrentTaskForm={setCurrentTaskForm}
-            />
-
-            <AddTaskContainer
-              className={showCompletedTasks ? 'complete' : undefined}
-            >
+            <AddTaskContainer className={showCompletedTasks ? 'complete' : undefined}>
               {!isAddTaskOpen ? (
                 <AddTask
                   onClick={() => {
@@ -309,6 +305,8 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
             </AddTaskContainer>
             {showCompletedTasks && (
               <TaskContainer
+                allTasks={allTasks}
+                loadingTasks={loadingTasks}
                 project={currentProject}
                 isComplete={true}
                 setTasksToComplete={setTasksToComplete}

@@ -1,10 +1,5 @@
 import React, { useState, createContext } from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { PrivateRoute, ScrollToTop } from './components'
 import { Dashboard, Navbar } from './containers'
@@ -64,28 +59,15 @@ export const App = () => {
           <ScrollToTop />
           <main>
             <Switch style={{ display: 'flex' }}>
-              <PrivateRoute
-                path='/app'
-                exact
-                component={Dashboard}
-                sidebarClosed={sidebarClosed}
-              />
+              <PrivateRoute path='/app' exact component={Dashboard} sidebarClosed={sidebarClosed} />
               <PrivateRoute
                 path='/app/:id'
                 exact
                 component={Dashboard}
                 sidebarClosed={sidebarClosed}
               />
-              <Route
-                exact
-                path='/signin'
-                render={props => <SignIn {...props} />}
-              />
-              <Route
-                exact
-                path='/signup'
-                render={props => <SignUp {...props} />}
-              />
+              <Route exact path='/signin' render={props => <SignIn {...props} />} />
+              <Route exact path='/signup' render={props => <SignUp {...props} />} />
               <PrivateRoute path='/' component={Redirect} to='/app/inbox' />
             </Switch>
           </main>
