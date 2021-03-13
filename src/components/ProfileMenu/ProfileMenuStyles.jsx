@@ -18,7 +18,7 @@ export const ProfileMenuDropDown = styled.div`
   top: 32px;
   right: 0;
   width: 276px;
-  background: ${props => props.theme.foreground};
+  background: ${props => props.theme.profileMenu};
   z-index: 1000;
   border-radius: 3px;
   border: 1px solid ${props => props.theme.border};

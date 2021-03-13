@@ -121,7 +121,7 @@ export const TaskMenu = styled.div`
   width: 250px;
   background: ${props => props.theme.foreground};
   box-shadow: ${props => props.theme.boxShadow};
-  border: 1px solid ${props => props.theme.border};
+  border: 1px solid ${props => props.theme.taskBorder};
   border-radius: 3px;
   padding: 4px 0;
 

@@ -10,7 +10,7 @@ export const ThemeContext = createContext()
 
 export const App = () => {
   const [sidebarClosed, setSidebarClosed] = useState(false)
-  const [darkTheme, setDarkTheme] = useState(JSON.parse(localStorage.getItem('darkTheme')) || true)
+  const [darkTheme, setDarkTheme] = useState(JSON.parse(localStorage.getItem('darkTheme')) || false)
 
   localStorage.setItem('darkTheme', JSON.stringify(darkTheme))
 
@@ -24,6 +24,7 @@ export const App = () => {
     textTertiary: 'hsla(0,0%,100%,0.56)',
     active: '#363636',
     border: 'hsla(0, 0%, 100%, 0.1)',
+    taskBorder: '#171717',
     lightRed: '#de4c4a',
     hoverTransparent: 'hsla(0,0%,100%,.2)',
     navColour: 'unset',
@@ -32,6 +33,7 @@ export const App = () => {
     complete: '#808080',
     completeHover: '#4b4b4b',
     scrollbarTrack: '#181818',
+    profileMenu: '#1f1f1f',
   }
 
   const light = {
@@ -44,6 +46,7 @@ export const App = () => {
     textTertiary: '#808080',
     active: '#ececec',
     border: '#dcdcdc',
+    taskBorder: '#ddd',
     lightRed: '#de4c4a',
     hoverTransparent: 'hsla(0,0%,100%,.2)',
     navColour: '#fff',
@@ -52,6 +55,7 @@ export const App = () => {
     complete: '#808080',
     completeHover: '#E6E6E6',
     scrollbarTrack: '#dbdbdb',
+    profileMenu: '#fff',
   }
 
   return (

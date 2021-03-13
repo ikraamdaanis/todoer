@@ -15,6 +15,6 @@ export const TaskListHeading = styled.div`
     font-weight: 500;
     line-height: 20px;
     padding: 0 0 0.4rem;
-    color: hsla(0, 0%, 100%, 0.8);
+    color: ${props => props.theme.textColour};
   }
 `

@@ -9,7 +9,7 @@ export const DashboardContainer = styled.div`
   transition: margin 0.3s ease-in-out;
   overflow-x: hidden;
   height: calc(100vh - 44px);
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 0 0 4rem;
 
   &::-webkit-scrollbar {
