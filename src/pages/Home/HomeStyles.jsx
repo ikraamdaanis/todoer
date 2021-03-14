@@ -61,7 +61,7 @@ export const HeroTitle = styled.h1`
   }
 `
 
-export const HeroButton = styled(Link)`
+export const HomeButton = styled(Link)`
   margin-top: 2rem;
   color: #fff;
   border-color: #e44232;
@@ -225,8 +225,11 @@ export const FeaturesLink = styled(Link)`
   color: #316fea;
   font-weight: 300;
 
-  @media (max-width: 480px) {
+  @media (max-width: 540px) {
     margin: 0 1.5rem 0 0;
+  }
+
+  @media (max-width: 480px) {
     font-size: 14px;
   }
 
@@ -307,5 +310,66 @@ export const ReviewItem = styled.div`
     @media (max-width: 1050px) {
       font-size: 1.4rem;
     }
+  }
+`
+
+export const AchieveSection = styled.section`
+  padding: 6rem 1rem;
+  background: #fff9f3;
+  margin-top: 10rem;
+
+  @media (max-width: 700px) {
+    margin-top: 0;
+  }
+`
+
+export const AchieveContainer = styled.div`
+  display: flex;
+  padding: 0 1rem;
+  justify-content: space-between;
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+
+  img {
+    margin-top: -10rem;
+    max-width: 404px;
+    max-height: 468px;
+    position: relative;
+
+    @media (max-width: 959px) {
+      width: 40%;
+      margin-top: 0;
+    }
+
+    @media (max-width: 770px) {
+      display: none;
+    }
+  }
+`
+
+export const AchieveHeadingContainer = styled.div`
+  width: 52%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+
+  @media (max-width: 770px) {
+    width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+`
+
+export const AchieveHeading = styled.h2`
+  font-size: 3.25rem;
+  font-weight: 600;
+
+  @media (max-width: 900px) {
+    font-size: 2.5rem;
+    max-width: 450px;
   }
 `

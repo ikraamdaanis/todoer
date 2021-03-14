@@ -25,10 +25,6 @@ export const App = () => {
     userInfo && setActive(false)
   }, [userInfo, setActive])
 
-  useEffect(() => {
-    console.log({ active })
-  }, [active])
-
   const dark = {
     themeColour: '#282828',
     background: '#1f1f1f',

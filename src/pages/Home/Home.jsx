@@ -4,7 +4,7 @@ import {
   Hero,
   HeroTitleContainer,
   HeroTitle,
-  HeroButton,
+  HomeButton,
   HeroBackground,
   FreeUp,
   FreeUpHeading,
@@ -15,10 +15,15 @@ import {
   ReviewItem,
   ReviewsContainer,
   HomeContainer,
+  AchieveSection,
+  AchieveContainer,
+  AchieveHeadingContainer,
+  AchieveHeading,
 } from './HomeStyles'
 import heroImage from '../../assets/images/hero-image.webp'
 import heroFlowers from '../../assets/images/hero-flowers.webp'
 import appScreenshot from '../../assets/images/hero-screenshot.png'
+import { flower } from '../../assets'
 import { useSelector } from 'react-redux'
 import { BrowseIcon, SeeTodo } from '../../assets'
 
@@ -40,7 +45,7 @@ export const Home = ({ history, active, setActive }) => {
             Organize it all
             <br /> with Todoer
           </HeroTitle>
-          <HeroButton to='/signup'>Get Started</HeroButton>
+          <HomeButton to='/signup'>Get Started</HomeButton>
         </HeroTitleContainer>
         <HeroBackground>
           <img src={heroImage} alt='Hero Background' />
@@ -88,6 +93,15 @@ export const Home = ({ history, active, setActive }) => {
           </ReviewItem>
         </ReviewsContainer>
       </ReviewsSection>
+      <AchieveSection>
+        <AchieveContainer>
+          <img src={flower} alt='peaceful looking flower pot with red flower' />
+          <AchieveHeadingContainer>
+            <AchieveHeading>Achieve peace of mind with Todoer</AchieveHeading>
+            <HomeButton to='/signin'>Get Started</HomeButton>
+          </AchieveHeadingContainer>
+        </AchieveContainer>
+      </AchieveSection>
     </HomeContainer>
   )
 }
