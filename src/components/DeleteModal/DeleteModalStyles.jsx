@@ -16,6 +16,8 @@ export const TaskModalBody = styled.section`
   padding: 40px 24px;
   background: ${props => props.theme.background};
   border-bottom: 1px solid ${props => props.theme.border};
+  border-top: 1px solid transparent;
+
   h3 {
     font-size: 13px;
     font-weight: 300;
@@ -28,20 +30,16 @@ export const TaskModalBody = styled.section`
 `
 
 export const TaskModalFooter = styled.footer`
-  display: -webkit-box;
   display: flex;
   justify-content: flex-end;
   padding: 12px 24px;
-  background-color: inherit;
-  border-top: 1px solid #333;
   background-color: ${props => props.theme.background};
 `
 
 export const DeleteTaskButton = styled.button`
-  color: #eee;
+  color: ${props => props.theme.textColour};
   background-color: ${props => props.theme.active};
   text-shadow: none;
-  border: none;
   margin-left: 10px;
   padding: 6px 12px 7px;
   font-weight: 500;
@@ -52,6 +50,7 @@ export const DeleteTaskButton = styled.button`
   display: inline-block;
   text-align: center;
   cursor: pointer;
+  border: none;
   border-radius: 3px;
   transition: 0.2s ease-in-out;
   outline: none;
@@ -59,6 +58,7 @@ export const DeleteTaskButton = styled.button`
   &.delete {
     background: #de4c4a;
     padding: 6px 14px 7px 12px;
+    color: #fff;
 
     &:disabled {
       opacity: 0.5;

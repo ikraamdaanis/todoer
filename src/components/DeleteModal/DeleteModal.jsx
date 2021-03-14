@@ -1,4 +1,5 @@
-import { useRef } from 'react'
+import React, { useRef } from 'react'
+import PropTypes from 'prop-types'
 import { useDispatch } from 'react-redux'
 import { TaskModal, TaskModalBody, TaskModalFooter, DeleteTaskButton } from './DeleteModalStyles'
 import { useMenu } from '../../hooks'
@@ -8,7 +9,6 @@ export const DeleteModal = ({ id, detail, action, setDeleteModalOpen, project })
 
   const modal = useRef(null)
   const cancelButton = useRef(null)
-
   useMenu(modal, cancelButton, setDeleteModalOpen)
 
   return (
@@ -39,4 +39,12 @@ export const DeleteModal = ({ id, detail, action, setDeleteModalOpen, project })
       </TaskModalFooter>
     </TaskModal>
   )
+}
+
+DeleteModal.propTypes = {
+  id: PropTypes.string,
+  detail: PropTypes.string,
+  action: PropTypes.func,
+  setDeleteModalOpen: PropTypes.func,
+  project: PropTypes.string,
 }
