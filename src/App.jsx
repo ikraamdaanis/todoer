@@ -1,4 +1,5 @@
 import React, { useState, createContext } from 'react'
+import { useSelector } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { PrivateRoute, ScrollToTop } from './components'
@@ -62,13 +63,18 @@ export const App = () => {
     profileMenu: '#fff',
   }
 
+  const userLogin = useSelector(state => state.userLogin)
+  const { userInfo } = userLogin
+
   return (
     <ThemeContext.Provider value={{ darkTheme, setDarkTheme }}>
-      <ThemeProvider theme={darkTheme ? dark : light}>
-        <Router>
-          <GlobalStyle />
+      <Router>
+        <ThemeProvider theme={userInfo ? (darkTheme ? dark : light) : light}>
           <Navbar setSidebarClosed={setSidebarClosed} setDarkTheme={setDarkTheme} />
+        </ThemeProvider>
+        <ThemeProvider theme={userInfo ? (darkTheme ? dark : light) : light}>
           <ScrollToTop />
+          <GlobalStyle />
           <main>
             <Switch>
               <TaskFormContext.Provider value={{ currentTaskForm, setCurrentTaskForm }}>
@@ -84,8 +90,8 @@ export const App = () => {
               <PrivateRoute path='/' component={Redirect} to='/app/inbox' />
             </Switch>
           </main>
-        </Router>
-      </ThemeProvider>
+        </ThemeProvider>
+      </Router>
     </ThemeContext.Provider>
   )
 }
