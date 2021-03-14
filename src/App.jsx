@@ -66,6 +66,7 @@ export const App = () => {
     dropdown: '#ffffff',
     profileMenu: '#fff',
     overflow: userInfo ? 'hidden' : 'unset',
+    highlight: '#FFFCAA',
   }
 
   return (
