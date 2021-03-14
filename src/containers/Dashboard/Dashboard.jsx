@@ -45,7 +45,7 @@ import logoDark from '../../assets/images/logo-dark.png'
 import logoLight from '../../assets/images/logo-light.png'
 
 import { format } from 'date-fns'
-import { scrollToBottom } from '../../utils/scrollToBottom'
+import { scrollToBottom } from '../../utils'
 import { useCheckScrolling, useMenu, useSetPosition, useToggleComplete } from '../../hooks/'
 
 import { TaskFormContext, ThemeContext } from '../../App'

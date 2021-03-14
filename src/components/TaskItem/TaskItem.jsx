@@ -21,8 +21,7 @@ import { ReactComponent as InboxSmallIcon } from '../../assets/images/inbox-smal
 import { ReactComponent as Dot } from '../../assets/images/dot.svg'
 
 import { useMenu } from '../../hooks/'
-import { setDateColour } from '../../utils/setDateColour'
-import { setDateText } from '../../utils/setDateText'
+import { setDateColour, setDateText } from '../../utils'
 import { DeleteModal } from '../DeleteModal/DeleteModal'
 import { deleteTask } from '../../store/actions/taskActions'
 import { Modal } from '../Modal/Modal'
