@@ -34,7 +34,7 @@ import { Sidebar, TaskContainer, OverdueContainer } from '../'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject } from '../../store/actions/projectActions'
-import { completeTask, getAllTasks, incompleteTask } from '../../store/actions/taskActions'
+import { getAllTasks } from '../../store/actions/taskActions'
 
 import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
 import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
@@ -51,6 +51,7 @@ import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 import { useMenu } from '../../hooks/useMenu'
 import { useSetPosition } from '../../hooks/useSetPosition'
 import { ThemeContext } from '../../App'
+import { useToggleComplete } from '../../hooks/useToggleComplete'
 
 export const Dashboard = ({ history, match, sidebarClosed }) => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
@@ -66,13 +67,12 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
   const [tasksToComplete, setTasksToComplete] = useState([])
   const [tasksToNotComplete, setTasksToNotComplete] = useState([])
   const [isUndoVisible, setIsUndoVisible] = useState(false)
-  const [sortOptions, setSortOptions] = useState({
-    option: 'createdAt',
-    direction: 'asc',
-  })
+  const [sortOptions, setSortOptions] = useState({ option: 'createdAt', direction: 'asc' })
 
   const dispatch = useDispatch()
 
+  const projectList = useSelector(state => state.projectList)
+  const { loading: projectsLoading, projects } = projectList
   const taskList = useSelector(state => state.taskList)
   const { tasks: allTasks } = taskList
 
@@ -83,11 +83,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
   const { darkTheme } = useContext(ThemeContext)
 
   const { id } = match.params
-
   const isProject = id !== 'today' && id !== 'upcoming'
-
-  const projectList = useSelector(state => state.projectList)
-  const { loading: projectsLoading, projects } = projectList
 
   useEffect(() => {
     currentTaskForm !== 'add' && setIsAddTaskOpen(false)
@@ -125,70 +121,27 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
     })
   }, [id, projects, fetchTasks])
 
-  const timer = useRef(null)
-
-  const completeSelectedTask = useCallback(() => {
-    tasksToComplete.forEach(task => {
-      const { id, project } = task
-      dispatch(completeTask(id, project))
-    })
-    timer.current = setTimeout(() => {
-      setIsUndoVisible(false)
-      setTasksToComplete([])
-    }, 5000)
-  }, [dispatch, tasksToComplete])
-
-  const notCompleteSelectedTask = useCallback(() => {
-    tasksToNotComplete.forEach(task => {
-      const { id, project } = task
-      dispatch(incompleteTask(id, project))
-    })
-    setTasksToNotComplete([])
-  }, [dispatch, tasksToNotComplete])
-
-  const cancelCompleteTask = () => {
-    tasksToComplete.forEach(task => {
-      const { id, project } = task
-      dispatch(incompleteTask(id, project))
-    })
-    clearTimeout(timer.current)
-    setTasksToComplete([])
-    setIsUndoVisible(false)
-  }
-
-  const clearTimer = () => {
-    clearTimeout(timer.current)
-  }
-
-  useEffect(() => {
-    if (tasksToComplete.length) {
-      completeSelectedTask()
-    }
-  }, [tasksToComplete, timer, completeSelectedTask])
-
-  useEffect(() => {
-    if (tasksToNotComplete.length) {
-      notCompleteSelectedTask()
-      setTasksToComplete([])
-    }
-  }, [tasksToNotComplete, notCompleteSelectedTask])
+  const [clearTimer, cancelCompleteTask] = useToggleComplete(
+    tasksToComplete,
+    setTasksToComplete,
+    tasksToNotComplete,
+    setTasksToNotComplete,
+    setIsUndoVisible
+  )
 
   const dashboard = useRef()
-
-  const scrollDownToLastTask = () => {
-    scrollToBottom(dashboard, dashboardTasks)
-  }
+  const scrollDownToLastTask = () => scrollToBottom(dashboard, dashboardTasks)
   useCheckScrolling(dashboard, setIsScrolling)
 
   const projectMenuRef = useRef(null)
   const projectMenuButtonRef = useRef(null)
-  useMenu(projectMenuButtonRef, projectMenuRef, setProjectMenuOpen)
   const [projectMenuRight] = useSetPosition(projectMenuButtonRef, sidebarClosed)
+  useMenu(projectMenuButtonRef, projectMenuRef, setProjectMenuOpen)
 
   const projectSortMenuRef = useRef(null)
   const projectSortMenuButtonRef = useRef(null)
-  useMenu(projectSortMenuButtonRef, projectSortMenuRef, setProjectSortOpen)
   const [projectSortMenuRight] = useSetPosition(projectSortMenuButtonRef, sidebarClosed)
+  useMenu(projectSortMenuButtonRef, projectSortMenuRef, setProjectSortOpen)
 
   return (
     <>
