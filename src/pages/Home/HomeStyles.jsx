@@ -64,7 +64,7 @@ export const HeroBackground = styled.div`
   display: grid;
   place-content: center;
   position: relative;
-  z-index: -1;
+  z-index: -3;
   max-width: 1256px;
   margin: -10rem auto;
   width: 100%;
@@ -74,11 +74,12 @@ export const HeroBackground = styled.div`
   }
 
   &.flowers {
-    margin: 0 auto;
+    transform: translateY(-130%);
     z-index: -2;
   }
 
   &.screenshot {
+    z-index: -1;
     margin: 2rem auto;
   }
 
