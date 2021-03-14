@@ -115,7 +115,11 @@ export const HeroBackground = styled.div`
     margin: -6rem auto -17.5rem;
 
     @media (max-width: 770px) {
-      margin: -1rem auto -13rem;
+      margin: -1rem auto -10rem;
+    }
+
+    @media (max-width: 480px) {
+      margin: -1rem auto -2rem;
     }
   }
 
@@ -142,12 +146,12 @@ export const FreeUp = styled.section`
 
   @media (max-width: 660px) {
     padding: 2.5rem 1rem 1rem;
+    text-align: left;
   }
 
   @media (max-width: 480px) {
     padding: 2rem 1rem 2rem;
     transform: translateY(-100px);
-    text-align: left;
   }
 `
 
