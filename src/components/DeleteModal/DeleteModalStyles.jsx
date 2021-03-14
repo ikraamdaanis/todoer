@@ -14,7 +14,7 @@ export const TaskModal = styled.div`
 
 export const TaskModalBody = styled.section`
   padding: 40px 24px;
-  background: ${props => props.theme.background};
+  background: ${props => props.theme.dropdown};
   border-bottom: 1px solid ${props => props.theme.border};
   border-top: 1px solid transparent;
 
@@ -33,7 +33,7 @@ export const TaskModalFooter = styled.footer`
   display: flex;
   justify-content: flex-end;
   padding: 12px 24px;
-  background-color: ${props => props.theme.background};
+  background-color: ${props => props.theme.dropdown};
 `
 
 export const DeleteTaskButton = styled.button`
