@@ -104,6 +104,18 @@ export const RightContainer = styled.div`
   button {
     margin-left: 0.5rem;
   }
+
+  .active-link {
+    button {
+      color: #1f1f1f;
+      background-color: #fafafa;
+      border-bottom: 2px solid #e44232;
+
+      &.signup {
+        color: #e44232;
+      }
+    }
+  }
 `
 export const NavButton = styled.button`
   display: block;

@@ -13,7 +13,7 @@ import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg'
 import TodoerLogo from '../../assets/images/todoer.png'
 import { useSelector } from 'react-redux'
 
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { ProfileMenu } from '../../components'
 
 export const Navbar = ({ setSidebarClosed }) => {
@@ -59,12 +59,12 @@ export const Navbar = ({ setSidebarClosed }) => {
           <RightContainer>
             {!userInfo ? (
               <>
-                <Link to='/signin'>
+                <NavLink to='/signin' activeClassName='active-link'>
                   <NavButton className={!userInfo && 'home'}>Sign In</NavButton>
-                </Link>
-                <Link to='/signup'>
+                </NavLink>
+                <NavLink to='/signup' activeClassName='active-link'>
                   <NavButton className={`signup ${!userInfo && 'home'}`}>Sign Up</NavButton>
-                </Link>
+                </NavLink>
               </>
             ) : (
               <ProfileMenu />

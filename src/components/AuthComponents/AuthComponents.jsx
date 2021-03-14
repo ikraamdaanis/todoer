@@ -26,15 +26,15 @@ export const GoogleSignUp = styled.button`
   align-items: center;
   justify-content: center;
   margin: 0 auto 10px;
-  border: 1px solid #1d1d1d;
+  border: 1px solid ${props => props.theme.border};
   border-radius: 5px;
   outline: none;
-  background: #242424;
+  background: ${props => props.theme.dropdown};
   color: ${props => props.theme.textColour};
   transition: 0.2s ease-in-out;
 
   &:hover {
-    background: #2c2c2c;
+    filter: brightness(0.9);
     border: 1px solid ${props => props.theme.active};
   }
 
@@ -60,13 +60,13 @@ export const Separator = styled.div`
 
   .line {
     position: absolute;
-    height: 1px;
     width: 100%;
     top: 50%;
     left: 0;
     transform: translateY(-45%);
-    background: #4e4e4e;
     z-index: 0;
+    border-bottom: 1px solid ${props => props.theme.border};
+    border-top: 1px solid transparent;
   }
 `
 
@@ -96,11 +96,11 @@ export const Input = styled.input`
   font-weight: 400;
   width: 100%;
   padding: 0.75em 1em;
-  border: 1px solid ${props => props.theme.background};
+  border: 1px solid ${props => props.theme.border};
   color: ${props => props.theme.textColour};
   border-radius: 5px;
   outline: 0;
-  background: #242424;
+  background: ${props => props.theme.background};
 
   &:focus {
     border: 1px solid #1746aa;
@@ -130,7 +130,7 @@ export const SubmitButton = styled.button`
   }
 `
 
-export const AuthQuestion = styled.div`
+export const AuthQuestion = styled.p`
   margin-top: 30px;
   text-align: center;
   font-size: 13px;

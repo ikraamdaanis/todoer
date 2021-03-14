@@ -1,15 +1,16 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import {
-  FormItem,
   GoogleSignUp,
-  Input,
-  InputLabel,
-  Separator,
-  AuthForm,
   AuthPage,
-  SubmitButton,
   Title,
   AuthQuestion,
+  // FormItem,
+  // Input,
+  // InputLabel,
+  // Separator,
+  // AuthForm,
+  // SubmitButton,
 } from '../../components/'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInAction } from '../../store/actions/userActions'
@@ -19,10 +20,11 @@ export const SignIn = ({ history }) => {
   const dispatch = useDispatch()
   const userLogin = useSelector(state => state.userLogin)
   const { loading, error, userInfo } = userLogin
+
   useEffect(() => {
     console.log({ loading, error, userInfo })
     userInfo && history.push('/app/today')
-  }, [loading, error, userInfo])
+  }, [loading, error, userInfo, history])
 
   return (
     <AuthPage>
@@ -32,6 +34,7 @@ export const SignIn = ({ history }) => {
           width='16'
           height='16'
           src='https://d3ptyyxy2at9ui.cloudfront.net/google-41de20.svg'
+          alt='Google Logo'
         />
         Sign in with Google
       </GoogleSignUp>
@@ -53,8 +56,10 @@ export const SignIn = ({ history }) => {
       </AuthForm> */}
 
       <AuthQuestion>
-        Don't have an account? <Link to='/signup'>Click here to register!</Link>
+        Don&#39;t have an account? <Link to='/signup'>Click here to register!</Link>
       </AuthQuestion>
     </AuthPage>
   )
 }
+
+SignIn.propTypes = { history: PropTypes.object }
