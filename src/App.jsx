@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react'
+import React, { useState, createContext, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
@@ -17,10 +17,17 @@ export const App = () => {
   const [darkTheme, setDarkTheme] = useState(JSON.parse(localStorage.getItem('darkTheme')) || false)
 
   localStorage.setItem('darkTheme', JSON.stringify(darkTheme))
-  setTimeout(() => setActive(true), 500)
 
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
+
+  useEffect(() => {
+    userInfo && setActive(false)
+  }, [userInfo, setActive])
+
+  useEffect(() => {
+    console.log({ active })
+  }, [active])
 
   const dark = {
     themeColour: '#282828',
@@ -83,7 +90,11 @@ export const App = () => {
             <GlobalStyle />
             <main>
               <Switch>
-                <Route exact path='/' render={props => <Home {...props} active={active} />} />
+                <Route
+                  exact
+                  path='/'
+                  render={props => <Home {...props} active={active} setActive={setActive} />}
+                />
                 <PrivateRoute
                   path='/app/:id'
                   exact

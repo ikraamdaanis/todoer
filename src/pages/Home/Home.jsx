@@ -22,13 +22,15 @@ import appScreenshot from '../../assets/images/hero-screenshot.png'
 import { useSelector } from 'react-redux'
 import { BrowseIcon, SeeTodo } from '../../assets'
 
-export const Home = ({ history, active }) => {
+export const Home = ({ history, active, setActive }) => {
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
   useEffect(() => {
     userInfo && history.push('/app/today')
   }, [history, userInfo])
+
+  !userInfo && setTimeout(() => setActive(true), 500)
 
   return (
     <HomeContainer className={active && 'visible'}>
@@ -90,4 +92,4 @@ export const Home = ({ history, active }) => {
   )
 }
 
-Home.propTypes = { history: PropTypes.object, active: PropTypes.bool }
+Home.propTypes = { history: PropTypes.object, active: PropTypes.bool, setActive: PropTypes.func }
