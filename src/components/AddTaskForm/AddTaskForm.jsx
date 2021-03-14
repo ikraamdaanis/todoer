@@ -32,13 +32,9 @@ export const AddTaskForm = ({
 
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isActive, setIsActive] = useState(false)
-  const [todoDescription, setTodoDescription] = useState(
-    taskDetails.description || ''
-  )
+  const [todoDescription, setTodoDescription] = useState(taskDetails.description || '')
   const [selectedProject, setSelectedProject] = useState(
-    (!['today', 'upcoming'].includes(currentProject?.title) &&
-      currentProject?.title) ||
-      'Inbox'
+    (!['today', 'upcoming'].includes(currentProject?.title) && currentProject?.title) || 'Inbox'
   )
   const [date, setDate] = useState(
     taskDetails.dueDate
@@ -50,9 +46,7 @@ export const AddTaskForm = ({
 
   useEffect(() => {
     setSelectedProject(
-      (!['today', 'upcoming'].includes(currentProject?.title) &&
-        currentProject?.title) ||
-        'Inbox'
+      (!['today', 'upcoming'].includes(currentProject?.title) && currentProject?.title) || 'Inbox'
     )
   }, [currentProject])
 
@@ -102,20 +96,13 @@ export const AddTaskForm = ({
       )
       setTodoDescription('')
       setSelectedProject(
-        (!['today', 'upcoming'].includes(currentProject?.title) &&
-          currentProject?.title) ||
-          'Inbox'
+        (!['today', 'upcoming'].includes(currentProject?.title) && currentProject?.title) || 'Inbox'
       )
-      setDate(
-        currentProject?.title === 'today'
-          ? format(new Date(), 'yyyy-MM-dd')
-          : ''
-      )
+      setDate(currentProject?.title === 'today' ? format(new Date(), 'yyyy-MM-dd') : '')
 
       scrollDownToLastTask()
     }
-    currentProject.title !== 'today' &&
-      history.push(`/app/${project.toLowerCase()}`)
+    currentProject.title !== 'today' && history.push(`/app/${project.toLowerCase()}`)
   }
 
   return (
@@ -134,7 +121,6 @@ export const AddTaskForm = ({
             <input
               name='description'
               id='description'
-              placeholder='e.g. Complete this task today'
               value={todoDescription}
               onChange={e => setTodoDescription(e.target.value)}
               required
@@ -145,11 +131,7 @@ export const AddTaskForm = ({
           <SubOptions>
             <DatePicker chosenDate={date} setDate={setDate} />
             <ProjectSelection>
-              <button
-                type='button'
-                ref={menuButton}
-                onClick={() => setIsMenuOpen(prev => !prev)}
-              >
+              <button type='button' ref={menuButton} onClick={() => setIsMenuOpen(prev => !prev)}>
                 {!['Inbox', 'today', 'upcoming'].includes(selectedProject) ? (
                   <>
                     <BulletPoint>

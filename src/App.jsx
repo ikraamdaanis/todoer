@@ -33,6 +33,7 @@ export const App = () => {
     complete: '#808080',
     completeHover: '#4b4b4b',
     scrollbarTrack: '#181818',
+    dropdown: '#282828',
     profileMenu: '#1f1f1f',
   }
 
@@ -55,6 +56,7 @@ export const App = () => {
     complete: '#808080',
     completeHover: '#E6E6E6',
     scrollbarTrack: '#dbdbdb',
+    dropdown: '#ffffff',
     profileMenu: '#fff',
   }
 

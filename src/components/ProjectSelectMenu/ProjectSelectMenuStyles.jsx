@@ -6,7 +6,7 @@ export const MenuContainer = styled.div`
   left: 50%;
   width: 275px;
   transform: translateX(-50%);
-  background: ${props => props.theme.background};
+  background: ${props => props.theme.dropdown};
   z-index: 1000;
   border-radius: 3px;
   box-shadow: 0 2px 10px rgb(0 0 0 / 30%);
@@ -31,8 +31,7 @@ export const Arrow = styled.div`
   height: 0;
   border-style: solid;
   border-width: 0 6px 12px 6px;
-  border-color: transparent transparent ${props => props.theme.background}
-    transparent;
+  border-color: transparent transparent ${props => props.theme.background} transparent;
   border-style: inset;
   -webkit-transform: rotate(360deg);
 `
