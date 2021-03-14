@@ -8,6 +8,16 @@ export const NavbarContainer = styled.nav`
   position: relative;
   z-index: 1000;
   width: 100%;
+
+  &.home {
+    height: 64px;
+    border-bottom: 0;
+    box-shadow: none;
+
+    @media (max-width: 770px) {
+      height: 48px;
+    }
+  }
 `
 
 export const Container = styled.div`
@@ -19,6 +29,12 @@ export const Container = styled.div`
 
   @media (max-width: 550px) {
     padding: 0 10px 0;
+  }
+
+  &.home {
+    max-width: 1088px;
+    margin: 0 auto;
+    padding: 0 1rem;
   }
 `
 
@@ -48,28 +64,77 @@ export const NavbarItem = styled.button`
   }
 `
 
+export const LeftContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+
+  .logo {
+    width: 127px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    height: 100%;
+
+    @media (max-width: 960px) {
+      display: none;
+    }
+  }
+`
+
 export const RightContainer = styled.div`
   display: flex;
   align-items: center;
   margin-left: auto;
+  height: 100%;
+
+  a {
+    height: 100%;
+  }
+
   button {
     margin-left: 0.5rem;
   }
 `
-export const AuthButton = styled.button`
+export const NavButton = styled.button`
   display: block;
-  background: ${props => props.theme.lightRed};
   border: 0;
   outline: 0;
-  font-size: 13px;
-  color: ${props => props.theme.textColour};
-  border-radius: 5px;
-  padding: 4px 8px 5px;
-  line-height: 100%;
   cursor: pointer;
   transition: 0.2s ease-in-out;
+  color: #575757;
+  padding: 0 1rem;
+  background: none;
+  font-size: 1rem;
+  font-weight: 300;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  height: 100%;
 
   &:hover {
-    filter: brightness(1.1);
+    color: #1f1f1f;
+    background-color: #fafafa;
+    border-bottom: 2px solid #e44232;
+
+    &.signup {
+      color: #e44232;
+    }
+  }
+
+  &.signup {
+    color: #e44232;
+  }
+
+  @media (max-width: 770px) {
+    font-size: 15px;
   }
 `

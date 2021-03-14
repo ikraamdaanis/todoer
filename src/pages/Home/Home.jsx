@@ -5,9 +5,9 @@ export const Home = ({ history }) => {
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
-  useEffect(() => {
-    if (!userInfo) history.push('/signin')
-  }, [userInfo])
+  // useEffect(() => {
+  //   if (!userInfo) history.push('/signin')
+  // }, [userInfo])
 
-  return <div></div>
+  return <div>Hello</div>
 }

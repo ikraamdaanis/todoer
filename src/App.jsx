@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { ThemeProvider } from 'styled-components'
 import { PrivateRoute, ScrollToTop } from './components'
 import { Dashboard, Navbar } from './containers'
-import { SignIn, SignUp } from './pages'
+import { Home, SignIn, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
 
 export const ThemeContext = createContext()
@@ -68,30 +68,31 @@ export const App = () => {
 
   return (
     <ThemeContext.Provider value={{ darkTheme, setDarkTheme }}>
-      <Router>
-        <ThemeProvider theme={userInfo ? (darkTheme ? dark : light) : light}>
-          <Navbar setSidebarClosed={setSidebarClosed} setDarkTheme={setDarkTheme} />
-        </ThemeProvider>
-        <ThemeProvider theme={userInfo ? (darkTheme ? dark : light) : light}>
-          <ScrollToTop />
-          <GlobalStyle />
-          <main>
-            <Switch>
-              <TaskFormContext.Provider value={{ currentTaskForm, setCurrentTaskForm }}>
+      <TaskFormContext.Provider value={{ currentTaskForm, setCurrentTaskForm }}>
+        <Router>
+          <ThemeProvider theme={userInfo ? (darkTheme ? dark : light) : light}>
+            <Navbar setSidebarClosed={setSidebarClosed} />
+          </ThemeProvider>
+          <ThemeProvider theme={userInfo ? (darkTheme ? dark : light) : light}>
+            <ScrollToTop />
+            <GlobalStyle />
+            <main>
+              <Switch>
+                <Route exact path='/' render={props => <Home {...props} />} />
                 <PrivateRoute
                   path='/app/:id'
                   exact
                   component={Dashboard}
                   sidebarClosed={sidebarClosed}
                 />
-              </TaskFormContext.Provider>
-              <Route exact path='/signin' render={props => <SignIn {...props} />} />
-              <Route exact path='/signup' render={props => <SignUp {...props} />} />
-              <PrivateRoute path='/' component={Redirect} to='/app/inbox' />
-            </Switch>
-          </main>
-        </ThemeProvider>
-      </Router>
+                <Route exact path='/signin' render={props => <SignIn {...props} />} />
+                <Route exact path='/signup' render={props => <SignUp {...props} />} />
+                <PrivateRoute path='/' component={Redirect} to='/app/inbox' />
+              </Switch>
+            </main>
+          </ThemeProvider>
+        </Router>
+      </TaskFormContext.Provider>
     </ThemeContext.Provider>
   )
 }
