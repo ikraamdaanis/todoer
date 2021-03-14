@@ -70,6 +70,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
   const [sortOptions, setSortOptions] = useState({ option: 'createdAt', direction: 'asc' })
 
   const dispatch = useDispatch()
+  const { darkTheme } = useContext(ThemeContext)
 
   const projectList = useSelector(state => state.projectList)
   const { loading: projectsLoading, projects } = projectList
@@ -80,20 +81,20 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
     dispatch(getAllTasks())
   }, [dispatch])
 
-  const { darkTheme } = useContext(ThemeContext)
+  useEffect(() => {
+    // Make sure one task form is open at a time
+    currentTaskForm !== 'add' && setIsAddTaskOpen(false)
+  }, [currentTaskForm])
 
   const { id } = match.params
   const isProject = id !== 'today' && id !== 'upcoming'
 
   useEffect(() => {
-    currentTaskForm !== 'add' && setIsAddTaskOpen(false)
-  }, [currentTaskForm])
-
-  useEffect(() => {
+    // Redirect to Today Page if URL id doesn't match any project title
     if (projects) {
       const projectExists = projects.some(project => project.title.toLowerCase() === id)
       if (!isProject || projectExists) return
-      history.push('/app/inbox')
+      history.push('/app/today')
     }
   }, [isProject, id, projects, history])
 
@@ -113,6 +114,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
   }, [assignCurrentProject, projectsLoading])
 
   useEffect(() => {
+    // Set Current Project every URL change
     fetchTasks(id)
     setIsAddTaskOpen(false)
     setSortOptions({
