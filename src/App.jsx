@@ -17,6 +17,9 @@ export const App = () => {
 
   localStorage.setItem('darkTheme', JSON.stringify(darkTheme))
 
+  const userLogin = useSelector(state => state.userLogin)
+  const { userInfo } = userLogin
+
   const dark = {
     themeColour: '#282828',
     background: '#1f1f1f',
@@ -38,6 +41,7 @@ export const App = () => {
     scrollbarTrack: '#181818',
     dropdown: '#282828',
     profileMenu: '#1f1f1f',
+    overflow: 'hidden',
   }
 
   const light = {
@@ -61,10 +65,8 @@ export const App = () => {
     scrollbarTrack: '#dbdbdb',
     dropdown: '#ffffff',
     profileMenu: '#fff',
+    overflow: userInfo ? 'hidden' : 'unset',
   }
-
-  const userLogin = useSelector(state => state.userLogin)
-  const { userInfo } = userLogin
 
   return (
     <ThemeContext.Provider value={{ darkTheme, setDarkTheme }}>

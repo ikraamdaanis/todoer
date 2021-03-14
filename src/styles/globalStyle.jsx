@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  overflow: hidden;
+  overflow: ${props => props.theme.overflow};
   background: ${props => props.theme.background};
   color: ${props => props.theme.textColour};
 
