@@ -51,13 +51,18 @@ export const NameEmail = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     color: ${props => props.theme.textColour};
+
+    strong {
+      font-weight: 600;
+    }
   }
 
   .email {
     white-space: nowrap;
     overflow: hidden;
+    font-weight: 300;
     text-overflow: ellipsis;
-    color: ${props => props.theme.textSecondary};
+    color: ${props => props.theme.textTertiary};
     margin: 3px 0 0;
   }
 `
