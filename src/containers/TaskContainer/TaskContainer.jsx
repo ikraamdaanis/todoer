@@ -64,6 +64,7 @@ export const TaskContainer = ({
       {projectTaskList?.length
         ? projectTaskList
             ?.filter(task => task.isComplete === isComplete)
+
             .map(task => (
               <TaskItem
                 key={task.id}
@@ -77,6 +78,7 @@ export const TaskContainer = ({
             ))
         : tasks
             ?.filter(task => task.isComplete === isComplete)
+            .sort((a, b) => a.createdAt - b.createdAt)
             .map(task => (
               <TaskItem
                 key={task.id}

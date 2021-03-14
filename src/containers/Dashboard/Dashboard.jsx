@@ -128,6 +128,11 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
     setIsUndoVisible
   )
 
+  useEffect(() => {
+    // Set Dashboard Tasks Count for Scroll
+    allTasks && currentProject && setDashboardTasks(allTasks[currentProject.title])
+  }, [allTasks, currentProject])
+
   const dashboard = useRef()
   const scrollDownToLastTask = () => scrollToBottom(dashboard, dashboardTasks)
   useCheckScrolling(dashboard, setIsScrolling)
