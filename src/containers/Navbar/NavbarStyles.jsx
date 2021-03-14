@@ -13,6 +13,8 @@ export const NavbarContainer = styled.nav`
     height: 64px;
     border-bottom: 0;
     box-shadow: none;
+    position: fixed;
+    width: 100%;
 
     @media (max-width: 770px) {
       height: 48px;

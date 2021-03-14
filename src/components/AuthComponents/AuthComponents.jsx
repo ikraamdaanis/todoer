@@ -2,12 +2,17 @@ import styled from 'styled-components/macro'
 
 export const AuthPage = styled.div`
   background: ${props => props.theme.background};
-  margin: 50px auto;
+  margin: 0 auto;
   border-radius: 8px;
   border: solid 1px ${props => props.theme.taskForm};
   padding: 25px;
   width: 500px;
   max-width: 95%;
+  padding-top: 114px;
+
+  @media (max-width: 770px) {
+    padding-top: 98px;
+  }
 `
 export const Title = styled.h1`
   font-size: 26px;

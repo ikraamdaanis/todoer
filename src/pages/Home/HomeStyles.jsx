@@ -1,11 +1,28 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import reviewsImage from '../../assets/images/reviews.webp'
+
+export const HomeContainer = styled.div`
+  padding-top: 64px;
+  opacity: 0;
+  transition: 5s ease-in-out 1s;
+
+  @media (max-width: 770px) {
+    padding-top: 48px;
+  }
+
+  &.visible {
+    transition: 0.5s ease-in-out 0.1s;
+    opacity: 1;
+  }
+`
 
 export const Hero = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
   position: relative;
+  height: calc(100% - 40rem);
 `
 
 export const HeroTitleContainer = styled.div`
@@ -95,7 +112,11 @@ export const HeroBackground = styled.div`
 
   &.screenshot {
     z-index: -1;
-    margin: 2rem auto;
+    margin: -6rem auto -17.5rem;
+
+    @media (max-width: 770px) {
+      margin: -1rem auto -13rem;
+    }
   }
 
   @media (max-width: 1120px) {
@@ -104,10 +125,6 @@ export const HeroBackground = styled.div`
 
   @media (max-width: 770px) {
     margin: -4rem auto;
-
-    &.screenshot {
-      margin: 0rem auto;
-    }
   }
 
   @media (max-width: 480px) {
@@ -119,56 +136,16 @@ export const FreeUp = styled.section`
   padding: 4rem 1rem 6rem;
   text-align: center;
   background: ${props => props.theme.background};
-  position: absolute;
   width: 100%;
-  bottom: 0;
+  bottom: calc(0.3 * 100px);
   left: 0;
 
-  @media (max-width: 1000px) {
-    bottom: -5%;
-  }
-
-  @media (max-width: 800px) {
-    bottom: -10%;
-  }
-
-  @media (max-width: 750px) {
-    bottom: -15%;
-  }
-
-  @media (max-width: 600px) {
-    bottom: -20%;
-  }
-
-  @media (max-width: 500px) {
-    bottom: -25%;
-  }
-
-  @media (max-width: 480px) {
-    bottom: -50%;
-  }
-
-  @media (max-width: 400px) {
-    bottom: -70%;
-  }
-  /* transform: translateY(-400px);
-
-  @media (max-width: 900px) {
-    transform: translateY(-400px);
-  }
-  @media (max-width: 700px) {
-    transform: translateY(-250px);
-  }
-  @media (max-width: 500px) {
-    transform: translateY(-200px);
-  } */
-
   @media (max-width: 660px) {
-    padding: 2.5rem 1rem 6rem;
+    padding: 2.5rem 1rem 1rem;
   }
 
   @media (max-width: 480px) {
-    padding: 2rem 1rem 6rem;
+    padding: 2rem 1rem 2rem;
     transform: translateY(-100px);
     text-align: left;
   }
@@ -228,7 +205,7 @@ export const FreeUpLinks = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 480px) {
+  @media (max-width: 540px) {
     justify-content: flex-start;
     flex-direction: column;
     align-items: flex-start;
@@ -247,5 +224,84 @@ export const FeaturesLink = styled(Link)`
   @media (max-width: 480px) {
     margin: 0 1.5rem 0 0;
     font-size: 14px;
+  }
+
+  svg {
+    margin-right: 0.25rem;
+  }
+`
+export const ReviewsSection = styled.section`
+  display: flex;
+  background: url(${reviewsImage});
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: 50%;
+  position: relative;
+  z-index: 1;
+  margin-top: -3rem;
+
+  @media (max-width: 700px) {
+    background: #fed35e;
+    margin-top: 5rem;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: -3rem;
+  }
+`
+
+export const ReviewsContainer = styled.div`
+  width: 100%;
+  max-width: 1120px;
+  margin: 3rem auto 0;
+  padding: 10rem 5rem;
+  justify-content: space-between;
+  display: flex;
+
+  @media (max-width: 700px) {
+    padding: 2rem 2rem;
+    margin: 0;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+`
+
+export const ReviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  padding: 0.8rem 0.5rem;
+
+  @media (max-width: 970px) {
+    width: 28%;
+  }
+
+  @media (max-width: 700px) {
+    width: 50%;
+    min-width: 230px;
+  }
+
+  .reviewer {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    letter-spacing: 0;
+  }
+
+  .rating {
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .review-body {
+    margin-bottom: 1rem;
+    line-height: 1.35;
+    font-weight: 600;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+
+    @media (max-width: 1050px) {
+      font-size: 1.4rem;
+    }
   }
 `

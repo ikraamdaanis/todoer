@@ -11,11 +11,13 @@ export const ThemeContext = createContext()
 export const TaskFormContext = createContext()
 
 export const App = () => {
+  const [active, setActive] = useState(false)
+  const [currentTaskForm, setCurrentTaskForm] = useState('')
   const [sidebarClosed, setSidebarClosed] = useState(false)
   const [darkTheme, setDarkTheme] = useState(JSON.parse(localStorage.getItem('darkTheme')) || false)
-  const [currentTaskForm, setCurrentTaskForm] = useState('')
 
   localStorage.setItem('darkTheme', JSON.stringify(darkTheme))
+  setTimeout(() => setActive(true), 500)
 
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
@@ -81,7 +83,7 @@ export const App = () => {
             <GlobalStyle />
             <main>
               <Switch>
-                <Route exact path='/' render={props => <Home {...props} />} />
+                <Route exact path='/' render={props => <Home {...props} active={active} />} />
                 <PrivateRoute
                   path='/app/:id'
                   exact
