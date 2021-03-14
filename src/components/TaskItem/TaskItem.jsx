@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
+import PropTypes from 'prop-types'
 import {
   MenuItem,
   TaskCheck,
@@ -27,7 +28,7 @@ import { deleteTask } from '../../store/actions/taskActions'
 import { Modal } from '../Modal/Modal'
 import { AddTaskForm } from '../AddTaskForm/AddTaskForm'
 import { Link } from 'react-router-dom'
-import { ThemeContext } from '../../App'
+import { TaskFormContext, ThemeContext } from '../../App'
 
 export const TaskItem = ({
   task,
@@ -35,8 +36,6 @@ export const TaskItem = ({
   setTasksToNotComplete,
   setIsUndoVisible,
   clearTimer,
-  currentTaskForm,
-  setCurrentTaskForm,
   currentProject,
 }) => {
   const [taskMenuOpen, setTaskMenuOpen] = useState(false)
@@ -47,6 +46,8 @@ export const TaskItem = ({
   const TaskMenuButtonRef = useRef(null)
 
   useMenu(TaskMenuButtonRef, TaskMenuRef, setTaskMenuOpen)
+
+  const { currentTaskForm, setCurrentTaskForm } = useContext(TaskFormContext)
 
   useEffect(() => {
     currentTaskForm !== 'edit' && setEditMenuOpen(false)
@@ -179,4 +180,13 @@ export const TaskItem = ({
       )}
     </TaskListItem>
   )
+}
+
+TaskItem.propTypes = {
+  task: PropTypes.object,
+  setTasksToComplete: PropTypes.func,
+  setTasksToNotComplete: PropTypes.func,
+  setIsUndoVisible: PropTypes.func,
+  clearTimer: PropTypes.func,
+  currentProject: PropTypes.object,
 }

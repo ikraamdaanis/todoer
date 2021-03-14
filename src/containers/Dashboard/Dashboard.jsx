@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback, useContext } from 'react'
+import React, { useState, useEffect, useRef, useCallback, useContext, createContext } from 'react'
 import PropTypes from 'prop-types'
 import {
   AddTask,
@@ -50,12 +50,11 @@ import { useCheckScrolling } from '../../hooks/useCheckScrolling'
 
 import { useMenu } from '../../hooks/useMenu'
 import { useSetPosition } from '../../hooks/useSetPosition'
-import { ThemeContext } from '../../App'
+import { TaskFormContext, ThemeContext } from '../../App'
 import { useToggleComplete } from '../../hooks/useToggleComplete'
 
 export const Dashboard = ({ history, match, sidebarClosed }) => {
-  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false)
-  const [currentTaskForm, setCurrentTaskForm] = useState('')
+  const [addTaskFormOpen, setAddTaskFormOpen] = useState(false)
   const [tasksLoading, setTasksLoading] = useState(true)
   const [projectMenuOpen, setProjectMenuOpen] = useState(false)
   const [projectSortOpen, setProjectSortOpen] = useState(false)
@@ -71,6 +70,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
 
   const dispatch = useDispatch()
   const { darkTheme } = useContext(ThemeContext)
+  const { currentTaskForm, setCurrentTaskForm } = useContext(TaskFormContext)
 
   const projectList = useSelector(state => state.projectList)
   const { loading: projectsLoading, projects } = projectList
@@ -83,7 +83,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
 
   useEffect(() => {
     // Make sure one task form is open at a time
-    currentTaskForm !== 'add' && setIsAddTaskOpen(false)
+    currentTaskForm !== 'add' && setAddTaskFormOpen(false)
   }, [currentTaskForm])
 
   const { id } = match.params
@@ -116,7 +116,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
   useEffect(() => {
     // Set Current Project every URL change
     fetchTasks(id)
-    setIsAddTaskOpen(false)
+    setAddTaskFormOpen(false)
     setSortOptions({
       option: 'createdAt',
       direction: 'asc',
@@ -204,7 +204,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
             {!allTasks ? (
               <Spinner darkTheme={darkTheme} />
             ) : (
-              <>
+              <TaskFormContext.Provider value={{ currentTaskForm, setCurrentTaskForm }}>
                 {currentProject?.title === 'today' && (
                   <OverdueContainer
                     tasks={allTasks.overdue}
@@ -215,8 +215,6 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
                     setIsUndoVisible={setIsUndoVisible}
                     clearTimer={clearTimer}
                     setTasksLoading={setTasksLoading}
-                    currentTaskForm={currentTaskForm}
-                    setCurrentTaskForm={setCurrentTaskForm}
                   />
                 )}
                 <TaskContainer
@@ -230,15 +228,13 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
                   sortOptions={sortOptions}
                   setDashboardTasks={setDashboardTasks}
                   setTasksLoading={setTasksLoading}
-                  currentTaskForm={currentTaskForm}
-                  setCurrentTaskForm={setCurrentTaskForm}
                   overdue={allTasks.overdue}
                 />
                 <AddTaskContainer className={showCompletedTasks ? 'complete' : undefined}>
-                  {!isAddTaskOpen ? (
+                  {!addTaskFormOpen ? (
                     <AddTask
                       onClick={() => {
-                        setIsAddTaskOpen(!isAddTaskOpen)
+                        setAddTaskFormOpen(!addTaskFormOpen)
                         setCurrentTaskForm('add')
                       }}
                     >
@@ -251,7 +247,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
                     <AddTaskForm
                       id='taskForm'
                       edit={false}
-                      setIsOpen={setIsAddTaskOpen}
+                      setIsOpen={setAddTaskFormOpen}
                       currentProject={currentProject}
                       scrollDownToLastTask={scrollDownToLastTask}
                     />
@@ -269,12 +265,10 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
                     sortOptions={sortOptions}
                     setDashboardTasks={setDashboardTasks}
                     setTasksLoading={setTasksLoading}
-                    currentTaskForm={currentTaskForm}
-                    setCurrentTaskForm={setCurrentTaskForm}
                     overdue={allTasks.overdue}
                   />
                 )}
-              </>
+              </TaskFormContext.Provider>
             )}
           </ProjectContainer>
         </DashboardContainer>

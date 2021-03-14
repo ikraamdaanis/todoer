@@ -7,10 +7,12 @@ import { SignIn, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
 
 export const ThemeContext = createContext()
+export const TaskFormContext = createContext()
 
 export const App = () => {
   const [sidebarClosed, setSidebarClosed] = useState(false)
   const [darkTheme, setDarkTheme] = useState(JSON.parse(localStorage.getItem('darkTheme')) || false)
+  const [currentTaskForm, setCurrentTaskForm] = useState('')
 
   localStorage.setItem('darkTheme', JSON.stringify(darkTheme))
 
@@ -69,12 +71,14 @@ export const App = () => {
           <ScrollToTop />
           <main>
             <Switch>
-              <PrivateRoute
-                path='/app/:id'
-                exact
-                component={Dashboard}
-                sidebarClosed={sidebarClosed}
-              />
+              <TaskFormContext.Provider value={{ currentTaskForm, setCurrentTaskForm }}>
+                <PrivateRoute
+                  path='/app/:id'
+                  exact
+                  component={Dashboard}
+                  sidebarClosed={sidebarClosed}
+                />
+              </TaskFormContext.Provider>
               <Route exact path='/signin' render={props => <SignIn {...props} />} />
               <Route exact path='/signup' render={props => <SignUp {...props} />} />
               <PrivateRoute path='/' component={Redirect} to='/app/inbox' />

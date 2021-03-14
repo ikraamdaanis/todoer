@@ -6,6 +6,7 @@ import { useParams } from 'react-router'
 
 export const TaskContainer = ({
   tasks,
+  overdue,
   project,
   isComplete,
   setTasksToComplete,
@@ -15,9 +16,6 @@ export const TaskContainer = ({
   sortOptions,
   setDashboardTasks,
   setTasksLoading,
-  currentTaskForm = '',
-  setCurrentTaskForm = null,
-  overdue,
 }) => {
   const [projectTaskList, setProjectTaskList] = useState(null)
 
@@ -74,8 +72,6 @@ export const TaskContainer = ({
                 setTasksToNotComplete={setTasksToNotComplete}
                 setIsUndoVisible={setIsUndoVisible}
                 clearTimer={clearTimer}
-                currentTaskForm={currentTaskForm}
-                setCurrentTaskForm={setCurrentTaskForm}
                 currentProject={project}
               />
             ))
@@ -89,8 +85,6 @@ export const TaskContainer = ({
                 setTasksToNotComplete={setTasksToNotComplete}
                 setIsUndoVisible={setIsUndoVisible}
                 clearTimer={clearTimer}
-                currentTaskForm={currentTaskForm}
-                setCurrentTaskForm={setCurrentTaskForm}
                 currentProject={project}
               />
             ))}
@@ -110,6 +104,4 @@ TaskContainer.propTypes = {
   sortOptions: PropTypes.object,
   setDashboardTasks: PropTypes.func,
   setTasksLoading: PropTypes.func,
-  currentTaskForm: PropTypes.string,
-  setCurrentTaskForm: PropTypes.func,
 }
