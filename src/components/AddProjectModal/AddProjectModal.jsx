@@ -23,7 +23,7 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
   const projectCreate = useSelector(state => state.projectCreate)
   const { success } = projectCreate
 
-  const handleSubmit = async event => {
+  const handleSubmit = event => {
     event.preventDefault()
     dispatch(createProject(project))
   }
@@ -41,7 +41,6 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
 
   const form = useRef(null)
   const cancelButton = useRef(null)
-
   useMenu(form, cancelButton, setIsProjectModalOpen)
 
   const input = useRef(null)

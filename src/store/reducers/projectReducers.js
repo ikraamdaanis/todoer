@@ -13,6 +13,7 @@ export const projectCreateReducer = (state = {}, { type, payload }) => {
     case PROJECT_CREATE_REQUEST:
       return {
         loading: true,
+        success: false,
       }
     case PROJECT_CREATE_SUCCESS:
       return {
@@ -29,10 +30,7 @@ export const projectCreateReducer = (state = {}, { type, payload }) => {
   }
 }
 
-export const projectListReducer = (
-  state = { projects: [] },
-  { type, payload }
-) => {
+export const projectListReducer = (state = { projects: [] }, { type, payload }) => {
   switch (type) {
     case PROJECT_DETAILS_REQUEST:
       return {

@@ -20,10 +20,11 @@ body {
   overflow: ${props => props.theme.overflow};
   background: ${props => props.theme.background};
   color: ${props => props.theme.textColour};
+  overflow-x: hidden;
+  
 
   @media(max-width: 450px){
     overflow: unset;
-    overflow-x: hidden;
   }
 }
 

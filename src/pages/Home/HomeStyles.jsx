@@ -286,7 +286,7 @@ export const ReviewItem = styled.div`
 
   @media (max-width: 700px) {
     width: 50%;
-    min-width: 230px;
+    max-width: 200px;
   }
 
   .reviewer {
@@ -297,7 +297,7 @@ export const ReviewItem = styled.div`
 
   .rating {
     margin-bottom: 1rem;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .review-body {

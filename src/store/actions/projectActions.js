@@ -22,20 +22,21 @@ export const createProject = project => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState()
 
-    await firestore
-      .collection('users')
-      .doc(userInfo?.id)
-      .collection('projects')
-      .doc(project)
-      .set({
-        title: project,
-        createdAt: new Date(),
-        id: uuidv4(),
-      })
+    await firestore.collection('users').doc(userInfo?.id).collection('projects').doc(project).set({
+      title: project,
+      createdAt: new Date(),
+      id: uuidv4(),
+    })
 
     dispatch({
       type: PROJECT_CREATE_SUCCESS,
     })
+
+    setTimeout(() => {
+      dispatch({
+        type: PROJECT_CREATE_REQUEST,
+      })
+    }, 300)
   } catch (error) {
     dispatch({
       type: PROJECT_CREATE_FAIL,
