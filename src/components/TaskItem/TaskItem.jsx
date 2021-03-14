@@ -20,7 +20,7 @@ import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
 import { ReactComponent as InboxSmallIcon } from '../../assets/images/inbox-small.svg'
 import { ReactComponent as Dot } from '../../assets/images/dot.svg'
 
-import { useMenu } from '../../hooks/useMenu'
+import { useMenu } from '../../hooks/'
 import { setDateColour } from '../../utils/setDateColour'
 import { setDateText } from '../../utils/setDateText'
 import { DeleteModal } from '../DeleteModal/DeleteModal'

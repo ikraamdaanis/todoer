@@ -14,10 +14,9 @@ import {
 import { DatePicker, ProjectSelectMenu } from '../'
 import { useDispatch, useSelector } from 'react-redux'
 import { createTask, editTask } from '../../store/actions/taskActions'
-import { v4 as uuidv4 } from 'uuid'
 import { ReactComponent as InboxIconSmall } from '../../assets/images/inbox-small.svg'
-import { useMenu } from '../../hooks/useMenu'
-import { useFocus } from '../../hooks/useFocus'
+import { useFocus, useMenu } from '../../hooks'
+import { v4 as uuidv4 } from 'uuid'
 import { format } from 'date-fns'
 import { useHistory } from 'react-router'
 

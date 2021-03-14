@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback, useContext, createContext } from 'react'
+import React, { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import PropTypes from 'prop-types'
 import {
   AddTask,
@@ -46,12 +46,9 @@ import logoLight from '../../assets/images/logo-light.png'
 
 import { format } from 'date-fns'
 import { scrollToBottom } from '../../utils/scrollToBottom'
-import { useCheckScrolling } from '../../hooks/useCheckScrolling'
+import { useCheckScrolling, useMenu, useSetPosition, useToggleComplete } from '../../hooks/'
 
-import { useMenu } from '../../hooks/useMenu'
-import { useSetPosition } from '../../hooks/useSetPosition'
 import { TaskFormContext, ThemeContext } from '../../App'
-import { useToggleComplete } from '../../hooks/useToggleComplete'
 
 export const Dashboard = ({ history, match, sidebarClosed }) => {
   const [addTaskFormOpen, setAddTaskFormOpen] = useState(false)

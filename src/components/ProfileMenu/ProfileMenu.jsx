@@ -12,7 +12,7 @@ import {
 import { ReactComponent as LogoutIcon } from '../../assets/images/logout-icon.svg'
 import { ReactComponent as ThemeIcon } from '../../assets/images/theme-icon.svg'
 import { logoutAction } from '../../store/actions/userActions'
-import { useMenu } from '../../hooks/useMenu'
+import { useMenu } from '../../hooks'
 import { ThemeContext } from '../../App'
 
 export const ProfileMenu = () => {

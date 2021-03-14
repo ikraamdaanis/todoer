@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { useMenu } from '../../hooks/useMenu'
-import { useFocus } from '../../hooks/useFocus'
+import { useFocus, useMenu } from '../../hooks/'
 import { createProject } from '../../store/actions/projectActions'
 import {
   AddProjectButton,
