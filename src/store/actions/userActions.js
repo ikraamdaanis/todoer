@@ -29,16 +29,11 @@ export const registerAction = () => async dispatch => {
 
     await firestore.collection('users').doc(auth.currentUser.uid).set(user)
 
-    await firestore
-      .collection('users')
-      .doc(user.id)
-      .collection('projects')
-      .doc('Inbox')
-      .set({
-        title: 'Inbox',
-        createdAt: new Date(),
-        id: uuidv4(),
-      })
+    await firestore.collection('users').doc(user.id).collection('projects').doc('Inbox').set({
+      title: 'Inbox',
+      createdAt: new Date(),
+      id: uuidv4(),
+    })
 
     dispatch({
       type: USER_REGISTER_SUCCESS,
@@ -93,7 +88,7 @@ export const logoutAction = () => dispatch => {
   auth.signOut().then(_ => console.log('Signed out'))
   dispatch({ type: USER_LOGOUT })
   dispatch({ type: PROJECT_DETAILS_CLEAR })
-  document.location.href = '/signin'
+  document.location.href = '/login'
   localStorage.removeItem('userInfo')
   localStorage.removeItem('allProjects')
 }

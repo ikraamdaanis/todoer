@@ -15,6 +15,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { registerAction } from '../../store/actions/userActions'
+import { GoogleIcon } from '../../assets'
 
 export const SignUp = ({ history }) => {
   const dispatch = useDispatch()
@@ -22,7 +23,6 @@ export const SignUp = ({ history }) => {
   const { loading, error, userInfo } = userLogin
 
   useEffect(() => {
-    console.log({ loading, error, userInfo })
     userInfo && history.push('/app/today')
   }, [loading, error, userInfo, history])
 
@@ -30,13 +30,8 @@ export const SignUp = ({ history }) => {
     <AuthPage>
       <Title>Sign Up</Title>
       <GoogleSignUp onClick={() => dispatch(registerAction())}>
-        <img
-          width='16'
-          height='16'
-          src='https://d3ptyyxy2at9ui.cloudfront.net/google-41de20.svg'
-          alt='Google Logo'
-        />
-        Sign up with Google
+        <GoogleIcon />
+        Continue with Google
       </GoogleSignUp>
       {/* <Separator>
         <p>OR</p>
@@ -55,7 +50,7 @@ export const SignUp = ({ history }) => {
         <SubmitButton type='submit'>Sign up with Email</SubmitButton>
       </AuthForm> */}
       <AuthQuestion>
-        Already signed up? <Link to='/signin'>Go to sign in!</Link>
+        Already signed up? <Link to='/login'>Go to log in!</Link>
       </AuthQuestion>
     </AuthPage>
   )

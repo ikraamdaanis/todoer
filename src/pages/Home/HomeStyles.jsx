@@ -398,6 +398,8 @@ export const FooterContainer = styled.div`
   @media (max-width: 960px) {
     flex-direction: column;
     justify-content: flex-start;
+    max-width: 768px;
+    padding: 0 1rem;
   }
 
   @media (max-width: 768px) {
@@ -499,7 +501,7 @@ export const FooterLinks = styled.section`
     }
 
     p {
-      font-size: 0.875rem;
+      font-size: 12px;
       margin-bottom: 1.5rem;
       font-weight: 300;
       line-height: 1.5;

@@ -10,7 +10,7 @@ export const PrivateRoute = ({ path, exact, component: Component, ...restProps }
   return userInfo ? (
     <Route path={path} exact={exact} render={props => <Component {...props} {...restProps} />} />
   ) : (
-    <Redirect to='/signin' />
+    <Redirect to='/login' />
   )
 }
 

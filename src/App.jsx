@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { ThemeProvider } from 'styled-components'
 import { PrivateRoute, ScrollToTop } from './components'
 import { Dashboard, Navbar } from './containers'
-import { Home, SignIn, SignUp } from './pages'
+import { Home, Login, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
 
 export const ThemeContext = createContext()
@@ -98,9 +98,10 @@ export const App = () => {
                   sidebarClosed={sidebarClosed}
                   setSidebarClosed={setSidebarClosed}
                 />
-                <Route exact path='/signin' render={props => <SignIn {...props} />} />
+                <Route exact path='/login' render={props => <Login {...props} />} />
                 <Route exact path='/signup' render={props => <SignUp {...props} />} />
                 <PrivateRoute path='/' component={Redirect} to='/app/inbox' />
+                <Route path='/' render={() => <Redirect to='/' />} />
               </Switch>
             </main>
           </ThemeProvider>

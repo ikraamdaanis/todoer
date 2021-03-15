@@ -9,11 +9,14 @@ import {
   LeftContainer,
 } from './NavbarStyles'
 import { HomeIcon, MenuTogglerIcon, todoerLogo, todoerLogoSmRed } from '../../assets/'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
 import { ProfileMenu } from '../../components'
 
 export const Navbar = ({ setSidebarClosed }) => {
+  const userLogin = useSelector(state => state.userLogin)
+  const { userInfo } = userLogin
+
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   useEffect(() => {
     const setViewPort = () => setWindowWidth(window.innerWidth)
@@ -21,11 +24,18 @@ export const Navbar = ({ setSidebarClosed }) => {
     return () => window.removeEventListener('resize', setViewPort)
   }, [])
 
-  const userLogin = useSelector(state => state.userLogin)
-  const { userInfo } = userLogin
+  const location = useLocation()
+  const [showNavbar, setShowNavbar] = useState(false)
+  useEffect(() => {
+    if (['/login', '/signup'].includes(location?.pathname)) {
+      setShowNavbar(false)
+    } else {
+      setShowNavbar(true)
+    }
+  }, [location])
 
   return (
-    <header>
+    <header style={{ display: showNavbar ? 'unset' : 'none' }}>
       <NavbarContainer style={{ background: !userInfo && '#fff' }} className={!userInfo && 'home'}>
         <Container className={!userInfo && 'home'}>
           {userInfo ? (
@@ -63,8 +73,8 @@ export const Navbar = ({ setSidebarClosed }) => {
           <RightContainer>
             {!userInfo ? (
               <>
-                <NavLink to='/signin' activeClassName='active-link'>
-                  <NavButton className={!userInfo && 'home'}>Sign In</NavButton>
+                <NavLink to='/login' activeClassName='active-link'>
+                  <NavButton className={!userInfo && 'home'}>Log in</NavButton>
                 </NavLink>
                 <NavLink to='/signup' activeClassName='active-link'>
                   <NavButton className={`signup ${!userInfo && 'home'}`}>Sign Up</NavButton>

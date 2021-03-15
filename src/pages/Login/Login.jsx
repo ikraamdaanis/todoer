@@ -11,32 +11,27 @@ import {
   // Separator,
   // AuthForm,
   // SubmitButton,
-} from '../../components/'
+} from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInAction } from '../../store/actions/userActions'
 import { Link } from 'react-router-dom'
+import { GoogleIcon } from '../../assets'
 
-export const SignIn = ({ history }) => {
+export const Login = ({ history }) => {
   const dispatch = useDispatch()
   const userLogin = useSelector(state => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
   useEffect(() => {
-    console.log({ loading, error, userInfo })
     userInfo && history.push('/app/today')
   }, [loading, error, userInfo, history])
 
   return (
     <AuthPage>
-      <Title>Sign In</Title>
+      <Title>Log In</Title>
       <GoogleSignUp onClick={() => dispatch(signInAction())}>
-        <img
-          width='16'
-          height='16'
-          src='https://d3ptyyxy2at9ui.cloudfront.net/google-41de20.svg'
-          alt='Google Logo'
-        />
-        Sign in with Google
+        <GoogleIcon />
+        Continue with Google
       </GoogleSignUp>
       {/* <Separator>
         <p>OR</p>
@@ -62,4 +57,4 @@ export const SignIn = ({ history }) => {
   )
 }
 
-SignIn.propTypes = { history: PropTypes.object }
+Login.propTypes = { history: PropTypes.object }

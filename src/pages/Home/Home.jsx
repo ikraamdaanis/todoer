@@ -113,7 +113,7 @@ export const Home = ({ history, active, setActive }) => {
           <img src={flower} alt='peaceful looking flower pot with red flower' />
           <AchieveHeadingContainer>
             <AchieveHeading>Achieve peace of mind with Todoer</AchieveHeading>
-            <HomeButton to='/signin'>Get Started</HomeButton>
+            <HomeButton to='/login'>Get Started</HomeButton>
           </AchieveHeadingContainer>
         </AchieveContainer>
       </AchieveSection>

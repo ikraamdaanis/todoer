@@ -43,7 +43,7 @@ export const GoogleSignUp = styled.button`
     border: 1px solid ${props => props.theme.active};
   }
 
-  img {
+  svg {
     margin-right: 10px;
   }
 `

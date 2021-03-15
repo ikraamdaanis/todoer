@@ -1,3 +1,3 @@
 export { Home } from './Home/Home'
-export { SignIn } from './SignIn/SignIn'
+export { Login } from './Login/Login'
 export { SignUp } from './SignUp/SignUp'
