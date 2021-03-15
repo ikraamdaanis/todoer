@@ -1,12 +1,7 @@
-import {
-  DropdownContainer,
-  DropdownItem,
-  DropdownList,
-  Line,
-} from '../Dropdown/Dropdown'
-import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
-import { ReactComponent as CompleteIcon } from '../../assets/images/complete-icon.svg'
-import { ReactComponent as HideIcon } from '../../assets/images/hide-icon.svg'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { DropdownContainer, DropdownItem, DropdownList, Line } from '../Dropdown/Dropdown'
+import { CompleteIcon, DeleteIcon, HideIcon } from '../../assets/'
 
 export const ProjectMenu = ({
   reference,
@@ -56,4 +51,16 @@ export const ProjectMenu = ({
       </DropdownList>
     </DropdownContainer>
   )
+}
+
+ProjectMenu.propTypes = {
+  reference: PropTypes.object,
+  projectMenuRight: PropTypes.number,
+  showCompletedTasks: PropTypes.bool,
+  setShowCompletedTasks: PropTypes.func,
+  currentProject: PropTypes.object,
+  isProject: PropTypes.bool,
+  projectMenuOpen: PropTypes.bool,
+  setDeleteModalOpen: PropTypes.func,
+  setProjectMenuOpen: PropTypes.func,
 }

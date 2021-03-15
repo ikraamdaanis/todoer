@@ -1,17 +1,10 @@
-import { forwardRef } from 'react'
+import React, { forwardRef } from 'react'
+import PropTypes from 'prop-types'
 import { BulletPoint } from '../../containers/Sidebar/SidebarStyles'
-import {
-  Arrow,
-  MenuContainer,
-  MenuItem,
-  MenuList,
-} from './ProjectSelectMenuStyles'
-import { ReactComponent as Checkmark } from '../../assets/images/checkmark.svg'
-import { ReactComponent as InboxIcon } from '../../assets/images/inbox.svg'
+import { Arrow, MenuContainer, MenuItem, MenuList } from './ProjectSelectMenuStyles'
+import { CheckmarkIcon, InboxIcon } from '../../assets/'
 
-export const ProjectSelectMenu = forwardRef((props, ref) => {
-  const { data, state, setState, setIsMenuOpen } = props
-
+export const ProjectSelectMenu = forwardRef(({ data, state, setState, setIsMenuOpen }, ref) => {
   return (
     <MenuContainer ref={ref}>
       <Arrow />
@@ -37,7 +30,7 @@ export const ProjectSelectMenu = forwardRef((props, ref) => {
             <span>{project.title}</span>
             {state === project.title && (
               <div className='checkmark'>
-                <Checkmark />
+                <CheckmarkIcon />
               </div>
             )}
           </MenuItem>
@@ -46,3 +39,13 @@ export const ProjectSelectMenu = forwardRef((props, ref) => {
     </MenuContainer>
   )
 })
+
+ProjectSelectMenu.propTypes = {
+  ref: PropTypes.object,
+  data: PropTypes.object,
+  state: PropTypes.object,
+  setState: PropTypes.func,
+  setIsMenuOpen: PropTypes.func,
+}
+
+ProjectSelectMenu.displayName = 'ProjectSelectMenu'

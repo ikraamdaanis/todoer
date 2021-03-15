@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
-import { DatePickerInput, DatePickerToggle, ToggleButton } from './DatePickerStyles'
-import { ReactComponent as ScheduleIcon } from '../../assets/images/schedule-icon.svg'
-import { setDateColour, setDateText } from '../../utils'
 import { format } from 'date-fns'
 import { ThemeContext } from '../../App'
+import { DatePickerInput, DatePickerToggle, ToggleButton } from './DatePickerStyles'
+import { ScheduleIcon } from '../../assets/'
+import { setDateColour, setDateText } from '../../utils'
 
 export const DatePicker = ({ chosenDate, setDate }) => {
   const [dueDateText, setDueDateText] = useState(chosenDate ? setDateText(chosenDate) : 'Today')

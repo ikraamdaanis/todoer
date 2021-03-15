@@ -9,11 +9,10 @@ import {
   NameEmail,
   Line,
 } from './ProfileMenuStyles'
-import { ReactComponent as LogoutIcon } from '../../assets/images/logout-icon.svg'
-import { ReactComponent as ThemeIcon } from '../../assets/images/theme-icon.svg'
-import { logoutAction } from '../../store/actions/userActions'
-import { useMenu } from '../../hooks'
+import { LogoutIcon, ThemeIcon } from '../../assets/'
+import { logoutAction } from '../../store/actions/'
 import { ThemeContext } from '../../App'
+import { useMenu } from '../../hooks'
 
 export const ProfileMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
