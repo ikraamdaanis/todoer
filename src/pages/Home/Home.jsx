@@ -19,13 +19,19 @@ import {
   AchieveContainer,
   AchieveHeadingContainer,
   AchieveHeading,
+  Footer,
+  FooterLine,
+  FooterContainer,
+  FooterMain,
+  FooterLogo,
+  FooterDescription,
 } from './HomeStyles'
 import heroImage from '../../assets/images/hero-image.webp'
 import heroFlowers from '../../assets/images/hero-flowers.webp'
 import appScreenshot from '../../assets/images/hero-screenshot.png'
-import { flower } from '../../assets'
 import { useSelector } from 'react-redux'
-import { BrowseIcon, SeeTodo } from '../../assets'
+
+import { BrowseIcon, SeeTodo, flower, todoerLogoSmallBlack } from '../../assets'
 
 export const Home = ({ history, active, setActive }) => {
   const userLogin = useSelector(state => state.userLogin)
@@ -102,6 +108,21 @@ export const Home = ({ history, active, setActive }) => {
           </AchieveHeadingContainer>
         </AchieveContainer>
       </AchieveSection>
+      <Footer>
+        <FooterLine>
+          <hr />
+        </FooterLine>
+        <FooterContainer>
+          <FooterMain>
+            <FooterLogo to='/signup' className='large-viewport'>
+              <img src={todoerLogoSmallBlack} alt='Todoer Logo Black' />
+            </FooterLogo>
+            <FooterDescription>
+              Join millions of people who organize work and life with Todoist.
+            </FooterDescription>
+          </FooterMain>
+        </FooterContainer>
+      </Footer>
     </HomeContainer>
   )
 }

@@ -373,3 +373,80 @@ export const AchieveHeading = styled.h2`
     max-width: 450px;
   }
 `
+
+export const Footer = styled.footer`
+  background: #fff9f3;
+`
+
+export const FooterLine = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1120px;
+  background: #fff9f3;
+  padding: 2rem 0;
+
+  hr {
+    background: rgba(0, 0, 0, 0.14);
+
+    height: 1px;
+  }
+`
+
+export const FooterContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+
+  @media (max-width: 960px) {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  @media (max-width: 480px) {
+    margin-left: 3rem;
+  }
+`
+
+export const FooterMain = styled.section`
+  max-width: 300px;
+
+  @media (max-width: 960px) {
+    max-width: unset;
+  }
+`
+
+export const FooterLogo = styled(Link)`
+  display: none;
+  align-items: center;
+  height: 32px;
+  width: 32px;
+
+  &.large-viewport {
+    display: flex;
+
+    @media (max-width: 480px) {
+      display: none;
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+`
+
+export const FooterDescription = styled.p`
+  margin: 1rem 0 2rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 300;
+`
+
+export const FooterLinks = styled.section`
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+`
