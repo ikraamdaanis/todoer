@@ -380,16 +380,11 @@ export const Footer = styled.footer`
 
 export const FooterLine = styled.div`
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto 4rem;
   max-width: 1120px;
   background: #fff9f3;
-  padding: 2rem 0;
-
-  hr {
-    background: rgba(0, 0, 0, 0.14);
-
-    height: 1px;
-  }
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `
 
 export const FooterContainer = styled.div`

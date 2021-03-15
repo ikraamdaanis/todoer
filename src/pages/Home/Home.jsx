@@ -114,9 +114,7 @@ export const Home = ({ history, active, setActive }) => {
         </AchieveContainer>
       </AchieveSection>
       <Footer>
-        <FooterLine>
-          <hr />
-        </FooterLine>
+        <FooterLine />
         <FooterContent>
           <FooterLogo to='/signup' className='small-viewport'>
             <img src={todoerLogoSmallBlack} alt='Todoer Logo Black' />
