@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { useFocus, useMenu } from '../../hooks/'
-import { createProject } from '../../store/actions/projectActions'
+import { createProject } from '../../store/actions/'
 import {
   AddProjectButton,
   AddProjectFooter,
@@ -17,18 +17,18 @@ import {
 } from './AddProjectModalStyles'
 
 export const AddProjectModal = ({ setIsProjectModalOpen }) => {
-  const [project, setProject] = useState('')
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const projectCreate = useSelector(state => state.projectCreate)
   const { success } = projectCreate
+
+  const [project, setProject] = useState('')
 
   const handleSubmit = event => {
     event.preventDefault()
     dispatch(createProject(project))
   }
-
-  const history = useHistory()
 
   useEffect(() => {
     if (success) {
