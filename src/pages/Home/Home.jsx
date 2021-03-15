@@ -31,12 +31,16 @@ import {
   FooterResources,
   FooterCompany,
 } from './HomeStyles'
-import heroImage from '../../assets/images/hero-image.webp'
-import heroFlowers from '../../assets/images/hero-flowers.webp'
-import appScreenshot from '../../assets/images/hero-screenshot.png'
+import {
+  BrowseIcon,
+  heroImage,
+  heroFlowers,
+  appScreenshot,
+  SeeTodo,
+  flower,
+  todoerLogoSmallBlack,
+} from '../../assets'
 import { useSelector } from 'react-redux'
-
-import { BrowseIcon, SeeTodo, flower, todoerLogoSmallBlack } from '../../assets'
 
 export const Home = ({ history, active, setActive }) => {
   const userLogin = useSelector(state => state.userLogin)
