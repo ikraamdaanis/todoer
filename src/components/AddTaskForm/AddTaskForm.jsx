@@ -11,14 +11,14 @@ import {
   SubOptions,
   BulletPoint,
 } from './AddTaskFormStyles'
-import { DatePicker, ProjectSelectMenu } from '../'
-import { useDispatch, useSelector } from 'react-redux'
-import { createTask, editTask } from '../../store/actions/taskActions'
-import { InboxIconSmall } from '../../assets'
-import { useFocus, useMenu } from '../../hooks'
 import { v4 as uuidv4 } from 'uuid'
 import { format } from 'date-fns'
 import { useHistory } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
+import { createTask, editTask } from '../../store/actions/'
+import { DatePicker, ProjectSelectMenu } from '../'
+import { InboxIconSm } from '../../assets'
+import { useFocus, useMenu } from '../../hooks'
 
 export const AddTaskForm = ({
   edit,
@@ -141,7 +141,7 @@ export const AddTaskForm = ({
                 ) : (
                   <>
                     <div className='inbox'>
-                      <InboxIconSmall />
+                      <InboxIconSm />
                     </div>
                     <span>Inbox</span>
                   </>
