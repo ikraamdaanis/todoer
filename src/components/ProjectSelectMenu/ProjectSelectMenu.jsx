@@ -41,9 +41,8 @@ export const ProjectSelectMenu = forwardRef(({ data, state, setState, setIsMenuO
 })
 
 ProjectSelectMenu.propTypes = {
-  ref: PropTypes.object,
-  data: PropTypes.object,
-  state: PropTypes.object,
+  data: PropTypes.array,
+  state: PropTypes.string,
   setState: PropTypes.func,
   setIsMenuOpen: PropTypes.func,
 }

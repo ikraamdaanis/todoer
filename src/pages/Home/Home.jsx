@@ -36,9 +36,9 @@ import {
   heroImage,
   heroFlowers,
   appScreenshot,
-  SeeTodo,
+  SeeTodoIcon,
   flower,
-  todoerLogoSmallBlack,
+  todoerLogoSmBlack,
 } from '../../assets'
 import { useSelector } from 'react-redux'
 
@@ -84,7 +84,7 @@ export const Home = ({ history, active, setActive }) => {
             Browse Todoer&#39;s Features
           </FeaturesLink>
           <FeaturesLink to='#'>
-            <SeeTodo />
+            <SeeTodoIcon />
             See Todoist in action
           </FeaturesLink>
         </FreeUpLinks>
@@ -121,12 +121,12 @@ export const Home = ({ history, active, setActive }) => {
         <FooterLine />
         <FooterContent>
           <FooterLogo to='/signup' className='small-viewport'>
-            <img src={todoerLogoSmallBlack} alt='Todoer Logo Black' />
+            <img src={todoerLogoSmBlack} alt='Todoer Logo Black' />
           </FooterLogo>
           <FooterContainer>
             <FooterMain>
               <FooterLogo to='/signup' className='large-viewport'>
-                <img src={todoerLogoSmallBlack} alt='Todoer Logo Black' />
+                <img src={todoerLogoSmBlack} alt='Todoer Logo Black' />
               </FooterLogo>
               <FooterDescription>
                 Join millions of people who organize work and life with Todoist.

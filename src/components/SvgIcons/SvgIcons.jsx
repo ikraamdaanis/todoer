@@ -1,5 +1,6 @@
-import { ReactComponent as Inbox } from '../../assets/images/inbox.svg'
-import { ReactComponent as Upcoming } from '../../assets/images/upcoming-icon.svg'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { InboxIcon as InboxIconSvg, UpcomingIcon as UpcomingIconSvg } from '../../assets/'
 
 export const InboxIcon = () => {
   return (
@@ -11,7 +12,7 @@ export const InboxIcon = () => {
         placeContent: 'center',
       }}
     >
-      <Inbox />
+      <InboxIconSvg />
     </div>
   )
 }
@@ -53,6 +54,8 @@ export const TodayIcon = ({ date }) => {
   )
 }
 
+TodayIcon.propTypes = { date: PropTypes.string }
+
 export const UpcomingIcon = () => {
   return (
     <div
@@ -63,7 +66,7 @@ export const UpcomingIcon = () => {
         placeContent: 'center',
       }}
     >
-      <Upcoming />
+      <UpcomingIconSvg />
     </div>
   )
 }

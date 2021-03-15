@@ -8,11 +8,7 @@ import {
   NavbarItem,
   LeftContainer,
 } from './NavbarStyles'
-import { ReactComponent as MenuToggler } from '../../assets/images/menu-toggler.svg'
-import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg'
-import TodoerLogo from '../../assets/images/todoer.png'
-import TodoerSmall from '../../assets/images/todoer-small.png'
-
+import { HomeIcon, MenuTogglerIcon, todoerLogo, todoerLogoSmRed } from '../../assets/'
 import { useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import { ProfileMenu } from '../../components'
@@ -35,7 +31,7 @@ export const Navbar = ({ setSidebarClosed }) => {
           {userInfo ? (
             <>
               <NavbarItem>
-                <MenuToggler
+                <MenuTogglerIcon
                   className='menu-toggler'
                   onClick={() => setSidebarClosed(prev => !prev)}
                 />
@@ -53,7 +49,7 @@ export const Navbar = ({ setSidebarClosed }) => {
             <LeftContainer>
               <div className='logo'>
                 <Link to='/' style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={windowWidth > 770 ? TodoerLogo : TodoerSmall} alt='Todoer Logo' />
+                  <img src={windowWidth > 770 ? todoerLogo : todoerLogoSmRed} alt='Todoer Logo' />
                 </Link>
               </div>
               <div className='nav-links'>

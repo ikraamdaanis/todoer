@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { TaskItem } from '../../components'
-import { TaskList } from './TaskContainerStyles'
 import { useParams } from 'react-router'
+import { TaskList } from './TaskContainerStyles'
+import { TaskItem } from '../../components'
 
 export const TaskContainer = ({
   tasks,

@@ -1,3 +1,5 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 import {
   UndoNotification,
   UndoContainer,
@@ -5,13 +7,9 @@ import {
   UndoButton,
   UndoCloseButton,
 } from './UndoCompleteStyles'
-import { ReactComponent as CloseIcon } from '../../assets/images/x-icon.svg'
+import { CloseIcon } from '../../assets'
 
-export const UndoComplete = ({
-  tasksToComplete,
-  cancelCompleteTask,
-  setIsUndoVisible,
-}) => {
+export const UndoComplete = ({ tasksToComplete, cancelCompleteTask, setIsUndoVisible }) => {
   return (
     <UndoNotification>
       <UndoContainer>
@@ -29,4 +27,10 @@ export const UndoComplete = ({
       </UndoContainer>
     </UndoNotification>
   )
+}
+
+UndoComplete.propTypes = {
+  tasksToComplete: PropTypes.array,
+  cancelCompleteTask: PropTypes.func,
+  setIsUndoVisible: PropTypes.func,
 }

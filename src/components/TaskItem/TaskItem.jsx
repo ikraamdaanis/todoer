@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import {
   MenuItem,
   TaskCheck,
@@ -12,21 +13,20 @@ import {
   MenuList,
   TaskTags,
 } from './TaskItemStyles'
-import { ReactComponent as TickIcon } from '../../assets/images/tick.svg'
-import { ReactComponent as MenuToggler } from '../../assets/images/more-icon.svg'
-import { ReactComponent as EditIcon } from '../../assets/images/edit-icon.svg'
-import { ReactComponent as DeleteIcon } from '../../assets/images/delete.svg'
-import { ReactComponent as DueDateIcon } from '../../assets/images/due-date.svg'
-import { ReactComponent as InboxSmallIcon } from '../../assets/images/inbox-small.svg'
-import { ReactComponent as Dot } from '../../assets/images/dot.svg'
+import {
+  EditIcon,
+  DeleteIcon,
+  DotIcon,
+  DueDateIcon,
+  InboxIconSm,
+  TickIcon,
+  MoreIcon,
+} from '../../assets/'
 
 import { useMenu } from '../../hooks/'
 import { setDateColour, setDateText } from '../../utils'
-import { DeleteModal } from '../DeleteModal/DeleteModal'
-import { deleteTask } from '../../store/actions/taskActions'
-import { Modal } from '../Modal/Modal'
-import { AddTaskForm } from '../AddTaskForm/AddTaskForm'
-import { Link } from 'react-router-dom'
+import { deleteTask } from '../../store/actions/'
+import { AddTaskForm, DeleteModal, Modal } from '../'
 import { TaskFormContext, ThemeContext } from '../../App'
 
 export const TaskItem = ({
@@ -104,7 +104,7 @@ export const TaskItem = ({
                   onClick={() => setTaskMenuOpen(prev => !prev)}
                   style={{ color: !darkTheme && 'grey' }}
                 >
-                  <MenuToggler />
+                  <MoreIcon />
                 </div>
                 {taskMenuOpen && (
                   <TaskMenu ref={TaskMenuRef} style={{ background: !darkTheme && '#fff' }}>
@@ -154,9 +154,9 @@ export const TaskItem = ({
                     <Link to={`/app/${task.project.toLowerCase()}`}>
                       <small>{task.project}</small>
                       {task.project === 'Inbox' ? (
-                        <InboxSmallIcon className='inbox' />
+                        <InboxIconSm className='inbox' />
                       ) : (
-                        <Dot className='dot' />
+                        <DotIcon className='dot' />
                       )}
                     </Link>
                   </div>

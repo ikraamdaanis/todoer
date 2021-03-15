@@ -1,4 +1,7 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { format } from 'date-fns'
+import { Link, NavLink } from 'react-router-dom'
 import {
   AddProjectFormTogglerButton,
   AddProjectFormToggler,
@@ -12,22 +15,10 @@ import {
   SidebarButtonContainer,
   SidebarContainer,
 } from './SidebarStyles'
-import {
-  AddProjectModal,
-  TodayIcon,
-  InboxIcon,
-  UpcomingIcon,
-} from '../../components'
+import { AddProjectModal, TodayIcon, InboxIcon, UpcomingIcon } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllProjects } from '../../store/actions/projectActions'
-import { getAllTasks } from '../../store/actions/taskActions'
-
-import { ReactComponent as PlusIcon } from '../../assets/images/plus-icon.svg'
-import { ReactComponent as DropdownIcon } from '../../assets/images/dropdown.svg'
-
-import { format } from 'date-fns'
-import { Link } from 'react-router-dom'
-import { NavLink } from 'react-router-dom'
+import { getAllTasks, getAllProjects } from '../../store/actions/'
+import { PlusIcon, DropdownIcon } from '../../assets/'
 import { Modal } from '../../components'
 
 export const Sidebar = ({ sidebarClosed, param }) => {
@@ -45,11 +36,11 @@ export const Sidebar = ({ sidebarClosed, param }) => {
 
   useEffect(() => {
     dispatch(getAllProjects())
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(getAllTasks())
-  }, [projects])
+  }, [dispatch, projects])
 
   useEffect(() => {
     if (tasks) {
@@ -66,22 +57,16 @@ export const Sidebar = ({ sidebarClosed, param }) => {
   return (
     <SidebarContainer className={sidebarClosed && 'closed'}>
       <Container>
-        <SidebarButtonContainer
-          className={activeCheck('inbox') ? 'active' : undefined}
-        >
+        <SidebarButtonContainer className={activeCheck('inbox') ? 'active' : undefined}>
           <Link to={'/app/inbox'}>
             <SidebarItem>
               <InboxIcon />
               <span>Inbox</span>
-              <small>
-                {incompleteTasksCount?.Inbox > 0 && incompleteTasksCount.Inbox}
-              </small>
+              <small>{incompleteTasksCount?.Inbox > 0 && incompleteTasksCount.Inbox}</small>
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>
-        <SidebarButtonContainer
-          className={activeCheck('today') ? 'active' : undefined}
-        >
+        <SidebarButtonContainer className={activeCheck('today') ? 'active' : undefined}>
           <Link to={'/app/today'}>
             <SidebarItem>
               <TodayIcon date={format(new Date(), 'dd')} />
@@ -91,33 +76,25 @@ export const Sidebar = ({ sidebarClosed, param }) => {
                   color: incompleteTasksCount?.overdue ? '#ff7066' : '#aaa',
                 }}
               >
-                {incompleteTasksCount?.today + incompleteTasksCount?.overdue >
-                  0 &&
+                {incompleteTasksCount?.today + incompleteTasksCount?.overdue > 0 &&
                   incompleteTasksCount.today + incompleteTasksCount?.overdue}
               </small>
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>
-        <SidebarButtonContainer
-          className={activeCheck('upcoming') ? 'active' : undefined}
-        >
+        <SidebarButtonContainer className={activeCheck('upcoming') ? 'active' : undefined}>
           <Link to={'/app/upcoming'}>
             <SidebarItem>
               <UpcomingIcon />
               <span>Upcoming</span>
-              <small>
-                {incompleteTasksCount?.upcoming > 0 &&
-                  incompleteTasksCount.upcoming}
-              </small>
+              <small>{incompleteTasksCount?.upcoming > 0 && incompleteTasksCount.upcoming}</small>
             </SidebarItem>
           </Link>
         </SidebarButtonContainer>
         <ProjectsButtonContainer>
           <ProjectsButton onClick={() => setIsOpen(!isOpen)}>
             <div className='dropdown'>
-              <DropdownIcon
-                className={!isOpen ? 'projects-closed' : undefined}
-              />
+              <DropdownIcon className={!isOpen ? 'projects-closed' : undefined} />
             </div>
             <span>Projects</span>
           </ProjectsButton>
@@ -132,10 +109,7 @@ export const Sidebar = ({ sidebarClosed, param }) => {
                 .filter(project => project.title !== 'Inbox')
                 .map(project => (
                   <li key={project.title}>
-                    <NavLink
-                      to={`/app/${project.title.toLowerCase()}`}
-                      activeClassName='active'
-                    >
+                    <NavLink to={`/app/${project.title.toLowerCase()}`} activeClassName='active'>
                       <div className='container'>
                         <BulletPoint>
                           <div></div>
@@ -153,17 +127,13 @@ export const Sidebar = ({ sidebarClosed, param }) => {
                 ))}
 
             <AddProjectFormToggler>
-              <AddProjectFormTogglerButton
-                onClick={() => setIsProjectModalOpen(true)}
-              >
+              <AddProjectFormTogglerButton onClick={() => setIsProjectModalOpen(true)}>
                 <div className='icon'>
                   <div className='icon-wrapper'>
                     <PlusIcon />
                   </div>
                 </div>
-                <AddProjectFormTogglerText>
-                  Add Project
-                </AddProjectFormTogglerText>
+                <AddProjectFormTogglerText>Add Project</AddProjectFormTogglerText>
               </AddProjectFormTogglerButton>
             </AddProjectFormToggler>
           </ProjectTitles>
@@ -177,3 +147,5 @@ export const Sidebar = ({ sidebarClosed, param }) => {
     </SidebarContainer>
   )
 }
+
+Sidebar.propTypes = { sidebarClosed: PropTypes.bool, param: PropTypes.string }

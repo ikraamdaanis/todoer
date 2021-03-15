@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from 'react'
 import PropTypes from 'prop-types'
+import { format } from 'date-fns'
 import {
   AddTask,
   AddTaskText,
@@ -31,22 +32,19 @@ import {
 } from '../../components'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
 import { Sidebar, TaskContainer, OverdueContainer } from '../'
-
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteProject } from '../../store/actions/projectActions'
-import { getAllTasks } from '../../store/actions/taskActions'
-
-import { ReactComponent as PlusButtonSVG } from '../../assets/images/plus-icon.svg'
-import { ReactComponent as ProjectMore } from '../../assets/images/project-more.svg'
-import { ReactComponent as SortIcon } from '../../assets/images/sort-icon.svg'
-import { ReactComponent as Arrow } from '../../assets/images/arrow.svg'
-import { ReactComponent as CloseIcon } from '../../assets/images/x-icon-small.svg'
-import { logoLight, logoDark } from '../../assets'
-
-import { format } from 'date-fns'
+import { deleteProject, getAllTasks } from '../../store/actions/'
+import {
+  CloseIcon,
+  logoLight,
+  logoDark,
+  PlusIcon,
+  ProjectMoreIcon,
+  SortIcon,
+  ArrowIcon,
+} from '../../assets'
 import { scrollToBottom } from '../../utils'
 import { useCheckScrolling, useMenu, useSetPosition, useToggleComplete } from '../../hooks/'
-
 import { TaskFormContext, ThemeContext } from '../../App'
 
 export const Dashboard = ({ history, match, sidebarClosed }) => {
@@ -168,7 +166,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
                   {!['today', 'upcoming'].includes(currentProject?.title) && (
                     <ProjectOptions ref={projectMenuButtonRef}>
                       <ProjectOptionsButton onClick={() => setProjectMenuOpen(prev => !prev)}>
-                        <ProjectMore />
+                        <ProjectMoreIcon />
                       </ProjectOptionsButton>
                     </ProjectOptions>
                   )}
@@ -186,7 +184,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
                       }))
                     }}
                   >
-                    <Arrow />
+                    <ArrowIcon />
                   </GreyButton>
                   <SortTitle>Sorted {sortOptions.optionName}</SortTitle>
                   <GreyButton
@@ -240,7 +238,7 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
                       }}
                     >
                       <PlusButton className='plus'>
-                        <PlusButtonSVG />
+                        <PlusIcon />
                       </PlusButton>
                       <AddTaskText>Add task</AddTaskText>
                     </AddTask>

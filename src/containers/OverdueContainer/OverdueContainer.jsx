@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TaskItem } from '../../components'
-import { TaskList, TaskListHeading } from '../TaskContainer/TaskContainerStyles'
 import { format } from 'date-fns'
+import { TaskList, TaskListHeading } from '../TaskContainer/TaskContainerStyles'
+import { TaskItem } from '../../components'
 
 export const OverdueContainer = ({
   tasks,

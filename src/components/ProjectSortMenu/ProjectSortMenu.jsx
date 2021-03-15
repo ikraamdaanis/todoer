@@ -1,10 +1,7 @@
-import {
-  DropdownContainer,
-  DropdownItem,
-  DropdownList,
-} from '../Dropdown/Dropdown'
-import { ReactComponent as DueDate } from '../../assets/images/due-date-large.svg'
-import { ReactComponent as Alphabet } from '../../assets/images/alphabet.svg'
+import React from 'react'
+import PropTypes from 'prop-types'
+import { DropdownContainer, DropdownItem, DropdownList } from '../Dropdown/Dropdown'
+import { AlphabetIcon, DueDateIcon } from '../../assets/'
 
 export const ProjectSortMenu = ({
   reference,
@@ -33,7 +30,7 @@ export const ProjectSortMenu = ({
             setProjectSortOpen(false)
           }}
         >
-          <DueDate />
+          <DueDateIcon />
           <span>Sort by due date</span>
         </DropdownItem>
         <DropdownItem
@@ -47,10 +44,18 @@ export const ProjectSortMenu = ({
             setProjectSortOpen(false)
           }}
         >
-          <Alphabet />
+          <AlphabetIcon />
           <span>Sort alphabetically</span>
         </DropdownItem>
       </DropdownList>
     </DropdownContainer>
   )
+}
+
+ProjectSortMenu.propTypes = {
+  reference: PropTypes.object,
+  projectSortOpen: PropTypes.bool,
+  setProjectSortOpen: PropTypes.func,
+  projectSortMenuRight: PropTypes.number,
+  setSortOptions: PropTypes.func,
 }
