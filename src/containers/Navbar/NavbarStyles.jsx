@@ -78,8 +78,16 @@ export const LeftContainer = styled.div`
     align-items: center;
     margin-right: 1rem;
 
-    img {
+    @media (max-width: 770px) {
+      width: 32px;
+    }
+
+    a {
       width: 100%;
+      height: 32px;
+      img {
+        width: 100%;
+      }
     }
   }
 

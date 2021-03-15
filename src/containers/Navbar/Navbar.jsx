@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   RightContainer,
@@ -11,12 +11,20 @@ import {
 import { ReactComponent as MenuToggler } from '../../assets/images/menu-toggler.svg'
 import { ReactComponent as HomeIcon } from '../../assets/images/home-icon.svg'
 import TodoerLogo from '../../assets/images/todoer.png'
-import { useSelector } from 'react-redux'
+import TodoerSmall from '../../assets/images/todoer-small.png'
 
+import { useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import { ProfileMenu } from '../../components'
 
 export const Navbar = ({ setSidebarClosed }) => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  useEffect(() => {
+    const setViewPort = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', setViewPort)
+    return () => window.removeEventListener('resize', setViewPort)
+  }, [])
+
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
@@ -45,7 +53,7 @@ export const Navbar = ({ setSidebarClosed }) => {
             <LeftContainer>
               <div className='logo'>
                 <Link to='/' style={{ display: 'flex', alignItems: 'center' }}>
-                  <img src={TodoerLogo} alt='Todoer Logo' />
+                  <img src={windowWidth > 770 ? TodoerLogo : TodoerSmall} alt='Todoer Logo' />
                 </Link>
               </div>
               <div className='nav-links'>
