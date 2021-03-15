@@ -5,15 +5,15 @@ export const NavbarContainer = styled.nav`
   height: 44px;
   border-bottom: 1px solid transparent;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
-  position: relative;
+  position: fixed;
   z-index: 1000;
   width: 100%;
+  top: 0;
 
   &.home {
     height: 64px;
     border-bottom: 0;
     box-shadow: none;
-    position: fixed;
     width: 100%;
 
     @media (max-width: 770px) {

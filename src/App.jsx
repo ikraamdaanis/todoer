@@ -96,6 +96,7 @@ export const App = () => {
                   exact
                   component={Dashboard}
                   sidebarClosed={sidebarClosed}
+                  setSidebarClosed={setSidebarClosed}
                 />
                 <Route exact path='/signin' render={props => <SignIn {...props} />} />
                 <Route exact path='/signup' render={props => <SignUp {...props} />} />

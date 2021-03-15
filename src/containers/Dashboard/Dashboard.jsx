@@ -44,10 +44,16 @@ import {
   ArrowIcon,
 } from '../../assets'
 import { scrollToBottom } from '../../utils'
-import { useCheckScrolling, useMenu, useSetPosition, useToggleComplete } from '../../hooks/'
+import {
+  useCheckScrolling,
+  useMenu,
+  useSetPosition,
+  useToggleComplete,
+  useViewPort,
+} from '../../hooks/'
 import { TaskFormContext, ThemeContext } from '../../App'
 
-export const Dashboard = ({ history, match, sidebarClosed }) => {
+export const Dashboard = ({ history, match, sidebarClosed, setSidebarClosed }) => {
   const [addTaskFormOpen, setAddTaskFormOpen] = useState(false)
   const [tasksLoading, setTasksLoading] = useState(true)
   const [projectMenuOpen, setProjectMenuOpen] = useState(false)
@@ -143,6 +149,17 @@ export const Dashboard = ({ history, match, sidebarClosed }) => {
   const projectSortMenuButtonRef = useRef(null)
   const [projectSortMenuRight] = useSetPosition(projectSortMenuButtonRef, sidebarClosed)
   useMenu(projectSortMenuButtonRef, projectSortMenuRef, setProjectSortOpen)
+
+  const [windowWidth] = useViewPort()
+
+  useEffect(() => {
+    const toggleCloseSidebar = () => setSidebarClosed(false)
+    const dashboardRef = dashboard ? dashboard.current : null
+    if (windowWidth < 750) {
+      dashboardRef.addEventListener('click', toggleCloseSidebar)
+    }
+    return () => dashboardRef.removeEventListener('click', toggleCloseSidebar)
+  }, [windowWidth, dashboard, sidebarClosed, setSidebarClosed])
 
   return (
     <>
@@ -325,4 +342,5 @@ Dashboard.propTypes = {
   history: PropTypes.object,
   match: PropTypes.object,
   sidebarClosed: PropTypes.bool,
+  setSidebarClosed: PropTypes.func,
 }

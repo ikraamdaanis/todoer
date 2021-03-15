@@ -8,9 +8,10 @@ export const DashboardContainer = styled.div`
   min-width: 320px;
   transition: margin 0.3s ease-in-out;
   overflow-x: hidden;
-  height: calc(100vh - 44px);
   overflow-y: auto;
+  height: calc(100vh - 44px);
   padding: 0 0 4rem;
+  margin-top: 44px;
 
   &::-webkit-scrollbar {
     width: 7px;
@@ -61,31 +62,24 @@ export const ProjectContainer = styled.div`
     }
   }
 `
+
 export const ProjectHeading = styled.div`
   position: sticky;
   top: 0;
   z-index: 10;
-  width: 100%;
-  max-width: 910px;
-
-  @media (max-width: 750px) {
-    padding: 0 30px;
-    transform: translateX(-30px);
-  }
-
-  @media (max-width: 550px) {
-    padding: 0 10px;
-    transform: translateX(-10px);
-  }
+  width: 100vw;
+  max-width: 100%;
+  background: ${props => props.theme.background};
 `
 
 export const ProjectHeadingContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: ${props => props.theme.background};
+
   width: 100%;
   height: 100%;
+  max-width: 800px;
   padding: 36px 0 8px;
   border-bottom: 1px solid transparent;
   transition: border-bottom 0.2s ease-in-out;

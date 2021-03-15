@@ -4,12 +4,13 @@ export const UndoNotification = styled.div`
   position: sticky;
   bottom: 30px;
   left: 50%;
+  transform: translateX(-50%);
   width: min-content;
   padding: 8px 8px 8px 16px;
   white-space: nowrap;
-  background: ${props => props.theme.background};
+  background: ${props => props.theme.dropdown};
   border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid ${props => props.theme.taskBorder};
   box-shadow: ${props => props.theme.boxShadow};
 `
 
