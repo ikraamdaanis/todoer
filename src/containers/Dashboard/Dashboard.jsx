@@ -41,8 +41,7 @@ import { ReactComponent as ProjectMore } from '../../assets/images/project-more.
 import { ReactComponent as SortIcon } from '../../assets/images/sort-icon.svg'
 import { ReactComponent as Arrow } from '../../assets/images/arrow.svg'
 import { ReactComponent as CloseIcon } from '../../assets/images/x-icon-small.svg'
-import logoDark from '../../assets/images/logo-dark.png'
-import logoLight from '../../assets/images/logo-light.png'
+import { logoLight, logoDark } from '../../assets'
 
 import { format } from 'date-fns'
 import { scrollToBottom } from '../../utils'
