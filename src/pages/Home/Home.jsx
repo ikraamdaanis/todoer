@@ -25,6 +25,11 @@ import {
   FooterMain,
   FooterLogo,
   FooterDescription,
+  FooterContent,
+  FooterLinks,
+  FooterFeatures,
+  FooterResources,
+  FooterCompany,
 } from './HomeStyles'
 import heroImage from '../../assets/images/hero-image.webp'
 import heroFlowers from '../../assets/images/hero-flowers.webp'
@@ -112,16 +117,55 @@ export const Home = ({ history, active, setActive }) => {
         <FooterLine>
           <hr />
         </FooterLine>
-        <FooterContainer>
-          <FooterMain>
-            <FooterLogo to='/signup' className='large-viewport'>
-              <img src={todoerLogoSmallBlack} alt='Todoer Logo Black' />
-            </FooterLogo>
-            <FooterDescription>
-              Join millions of people who organize work and life with Todoist.
-            </FooterDescription>
-          </FooterMain>
-        </FooterContainer>
+        <FooterContent>
+          <FooterLogo to='/signup' className='small-viewport'>
+            <img src={todoerLogoSmallBlack} alt='Todoer Logo Black' />
+          </FooterLogo>
+          <FooterContainer>
+            <FooterMain>
+              <FooterLogo to='/signup' className='large-viewport'>
+                <img src={todoerLogoSmallBlack} alt='Todoer Logo Black' />
+              </FooterLogo>
+              <FooterDescription>
+                Join millions of people who organize work and life with Todoist.
+              </FooterDescription>
+            </FooterMain>
+            <FooterLinks>
+              <FooterFeatures>
+                <p>Features</p>
+                <ul>
+                  <li>How it works</li>
+                  <li>Premium</li>
+                  <li>For Teams</li>
+                  <li>Pricing</li>
+                  <li>Templates</li>
+                </ul>
+              </FooterFeatures>
+              <FooterResources>
+                <p>Resources</p>
+                <ul>
+                  <li>Download Apps</li>
+                  <li>Help Center</li>
+                  <li>Productivity Methods</li>
+                  <li>Refer a friend</li>
+                  <li>Integrations</li>
+                  <li>Channel Partners</li>
+                  <li>Developer API</li>
+                </ul>
+              </FooterResources>
+              <FooterCompany>
+                <p>Company</p>
+                <ul>
+                  <li>About Us</li>
+                  <li>We are hiring!</li>
+                  <li>Blog</li>
+                  <li>Press</li>
+                  <li>Twist</li>
+                </ul>
+              </FooterCompany>
+            </FooterLinks>
+          </FooterContainer>
+        </FooterContent>
       </Footer>
     </HomeContainer>
   )

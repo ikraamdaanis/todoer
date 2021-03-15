@@ -405,8 +405,22 @@ export const FooterContainer = styled.div`
     justify-content: flex-start;
   }
 
+  @media (max-width: 768px) {
+    max-width: 500px;
+  }
+
   @media (max-width: 480px) {
     margin-left: 3rem;
+    padding: 0rem 0 3rem;
+  }
+`
+
+export const FooterContent = styled.div`
+  display: flex;
+  padding: 2rem 1rem 3rem;
+
+  @media (max-width: 480px) {
+    max-width: 425px;
   }
 `
 
@@ -432,16 +446,28 @@ export const FooterLogo = styled(Link)`
     }
   }
 
+  &.small-viewport {
+    @media (max-width: 480px) {
+      display: flex;
+    }
+  }
+
   img {
-    width: 100%;
+    width: 32px;
   }
 `
 
 export const FooterDescription = styled.p`
   margin: 1rem 0 2rem;
-  font-size: 1rem;
+  font-size: 1.02rem;
   line-height: 1.5;
   font-weight: 300;
+  color: #1f1f1f;
+
+  @media (max-width: 480px) {
+    margin: 0 0 2rem;
+    font-size: 0.875rem;
+  }
 `
 
 export const FooterLinks = styled.section`
@@ -449,4 +475,65 @@ export const FooterLinks = styled.section`
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
+
+  div:not(:last-child) {
+    margin-right: 4rem;
+  }
+
+  @media (max-width: 960px) {
+    margin-top: 3rem;
+    justify-content: space-between;
+    max-width: 600px;
+
+    div:not(:last-child) {
+      margin-right: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+
+    div:not(:last-child) {
+      margin: 1rem 0 0;
+    }
+  }
+
+  div {
+    @media (max-width: 480px) {
+      flex-direction: column;
+    }
+
+    p {
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+      line-height: 1.5;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      color: #575757;
+    }
+
+    ul {
+      cursor: pointer;
+
+      li {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        letter-spacing: 0;
+        font-weight: 300;
+        color: #1f1f1f;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 `
+
+export const FooterFeatures = styled.div``
+
+export const FooterResources = styled.div``
+
+export const FooterCompany = styled.div``
