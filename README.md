@@ -1,6 +1,8 @@
-# Todoist Clone
+# Todoer
 
 **Check out** the app [here]()
+
+This is a clone of Todoist
 
 ### Libraries/Frameworks used:
 

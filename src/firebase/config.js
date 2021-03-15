@@ -3,12 +3,12 @@ import 'firebase/firestore'
 import 'firebase/auth'
 
 firebase.initializeApp({
-  apiKey: 'AIzaSyCmL-pX9YxvzWvTdGTM3-FR3h73hc-2z-w',
-  authDomain: 'todoist-clone-f45be.firebaseapp.com',
-  projectId: 'todoist-clone-f45be',
-  storageBucket: 'todoist-clone-f45be.appspot.com',
-  messagingSenderId: '48685736229',
-  appId: '1:48685736229:web:dc52643f91914ee4ffbacc',
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID,
 })
 
 export const auth = firebase.auth()
