@@ -34,7 +34,6 @@ export const registerAction = (googleSignIn, email, password) => async dispatch 
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(userCredential => {
-          console.log(auth.currentUser)
           user.id = userCredential.user.uid
           user.name = userCredential.user.email.split('@')[0]
           user.email = userCredential.user.email
@@ -77,21 +76,39 @@ export const registerAction = (googleSignIn, email, password) => async dispatch 
   }
 }
 
-export const signInAction = () => async dispatch => {
+export const signInAction = (googleSignIn, email, password) => async dispatch => {
   try {
     dispatch({
       type: USER_LOGIN_REQUEST,
     })
 
     const user = {}
-    const provider = new firebase.auth.GoogleAuthProvider()
-    await auth.signInWithPopup(provider).then(response => {
-      console.log(response.user.displayName)
-      user.id = response.user.uid
-      user.name = response.user.displayName
-      user.email = response.user.email
-      user.photo = response.user.photoURL
-    })
+
+    if (googleSignIn) {
+      const provider = new firebase.auth.GoogleAuthProvider()
+      await auth.signInWithPopup(provider).then(response => {
+        user.id = response.user.uid
+        user.name = response.user.displayName
+        user.email = response.user.email
+        user.photo = response.user.photoURL
+      })
+    } else {
+      await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          user.id = userCredential.user.uid
+          user.name = userCredential.user.email.split('@')[0]
+          user.email = userCredential.user.email
+          user.photo = 'https://i.stack.imgur.com/34AD2.jpg'
+        })
+        .catch(error => {
+          dispatch({
+            type: USER_LOGIN_FAIL,
+            payload: error.message,
+          })
+        })
+    }
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
