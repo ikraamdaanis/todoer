@@ -17,7 +17,7 @@ html {
 }
 
 body {
-  overflow: ${props => props.theme.overflow};
+  overflow: ${props => (props.userInfo ? 'hidden' : 'unset')};
   background: ${props => props.theme.background};
   color: ${props => props.theme.textColour};
   overflow-x: hidden;
@@ -72,4 +72,5 @@ label {
 .active {
   background-color: ${props => props.theme.active} !important;
 }
+
 `

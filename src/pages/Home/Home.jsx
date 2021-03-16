@@ -69,8 +69,8 @@ export const Home = ({ active, setActive }) => {
         <Hero>
           <HeroTitleContainer>
             <HeroTitle>
-              Organize it all
-              <br /> with Todoer
+              {`Organize it all
+with Todoer`}
             </HeroTitle>
             <HomeButton to='/signup'>Get Started</HomeButton>
           </HeroTitleContainer>
@@ -108,30 +108,24 @@ export const Home = ({ active, setActive }) => {
               <p className='reviewer'>Google Play</p>
               <div className='review'>
                 <div className='rating'>★★★★★</div>
-                <h4 className='review-body'>
-                  Editor&#39;s Choice,
-                  <br /> 4.7 stars, 187K+ reviews
-                </h4>
+                <h4 className='review-body'>{`Editor's Choice,
+4.7 stars, 187K+ reviews`}</h4>
               </div>
             </ReviewItem>
             <ReviewItem>
               <p className='reviewer'>Apple Store</p>
               <div className='review'>
                 <div className='rating'>★★★★★</div>
-                <h4 className='review-body'>
-                  Featured App,
-                  <br /> 4.8 stars, 30K+ reviews
-                </h4>
+                <h4 className='review-body'>{`Featured App,
+ 4.8 stars, 30K+ reviews`}</h4>
               </div>
             </ReviewItem>
             <ReviewItem>
               <p className='reviewer'>The Verge</p>
               <div className='review'>
-                <h4 className='review-body'>
-                  9/10
-                  <br /> &quot;The best to-do list app
-                  <br /> right now&quot;
-                </h4>
+                <h4 className='review-body'>{`9/10
+"The best to-do list app
+right now"`}</h4>
               </div>
             </ReviewItem>
           </ReviewsContainer>

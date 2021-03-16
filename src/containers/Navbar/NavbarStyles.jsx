@@ -79,6 +79,7 @@ export const LeftContainer = styled.div`
     display: flex;
     align-items: center;
     margin-right: 1rem;
+    user-select: none;
 
     @media (max-width: 770px) {
       width: 32px;
@@ -143,6 +144,14 @@ export const NavButton = styled.button`
   border-top: 2px solid transparent;
   border-bottom: 2px solid transparent;
   height: 100%;
+
+  &::-moz-selection {
+    background: ${props => props.theme.highlight};
+  }
+
+  &::selection {
+    background: ${props => props.theme.highlight};
+  }
 
   &:hover {
     color: #1f1f1f;

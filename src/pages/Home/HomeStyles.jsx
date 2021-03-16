@@ -52,7 +52,15 @@ export const HeroTitle = styled.h1`
   font-size: 4.5rem;
   font-weight: 600;
   text-align: center;
-  line-height: 1.05;
+  white-space: pre;
+
+  &::-moz-selection {
+    background: ${props => props.theme.highlight};
+  }
+
+  &::selection {
+    background: ${props => props.theme.highlight};
+  }
 
   @media (max-width: 1120px) {
     font-size: 4.2rem;
@@ -78,6 +86,7 @@ export const HomeButton = styled(Link)`
   border-radius: 0.625rem;
   padding: 12px 28px;
   transition: filter 0.2s ease-in-out;
+  user-select: none;
 
   &:hover {
     filter: brightness(1.05);
@@ -204,10 +213,10 @@ export const FreeUpDescription = styled.p`
   color: #1f1f1f;
 
   &::-moz-selection {
-    background: ${props => props.theme.highligh};
+    background: ${props => props.theme.highlight};
   }
   &::selection {
-    background: ${props => props.theme.highligh};
+    background: ${props => props.theme.highlight};
   }
 
   @media (max-width: 768px) {
@@ -244,6 +253,13 @@ export const FeaturesLink = styled(Link)`
   min-height: 48px;
   color: #316fea;
   font-weight: 300;
+
+  &::-moz-selection {
+    background: ${props => props.theme.highlight};
+  }
+  &::selection {
+    background: ${props => props.theme.highlight};
+  }
 
   @media (max-width: 540px) {
     margin: 0 1.5rem 0 0;
@@ -329,6 +345,13 @@ export const ReviewItem = styled.div`
     margin-bottom: 1rem;
     font-size: 1rem;
     letter-spacing: 0;
+
+    &::-moz-selection {
+      background: ${props => props.theme.highlight};
+    }
+    &::selection {
+      background: ${props => props.theme.highlight};
+    }
   }
 
   .review {
@@ -341,6 +364,13 @@ export const ReviewItem = styled.div`
     .rating {
       margin-bottom: 1rem;
       font-weight: 700;
+
+      &::-moz-selection {
+        background: ${props => props.theme.highlight};
+      }
+      &::selection {
+        background: ${props => props.theme.highlight};
+      }
     }
 
     .review-body {
@@ -349,6 +379,13 @@ export const ReviewItem = styled.div`
       font-weight: 600;
       font-size: 1.5rem;
       letter-spacing: -0.01em;
+
+      &::-moz-selection {
+        background: ${props => props.theme.highlight};
+      }
+      &::selection {
+        background: ${props => props.theme.highlight};
+      }
 
       @media (max-width: 1050px) {
         font-size: 1.4rem;
@@ -411,6 +448,14 @@ export const AchieveHeadingContainer = styled.div`
 export const AchieveHeading = styled.h2`
   font-size: 3.25rem;
   font-weight: 600;
+
+  &::-moz-selection {
+    background: ${props => props.theme.highlight};
+  }
+
+  &::selection {
+    background: ${props => props.theme.highlight};
+  }
 
   @media (max-width: 770px) {
     max-width: 450px;
@@ -505,6 +550,14 @@ export const FooterDescription = styled.p`
   font-weight: 300;
   color: #1f1f1f;
 
+  &::-moz-selection {
+    background: ${props => props.theme.highlight};
+  }
+
+  &::selection {
+    background: ${props => props.theme.highlight};
+  }
+
   @media (max-width: 480px) {
     margin: 0 0 2rem;
     font-size: 0.875rem;
@@ -573,6 +626,14 @@ export const FooterLinks = styled.section`
       letter-spacing: 0;
       text-transform: uppercase;
       color: #575757;
+
+      &::-moz-selection {
+        background: ${props => props.theme.highlight};
+      }
+
+      &::selection {
+        background: ${props => props.theme.highlight};
+      }
     }
 
     ul {
@@ -585,6 +646,14 @@ export const FooterLinks = styled.section`
         letter-spacing: 0;
         font-weight: 300;
         color: #1f1f1f;
+
+        &::-moz-selection {
+          background: ${props => props.theme.highlight};
+        }
+
+        &::selection {
+          background: ${props => props.theme.highlight};
+        }
 
         &:hover {
           text-decoration: underline;

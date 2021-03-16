@@ -46,7 +46,6 @@ export const App = () => {
     scrollbarTrack: '#181818',
     dropdown: '#282828',
     profileMenu: '#1f1f1f',
-    overflow: 'hidden',
   }
 
   const light = {
@@ -70,7 +69,6 @@ export const App = () => {
     scrollbarTrack: '#dbdbdb',
     dropdown: '#ffffff',
     profileMenu: '#fff',
-    overflow: userInfo ? 'hidden' : 'unset',
     highlight: '#FFFCAA',
   }
 
@@ -79,7 +77,7 @@ export const App = () => {
       <TaskFormContext.Provider value={{ currentTaskForm, setCurrentTaskForm }}>
         <Router>
           <ThemeProvider theme={userInfo ? (darkTheme ? dark : light) : light}>
-            <GlobalStyle />
+            <GlobalStyle userInfo={userInfo} />
             <ScrollToTop />
             <main>
               <Switch>
