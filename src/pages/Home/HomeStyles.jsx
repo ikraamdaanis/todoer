@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import reviewsImage from '../../assets/images/reviews.webp'
+import { reviewsImage } from '../../assets'
 
 export const HomeContainer = styled.div`
   padding-top: 64px;

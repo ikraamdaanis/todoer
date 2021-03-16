@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { SpinnerContainer } from './SpinnerStyles'
-import { ReactComponent as SpinnerWhite } from '../../assets/images/spinner-white.svg'
-import { ReactComponent as SpinnerRed } from '../../assets/images/spinner-red.svg'
+import { SpinnerRed, SpinnerWhite } from '../../assets'
 
 export const Spinner = ({ darkTheme }) => (
   <SpinnerContainer>{darkTheme ? <SpinnerWhite /> : <SpinnerRed />}</SpinnerContainer>
