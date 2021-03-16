@@ -90,7 +90,7 @@ export const Home = ({ history, active, setActive }) => {
           </FeaturesLink>
           <FeaturesLink to='#'>
             <SeeTodoIcon />
-            See Todoist in action
+            See Todoer in action
           </FeaturesLink>
         </FreeUpLinks>
       </FreeUp>
@@ -134,7 +134,7 @@ export const Home = ({ history, active, setActive }) => {
                 <img src={todoerLogoSmBlack} alt='Todoer Logo Black' />
               </FooterLogo>
               <FooterDescription>
-                Join millions of people who organize work and life with Todoist.
+                Join millions of people who organize work and life with Todoer.
               </FooterDescription>
               <FooterSocials>
                 <FacebookIcon />
