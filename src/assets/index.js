@@ -1,14 +1,14 @@
 import flower from './images/flower.webp'
 import heroImage from './images/hero-image.webp'
 import heroFlowers from './images/hero-flowers.webp'
-import heroScreenshot from './images/hero-screenshot.png'
-import appScreenshot from './images/hero-screenshot.png'
-import logoDark from './images/logo-dark.png'
-import logoLight from './images/logo-light.png'
+import heroScreenshot from './images/hero-screenshot.webp'
+import appScreenshot from './images/hero-screenshot.webp'
+import logoDark from './images/logo-dark.webp'
+import logoLight from './images/logo-light.webp'
 import reviewsImage from './images/reviews.webp'
-import todoerLogo from './images/todoer-logo.png'
-import todoerLogoSmRed from './images/todoer-small.png'
-import todoerLogoSmBlack from './images/todoer-black.png'
+import todoerLogo from './images/todoer-logo.webp'
+import todoerLogoSmRed from './images/todoer-small.webp'
+import todoerLogoSmBlack from './images/todoer-black.webp'
 export {
   flower,
   heroImage,
