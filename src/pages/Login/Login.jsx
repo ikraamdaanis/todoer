@@ -11,6 +11,7 @@ import {
   Separator,
   AuthForm,
   SubmitButton,
+  ErrorMessage,
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInAction } from '../../store/actions/userActions'
@@ -26,7 +27,7 @@ export const Login = ({ history }) => {
   const [password, setPassword] = useState('')
 
   useEffect(() => {
-    // userInfo && history.push('/app/today')
+    userInfo && history.push('/app/today')
     console.log(userInfo, error)
     if (error) {
       setPassword('')
@@ -53,7 +54,18 @@ export const Login = ({ history }) => {
         <p>OR</p>
         <div className='line'></div>
       </Separator>
-      {error && <h2>The email or password is incorrect.</h2>}
+      {error && (
+        <ErrorMessage>
+          <img
+            width='16'
+            height='16'
+            className='warning'
+            src='https://d3ptyyxy2at9ui.cloudfront.net/blank-76084e.gif'
+            alt='Error icon'
+          />
+          <span>Invalid email address or password.</span>
+        </ErrorMessage>
+      )}
       <AuthForm onSubmit={handleSubmit}>
         <FormItem>
           <InputLabel>Email</InputLabel>

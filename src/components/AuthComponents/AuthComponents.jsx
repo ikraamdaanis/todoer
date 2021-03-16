@@ -75,6 +75,26 @@ export const Separator = styled.div`
   }
 `
 
+export const ErrorMessage = styled.div`
+  display: flex;
+  align-items: center;
+  color: #dd4b39;
+  padding: 0.5em 0;
+  margin-bottom: 1rem;
+
+  .warning {
+    background: url('https://d3ptyyxy2at9ui.cloudfront.net/all_images-94aa31.png') 0 0 no-repeat;
+    background-position: 0 -65px;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+
+  span {
+    font-size: 13px;
+  }
+`
+
 export const AuthForm = styled.form`
   width: 100%;
   display: flex;
