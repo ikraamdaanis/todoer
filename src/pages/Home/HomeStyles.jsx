@@ -362,7 +362,7 @@ export const AchieveSection = styled.section`
   background: #fff9f3;
   margin-top: 10rem;
 
-  @media (max-width: 700px) {
+  @media (max-width: 770px) {
     margin-top: 0;
   }
 `
@@ -412,15 +412,14 @@ export const AchieveHeading = styled.h2`
   font-size: 3.25rem;
   font-weight: 600;
 
-  @media (max-width: 900px) {
-    font-size: 2.5rem;
+  @media (max-width: 770px) {
     max-width: 450px;
+    font-size: 2.375rem;
   }
 `
 
 export const Footer = styled.footer`
   background: #fff9f3;
-  display: none;
 `
 
 export const FooterLine = styled.div`
