@@ -467,6 +467,27 @@ export const FooterDescription = styled.p`
   }
 `
 
+export const FooterSocials = styled.div`
+  display: flex;
+  align-items: center;
+
+  svg:not(:first-child) {
+    margin-left: 1rem;
+  }
+
+  svg {
+    color: #8d8b86;
+    transition: 0.2s ease-in-out;
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
+
+    &:hover {
+      color: #575654;
+    }
+  }
+`
+
 export const FooterLinks = styled.section`
   flex: 1;
   display: flex;

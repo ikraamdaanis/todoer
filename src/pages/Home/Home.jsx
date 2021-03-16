@@ -30,6 +30,7 @@ import {
   FooterFeatures,
   FooterResources,
   FooterCompany,
+  FooterSocials,
 } from './HomeStyles'
 import {
   BrowseIcon,
@@ -39,6 +40,10 @@ import {
   SeeTodoIcon,
   flower,
   todoerLogoSmBlack,
+  FacebookIcon,
+  TwitterIcon,
+  YouTubeIcon,
+  InstagramIcon,
 } from '../../assets'
 import { useSelector } from 'react-redux'
 
@@ -131,6 +136,12 @@ export const Home = ({ history, active, setActive }) => {
               <FooterDescription>
                 Join millions of people who organize work and life with Todoist.
               </FooterDescription>
+              <FooterSocials>
+                <FacebookIcon />
+                <TwitterIcon />
+                <YouTubeIcon />
+                <InstagramIcon />
+              </FooterSocials>
             </FooterMain>
             <FooterLinks>
               <FooterFeatures>
