@@ -82,25 +82,35 @@ export const signInAction = (googleSignIn, email, password) => async dispatch =>
       type: USER_LOGIN_REQUEST,
     })
 
-    const user = {}
+    const loginSuccess = user => {
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: user,
+      })
+      localStorage.setItem('userInfo', JSON.stringify(user))
+    }
 
     if (googleSignIn) {
       const provider = new firebase.auth.GoogleAuthProvider()
       await auth.signInWithPopup(provider).then(response => {
-        user.id = response.user.uid
-        user.name = response.user.displayName
-        user.email = response.user.email
-        user.photo = response.user.photoURL
+        loginSuccess({
+          id: response.user.uid,
+          name: response.user.displayName,
+          email: response.user.email,
+          photo: response.user.photoURL,
+        })
       })
     } else {
       await firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(userCredential => {
-          user.id = userCredential.user.uid
-          user.name = userCredential.user.email.split('@')[0]
-          user.email = userCredential.user.email
-          user.photo = 'https://i.stack.imgur.com/34AD2.jpg'
+          loginSuccess({
+            id: userCredential.user.uid,
+            name: userCredential.user.displayName,
+            email: userCredential.user.email,
+            photo: 'https://i.stack.imgur.com/34AD2.jpg',
+          })
         })
         .catch(error => {
           dispatch({
@@ -109,13 +119,6 @@ export const signInAction = (googleSignIn, email, password) => async dispatch =>
           })
         })
     }
-
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: user,
-    })
-
-    localStorage.setItem('userInfo', JSON.stringify(user))
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
