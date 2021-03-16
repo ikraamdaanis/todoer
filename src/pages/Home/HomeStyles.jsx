@@ -22,28 +22,35 @@ export const Hero = styled.section`
   flex-direction: column;
   width: 100%;
   position: relative;
-  height: calc(100% - 40rem);
+  overflow: hidden;
+  text-align: center;
+  white-space: pre-line;
+
+  @media (max-width: 480px) {
+    overflow: initial;
+  }
 `
 
 export const HeroTitleContainer = styled.div`
-  padding: 7.5rem 1rem 0;
+  padding: 7rem 1rem 0;
+  margin-bottom: -10rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
 
   @media (max-width: 1120px) {
-    padding: 6.5rem 1rem 0;
+    margin-bottom: -5rem;
   }
 
-  @media (max-width: 1120px) {
-    padding: 5.5rem 1rem 0;
+  @media (max-width: 480px) {
+    margin-bottom: -2rem;
   }
 `
 
 export const HeroTitle = styled.h1`
   font-size: 4.5rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
   line-height: 1.05;
 
@@ -78,61 +85,64 @@ export const HomeButton = styled(Link)`
 `
 
 export const HeroBackground = styled.div`
-  padding: 0 1rem;
-  display: grid;
-  place-content: center;
-  position: relative;
-  z-index: -3;
-  max-width: 1256px;
-  margin: -10rem auto;
-  width: 100%;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  padding: 0 1rem;
+  display: grid;
+  place-content: center;
+  position: relative;
+  z-index: -3;
+  max-width: 1256px;
+  display: block;
+  margin: 0 auto;
+  width: 90%;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    max-width: none;
+  }
 
   img {
     width: 100%;
   }
 
   &.flowers {
-    width: 100vw;
-    position: absolute;
-    bottom: 20%;
     left: 50%;
+    bottom: -3%;
+    width: 100vw;
+    max-width: 1411px;
+    position: absolute;
     transform: translateX(-50%);
-    z-index: -2;
-
-    img {
-      width: 100%;
-    }
+    z-index: -5;
+    display: block;
+    margin: 0 auto;
   }
 
   &.screenshot {
-    z-index: -1;
+    position: relative;
+    display: flex;
     margin: -6rem auto -17.5rem;
+    justify-content: center;
 
-    @media (max-width: 770px) {
-      margin: -1rem auto -10rem;
+    @media (max-width: 1120px) {
+      margin: -8% auto -20.5%;
+      padding-left: 1rem;
     }
 
     @media (max-width: 480px) {
-      margin: -1rem auto -2rem;
+      margin: -11% auto 0;
     }
-  }
 
-  @media (max-width: 1120px) {
-    margin: -8rem auto;
-  }
-
-  @media (max-width: 770px) {
-    margin: -4rem auto;
-  }
-
-  @media (max-width: 480px) {
-    margin: -2rem auto;
+    img {
+      width: 100vw;
+      max-width: 1398px;
+      display: block;
+      margin: 0 auto;
+    }
   }
 `
 
@@ -376,6 +386,7 @@ export const AchieveHeading = styled.h2`
 
 export const Footer = styled.footer`
   background: #fff9f3;
+  display: none;
 `
 
 export const FooterLine = styled.div`

@@ -141,7 +141,7 @@ export const InputLabel = styled.label`
 export const Input = styled.input`
   width: 100%;
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 600;
   width: 100%;
   padding: 0.75em 1em;
   border: 1px solid ${props => props.theme.border};

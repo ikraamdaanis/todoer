@@ -77,7 +77,7 @@ export const Home = ({ history, active, setActive }) => {
           <img src={heroFlowers} alt='Hero Background' />
         </HeroBackground>
       </Hero>
-      <FreeUp>
+      {/* <FreeUp>
         <FreeUpHeading>Free up your mental space</FreeUpHeading>
         <FreeUpDescription>
           Regain clarity and calmness by getting all those tasks out of your head and onto your
@@ -93,8 +93,8 @@ export const Home = ({ history, active, setActive }) => {
             See Todoer in action
           </FeaturesLink>
         </FreeUpLinks>
-      </FreeUp>
-      <ReviewsSection>
+      </FreeUp> */}
+      {/* <ReviewsSection>
         <ReviewsContainer>
           <ReviewItem>
             <p className='reviewer'>Google Play</p>
@@ -121,7 +121,7 @@ export const Home = ({ history, active, setActive }) => {
             <HomeButton to='/login'>Get Started</HomeButton>
           </AchieveHeadingContainer>
         </AchieveContainer>
-      </AchieveSection>
+      </AchieveSection> */}
       <Footer>
         <FooterLine />
         <FooterContent>
