@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   AuthPage,
   GoogleSignUp,
   Title,
   AuthQuestion,
-  // FormItem,
-  // Input,
-  // InputLabel,
-  // Separator,
-  // AuthForm,
-  // SubmitButton,
+  FormItem,
+  Input,
+  InputLabel,
+  Separator,
+  AuthForm,
+  SubmitButton,
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -26,6 +26,15 @@ export const SignUp = ({ history }) => {
     userInfo && history.push('/app/today')
   }, [loading, error, userInfo, history])
 
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    if (password.length < 6) alert('Password must be at least 6 characters long.')
+    console.log(email, password)
+  }
+
   return (
     <AuthPage>
       <Title>Sign Up</Title>
@@ -33,22 +42,38 @@ export const SignUp = ({ history }) => {
         <GoogleIcon />
         Continue with Google
       </GoogleSignUp>
-      {/* <Separator>
+      <Separator>
         <p>OR</p>
         <div className='line'></div>
       </Separator>
-      <AuthForm>
+      <AuthForm onSubmit={handleSubmit}>
         <FormItem>
           <InputLabel>Email</InputLabel>
-          <Input type='text' title='Enter your email' required />
+          <Input
+            type='email'
+            id='email'
+            name='email'
+            title='Enter your email'
+            required
+            value={email}
+            onChange={({ target }) => setEmail(target.value)}
+          />
         </FormItem>
         <FormItem>
-          <InputLabel>Password</InputLabel>
-          <Input type='password' title='Enter a password' min='6' required />
+          <InputLabel>Password (6 Characters Minimum)</InputLabel>
+          <Input
+            type='password'
+            id='password'
+            name='password'
+            title='Enter a password'
+            minlength='6'
+            required
+            value={password}
+            onChange={({ target }) => setPassword(target.value)}
+          />
         </FormItem>
-
         <SubmitButton type='submit'>Sign up with Email</SubmitButton>
-      </AuthForm> */}
+      </AuthForm>
       <AuthQuestion>
         Already signed up? <Link to='/login'>Go to log in!</Link>
       </AuthQuestion>
