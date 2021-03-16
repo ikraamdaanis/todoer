@@ -28,10 +28,7 @@ export const Login = ({ history }) => {
 
   useEffect(() => {
     userInfo && history.push('/app/today')
-    console.log(userInfo, error)
-    if (error) {
-      setPassword('')
-    }
+    if (error) setPassword('')
   }, [loading, error, userInfo, history])
 
   const handleSubmit = event => {
