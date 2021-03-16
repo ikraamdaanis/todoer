@@ -222,8 +222,7 @@ export const TaskTags = styled.div`
 
     .inbox {
       margin-left: 1px;
-      transform: scale(0.7);
-      color: #246fe0;
+      transform: scale(0.8);
     }
 
     .dot {

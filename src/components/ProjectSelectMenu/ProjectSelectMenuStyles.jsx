@@ -14,6 +14,24 @@ export const MenuContainer = styled.div`
   font-size: 13px;
   color: ${props => props.theme.textColour};
   padding: 0.2rem 0;
+  max-height: 200px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #8b8b8b;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #8b8b8b;
+  }
+  &::-webkit-scrollbar-track {
+    background: ${props => props.theme.scrollbarTrack};
+    border-radius: 0px;
+  }
 `
 
 export const MenuList = styled.ul`

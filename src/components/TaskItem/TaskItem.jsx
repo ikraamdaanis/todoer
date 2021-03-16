@@ -154,7 +154,10 @@ export const TaskItem = ({
                     <Link to={`/app/${task.project.toLowerCase()}`}>
                       <small>{task.project}</small>
                       {task.project === 'Inbox' ? (
-                        <InboxIconSm className='inbox' />
+                        <InboxIconSm
+                          className='inbox'
+                          style={{ color: darkTheme ? '#5297ff' : '#246fe0' }}
+                        />
                       ) : (
                         <DotIcon className='dot' />
                       )}

@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { InboxIcon as InboxIconSvg, UpcomingIcon as UpcomingIconSvg } from '../../assets/'
+import { ThemeContext } from '../../App'
 
 export const InboxIcon = () => {
+  const { darkTheme } = useContext(ThemeContext)
   return (
     <div
       style={{
-        color: '#5297ff',
+        color: darkTheme ? '#5297ff' : '#246fe0',
         width: '38px',
         display: 'grid',
         placeContent: 'center',
@@ -18,10 +20,11 @@ export const InboxIcon = () => {
 }
 
 export const TodayIcon = ({ date }) => {
+  const { darkTheme } = useContext(ThemeContext)
   return (
     <div
       style={{
-        color: '#25b84c',
+        color: darkTheme ? '#25b84c' : '#058527',
         width: '38px',
         display: 'grid',
         placeContent: 'center',
@@ -57,10 +60,11 @@ export const TodayIcon = ({ date }) => {
 TodayIcon.propTypes = { date: PropTypes.string }
 
 export const UpcomingIcon = () => {
+  const { darkTheme } = useContext(ThemeContext)
   return (
     <div
       style={{
-        color: '#a970ff',
+        color: darkTheme ? '#a970ff' : '#692fc2',
         width: '38px',
         display: 'grid',
         placeContent: 'center',

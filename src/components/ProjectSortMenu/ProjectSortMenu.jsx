@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { DropdownContainer, DropdownItem, DropdownList } from '../Dropdown/Dropdown'
-import { AlphabetIcon, DueDateIcon } from '../../assets/'
+import { AlphabetIcon, SortIcon } from '../../assets/'
 
 export const ProjectSortMenu = ({
   reference,
@@ -30,7 +30,7 @@ export const ProjectSortMenu = ({
             setProjectSortOpen(false)
           }}
         >
-          <DueDateIcon />
+          <SortIcon />
           <span>Sort by due date</span>
         </DropdownItem>
         <DropdownItem
