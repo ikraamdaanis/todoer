@@ -147,21 +147,20 @@ export const HeroBackground = styled.div`
 `
 
 export const FreeUp = styled.section`
-  padding: 4rem 1rem 6rem;
+  padding: 4rem 0 6rem;
   text-align: center;
   background: ${props => props.theme.background};
   width: 100%;
   bottom: calc(0.3 * 100px);
   left: 0;
 
-  @media (max-width: 660px) {
-    padding: 2.5rem 1rem 1rem;
-    text-align: left;
+  @media (max-width: 768px) {
+    padding: 4rem 1rem 8vw;
   }
 
   @media (max-width: 480px) {
-    padding: 2rem 1rem 2rem;
-    transform: translateY(-100px);
+    text-align: left;
+    padding: 0 1rem 8vw;
   }
 `
 
@@ -172,22 +171,24 @@ export const FreeUpHeading = styled.h2`
   font-weight: 600;
 
   &::-moz-selection {
-    background: ${props => props.theme.highligh};
+    background: ${props => props.theme.highlight};
   }
   &::selection {
-    background: ${props => props.theme.highligh};
+    background: ${props => props.theme.highlight};
   }
 
-  @media (max-width: 770px) {
-    font-size: 3.5rem;
+  @media (max-width: 1120px) {
+    font-size: 3.25rem;
   }
 
-  @media (max-width: 660px) {
-    font-size: 2.5rem;
+  @media (max-width: 768px) {
+    font-size: 2.75rem;
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 480px) {
+    max-width: 80%;
     font-size: 2rem;
+    line-height: 1.15;
   }
 `
 
@@ -209,20 +210,29 @@ export const FreeUpDescription = styled.p`
     background: ${props => props.theme.highligh};
   }
 
-  @media (max-width: 600px) {
-    font-size: 17px;
+  @media (max-width: 768px) {
+    font-size: 1.125rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.0625rem;
   }
 `
 
 export const FreeUpLinks = styled.div`
   display: flex;
+  color: #316fea;
   align-items: center;
+  padding-bottom: 0.3rem;
   justify-content: center;
 
-  @media (max-width: 540px) {
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: flex-start;
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    line-height: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    align-items: start;
   }
 `
 
@@ -241,6 +251,7 @@ export const FeaturesLink = styled(Link)`
 
   @media (max-width: 480px) {
     font-size: 14px;
+    margin: 0;
   }
 
   svg {
