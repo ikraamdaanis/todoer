@@ -12,20 +12,43 @@ import {
 import { PROJECT_DETAILS_CLEAR } from '../constants/projectConstants'
 import { v4 as uuidv4 } from 'uuid'
 
-export const registerAction = () => async dispatch => {
+export const registerAction = (googleSignIn, email, password) => async dispatch => {
   try {
     dispatch({
       type: USER_REGISTER_REQUEST,
     })
 
     const user = {}
-    const provider = new firebase.auth.GoogleAuthProvider()
-    await auth.signInWithPopup(provider).then(response => {
-      user.id = response.user.uid
-      user.name = response.user.displayName
-      user.email = response.user.email
-      user.photo = response.user.photoURL
-    })
+
+    if (googleSignIn) {
+      const provider = new firebase.auth.GoogleAuthProvider()
+      await auth.signInWithPopup(provider).then(response => {
+        user.id = response.user.uid
+        user.name = response.user.displayName
+        user.email = response.user.email
+        user.photo = response.user.photoURL
+        user.createdAt = new Date()
+      })
+    } else {
+      await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          console.log(auth.currentUser)
+          user.id = userCredential.user.uid
+          user.name = userCredential.user.email.split('@')[0]
+          user.email = userCredential.user.email
+          user.photo = 'https://i.stack.imgur.com/34AD2.jpg'
+          user.createdAt = new Date()
+        })
+        .catch(error => {
+          console.log(error.message)
+          dispatch({
+            type: USER_REGISTER_FAIL,
+            payload: error.message,
+          })
+        })
+    }
 
     await firestore.collection('users').doc(auth.currentUser.uid).set(user)
 

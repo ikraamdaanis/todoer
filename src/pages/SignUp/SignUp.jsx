@@ -31,14 +31,17 @@ export const SignUp = ({ history }) => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    if (password.length < 6) alert('Password must be at least 6 characters long.')
-    console.log(email, password)
+    if (password.length < 6) {
+      alert('Password must be at least 6 characters long.')
+      return
+    }
+    dispatch(registerAction(false, email.trim(), password))
   }
 
   return (
     <AuthPage>
       <Title>Sign Up</Title>
-      <GoogleSignUp onClick={() => dispatch(registerAction())}>
+      <GoogleSignUp onClick={() => dispatch(registerAction(true))}>
         <GoogleIcon />
         Continue with Google
       </GoogleSignUp>
