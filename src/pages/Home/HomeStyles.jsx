@@ -259,56 +259,71 @@ export const FeaturesLink = styled(Link)`
   }
 `
 export const ReviewsSection = styled.section`
-  display: flex;
-  background: url(${reviewsImage});
+  margin: -5rem 0 -3rem;
+  padding: 9rem 0 5rem;
+  position: relative;
+  box-sizing: border-box;
+
+  @media (max-width: 1120px) {
+    background-size: 1400px auto;
+  }
+
+  @media (max-width: 768px) {
+    margin: 2rem 0 0;
+    padding: 2rem 0 1rem;
+    background: #ffd669;
+  }
+`
+
+export const ReviewsBackground = styled.div`
+  background-image: url(${reviewsImage});
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
   background-repeat: repeat-x;
   background-size: auto 100%;
   background-position: 50%;
-  position: relative;
-  z-index: 1;
-  margin-top: -3rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
 
-  @media (max-width: 700px) {
-    background: #fed35e;
-    margin-top: 5rem;
-  }
-
-  @media (max-width: 480px) {
-    margin-top: -3rem;
+  @media (max-width: 768px) {
+    display: none;
   }
 `
 
 export const ReviewsContainer = styled.div`
-  width: 100%;
-  max-width: 1120px;
-  margin: 3rem auto 0;
-  padding: 10rem 5rem;
-  justify-content: space-between;
+  padding: 0 0.5rem;
   display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1120px;
+  position: relative;
+  z-index: 1;
+  white-space: pre-wrap;
 
-  @media (max-width: 700px) {
-    padding: 2rem 2rem;
-    margin: 0;
-    flex-direction: column;
+  @media (max-width: 959px) {
+    max-width: 768px;
+  }
+
+  @media (max-width: 768px) {
     text-align: center;
-    align-items: center;
+    flex-direction: column;
+    max-width: 500px;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 425px;
   }
 `
 
 export const ReviewItem = styled.div`
   display: flex;
   flex-direction: column;
-  width: 25%;
   padding: 0.8rem 0.5rem;
-
-  @media (max-width: 970px) {
-    width: 28%;
-  }
-
-  @media (max-width: 700px) {
-    width: 50%;
-    max-width: 200px;
-  }
 
   .reviewer {
     margin-bottom: 1rem;
@@ -316,20 +331,28 @@ export const ReviewItem = styled.div`
     letter-spacing: 0;
   }
 
-  .rating {
-    margin-bottom: 1rem;
-    font-weight: 700;
-  }
+  .review {
+    @media (max-width: 768px) {
+      display: flex;
+      justify-content: center;
+      flex-direction: column-reverse;
+    }
 
-  .review-body {
-    margin-bottom: 1rem;
-    line-height: 1.35;
-    font-weight: 600;
-    font-size: 1.5rem;
-    letter-spacing: -0.01em;
+    .rating {
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
 
-    @media (max-width: 1050px) {
-      font-size: 1.4rem;
+    .review-body {
+      margin-bottom: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: -0.01em;
+
+      @media (max-width: 1050px) {
+        font-size: 1.4rem;
+      }
     }
   }
 `

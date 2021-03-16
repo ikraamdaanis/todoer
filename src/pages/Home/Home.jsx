@@ -31,6 +31,7 @@ import {
   FooterResources,
   FooterCompany,
   FooterSocials,
+  ReviewsBackground,
 } from './HomeStyles'
 import {
   BrowseIcon,
@@ -94,22 +95,38 @@ export const Home = ({ history, active, setActive }) => {
           </FeaturesLink>
         </FreeUpLinks>
       </FreeUp>
-      {/* <ReviewsSection>
+      <ReviewsSection>
+        <ReviewsBackground />
         <ReviewsContainer>
           <ReviewItem>
             <p className='reviewer'>Google Play</p>
-            <div className='rating'>★★★★★</div>
-            <h4 className='review-body'>Editor&#39;s Choice, 4.7 stars, 187K+ reviews</h4>
+            <div className='review'>
+              <div className='rating'>★★★★★</div>
+              <h4 className='review-body'>
+                Editor&#39;s Choice,
+                <br /> 4.7 stars, 187K+ reviews
+              </h4>
+            </div>
           </ReviewItem>
           <ReviewItem>
             <p className='reviewer'>Apple Store</p>
-            <div className='rating'>★★★★★</div>
-            <h4 className='review-body'>Featured App, 4.8 stars, 30K+ reviews</h4>
+            <div className='review'>
+              <div className='rating'>★★★★★</div>
+              <h4 className='review-body'>
+                Featured App,
+                <br /> 4.8 stars, 30K+ reviews
+              </h4>
+            </div>
           </ReviewItem>
           <ReviewItem>
             <p className='reviewer'>The Verge</p>
-            <div className='rating'>9/10</div>
-            <h4 className='review-body'>&quot;The best to-do list app right now&quot;</h4>
+            <div className='review'>
+              <h4 className='review-body'>
+                9/10
+                <br /> &quot;The best to-do list app
+                <br /> right now&quot;
+              </h4>
+            </div>
           </ReviewItem>
         </ReviewsContainer>
       </ReviewsSection>
@@ -121,7 +138,7 @@ export const Home = ({ history, active, setActive }) => {
             <HomeButton to='/login'>Get Started</HomeButton>
           </AchieveHeadingContainer>
         </AchieveContainer>
-      </AchieveSection> */}
+      </AchieveSection>
       <Footer>
         <FooterLine />
         <FooterContent>
