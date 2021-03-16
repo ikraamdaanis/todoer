@@ -1,14 +1,37 @@
 import styled from 'styled-components/macro'
 
 export const AuthPage = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background: #fafafa;
+  width: 100vw;
+`
+
+export const TodoerLogoContainer = styled.div`
+  text-align: left;
+  margin-bottom: 14px;
+  height: 25px;
+
+  a {
+    img {
+      height: 100%;
+    }
+  }
+`
+
+export const AuthContent = styled.div`
+  box-sizing: content-box;
   background: ${props => props.theme.background};
   margin: 0 auto;
   border-radius: 8px;
-  border: solid 1px ${props => props.theme.taskForm};
-  padding: 25px;
-  width: 500px;
+  margin: 50px 0;
+  border-radius: 8px;
+  border: solid 1px #dbdbdb;
+  width: 400px;
   max-width: 95%;
-  padding-top: 114px;
+  padding: 25px;
+  height: min-content;
 
   @media (max-width: 770px) {
     padding-top: 98px;
@@ -53,7 +76,7 @@ export const Separator = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  margin: 2rem 0;
+  margin: 1.5rem 0;
 
   p {
     background: ${props => props.theme.background};
