@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 import { PrivateRoute, ScrollToTop } from './components'
-import { Dashboard, Navbar } from './containers'
+import { Dashboard } from './containers'
 import { Home, Login, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
 
@@ -13,7 +13,7 @@ export const TaskFormContext = createContext()
 export const App = () => {
   const [active, setActive] = useState(false)
   const [currentTaskForm, setCurrentTaskForm] = useState('')
-  const [sidebarClosed, setSidebarClosed] = useState(false)
+
   const [darkTheme, setDarkTheme] = useState(JSON.parse(localStorage.getItem('darkTheme')) || false)
 
   localStorage.setItem('darkTheme', JSON.stringify(darkTheme))
@@ -79,28 +79,24 @@ export const App = () => {
       <TaskFormContext.Provider value={{ currentTaskForm, setCurrentTaskForm }}>
         <Router>
           <ThemeProvider theme={userInfo ? (darkTheme ? dark : light) : light}>
-            <Navbar setSidebarClosed={setSidebarClosed} />
-          </ThemeProvider>
-          <ThemeProvider theme={userInfo ? (darkTheme ? dark : light) : light}>
-            <ScrollToTop />
             <GlobalStyle />
+            <ScrollToTop />
             <main>
               <Switch>
-                <Route
-                  exact
-                  path='/'
-                  render={props => <Home {...props} active={active} setActive={setActive} />}
-                />
-                <PrivateRoute
-                  path='/app/:id'
-                  exact
-                  component={Dashboard}
-                  sidebarClosed={sidebarClosed}
-                  setSidebarClosed={setSidebarClosed}
-                />
-                <Route exact path='/login' render={props => <Login {...props} />} />
-                <Route exact path='/signup' render={props => <SignUp {...props} />} />
-                <PrivateRoute path='/' component={Redirect} to='/app/inbox' />
+                <Route exact path='/'>
+                  <Home active={active} setActive={setActive} />
+                </Route>
+                <PrivateRoute path='/app/:id' exact component={Dashboard} />
+                <Route exact path='/login'>
+                  <ThemeProvider theme={light}>
+                    <Login />
+                  </ThemeProvider>
+                </Route>
+                <Route exact path='/signup'>
+                  <ThemeProvider theme={light}>
+                    <SignUp />
+                  </ThemeProvider>
+                </Route>
                 <Route path='/' render={() => <Redirect to='/' />} />
               </Switch>
             </main>

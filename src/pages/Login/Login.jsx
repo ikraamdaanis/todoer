@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import {
   GoogleSignUp,
   AuthContent,
@@ -17,13 +16,15 @@ import {
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { signInAction } from '../../store/actions/userActions'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { GoogleIcon, todoerLogo } from '../../assets'
 
-export const Login = ({ history }) => {
+export const Login = () => {
   const dispatch = useDispatch()
+  const history = useHistory()
+
   const userLogin = useSelector(state => state.userLogin)
-  const { loading, error, userInfo } = userLogin
+  const { error, userInfo } = userLogin
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -31,7 +32,7 @@ export const Login = ({ history }) => {
   useEffect(() => {
     userInfo && history.push('/app/today')
     if (error) setPassword('')
-  }, [loading, error, userInfo, history])
+  }, [error, userInfo, history])
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -110,5 +111,3 @@ export const Login = ({ history }) => {
     </AuthPage>
   )
 }
-
-Login.propTypes = { history: PropTypes.object }

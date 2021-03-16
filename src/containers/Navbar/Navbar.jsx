@@ -7,13 +7,14 @@ import {
   NavButton,
   NavbarItem,
   LeftContainer,
+  Header,
 } from './NavbarStyles'
 import { HomeIcon, MenuTogglerIcon, todoerLogo, todoerLogoSmRed } from '../../assets/'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { ProfileMenu } from '../../components'
 
-export const Navbar = ({ setSidebarClosed }) => {
+export const Navbar = ({ setSidebarClosed = null }) => {
   const userLogin = useSelector(state => state.userLogin)
   const { userInfo } = userLogin
 
@@ -24,18 +25,8 @@ export const Navbar = ({ setSidebarClosed }) => {
     return () => window.removeEventListener('resize', setViewPort)
   }, [])
 
-  const location = useLocation()
-  const [showNavbar, setShowNavbar] = useState(false)
-  useEffect(() => {
-    if (['/login', '/signup'].includes(location?.pathname)) {
-      setShowNavbar(false)
-    } else {
-      setShowNavbar(true)
-    }
-  }, [location])
-
   return (
-    <header style={{ display: showNavbar ? 'unset' : 'none' }}>
+    <Header>
       <NavbarContainer style={{ background: !userInfo && '#fff' }} className={!userInfo && 'home'}>
         <Container className={!userInfo && 'home'}>
           {userInfo ? (
@@ -86,7 +77,7 @@ export const Navbar = ({ setSidebarClosed }) => {
           </RightContainer>
         </Container>
       </NavbarContainer>
-    </header>
+    </Header>
   )
 }
 

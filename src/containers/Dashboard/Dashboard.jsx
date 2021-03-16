@@ -52,8 +52,11 @@ import {
   useViewPort,
 } from '../../hooks/'
 import { TaskFormContext, ThemeContext } from '../../App'
+import { useHistory, useRouteMatch } from 'react-router'
+import { Navbar } from '../Navbar/Navbar'
 
-export const Dashboard = ({ history, match, sidebarClosed, setSidebarClosed }) => {
+export const Dashboard = () => {
+  const [sidebarClosed, setSidebarClosed] = useState(false)
   const [addTaskFormOpen, setAddTaskFormOpen] = useState(false)
   const [tasksLoading, setTasksLoading] = useState(true)
   const [projectMenuOpen, setProjectMenuOpen] = useState(false)
@@ -68,6 +71,8 @@ export const Dashboard = ({ history, match, sidebarClosed, setSidebarClosed }) =
   const [isUndoVisible, setIsUndoVisible] = useState(false)
   const [sortOptions, setSortOptions] = useState({ option: 'createdAt', direction: 'asc' })
 
+  const match = useRouteMatch()
+  const history = useHistory()
   const dispatch = useDispatch()
   const { darkTheme } = useContext(ThemeContext)
   const { currentTaskForm, setCurrentTaskForm } = useContext(TaskFormContext)
@@ -163,6 +168,7 @@ export const Dashboard = ({ history, match, sidebarClosed, setSidebarClosed }) =
 
   return (
     <>
+      <Navbar setSidebarClosed={setSidebarClosed} />
       <div>
         <Sidebar sidebarClosed={sidebarClosed} param={id} history={history} />
         <DashboardContainer className={sidebarClosed && 'closed'} ref={dashboard}>

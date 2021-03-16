@@ -1,5 +1,7 @@
 import styled from 'styled-components/macro'
 
+export const Header = styled.header``
+
 export const NavbarContainer = styled.nav`
   background: ${props => props.theme.themeColour};
   height: 44px;
