@@ -1,6 +1,6 @@
 # Todoer
 
-**Check out** the app [here]()
+**Check out** the app [here](https://todoer-app.netlify.app/)
 
 This is a clone of Todoist
 
