@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { format } from 'date-fns'
-import { TaskList, TaskListHeading } from '../TaskContainer/TaskContainerStyles'
+import { TaskList, TaskListHeading } from './TaskSectionStyles'
 import { TaskItem } from '../../components'
 
-export const OverdueContainer = ({
+export const OverdueSection = ({
   tasks,
   project,
   isComplete,
@@ -48,7 +48,7 @@ export const OverdueContainer = ({
   )
 }
 
-OverdueContainer.propTypes = {
+OverdueSection.propTypes = {
   tasks: PropTypes.array,
   project: PropTypes.object,
   isComplete: PropTypes.bool,

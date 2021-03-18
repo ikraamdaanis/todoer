@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useParams } from 'react-router'
-import { TaskList } from './TaskContainerStyles'
+import { TaskList } from './TaskSectionStyles'
 import { TaskItem } from '../../components'
 
-export const TaskContainer = ({
+export const TaskSection = ({
   tasks,
   overdue,
   project,
@@ -94,7 +94,7 @@ export const TaskContainer = ({
   )
 }
 
-TaskContainer.propTypes = {
+TaskSection.propTypes = {
   tasks: PropTypes.array,
   overdue: PropTypes.array,
   project: PropTypes.object,

@@ -1,5 +1,5 @@
 export { Dashboard } from './Dashboard/Dashboard'
 export { Navbar } from './Navbar/Navbar'
-export { OverdueContainer } from './OverdueContainer/OverdueContainer'
 export { Sidebar } from './Sidebar/Sidebar'
-export { TaskContainer } from './TaskContainer/TaskContainer'
+export { TaskSection } from './TaskSection/TaskSection'
+export { OverdueSection } from './TaskSection/OverdueSection'

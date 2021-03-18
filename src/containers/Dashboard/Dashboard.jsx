@@ -31,7 +31,7 @@ import {
   Spinner,
 } from '../../components'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
-import { Sidebar, TaskContainer, OverdueContainer } from '../'
+import { Navbar, Sidebar, TaskSection, OverdueSection } from '../'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject, getAllTasks } from '../../store/actions/'
 import {
@@ -43,7 +43,6 @@ import {
   SortIcon,
   ArrowIcon,
 } from '../../assets'
-import { scrollToBottom } from '../../utils'
 import {
   useCheckScrolling,
   useMenu,
@@ -51,9 +50,9 @@ import {
   useToggleComplete,
   useViewPort,
 } from '../../hooks/'
+import { scrollToBottom } from '../../utils'
 import { TaskFormContext, ThemeContext } from '../../App'
 import { useHistory, useRouteMatch } from 'react-router'
-import { Navbar } from '../Navbar/Navbar'
 
 export const Dashboard = () => {
   const [sidebarClosed, setSidebarClosed] = useState(false)
@@ -228,7 +227,7 @@ export const Dashboard = () => {
             ) : (
               <TaskFormContext.Provider value={{ currentTaskForm, setCurrentTaskForm }}>
                 {currentProject?.title === 'today' && (
-                  <OverdueContainer
+                  <OverdueSection
                     tasks={allTasks.overdue}
                     project={currentProject}
                     isComplete={false}
@@ -239,7 +238,7 @@ export const Dashboard = () => {
                     setTasksLoading={setTasksLoading}
                   />
                 )}
-                <TaskContainer
+                <TaskSection
                   tasks={allTasks[currentProject?.title]}
                   project={currentProject}
                   isComplete={false}
@@ -276,7 +275,7 @@ export const Dashboard = () => {
                   )}
                 </AddTaskContainer>
                 {showCompletedTasks && (
-                  <TaskContainer
+                  <TaskSection
                     tasks={allTasks[currentProject?.title]}
                     project={currentProject}
                     isComplete={true}
