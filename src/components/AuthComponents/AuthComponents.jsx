@@ -6,6 +6,7 @@ export const AuthPage = styled.div`
   height: 100vh;
   background: #fafafa;
   width: 100vw;
+  position: fixed;
 `
 
 export const TodoerLogoContainer = styled.div`
@@ -29,13 +30,9 @@ export const AuthContent = styled.div`
   border-radius: 8px;
   border: solid 1px #dbdbdb;
   width: 400px;
-  max-width: 95%;
+  max-width: 82%;
   padding: 25px;
   height: min-content;
-
-  @media (max-width: 770px) {
-    padding-top: 98px;
-  }
 `
 export const Title = styled.h1`
   font-size: 26px;
@@ -179,7 +176,7 @@ export const SubmitButton = styled.button`
 `
 
 export const AuthQuestion = styled.p`
-  margin-top: 30px;
+  margin-top: 35px;
   text-align: center;
   font-size: 13px;
   padding-bottom: 10px;
