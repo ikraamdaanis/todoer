@@ -1,4 +1,4 @@
-import { auth, firestore } from '../../firebase/config'
+import { auth, firestore } from '../../config/firebase'
 import firebase from 'firebase/app'
 import {
   USER_REGISTER_REQUEST,

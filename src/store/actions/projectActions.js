@@ -1,4 +1,4 @@
-import { firestore } from '../../firebase/config'
+import { firestore } from '../../config/firebase'
 import {
   PROJECT_CREATE_REQUEST,
   PROJECT_CREATE_SUCCESS,

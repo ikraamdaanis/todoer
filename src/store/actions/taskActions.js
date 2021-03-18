@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-import { firestore } from '../../firebase/config'
+import { firestore } from '../../config/firebase'
 import {
   TASK_COMPLETE_FAIL,
   TASK_COMPLETE_REQUEST,
@@ -199,9 +199,7 @@ export const getAllTasks = () => async (dispatch, getState) => {
           const data = []
 
           if (snapshot.docChanges()[0]?.type === 'removed') {
-            allTasks = allTasks.filter(
-              task => task.id !== snapshot.docChanges()[0]?.doc?.id
-            )
+            allTasks = allTasks.filter(task => task.id !== snapshot.docChanges()[0]?.doc?.id)
           }
 
           snapshot.docs.forEach(task => {
@@ -232,18 +230,13 @@ export const getAllTasks = () => async (dispatch, getState) => {
                 task =>
                   task.dueDate &&
                   task.dueDate !== format(new Date(), 'yyyy-MM-dd') &&
-                  new Date(task.dueDate) <
-                    new Date(format(new Date(), 'yyyy-MM-dd'))
+                  new Date(task.dueDate) < new Date(format(new Date(), 'yyyy-MM-dd'))
               ),
 
-              today: allTasks.filter(
-                task => task.dueDate === format(new Date(), 'yyyy-MM-dd')
-              ),
+              today: allTasks.filter(task => task.dueDate === format(new Date(), 'yyyy-MM-dd')),
 
               upcoming: allTasks.filter(
-                task =>
-                  new Date(task.dueDate) >
-                  new Date(format(new Date(), 'yyyy-MM-dd'))
+                task => new Date(task.dueDate) > new Date(format(new Date(), 'yyyy-MM-dd'))
               ),
             },
           })

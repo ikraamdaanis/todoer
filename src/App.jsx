@@ -6,6 +6,7 @@ import { PrivateRoute, ScrollToTop } from './components'
 import { Dashboard } from './containers'
 import { Home, Login, SignUp } from './pages'
 import { GlobalStyle } from './styles/globalStyle'
+import { dark, light } from './utils'
 
 export const ThemeContext = createContext()
 export const TaskFormContext = createContext()
@@ -24,53 +25,6 @@ export const App = () => {
   useEffect(() => {
     userInfo && setActive(false)
   }, [userInfo, setActive])
-
-  const dark = {
-    themeColour: '#282828',
-    background: '#1f1f1f',
-    foreground: '#282828',
-    taskForm: '#171717',
-    textColour: 'hsla(0,0%,100%,0.87)',
-    textSecondary: '#aaa',
-    textTertiary: 'hsla(0,0%,100%,0.56)',
-    active: '#363636',
-    border: 'hsla(0, 0%, 100%, 0.1)',
-    taskBorder: '#171717',
-    lightRed: '#de4c4a',
-    hoverTransparent: 'hsla(0,0%,100%,.2)',
-    navColour: 'unset',
-    inputColour: '#202020',
-    boxShadow: '0 10px 20px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%)',
-    complete: '#808080',
-    completeHover: '#4b4b4b',
-    scrollbarTrack: '#181818',
-    dropdown: '#282828',
-    profileMenu: '#1f1f1f',
-  }
-
-  const light = {
-    themeColour: '#DB4C40',
-    background: '#fff',
-    foreground: '#fafafa',
-    taskForm: '#fff',
-    textColour: '#202020',
-    textSecondary: '#aaa',
-    textTertiary: '#808080',
-    active: '#ececec',
-    border: '#dcdcdc',
-    taskBorder: '#ddd',
-    lightRed: '#de4c4a',
-    hoverTransparent: 'hsla(0,0%,100%,.2)',
-    navColour: '#fff',
-    inputColour: '#fff',
-    boxShadow: '0 1px 8px 0 rgb(0 0 0 / 8%)',
-    complete: '#808080',
-    completeHover: '#E6E6E6',
-    scrollbarTrack: '#dbdbdb',
-    dropdown: '#ffffff',
-    profileMenu: '#fff',
-    highlight: '#FFFCAA',
-  }
 
   return (
     <ThemeContext.Provider value={{ darkTheme, setDarkTheme }}>
