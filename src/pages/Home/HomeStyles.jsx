@@ -112,7 +112,6 @@ export const HeroBackground = styled.div`
 
   @media (max-width: 480px) {
     width: 100%;
-    max-width: none;
   }
 
   img {
@@ -136,6 +135,10 @@ export const HeroBackground = styled.div`
     display: flex;
     margin: -6rem auto -17.5rem;
     justify-content: center;
+    width: 100vw;
+    max-width: 1398px;
+    display: block;
+    margin: 0 auto;
 
     @media (max-width: 1120px) {
       margin: -8% auto -20.5%;
@@ -144,13 +147,6 @@ export const HeroBackground = styled.div`
 
     @media (max-width: 480px) {
       margin: -11% auto 0;
-    }
-
-    img {
-      width: 100vw;
-      max-width: 1398px;
-      display: block;
-      margin: 0 auto;
     }
   }
 `
