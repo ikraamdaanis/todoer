@@ -100,10 +100,10 @@ export const Login = () => {
           </FormItem>
 
           <SubmitButton type='submit'>Sign in with Email</SubmitButton>
+          <Separator>
+            <div className='line'></div>
+          </Separator>
         </AuthForm>
-        <Separator>
-          <div className='line'></div>
-        </Separator>
         <AuthQuestion>
           Don&#39;t have an account? <Link to='/signup'>Click here to register!</Link>
         </AuthQuestion>

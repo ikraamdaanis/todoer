@@ -85,6 +85,9 @@ export const SignUp = () => {
             />
           </FormItem>
           <SubmitButton type='submit'>Sign up with Email</SubmitButton>
+          <Separator>
+            <div className='line'></div>
+          </Separator>
         </AuthForm>
         <AuthQuestion>
           Already signed up? <Link to='/login'>Go to log in!</Link>

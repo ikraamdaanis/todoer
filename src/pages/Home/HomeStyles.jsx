@@ -7,6 +7,7 @@ export const HomeContainer = styled.div`
   opacity: 0;
   transition: 5s ease-in-out 1s;
   overflow-x: hidden;
+  min-height: 100vh;
 
   @media (max-width: 770px) {
     padding-top: 48px;

@@ -176,7 +176,6 @@ export const SubmitButton = styled.button`
 `
 
 export const AuthQuestion = styled.p`
-  margin-top: 35px;
   text-align: center;
   font-size: 13px;
   padding-bottom: 10px;
