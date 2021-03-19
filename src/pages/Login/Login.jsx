@@ -40,10 +40,10 @@ export const Login = () => {
   }
 
   return (
-    <AuthPage>
+    <AuthPage data-testid='login'>
       <AuthContent>
         <TodoerLogoContainer>
-          <Link to='/'>
+          <Link to='/' data-testid='home'>
             <img src={todoerLogo} alt='Todoer logo' />
           </Link>
         </TodoerLogoContainer>

@@ -1,12 +1,12 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { Login } from '../../pages'
 import { Provider } from 'react-redux'
 import store from '../../store/store'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 test('Login page should load', () => {
-  render(
+  const { queryByTestId } = render(
     <Provider store={store}>
       <Router>
         <Login />
@@ -14,6 +14,5 @@ test('Login page should load', () => {
     </Provider>
   )
 
-  expect(screen.getByLabelText('Email')).toBeTruthy()
-  expect(screen.getByLabelText('Password')).toBeTruthy()
+  expect(queryByTestId('login')).toBeTruthy()
 })

@@ -65,7 +65,7 @@ export const Home = ({ active, setActive }) => {
   return (
     <>
       <Navbar />
-      <HomeContainer className={active && 'visible'}>
+      <HomeContainer className={active && 'visible'} data-testid='homepage'>
         <Hero>
           <HeroTitleContainer>
             <HeroTitle data-testid='heading'>
