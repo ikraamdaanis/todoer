@@ -31,7 +31,7 @@ import {
   Spinner,
 } from '../../components'
 import { AddTaskContainer } from '../../components/AddTaskForm/AddTaskFormStyles'
-import { Navbar, Sidebar, TaskSection, OverdueSection } from '../'
+import { Navbar, Sidebar, TaskSection, OverdueSection } from '../../containers'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject, getAllTasks } from '../../store/actions/'
 import {

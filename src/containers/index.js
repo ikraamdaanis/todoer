@@ -1,4 +1,3 @@
-export { Dashboard } from './Dashboard/Dashboard'
 export { Navbar } from './Navbar/Navbar'
 export { Sidebar } from './Sidebar/Sidebar'
 export { TaskSection } from './TaskSection/TaskSection'
