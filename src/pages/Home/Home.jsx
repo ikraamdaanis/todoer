@@ -68,7 +68,7 @@ export const Home = ({ active, setActive }) => {
       <HomeContainer className={active && 'visible'}>
         <Hero>
           <HeroTitleContainer>
-            <HeroTitle>
+            <HeroTitle data-testid='heading'>
               {`Organize it all
 with Todoer`}
             </HeroTitle>

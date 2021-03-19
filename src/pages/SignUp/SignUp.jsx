@@ -60,7 +60,7 @@ export const SignUp = () => {
         </Separator>
         <AuthForm onSubmit={handleSubmit}>
           <FormItem>
-            <InputLabel>Email</InputLabel>
+            <InputLabel htmlFor='email'>Email</InputLabel>
             <Input
               type='email'
               id='email'
@@ -72,7 +72,7 @@ export const SignUp = () => {
             />
           </FormItem>
           <FormItem>
-            <InputLabel>Password (6 Characters Minimum)</InputLabel>
+            <InputLabel htmlFor='password'>Password (6 Characters Minimum)</InputLabel>
             <Input
               type='password'
               id='password'

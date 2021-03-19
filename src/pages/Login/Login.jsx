@@ -70,7 +70,7 @@ export const Login = () => {
         )}
         <AuthForm onSubmit={handleSubmit}>
           <FormItem>
-            <InputLabel>Email</InputLabel>
+            <InputLabel htmlFor='email'>Email</InputLabel>
             <Input
               type='email'
               id='email'
@@ -82,7 +82,7 @@ export const Login = () => {
             />
           </FormItem>
           <FormItem>
-            <InputLabel>Password</InputLabel>
+            <InputLabel htmlFor='email'>Password</InputLabel>
             <Input
               type='password'
               id='password'
