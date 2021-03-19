@@ -170,7 +170,11 @@ export const Dashboard = () => {
       <Navbar setSidebarClosed={setSidebarClosed} />
       <div>
         <Sidebar sidebarClosed={sidebarClosed} param={id} history={history} />
-        <DashboardContainer className={sidebarClosed && 'closed'} ref={dashboard}>
+        <DashboardContainer
+          className={sidebarClosed && 'closed'}
+          ref={dashboard}
+          data-testid='dashboard'
+        >
           <ProjectContainer>
             <ProjectHeading>
               <ProjectHeadingContainer className={`div ${isScrolling ? 'scrolling ' : undefined}`}>
