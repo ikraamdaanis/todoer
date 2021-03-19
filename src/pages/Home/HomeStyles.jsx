@@ -6,6 +6,7 @@ export const HomeContainer = styled.div`
   padding-top: 64px;
   opacity: 0;
   transition: 5s ease-in-out 1s;
+  overflow-x: hidden;
 
   @media (max-width: 770px) {
     padding-top: 48px;
@@ -142,7 +143,7 @@ export const HeroBackground = styled.div`
 
     @media (max-width: 1120px) {
       margin: -8% auto -20.5%;
-      padding-left: 1rem;
+      padding-left: 0rem;
     }
 
     @media (max-width: 480px) {
@@ -604,7 +605,7 @@ export const FooterLinks = styled.section`
   @media (max-width: 480px) {
     flex-direction: column;
 
-    div:not(:last-child) {
+    div:not(:first-child) {
       margin: 1rem 0 0;
     }
   }
