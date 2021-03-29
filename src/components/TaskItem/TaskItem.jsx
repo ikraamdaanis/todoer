@@ -1,20 +1,18 @@
 import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 import {
   TaskCheck,
   TaskDescription,
   TaskDetails,
   TaskItemContainer,
   TaskListItem,
-  TaskTags,
 } from './TaskItemStyles'
-import { DotIcon, DueDateIcon, InboxIconSm, TickIcon } from '../../assets/'
-import { setDateColour, setDateText } from '../../utils'
+import { TickIcon } from '../../assets/'
 import { deleteTask } from '../../store/actions/'
 import { AddTaskForm, DeleteModal, Modal } from '../'
 import { ThemeContext } from '../../App'
 import { TaskMenuContainer } from './TaskMenuContainer'
+import { TaskTagsContainer } from './TaskTagsContainer'
 
 export const TaskItem = ({
   task,
@@ -80,32 +78,11 @@ export const TaskItem = ({
               />
             </TaskDetails>
             {task.dueDate && (
-              <TaskTags>
-                <div
-                  className='date'
-                  style={{
-                    color: setDateColour(setDateText(task.dueDate), task.dueDate, darkTheme),
-                  }}
-                >
-                  <DueDateIcon />
-                  <span>{setDateText(task.dueDate)}</span>
-                </div>
-                {['today', 'upcoming'].includes(currentProject.title) && (
-                  <div className='project'>
-                    <Link to={`/app/${task.project.toLowerCase()}`}>
-                      <small>{task.project}</small>
-                      {task.project === 'Inbox' ? (
-                        <InboxIconSm
-                          className='inbox'
-                          style={{ color: darkTheme ? '#5297ff' : '#246fe0' }}
-                        />
-                      ) : (
-                        <DotIcon className='dot' />
-                      )}
-                    </Link>
-                  </div>
-                )}
-              </TaskTags>
+              <TaskTagsContainer
+                task={task}
+                currentProject={currentProject}
+                darkTheme={darkTheme}
+              />
             )}
           </>
         )}
