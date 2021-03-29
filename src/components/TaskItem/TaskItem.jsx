@@ -2,26 +2,15 @@ import React, { useState, useRef, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import {
-  MenuItem,
   TaskCheck,
   TaskDescription,
   TaskDetails,
   TaskItemContainer,
   TaskListItem,
-  TaskMenu,
   TaskMenuContainer,
-  MenuList,
   TaskTags,
 } from './TaskItemStyles'
-import {
-  EditIcon,
-  DeleteIcon,
-  DotIcon,
-  DueDateIcon,
-  InboxIconSm,
-  TickIcon,
-  MoreIcon,
-} from '../../assets/'
+import { DotIcon, DueDateIcon, InboxIconSm, TickIcon, MoreIcon } from '../../assets/'
 
 import { useMenu } from '../../hooks/'
 import { setDateColour, setDateText } from '../../utils'
