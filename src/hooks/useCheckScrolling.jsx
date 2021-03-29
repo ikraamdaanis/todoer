@@ -6,9 +6,10 @@ export const useCheckScrolling = (element, action) => {
       const height = element.current.scrollTop
       height === 0 ? action(false) : action(true)
     }
-    element.current?.addEventListener('scroll', () => checkIfScrolling())
+    const current = element.current
+    current?.addEventListener('scroll', () => checkIfScrolling())
     return () => {
-      element.current?.removeEventListener('scroll', () => checkIfScrolling())
+      current?.removeEventListener('scroll', () => checkIfScrolling())
     }
-  }, [])
+  }, [element, action])
 }
