@@ -28,6 +28,7 @@ import { setDateColour, setDateText } from '../../utils'
 import { deleteTask } from '../../store/actions/'
 import { AddTaskForm, DeleteModal, Modal } from '../'
 import { TaskFormContext, ThemeContext } from '../../App'
+import { TaskMenuWrapper } from './TaskMenuWrapper'
 
 export const TaskItem = ({
   task,
@@ -107,34 +108,15 @@ export const TaskItem = ({
                   <MoreIcon />
                 </div>
                 {taskMenuOpen && (
-                  <TaskMenu ref={TaskMenuRef} style={{ background: !darkTheme && '#fff' }}>
-                    <MenuList>
-                      {!task.isComplete && (
-                        <MenuItem
-                          title='Edit this task'
-                          onClick={() => {
-                            setEditMenuOpen(true)
-                            setCurrentTaskForm('edit')
-                            setTaskMenuOpen(false)
-                          }}
-                        >
-                          <EditIcon />
-                          <span>Edit task</span>
-                        </MenuItem>
-                      )}
-                      <MenuItem
-                        title='Delete this task'
-                        className='delete'
-                        onClick={() => {
-                          setDeleteModalOpen(true)
-                          setTaskMenuOpen(false)
-                        }}
-                      >
-                        <DeleteIcon />
-                        <span>Delete task</span>
-                      </MenuItem>
-                    </MenuList>
-                  </TaskMenu>
+                  <TaskMenuWrapper
+                    task={task}
+                    TaskMenuRef={TaskMenuRef}
+                    darkTheme={darkTheme}
+                    setEditMenuOpen={setEditMenuOpen}
+                    setCurrentTaskForm={setCurrentTaskForm}
+                    setTaskMenuOpen={setTaskMenuOpen}
+                    setDeleteModalOpen={setDeleteModalOpen}
+                  />
                 )}
               </TaskMenuContainer>
             </TaskDetails>
