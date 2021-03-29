@@ -88,7 +88,7 @@ export const TaskDescription = styled.p`
   }
 `
 
-export const TaskMenuContainer = styled.div`
+export const Container = styled.div`
   display: grid;
   place-content: center;
   position: relative;

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import {
@@ -7,17 +7,14 @@ import {
   TaskDetails,
   TaskItemContainer,
   TaskListItem,
-  TaskMenuContainer,
   TaskTags,
 } from './TaskItemStyles'
-import { DotIcon, DueDateIcon, InboxIconSm, TickIcon, MoreIcon } from '../../assets/'
-
-import { useMenu } from '../../hooks/'
+import { DotIcon, DueDateIcon, InboxIconSm, TickIcon } from '../../assets/'
 import { setDateColour, setDateText } from '../../utils'
 import { deleteTask } from '../../store/actions/'
 import { AddTaskForm, DeleteModal, Modal } from '../'
-import { TaskFormContext, ThemeContext } from '../../App'
-import { TaskMenuWrapper } from './TaskMenuWrapper'
+import { ThemeContext } from '../../App'
+import { TaskMenuContainer } from './TaskMenuContainer'
 
 export const TaskItem = ({
   task,
@@ -27,20 +24,8 @@ export const TaskItem = ({
   clearTimer,
   currentProject,
 }) => {
-  const [taskMenuOpen, setTaskMenuOpen] = useState(false)
   const [editMenuOpen, setEditMenuOpen] = useState(false)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
-
-  const TaskMenuRef = useRef(null)
-  const TaskMenuButtonRef = useRef(null)
-
-  useMenu(TaskMenuButtonRef, TaskMenuRef, setTaskMenuOpen)
-
-  const { currentTaskForm, setCurrentTaskForm } = useContext(TaskFormContext)
-
-  useEffect(() => {
-    currentTaskForm !== 'edit' && setEditMenuOpen(false)
-  }, [currentTaskForm])
 
   const { darkTheme } = useContext(ThemeContext)
 
@@ -87,27 +72,12 @@ export const TaskItem = ({
               <TaskDescription className={`${task.isComplete ? 'complete' : undefined}`}>
                 {task.description}
               </TaskDescription>
-              <TaskMenuContainer>
-                <div
-                  className='toggler'
-                  ref={TaskMenuButtonRef}
-                  onClick={() => setTaskMenuOpen(prev => !prev)}
-                  style={{ color: !darkTheme && 'grey' }}
-                >
-                  <MoreIcon />
-                </div>
-                {taskMenuOpen && (
-                  <TaskMenuWrapper
-                    task={task}
-                    TaskMenuRef={TaskMenuRef}
-                    darkTheme={darkTheme}
-                    setEditMenuOpen={setEditMenuOpen}
-                    setCurrentTaskForm={setCurrentTaskForm}
-                    setTaskMenuOpen={setTaskMenuOpen}
-                    setDeleteModalOpen={setDeleteModalOpen}
-                  />
-                )}
-              </TaskMenuContainer>
+              <TaskMenuContainer
+                task={task}
+                darkTheme={darkTheme}
+                setEditMenuOpen={setEditMenuOpen}
+                setDeleteModalOpen={setDeleteModalOpen}
+              />
             </TaskDetails>
             {task.dueDate && (
               <TaskTags>
