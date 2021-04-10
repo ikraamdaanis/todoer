@@ -15,7 +15,7 @@ import {
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
-import { registerAction } from '../../store/actions/userActions'
+import { registerAction, signInAsGuest } from '../../store/actions/userActions'
 import { GoogleIcon, todoerLogo } from '../../assets'
 
 export const SignUp = () => {
@@ -39,6 +39,10 @@ export const SignUp = () => {
       return
     }
     dispatch(registerAction(false, email.trim(), password))
+  }
+
+  const handleClick = () => {
+    dispatch(signInAsGuest())
   }
 
   return (
@@ -85,6 +89,9 @@ export const SignUp = () => {
             />
           </FormItem>
           <SubmitButton type='submit'>Sign up with Email</SubmitButton>
+          <SubmitButton type='button' onClick={handleClick}>
+            Sign in as a guest
+          </SubmitButton>
           <Separator>
             <div className='line'></div>
           </Separator>

@@ -14,11 +14,13 @@ This is a clone of Todoist
 
 ### Features of this app:
 
-- Created different projects
+- Create different projects
 - Add tasks for each project
 - Set a due date for tasks
 - Complete and delete tasks
 - Data stored in your account
+- Light/dark theme
+- Sign in as a guest
 
 ## Preview:
 

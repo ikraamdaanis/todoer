@@ -130,6 +130,10 @@ export const signInAction = (googleSignIn, email, password) => async dispatch =>
   }
 }
 
+export const signInAsGuest = () => dispatch => {
+  dispatch(signInAction(false, process.env.REACT_APP_EMAIL, process.env.REACT_APP_PASSWORD))
+}
+
 export const logoutAction = () => dispatch => {
   auth.signOut().then(_ => console.log('Signed out'))
   dispatch({ type: USER_LOGOUT })

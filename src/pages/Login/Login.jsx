@@ -15,7 +15,7 @@ import {
   TodoerLogoContainer,
 } from '../../components'
 import { useDispatch, useSelector } from 'react-redux'
-import { signInAction } from '../../store/actions/userActions'
+import { signInAction, signInAsGuest } from '../../store/actions/userActions'
 import { Link, useHistory } from 'react-router-dom'
 import { GoogleIcon, todoerLogo } from '../../assets'
 
@@ -37,6 +37,10 @@ export const Login = () => {
   const handleSubmit = event => {
     event.preventDefault()
     dispatch(signInAction(false, email.trim(), password))
+  }
+
+  const handleClick = () => {
+    dispatch(signInAsGuest())
   }
 
   return (
@@ -96,6 +100,9 @@ export const Login = () => {
           </FormItem>
 
           <SubmitButton type='submit'>Sign in with Email</SubmitButton>
+          <SubmitButton type='button' onClick={handleClick}>
+            Sign in as a guest
+          </SubmitButton>
           <Separator>
             <div className='line'></div>
           </Separator>
