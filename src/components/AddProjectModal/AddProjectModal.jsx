@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
-import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { useFocus, useMenu } from '../../hooks/'
-import { createProject } from '../../store/actions/'
+import React, { useState, useEffect, useRef } from "react"
+import PropTypes from "prop-types"
+import { useHistory } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { useFocus, useMenu } from "../../hooks/"
+import { createProject } from "../../store/actions/"
 import {
   AddProjectButton,
   AddProjectFooter,
@@ -13,8 +13,8 @@ import {
   AddProjectFormHeader,
   AddProjectInput,
   AddProjectLabel,
-  ProjectModal,
-} from './AddProjectModalStyles'
+  ProjectModal
+} from "./AddProjectModalStyles"
 
 export const AddProjectModal = ({ setIsProjectModalOpen }) => {
   const dispatch = useDispatch()
@@ -23,7 +23,7 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
   const projectCreate = useSelector(state => state.projectCreate)
   const { success } = projectCreate
 
-  const [project, setProject] = useState('')
+  const [project, setProject] = useState("")
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -33,7 +33,7 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
   useEffect(() => {
     if (success) {
       const proj = project
-      setProject('')
+      setProject("")
       proj && history.push(`/app/${proj.toLowerCase()}`)
       proj && setIsProjectModalOpen(false)
     }
@@ -48,16 +48,16 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
 
   return (
     <ProjectModal>
-      <AddProjectForm onSubmit={handleSubmit} autoComplete='off' ref={form}>
+      <AddProjectForm onSubmit={handleSubmit} autoComplete="off" ref={form}>
         <AddProjectFormHeader>
           <h1>Add project</h1>
         </AddProjectFormHeader>
         <AddProjectFormBody>
           <AddProjectFormField>
-            <AddProjectLabel htmlFor='projectName'>Name</AddProjectLabel>
+            <AddProjectLabel htmlFor="projectName">Name</AddProjectLabel>
             <AddProjectInput
-              type='text'
-              id='projectName'
+              type="text"
+              id="projectName"
               value={project}
               ref={input}
               onChange={({ target }) => setProject(target.value)}
@@ -66,15 +66,15 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
         </AddProjectFormBody>
         <AddProjectFooter>
           <AddProjectButton
-            type='button'
+            type="button"
             ref={cancelButton}
             onClick={() => setIsProjectModalOpen(false)}
           >
             Cancel
           </AddProjectButton>
           <AddProjectButton
-            type='submit'
-            className='add'
+            type="submit"
+            className="add"
             aria-disabled={!project}
             disabled={!project}
           >
@@ -87,5 +87,5 @@ export const AddProjectModal = ({ setIsProjectModalOpen }) => {
 }
 
 AddProjectModal.propTypes = {
-  setIsProjectModalOpen: PropTypes.func,
+  setIsProjectModalOpen: PropTypes.func
 }
